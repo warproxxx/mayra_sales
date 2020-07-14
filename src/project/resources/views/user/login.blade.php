@@ -71,13 +71,6 @@
                         </a>
                       </li>
                       @endif
-                      
-                      <li>
-                        <a href="{{ route('social-provider','google') }}">
-                          <i class="fab fa-google-plus-g"></i>
-                        </a>
-                      </li>
-
                     </ul>
                   </div>
                   @endif

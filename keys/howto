@@ -1,0 +1,23 @@
+https://justmarkup.com/articles/2018-05-31-https-valid-certificate-local-domain/
+
+Config:
+
+<IfModule mod_ssl.c>
+
+<VirtualHost *:443>
+        ServerAdmin webmaster@localhost
+        ServerName mayrasales.local
+        ServerAlias www.mayrasales.local
+        DocumentRoot /home/warproxxx/Desktop/Projects/mayra_sales/src
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        SSLEngine on
+        SSLCertificateFile /home/warproxxx/Desktop/Projects/mayra_sales/keys/server.cer
+        SSLCertificateKeyFile /home/warproxxx/Desktop/Projects/mayra_sales/keys/server.key
+
+</VirtualHost>
+
+
+</IfModule>
+
