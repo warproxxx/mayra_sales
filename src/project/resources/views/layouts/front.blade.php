@@ -138,7 +138,7 @@
 									@if(!Auth::guard('web')->check())
 									<li class="login">
 									
-										<a href="https://steemlogin.com/oauth2/authorize?client_id=opnmarket.com&redirect_uri=http://opnmarket.local/callback&scope=custom_json" class="sign-log">
+										<a href="{{ route('user.login') }}" class="sign-log">
 											<div class="links">
 												<span class="sign-in">{{ $langg->lang12 }}</span> <span>|</span>
 												<span class="join">{{ $langg->lang13 }}</span>

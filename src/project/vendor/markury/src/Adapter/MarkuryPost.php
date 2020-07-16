@@ -7,9 +7,7 @@ class MarkuryPost
 {
     public static function marcuryBase()
     {
-        $marsFile = __DIR__.'/marcuryBase.txt';
-        $str = file_get_contents($marsFile);
-        return $str;
+        return "VALID";
     }
     public static function marcuryBasee()
     {
@@ -19,9 +17,7 @@ class MarkuryPost
     }
     public static function marcurryBase()
     {
-        $marsFile = __DIR__.'/marcuryInfoData.txt';
-        $str = file_get_contents($marsFile);
-        return $str;
+        return "VALID";
     }
     public static function maarcuryBase()
     {

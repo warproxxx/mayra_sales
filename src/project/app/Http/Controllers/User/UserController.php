@@ -44,6 +44,11 @@ class UserController extends Controller
         return view('user.profile',compact('user'));
     }
 
+    public function api_profile()
+    {
+        return Auth::user();  
+    }
+
     public function profileupdate(Request $request)
     {
         //--- Validation Section

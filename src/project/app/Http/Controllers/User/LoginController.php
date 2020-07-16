@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Session;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use Log;
 
 class LoginController extends Controller
 {
@@ -21,6 +23,50 @@ class LoginController extends Controller
       $this->code_image();
       return view('user.login');
     }
+
+    public function api_login(Request $request)
+    {
+      $rules = [
+        'email'   => 'required|email',
+        'password' => 'required'
+      ];
+
+      $validator = Validator::make(Input::all(), $rules);
+
+      if ($validator->fails()) {
+        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+      }
+
+      if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+      {
+        if(Auth::guard('web')->user()->ban == 1)
+        {
+          Auth::guard('web')->logout();
+          return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));   
+        }
+
+        if(Auth::guard('web')->user()->email_verified == 'No')
+        {
+          Auth::guard('web')->logout();
+          return response()->json(array('errors' => [ 0 => 'Your Email is not Verified!' ]));   
+        }
+
+        $resp = array();
+        $resp['user_type'] = 'user';
+        $resp['token'] = Auth::guard('web')->user()->api_token;
+
+        if(Auth::guard('web')->user()->is_vendor == 2)
+        {
+          $resp['user_type'] = 'vendor';
+        }
+
+        return response()->json($resp, 200);
+
+      }
+
+
+    }
+
 
     public function login(Request $request)
     {
@@ -38,9 +84,8 @@ class LoginController extends Controller
         //--- Validation Section Ends
 
       // Attempt to log the user in
-      if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-        // if successful, then redirect to their intended location
-
+      if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+      {
         // Check If Email is verified or not
           if(Auth::guard('web')->user()->email_verified == 'No')
           {
@@ -54,6 +99,11 @@ class LoginController extends Controller
             return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));   
           }
 
+          
+          $user = Auth::user();
+          Log::info("logged in as". $user->email);
+          Auth::loginUsingId($user->id, TRUE);
+          
           // Login Via Modal
           if(!empty($request->modal))
           {
@@ -71,6 +121,7 @@ class LoginController extends Controller
           // Login as User
           return response()->json(1);          
           }
+
           // Login as User
           return response()->json(route('user-dashboard'));
       }

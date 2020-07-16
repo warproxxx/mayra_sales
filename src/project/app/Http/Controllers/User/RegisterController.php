@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Generalsetting;
@@ -11,9 +12,17 @@ use App\Models\Notification;
 use Auth;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use Log;
 
 class RegisterController extends Controller
 {
+
+	public function test()
+	{
+		$resp = array();
+		$resp['a'] = 'test';
+		return response()->json($resp);
+	}
 
     public function register(Request $request)
     {
@@ -43,7 +52,8 @@ class RegisterController extends Controller
         //--- Validation Section Ends
 
 	        $user = new User;
-	        $input = $request->all();        
+			$input = $request->all();   
+			$input['api_token'] = Str::random(60);
 	        $input['password'] = bcrypt($request['password']);
 	        $token = md5(time().$request->name.$request->email);
 	        $input['verification_link'] = $token;
@@ -68,7 +78,9 @@ class RegisterController extends Controller
 					$input['is_vendor'] = 1;
 
 			  }
-			  
+			
+			// Log::info(print_r($input, TRUE));
+
 			$user->fill($input)->save();
 	        if($gs->is_verification_email == 1)
 	        {
