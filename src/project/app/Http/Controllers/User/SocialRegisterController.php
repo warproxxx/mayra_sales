@@ -12,6 +12,7 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Socialite;
+use Log;
 
 class SocialRegisterController extends Controller
 {
@@ -48,7 +49,6 @@ class SocialRegisterController extends Controller
         $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
         if(!$socialProvider)
         {
-
             //create a new user and provider
             $user = new User;
             $user->email = $socialUser->email;
@@ -70,12 +70,27 @@ class SocialRegisterController extends Controller
         }
         else
         {
-
             $user = $socialProvider->user;
         }
 
-        Auth::guard('web')->login($user); 
-        return redirect()->route('user-dashboard');
+        #return API key
+
+        // Auth::guard('web')->login($user); 
+        // return redirect()->route('user-dashboard');
+
+        // Log::info($user);
+
+        $resp = array();
+        $resp['user_type'] = 'user';
+        $resp['token'] = $user->api_token;
+ 
+        if($user->is_vendor == 2)
+        {
+          $resp['user_type'] = 'vendor';
+        }
+
+
+        return response()->json($resp, 200);
 
     }
 }
