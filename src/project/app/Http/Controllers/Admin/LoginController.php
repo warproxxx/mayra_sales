@@ -50,6 +50,33 @@ class LoginController extends Controller
           return response()->json(array('errors' => [ 0 => 'Credentials Doesn\'t Match !' ]));     
     }
 
+    public function api_login(Request $request)
+    {
+        //--- Validation Section
+        $rules = [
+                  'email'   => 'required|email',
+                  'password' => 'required'
+                ];
+
+        $validator = Validator::make(Input::all(), $rules);
+        
+        if ($validator->fails()) {
+          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        }
+        //--- Validation Section Ends
+
+      // Attempt to log the user in
+      if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+          $resp = array();
+          $resp['user_type'] = 'admin';
+          $resp['token'] = Auth::guard('admin')->user()->api_token;
+          return response()->json($resp, 200);
+      }
+
+      // if unsuccessful, then redirect back to the login with the form data
+      return response()->json(array('errors' => [ 0 => 'Credentials Doesn\'t Match !' ]));     
+    }
+
     public function showForgotForm()
     {
       return view('admin.forgot');
