@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-
 // ************************************ ADMIN SECTION **********************************************
 Route::prefix('admin')->group(function() {
     Route::post('/login', 'Admin\LoginController@api_login');
@@ -23,6 +22,8 @@ Route::prefix('admin')->group(function() {
         Route::get('details',  function (Request $request) {
             return $request->user();
         });
+
+        Route::get('make_vendor',  'Admin\LoginController@make_vendor');
     });
 });
 // ************************************ ADMIN SECTION ENDS**********************************************
@@ -31,7 +32,7 @@ Route::prefix('admin')->group(function() {
 
 // ************************************ USER SECTION **********************************************
 Route::prefix('user')->group(function() {
-    Route::post('register', 'User\RegisterController@register');
+    Route::post('register', 'User\RegisterController@api_register');
     Route::post('login',  'User\LoginController@api_login');
 
     Route::group(['middleware'=>'auth:api'],function(){
@@ -59,6 +60,3 @@ Route::prefix('vendor')->group(function() {
     });
 });
 // ************************************ VENDOR SECTION ENDS**********************************************
-
-
-#Create admin login. Then request to be a vendor. And approve and login as.

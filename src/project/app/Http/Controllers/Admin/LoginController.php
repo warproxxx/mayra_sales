@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Classes\GeniusMailer;
 use App\Models\Generalsetting;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -70,11 +71,38 @@ class LoginController extends Controller
           $resp = array();
           $resp['user_type'] = 'admin';
           $resp['token'] = Auth::guard('admin')->user()->api_token;
-          return response()->json($resp, 200);
+          return response()->json(['status' => 'success', 'details' => $resp]);
       }
 
       // if unsuccessful, then redirect back to the login with the form data
-      return response()->json(array('errors' => [ 0 => 'Credentials Doesn\'t Match !' ]));     
+      return response()->json(['status' => 'failure', 'details' => "Credentials dosent match"]);
+    }
+
+    public function make_vendor(Request $request)
+    {
+        $user = User::find($request->id);
+
+        if ($user)
+        {
+          if ($user['is_vendor'] != 2)
+          {
+            $user['is_vendor'] = 2;
+            $user->save();
+
+            $resp = array();
+            $resp['id'] = $request->id;
+            return response()->json(['status' => 'success', 'details' => $resp]);
+          }
+          else
+          {
+            return response()->json(['status' => 'failure', 'details' => 'User is already a vendor']);
+          }
+          
+        }
+        else
+        {
+          return response()->json(['status' => 'failure', 'details' => 'The user dosent exist']);
+        }
     }
 
     public function showForgotForm()

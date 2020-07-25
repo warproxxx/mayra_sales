@@ -35,6 +35,8 @@ class UserController extends Controller
                                 ->toJson(); //--- Returning Json Data To Client Side
         }
 
+
+
         //*** GET Request
         public function index()
         {
@@ -445,6 +447,8 @@ class UserController extends Controller
             return response()->json($msg);      
             //--- Redirect Section Ends   
         }
+
+
 
         //*** GET Request   
         public function reject($id)
