@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 17, 2020 at 11:44 AM
--- Server version: 5.7.30-0ubuntu0.18.04.1
+-- Generation Time: Jul 30, 2020 at 02:37 PM
+-- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -34,6 +34,7 @@ CREATE TABLE `admins` (
   `role_id` int(191) NOT NULL DEFAULT '0',
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `api_token` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -45,8 +46,8 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
-(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', 1, '6euvcSK8vdNhGXTxFWvZ6ghWjiqQJNWa5KiRKQRATJolDakBQQQQmcAiDEbF', '2018-02-28 23:27:08', '2020-06-15 01:29:40', 'Open Market');
+INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `api_token`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
+(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', '9PwWzW2Al8boW9qBXc6aDNhLdoXQsAyaNC528U61w1yu9ZPAALQNIav5bWxR', 1, '6euvcSK8vdNhGXTxFWvZ6ghWjiqQJNWa5KiRKQRATJolDakBQQQQmcAiDEbF', '2018-02-28 23:27:08', '2020-06-15 01:29:40', 'Open Market');
 
 -- --------------------------------------------------------
 
@@ -761,7 +762,7 @@ CREATE TABLE `currencies` (
 --
 
 INSERT INTO `currencies` (`id`, `name`, `sign`, `value`, `is_default`) VALUES
-(10, 'Steem', 'STEEM', 1, 1);
+(10, 'Rupees', 'Nrs', 120, 1);
 
 -- --------------------------------------------------------
 
@@ -1082,7 +1083,7 @@ CREATE TABLE `generalsettings` (
 --
 
 INSERT INTO `generalsettings` (`id`, `logo`, `favicon`, `title`, `header_email`, `header_phone`, `footer`, `copyright`, `colors`, `loader`, `admin_loader`, `is_talkto`, `talkto`, `is_language`, `is_loader`, `map_key`, `is_disqus`, `disqus`, `is_contact`, `is_faq`, `guest_checkout`, `stripe_check`, `cod_check`, `stripe_key`, `stripe_secret`, `currency_format`, `withdraw_fee`, `withdraw_charge`, `tax`, `shipping_cost`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `from_email`, `from_name`, `is_smtp`, `is_comment`, `is_currency`, `add_cart`, `out_stock`, `add_wish`, `already_wish`, `wish_remove`, `add_compare`, `already_compare`, `compare_remove`, `color_change`, `coupon_found`, `no_coupon`, `already_coupon`, `order_title`, `order_text`, `is_affilate`, `affilate_charge`, `affilate_banner`, `already_cart`, `fixed_commission`, `percentage_commission`, `multiple_shipping`, `multiple_packaging`, `vendor_ship_info`, `reg_vendor`, `cod_text`, `paypal_text`, `stripe_text`, `header_color`, `footer_color`, `copyright_color`, `is_admin_loader`, `menu_color`, `menu_hover_color`, `is_home`, `is_verification_email`, `instamojo_key`, `instamojo_token`, `instamojo_text`, `is_instamojo`, `instamojo_sandbox`, `is_paystack`, `paystack_key`, `paystack_email`, `paystack_text`, `wholesell`, `is_capcha`, `error_banner`, `is_popup`, `popup_title`, `popup_text`, `popup_background`, `invoice_logo`, `user_image`, `vendor_color`, `is_secure`, `is_report`, `paypal_check`, `paypal_business`, `footer_logo`, `email_encryption`, `paytm_merchant`, `paytm_secret`, `paytm_website`, `paytm_industry`, `is_paytm`, `paytm_text`, `paytm_mode`, `is_molly`, `molly_key`, `molly_text`, `is_razorpay`, `razorpay_key`, `razorpay_secret`, `razorpay_text`, `show_stock`, `is_maintain`, `maintain_text`) VALUES
-(1, '1592299770logo.jpg', '1592295587favicon.png', 'OpenMarket', 'Info@example.com', '0123 456789', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae', 'COPYRIGHT © 2020 <a href=\"http://opnmarket.com/\" class=\"steem-keychain-checked\">opnmarket.com</a>', '#0f78f2', '1564224328loading3.gif', '1564224329loading3.gif', 0, '<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5bc2019c61d0b77092512d03/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>', 0, 1, 'AIzaSyB1GpE4qeoJ__70UZxvX9CTMUTZRZNHcu8', 0, '<div id=\"disqus_thread\">         \r\n    <script>\r\n    /**\r\n    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/\r\n    /*\r\n    var disqus_config = function () {\r\n    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page\'s canonical URL variable\r\n    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page\'s unique identifier variable\r\n    };\r\n    */\r\n    (function() { // DON\'T EDIT BELOW THIS LINE\r\n    var d = document, s = d.createElement(\'script\');\r\n    s.src = \'https://junnun.disqus.com/embed.js\';\r\n    s.setAttribute(\'data-timestamp\', +new Date());\r\n    (d.head || d.body).appendChild(s);\r\n    })();\r\n    </script>\r\n    <noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>\r\n    </div>', 0, 1, 0, 0, 0, 'pk_test_UnU1Coi1p5qFGwtpjZMRMgJM', 'sk_test_QQcg3vGsKRPlW6T3dXcNJsor', 0, 0, 0, 0, 5, 'in-v3.mailjet.com', '587', '0e05029e2dc70da691aa2223aa53c5be', '5df1b6242e86bce602c3fd9adc178460', 'admin@geniusocean.com', 'GeniusOcean', 1, 1, 1, 'Successfully Added To Cart', 'Out Of Stock', 'Add To Wishlist', 'Already Added To Wishlist', 'Successfully Removed From The Wishlist', 'Successfully Added To Compare', 'Already Added To Compare', 'Successfully Removed From The Compare', 'Successfully Changed The Color', 'Coupon Found', 'No Coupon Found', 'Coupon Already Applied', 'THANK YOU FOR YOUR PURCHASE.', 'We\'ll email you an order confirmation with details and tracking info.', 1, 8, '15587771131554048228onepiece.jpeg', 'Already Added To Cart', 0, 0, 1, 1, 1, 1, 'Pay with cash upon delivery.', 'Pay via your PayPal account.', 'Pay via your Credit Card.', '#ffffff', '#143250', '#02020c', 1, '#ff5500', '#02020c', 0, 0, 'test_172371aa837ae5cad6047dc3052', 'test_4ac5a785e25fc596b67dbc5c267', 'Pay via your Instamojo account.', 0, 1, 0, 'pk_test_162a56d42131cbb01932ed0d2c48f9cb99d8e8e2', 'junnuns@gmail.com', 'Pay via your Paystack account.', 6, 0, '1566878455404.png', 0, 'NEWSLETTER', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita porro ipsa nulla, alias, ab minus.', '1567488562subscribe.jpg', '1592296023logo-removebg-preview.png', '1567655174profile.jpg', '#666666', 0, 1, 1, 'shaon143-facilitator-1@gmail.com', '1592299775logo.jpg', 'tls', 'tkogux49985047638244', 'LhNGUUKE9xCQ9xY8', 'WEBSTAGING', 'Retail', 1, 'Pay via your Paytm account.', 'live', 0, 'test_5HcWVs9qc5pzy36H9Tu9mwAyats33J', 'Pay with Molly Payment.', 0, 'rzp_test_xDH74d48cwl8DF', 'cr0H1BiQ20hVzhpHfHuNbGri', 'Pay via your Razorpay account.', 0, 0, '<div style=\"text-align: center;\"><font size=\"5\"><br></font></div><h1 style=\"text-align: center;\"><font size=\"6\">UNDER MAINTENANCE</font></h1>');
+(1, '1596094837logo_mayra.png', '1596094683mayra_fav.jpg', 'MayraSales', 'Info@example.com', '0123 456789', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae', 'COPYRIGHT © 2020 <a href=\"http://opnmarket.com/\" class=\"steem-keychain-checked\">opnmarket.com</a>', '#0f78f2', '1564224328loading3.gif', '1564224329loading3.gif', 0, '<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5bc2019c61d0b77092512d03/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>', 0, 1, 'AIzaSyB1GpE4qeoJ__70UZxvX9CTMUTZRZNHcu8', 0, '<div id=\"disqus_thread\">         \r\n    <script>\r\n    /**\r\n    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/\r\n    /*\r\n    var disqus_config = function () {\r\n    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page\'s canonical URL variable\r\n    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page\'s unique identifier variable\r\n    };\r\n    */\r\n    (function() { // DON\'T EDIT BELOW THIS LINE\r\n    var d = document, s = d.createElement(\'script\');\r\n    s.src = \'https://junnun.disqus.com/embed.js\';\r\n    s.setAttribute(\'data-timestamp\', +new Date());\r\n    (d.head || d.body).appendChild(s);\r\n    })();\r\n    </script>\r\n    <noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>\r\n    </div>', 0, 1, 0, 0, 0, 'pk_test_UnU1Coi1p5qFGwtpjZMRMgJM', 'sk_test_QQcg3vGsKRPlW6T3dXcNJsor', 0, 0, 0, 0, 5, 'in-v3.mailjet.com', '587', '0e05029e2dc70da691aa2223aa53c5be', '5df1b6242e86bce602c3fd9adc178460', 'admin@geniusocean.com', 'GeniusOcean', 1, 1, 1, 'Successfully Added To Cart', 'Out Of Stock', 'Add To Wishlist', 'Already Added To Wishlist', 'Successfully Removed From The Wishlist', 'Successfully Added To Compare', 'Already Added To Compare', 'Successfully Removed From The Compare', 'Successfully Changed The Color', 'Coupon Found', 'No Coupon Found', 'Coupon Already Applied', 'THANK YOU FOR YOUR PURCHASE.', 'We\'ll email you an order confirmation with details and tracking info.', 1, 8, '15587771131554048228onepiece.jpeg', 'Already Added To Cart', 0, 0, 1, 1, 1, 1, 'Pay with cash upon delivery.', 'Pay via your PayPal account.', 'Pay via your Credit Card.', '#ffffff', '#143250', '#02020c', 1, '#ff5500', '#02020c', 0, 0, 'test_172371aa837ae5cad6047dc3052', 'test_4ac5a785e25fc596b67dbc5c267', 'Pay via your Instamojo account.', 0, 1, 0, 'pk_test_162a56d42131cbb01932ed0d2c48f9cb99d8e8e2', 'junnuns@gmail.com', 'Pay via your Paystack account.', 6, 0, '1566878455404.png', 0, 'NEWSLETTER', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita porro ipsa nulla, alias, ab minus.', '1567488562subscribe.jpg', '1596094848logo_mayra.png', '1567655174profile.jpg', '#666666', 0, 1, 1, 'shaon143-facilitator-1@gmail.com', '1596094843logo_mayra.png', 'tls', 'tkogux49985047638244', 'LhNGUUKE9xCQ9xY8', 'WEBSTAGING', 'Retail', 1, 'Pay via your Paytm account.', 'live', 0, 'test_5HcWVs9qc5pzy36H9Tu9mwAyats33J', 'Pay with Molly Payment.', 0, 'rzp_test_xDH74d48cwl8DF', 'cr0H1BiQ20hVzhpHfHuNbGri', 'Pay via your Razorpay account.', 0, 0, '<div style=\"text-align: center;\"><font size=\"5\"><br></font></div><h1 style=\"text-align: center;\"><font size=\"6\">UNDER MAINTENANCE</font></h1>');
 
 -- --------------------------------------------------------
 
@@ -1163,7 +1164,12 @@ INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `admin_id
 (8, NULL, 5, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-15 06:08:31', '2020-07-15 06:08:31'),
 (9, NULL, 6, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-15 23:05:37', '2020-07-15 23:05:37'),
 (10, NULL, 7, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-16 02:46:05', '2020-07-16 02:46:05'),
-(11, NULL, 8, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-16 02:47:42', '2020-07-16 02:47:42');
+(11, NULL, 8, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-16 02:47:42', '2020-07-16 02:47:42'),
+(12, NULL, 9, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-23 22:38:22', '2020-07-23 22:38:22'),
+(13, NULL, 9, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-25 02:57:32', '2020-07-25 02:57:32'),
+(14, NULL, 10, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-25 03:21:46', '2020-07-25 03:21:46'),
+(15, NULL, 11, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-30 01:44:39', '2020-07-30 01:44:39'),
+(16, NULL, 12, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-30 03:07:14', '2020-07-30 03:07:14');
 
 -- --------------------------------------------------------
 
@@ -1486,7 +1492,7 @@ CREATE TABLE `seotools` (
 --
 
 INSERT INTO `seotools` (`id`, `google_analytics`, `meta_keys`) VALUES
-(1, '<script>//Google Analytics Scriptfffffffffffffffffffffffssssfffffs</script>', 'Steem,Market,Multi,Vendor,multivendor,marketplace,steem,bitcoin,cryptocurrency');
+(1, '<script>//Google Analytics Scriptfffffffffffffffffffffffssssfffffs</script>', 'mayra');
 
 -- --------------------------------------------------------
 
@@ -1618,6 +1624,13 @@ CREATE TABLE `social_providers` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `social_providers`
+--
+
+INSERT INTO `social_providers` (`id`, `user_id`, `provider_id`, `provider`, `created_at`, `updated_at`) VALUES
+(2, 12, '128921545532962', 'facebook', '2020-07-30 03:07:14', '2020-07-30 03:07:14');
+
 -- --------------------------------------------------------
 
 --
@@ -1733,7 +1746,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`, `phone`, `fax`, `email`, `password`, `api_token`, `remember_token`, `created_at`, `updated_at`, `is_provider`, `status`, `verification_link`, `email_verified`, `affilate_code`, `affilate_income`, `shop_name`, `owner_name`, `shop_number`, `shop_address`, `reg_number`, `shop_message`, `shop_details`, `shop_image`, `f_url`, `g_url`, `t_url`, `l_url`, `is_vendor`, `f_check`, `g_check`, `t_check`, `l_check`, `mail_sent`, `shipping_cost`, `current_balance`, `date`, `ban`) VALUES
-(8, 'Daniel Sapkota', NULL, NULL, NULL, NULL, 'Boudha', '985132542952', NULL, 'danielsapkota13@gmail.com', '$2y$10$LVDle9jgASMwNMlBFCuXfO1s1s2bodqdCDmuZsWxOF.EjQyQwPWAu', 'kFqwjmu84L5Fh69UPxsjlhTSP1ZQupOcXn0rJZTRhbtA6Ehe9BsnmnFVg9hc', NULL, '2020-07-16 02:47:42', '2020-07-16 02:47:42', 0, 0, '1fb6f8bd865cc4f18a90e08cb292a724', 'Yes', '0e123e7fa3b658afa658734e897d9336', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+(8, 'Daniel Sapkota', NULL, NULL, NULL, NULL, 'Boudha', '985132542952', NULL, 'danielsapkota13@gmail.com', '$2y$10$LVDle9jgASMwNMlBFCuXfO1s1s2bodqdCDmuZsWxOF.EjQyQwPWAu', 'kFqwjmu84L5Fh69UPxsjlhTSP1ZQupOcXn0rJZTRhbtA6Ehe9BsnmnFVg9hc', 'LUh7hnSOytUISBCzfc8OxL9stmodGvDzhFJ7GxIXEIxLVVcdXqZaGBRld6nK', '2020-07-16 02:47:42', '2020-07-25 01:41:08', 0, 0, '1fb6f8bd865cc4f18a90e08cb292a724', 'Yes', '0e123e7fa3b658afa658734e897d9336', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
+(10, 'Daniel Sapkota', NULL, NULL, NULL, NULL, 'Boudha', '985132542952', NULL, 'n00bdan13@gmail.com', '$2y$10$i6QhC.Myv8waDo1BZ.VBJeIbCbYlEoacWBv8UILL3.okKSmz4llEm', 'AyqheV02JYXBXdB8QnJARRznRLduE2kaRhNA2931lcaKTpvI4bdFCJK6XswH', NULL, '2020-07-25 03:21:46', '2020-07-25 03:21:46', 0, 0, '6693aacad831a3f2d51622ba635319a9', 'Yes', '355ccc857ef50ba2bdb684de846afab3', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
+(12, 'John Daniel', 'https://graph.facebook.com/v3.0/128921545532962/picture?width=1920', NULL, NULL, NULL, NULL, NULL, NULL, 'daniel@waterbot.xyz', NULL, 'bpinNgbAneTucc3utQmN53jwLWhXvtCBh2JoBtRXdN08ozFsb5V9xiX3vSYv', NULL, '2020-07-30 03:07:14', '2020-07-30 03:07:14', 1, 0, NULL, 'Yes', '5578261a8fc5c86a097368bb83121511', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -2204,7 +2219,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -2279,7 +2294,7 @@ ALTER TABLE `socialsettings`
 -- AUTO_INCREMENT for table `social_providers`
 --
 ALTER TABLE `social_providers`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `subcategories`
 --
@@ -2299,7 +2314,7 @@ ALTER TABLE `subscription_payments`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `user_notifications`
 --
