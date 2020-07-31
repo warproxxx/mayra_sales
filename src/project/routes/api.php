@@ -13,6 +13,24 @@ use Illuminate\Http\Request;
 |
 */
 
+
+// ************************************ PUBLIC SECTION **********************************************
+
+
+#get categories
+
+Route::get('/categories', 'Front\FrontendController@get_categories_api');
+Route::get('/subcategories', 'Front\FrontendController@get_subcategories_api');
+Route::get('/childcategories', 'Front\FrontendController@get_childcategories_api');
+
+#get products and details
+
+
+#cart, wishlist
+
+
+// ************************************ PUBLIC SECTION ENDS**********************************************
+
 // ************************************ ADMIN SECTION **********************************************
 Route::prefix('admin')->group(function() {
     Route::post('/login', 'Admin\LoginController@api_login');
@@ -24,6 +42,26 @@ Route::prefix('admin')->group(function() {
         });
 
         Route::get('make_vendor',  'Admin\LoginController@make_vendor');
+
+        #category
+        Route::post('/category/create', 'Admin\CategoryController@store');
+        Route::post('/category/edit/{id}', 'Admin\CategoryController@update');
+        Route::get('/category/delete/{id}', 'Admin\CategoryController@destroy');
+        Route::get('/category/status/{id1}/{id2}', 'Admin\CategoryController@status');
+
+        #subcategory
+        Route::post('/subcategory/create', 'Admin\SubCategoryController@store');
+        Route::post('/subcategory/edit/{id}', 'Admin\SubCategoryController@update');
+        Route::get('/subcategory/delete/{id}', 'Admin\SubCategoryController@destroy');
+        Route::get('/subcategory/status/{id1}/{id2}', 'Admin\SubCategoryController@status');
+
+
+        #childcategory
+        Route::post('/childcategory/create', 'Admin\ChildCategoryController@store');
+        Route::post('/childcategory/edit/{id}', 'Admin\ChildCategoryController@update');
+        Route::get('/childcategory/delete/{id}', 'Admin\ChildCategoryController@destroy');
+        Route::get('/childcategory/status/{id1}/{id2}', 'Admin\ChildCategoryController@status');
+
     });
 });
 // ************************************ ADMIN SECTION ENDS**********************************************
@@ -58,8 +96,6 @@ Route::prefix('vendor')->group(function() {
     #this is enough because we send user or vendor while logging in. Frontend dosen't sends unnecessary request.
     Route::group(['middleware'=>'auth:api'],function(){
         //------------ VENDOR PRODUCT SECTION ------------
-
-        #get categories and child categories
         Route::post('/products/store', 'Vendor\ProductController@store');
         Route::post('/products/edit/{id}', 'Vendor\ProductController@update');
         Route::get('/products/delete/{id}', 'Vendor\ProductController@destroy');
@@ -68,6 +104,3 @@ Route::prefix('vendor')->group(function() {
     });
 });
 // ************************************ VENDOR SECTION ENDS**********************************************
-
-#get product details
-#cart, wishlist

@@ -6,6 +6,9 @@ use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\Category;
+use App\Models\Subcategory;
+use App\Models\Childcategory;
 use App\Models\Counter;
 use App\Models\Generalsetting;
 use App\Models\Order;
@@ -71,6 +74,31 @@ class FrontendController extends Controller
         return $os_platform;
     }
 
+    // -------------------------------- API SECTION ----------------------------------------
+
+    #fix the formatting of these
+    public function get_categories_api()
+    {
+        $datas = Category::orderBy('id','desc')->get();
+        return $datas;
+    }
+
+    public function get_subcategories_api()
+    {
+        $datas = Subcategory::orderBy('id','desc')->get();
+        return $datas;
+    }
+
+    public function get_childcategories_api()
+    {
+        $datas = Childcategory::orderBy('id','desc')->get();
+        return $datas;
+    }
+
+
+
+
+    // -------------------------------- API SECTION ENDS ----------------------------------------
 
 // -------------------------------- HOME PAGE SECTION ----------------------------------------
 
@@ -202,6 +230,9 @@ class FrontendController extends Controller
             }
         }
     }
+
+
+    
 
 
 

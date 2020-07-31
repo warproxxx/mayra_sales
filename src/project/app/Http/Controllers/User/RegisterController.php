@@ -47,7 +47,8 @@ class RegisterController extends Controller
         $validator = Validator::make(Input::all(), $rules);
         
         if ($validator->fails()) {
-			return response()->json(['status' => 'failure', 'details' => $validator->getMessageBag()->toArray()]);
+			$msg = $validator->getMessageBag()->toArray();
+			return response()->json(['status' => 'failure', 'details' => $msg[array_keys($msg)[0]][0], "field" => array_keys($msg)[0]]);
         }
         //--- Validation Section Ends
 
@@ -104,7 +105,7 @@ class RegisterController extends Controller
 	        $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
 	        mail($to,$subject,$msg,$headers);
 	        }
-			return response()->json(['status' => 'failure', 'details' => 'We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.']);
+			return response()->json(['status' => 'failure', 'details' => 'We need to verify your email address. We have sent an email to '.$to.' to verify your email address. Please click link in that email to continue.', 'field' => 'email']);
 			
 		}
 	        else {
@@ -114,7 +115,7 @@ class RegisterController extends Controller
 				$notification->user_id = $user->id;
 				$notification->save();
 				Auth::guard('web')->login($user); 
-				return response()->json(['status' => 'success', 'details' => "Registered Succesfully"]);
+				return response()->json(['status' => 'success', 'details' => "Registered Succesfully", 'field' => ""]);
 	        }
 
     }
