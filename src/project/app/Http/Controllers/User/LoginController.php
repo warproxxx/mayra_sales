@@ -60,11 +60,11 @@ class LoginController extends Controller
           $resp['user_type'] = 'vendor';
         }
 
-        return response()->json(['status' => 'success', 'details' => $resp]);
+        return response()->json(['status' => 'success', 'details' => "", "user_type" => $resp['user_type'], "token" => $resp['token']]);
 
       }
 
-      return response()->json(['status' => 'failure', 'details' => "Credentials dosent match"]);
+      return response()->json(['status' => 'failure', 'details' => "Credentials dosent match", "user_type" => "", "token" => ""]);
 
     }
 
