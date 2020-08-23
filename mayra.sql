@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 30, 2020 at 02:37 PM
+-- Generation Time: Aug 23, 2020 at 10:33 AM
 -- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
@@ -34,7 +34,6 @@ CREATE TABLE `admins` (
   `role_id` int(191) NOT NULL DEFAULT '0',
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `api_token` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -46,8 +45,8 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `api_token`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
-(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', '9PwWzW2Al8boW9qBXc6aDNhLdoXQsAyaNC528U61w1yu9ZPAALQNIav5bWxR', 1, '6euvcSK8vdNhGXTxFWvZ6ghWjiqQJNWa5KiRKQRATJolDakBQQQQmcAiDEbF', '2018-02-28 23:27:08', '2020-06-15 01:29:40', 'Open Market');
+INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
+(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', 1, '6euvcSK8vdNhGXTxFWvZ6ghWjiqQJNWa5KiRKQRATJolDakBQQQQmcAiDEbF', '2018-02-28 23:27:08', '2019-07-26 21:21:32', 'Genius Store');
 
 -- --------------------------------------------------------
 
@@ -74,6 +73,66 @@ INSERT INTO `admin_languages` (`id`, `is_default`, `language`, `file`, `name`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin_user_conversations`
+--
+
+CREATE TABLE `admin_user_conversations` (
+  `id` int(191) NOT NULL,
+  `subject` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(191) NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `type` enum('Ticket','Dispute') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin_user_conversations`
+--
+
+INSERT INTO `admin_user_conversations` (`id`, `subject`, `user_id`, `message`, `created_at`, `updated_at`, `type`, `order_number`) VALUES
+(1, 'dfgdfdsd', 22, 'asd', '2019-08-17 08:23:38', '2019-08-17 08:23:38', 'Ticket', NULL),
+(2, 'dfgdfdsd', 22, 'asdasd', '2019-08-17 08:23:48', '2019-08-17 08:23:48', 'Dispute', 'dfgfgfgfd'),
+(3, 'Order Confirmation', 13, 'sdf', '2019-08-19 23:17:51', '2019-08-19 23:17:51', 'Dispute', 'adasd423423'),
+(4, 'sda', 27, 'asdasd', '2019-10-05 12:49:32', '2019-10-05 12:49:32', NULL, NULL),
+(5, 'lol', 27, 'sdfsdf', '2019-10-05 12:50:29', '2019-10-05 12:50:29', NULL, NULL),
+(6, 'dfgdfdsdasdsf', 27, 'fdgdfgfdgdfg', '2019-10-05 12:50:59', '2019-10-05 12:50:59', NULL, NULL),
+(7, 'dfdfd', 27, 'dfdf', '2019-10-20 04:58:53', '2019-10-20 04:58:53', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_user_messages`
+--
+
+CREATE TABLE `admin_user_messages` (
+  `id` int(191) NOT NULL,
+  `conversation_id` int(191) NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(191) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin_user_messages`
+--
+
+INSERT INTO `admin_user_messages` (`id`, `conversation_id`, `message`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'asd', 22, '2019-08-17 08:23:38', '2019-08-17 08:23:38'),
+(2, 2, 'asdasd', 22, '2019-08-17 08:23:48', '2019-08-17 08:23:48'),
+(3, 1, 'bv', 22, '2019-08-17 09:21:47', '2019-08-17 09:21:47'),
+(4, 2, 'dfg', 22, '2019-08-17 09:21:58', '2019-08-17 09:21:58'),
+(5, 3, 'sdf', 13, '2019-08-19 23:17:51', '2019-08-19 23:17:51'),
+(6, 4, 'asdasd', NULL, '2019-10-05 12:49:33', '2019-10-05 12:49:33'),
+(7, 5, 'sdfsdf', NULL, '2019-10-05 12:50:30', '2019-10-05 12:50:30'),
+(8, 6, 'fdgdfgfdgdfg', NULL, '2019-10-05 12:51:00', '2019-10-05 12:51:00'),
+(9, 7, 'dfdf', NULL, '2019-10-20 04:58:53', '2019-10-20 04:58:53');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `attributes`
 --
 
@@ -89,6 +148,22 @@ CREATE TABLE `attributes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `attributes`
+--
+
+INSERT INTO `attributes` (`id`, `attributable_id`, `attributable_type`, `name`, `input_name`, `price_status`, `details_status`, `created_at`, `updated_at`) VALUES
+(14, 5, 'App\\Models\\Category', 'Warranty Type', 'warranty_type', 1, 1, '2019-09-23 22:56:07', '2019-09-23 22:56:07'),
+(20, 4, 'App\\Models\\Category', 'Warranty Type', 'warranty_type', 1, 1, '2019-09-24 00:41:46', '2019-10-03 00:18:54'),
+(21, 4, 'App\\Models\\Category', 'Brand', 'brand', 1, 1, '2019-09-24 00:44:13', '2019-10-03 00:19:13'),
+(22, 2, 'App\\Models\\Subcategory', 'Color Family', 'color_family', 1, 1, '2019-09-24 00:45:45', '2019-09-24 00:45:45'),
+(24, 1, 'App\\Models\\Childcategory', 'Display Size', 'display_size', 1, 1, '2019-09-24 00:54:17', '2019-09-24 00:54:17'),
+(25, 12, 'App\\Models\\Subcategory', 'demo', 'demo', 1, 1, '2019-09-24 01:26:47', '2019-09-24 01:26:47'),
+(30, 3, 'App\\Models\\Subcategory', 'Interior Color', 'interior_color', 1, 1, '2019-09-24 04:31:44', '2019-09-24 04:31:44'),
+(31, 8, 'App\\Models\\Childcategory', 'Temperature', 'temperature', 1, 1, '2019-09-24 04:34:35', '2019-09-24 04:34:35'),
+(32, 18, 'App\\Models\\Category', 'Demo', 'demo', 1, 1, '2019-10-02 23:39:12', '2019-10-02 23:39:12'),
+(33, 4, 'App\\Models\\Category', 'RAM', 'ram', 1, 1, '2019-10-12 03:22:03', '2019-10-12 23:30:39');
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +178,51 @@ CREATE TABLE `attribute_options` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `attribute_options`
+--
+
+INSERT INTO `attribute_options` (`id`, `attribute_id`, `name`, `created_at`, `updated_at`) VALUES
+(107, 14, 'No Warranty', '2019-09-23 22:56:07', '2019-09-23 22:56:07'),
+(108, 14, 'Local seller Warranty', '2019-09-23 22:56:07', '2019-09-23 22:56:07'),
+(109, 14, 'Non local warranty', '2019-09-23 22:56:07', '2019-09-23 22:56:07'),
+(110, 14, 'International Manufacturer Warranty', '2019-09-23 22:56:07', '2019-09-23 22:56:07'),
+(111, 14, 'International Seller Warranty', '2019-09-23 22:56:07', '2019-09-23 22:56:07'),
+(157, 22, 'Black', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(158, 22, 'White', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(159, 22, 'Sliver', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(160, 22, 'Red', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(161, 22, 'Dark Grey', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(162, 22, 'Dark Blue', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(163, 22, 'Brown', '2019-09-24 00:46:26', '2019-09-24 00:46:26'),
+(172, 24, '40', '2019-09-24 01:25:32', '2019-09-24 01:25:32'),
+(173, 24, '22', '2019-09-24 01:25:32', '2019-09-24 01:25:32'),
+(174, 24, '24', '2019-09-24 01:25:32', '2019-09-24 01:25:32'),
+(175, 24, '32', '2019-09-24 01:25:32', '2019-09-24 01:25:32'),
+(176, 24, '21', '2019-09-24 01:25:32', '2019-09-24 01:25:32'),
+(177, 25, 'demo 1', '2019-09-24 01:26:47', '2019-09-24 01:26:47'),
+(178, 25, 'demo 2', '2019-09-24 01:26:47', '2019-09-24 01:26:47'),
+(187, 30, 'Yellow', '2019-09-24 04:31:44', '2019-09-24 04:31:44'),
+(188, 30, 'White', '2019-09-24 04:31:44', '2019-09-24 04:31:44'),
+(189, 31, '22', '2019-09-24 04:34:35', '2019-09-24 04:34:35'),
+(190, 31, '34', '2019-09-24 04:34:35', '2019-09-24 04:34:35'),
+(191, 31, '45', '2019-09-24 04:34:35', '2019-09-24 04:34:35'),
+(195, 20, 'Local seller warranty', '2019-10-03 00:18:54', '2019-10-03 00:18:54'),
+(196, 20, 'No warranty', '2019-10-03 00:18:54', '2019-10-03 00:18:54'),
+(197, 20, 'international manufacturer warranty', '2019-10-03 00:18:54', '2019-10-03 00:18:54'),
+(198, 20, 'Non-local warranty', '2019-10-03 00:18:54', '2019-10-03 00:18:54'),
+(199, 21, 'Symphony', '2019-10-03 00:19:13', '2019-10-03 00:19:13'),
+(200, 21, 'Oppo', '2019-10-03 00:19:13', '2019-10-03 00:19:13'),
+(201, 21, 'EStore', '2019-10-03 00:19:13', '2019-10-03 00:19:13'),
+(202, 21, 'Infinix', '2019-10-03 00:19:13', '2019-10-03 00:19:13'),
+(203, 21, 'Apple', '2019-10-03 00:19:13', '2019-10-03 00:19:13'),
+(243, 33, '1 GB', '2019-10-12 23:30:39', '2019-10-12 23:30:39'),
+(244, 33, '2 GB', '2019-10-12 23:30:39', '2019-10-12 23:30:39'),
+(245, 33, '3 GB', '2019-10-12 23:30:39', '2019-10-12 23:30:39'),
+(253, 32, 'demo 1', '2019-10-13 03:18:04', '2019-10-13 03:18:04'),
+(254, 32, 'demo 2', '2019-10-13 03:18:04', '2019-10-13 03:18:04'),
+(255, 32, 'demo 3', '2019-10-13 03:18:04', '2019-10-13 03:18:04');
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +235,64 @@ CREATE TABLE `banners` (
   `link` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` enum('Large','TopSmall','BottomSmall') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `photo`, `link`, `type`) VALUES
+(1, '1568889151top2.jpg', 'https://www.google.com/', 'TopSmall'),
+(2, '1568889146top1.jpg', NULL, 'TopSmall'),
+(3, '1568889164bottom1.jpg', 'https://www.google.com/', 'Large'),
+(4, '1564398600side-triple3.jpg', 'https://www.google.com/', 'BottomSmall'),
+(5, '1564398579side-triple2.jpg', 'https://www.google.com/', 'BottomSmall'),
+(6, '1564398571side-triple1.jpg', 'https://www.google.com/', 'BottomSmall');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_id` int(191) NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `source` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `views` int(11) NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `meta_tag` text COLLATE utf8mb4_unicode_ci,
+  `meta_description` text COLLATE utf8mb4_unicode_ci,
+  `tags` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_categories`
+--
+
+CREATE TABLE `blog_categories` (
+  `id` int(191) NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `blog_categories`
+--
+
+INSERT INTO `blog_categories` (`id`, `name`, `slug`) VALUES
+(2, 'Oil & gas', 'oil-and-gas'),
+(3, 'Manufacturing', 'manufacturing'),
+(4, 'Chemical Research', 'chemical_research'),
+(5, 'Agriculture', 'agriculture'),
+(6, 'Mechanical', 'mechanical'),
+(7, 'Entrepreneurs', 'entrepreneurs'),
+(8, 'Technology', 'technology');
 
 -- --------------------------------------------------------
 
@@ -137,14 +315,21 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `photo`, `is_featured`, `image`) VALUES
-(20, 'Women\'s clothing', 'Ladies-fashion-and-wear', 1, '1592897157ladies-western-wear-500x500.jpg', 0, NULL),
-(21, 'Men\'s Fashion', 'Fashion-for-real-man', 1, '159289881025662-gtwgzu.jpg', 0, NULL),
-(22, 'Phones and Telecommunications', 'Best-phone-and-telecommunications', 1, '1592900692gsmarena_006.jpg', 0, NULL),
-(23, 'Computer, Office & Security', 'Computer-office-and-Security', 1, '1592902679180907-N-BK152-003.jpg', 0, NULL),
-(24, 'Consumer Electronics', 'Consumer-Electronics', 1, '1592903819images.jpg', 0, NULL),
-(25, 'Jewellery & Watches', 'Jewellery-and-Watches', 1, '1592904726costume-jewellery-Diamond.jpg', 0, NULL),
-(26, 'Home, pet & Appliances', 'Home-pet-and-Appliances', 1, '15929064271800x1200_dog_breed_health_issues_slideshow.jpg', 0, NULL),
-(27, 'Bags & Shoes', 'Bags-and-Shoes', 1, '1592907413p754503.jpg', 0, NULL);
+(4, 'Electronic', 'electric', 1, '1557807287light.png', 1, '1568709131f6.jpg'),
+(5, 'Fashion & Beauty', 'fashion-and-Beauty', 1, '1557807279fashion.png', 1, '1568709123f1.jpg'),
+(6, 'Camera & Photo', 'camera-and-photo', 1, '1557807264camera.png', 1, '1568709110f2.jpg'),
+(7, 'Smart Phone & Table', 'smart-phone-and-table', 1, '1557377810mobile.png', 1, '1568709597f4.jpg'),
+(8, 'Sport & Outdoor', 'sport-and-Outdoor', 1, '1557807258sports.png', 1, '1568709577f8.jpg'),
+(9, 'Jewelry & Watches', 'jewelry-and-watches', 1, '1557807252furniture.png', 1, '1568709077f7.jpg'),
+(10, 'Health & Beauty', 'health-and-beauty', 1, '1557807228trends.png', 1, '1568709067f3.jpg'),
+(11, 'Books & Office', 'books-and-office', 1, '1557377917bags.png', 1, '1568709050f8.jpg'),
+(12, 'Toys & Hobbies', 'toys-and-hobbies', 1, '1557807214sports.png', 1, '1568709042f9.jpg'),
+(13, 'Books', 'books', 1, '1557807208bags.png', 1, '1568709037f10.jpg'),
+(15, 'Automobiles & Motorcycles', 'automobiles-and-motorcycles', 1, '1568708648motor.car.png', 1, '1568709031f11.jpg'),
+(16, 'Home decoration & Appliance', 'Home-decoration-and-Appliance', 1, '1568708757home.png', 1, '1568709027f12.jpg'),
+(17, 'Portable & Personal Electronics', 'portable-and-personal-electronics', 1, '1568878538electronic.jpg', 0, NULL),
+(18, 'Outdoor, Recreation & Fitness', 'Outdoor-Recreation-and-Fitness', 1, '1568878596home.jpg', 0, NULL),
+(19, 'Surveillance Safety & Security', 'Surveillance-Safety-and-Security', 1, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -165,260 +350,22 @@ CREATE TABLE `childcategories` (
 --
 
 INSERT INTO `childcategories` (`id`, `subcategory_id`, `name`, `slug`, `status`) VALUES
-(17, 18, 'Summer Dresses', 'Dress-in-summer', 1),
-(18, 18, 'Hoodies and Sweatshirts', 'Hoodies-and-Sweatshirts-fashion', 1),
-(19, 18, 'Blouses & Shirts', 'Awesome-blouses-and-shirts', 1),
-(20, 18, 'Jackets', 'Fashional-jacket-to-keep-you-warm-and-beautiful', 1),
-(21, 18, 'Skirts', 'Beautiful-skirts', 1),
-(22, 18, 'Wedding Dresses', 'Making-your-wedding-day-special', 1),
-(23, 18, 'Sweaters', 'Cool-looking-sweaters', 1),
-(24, 19, 'Jeans', 'New-jeans', 1),
-(25, 19, 'Pants and Capris', 'Most-comfortable-pants', 1),
-(26, 19, 'Women\'s Socks', 'Inside-shoes-but-not-ugly', 1),
-(27, 19, 'Shorts', 'Be-comfortable-when-inside-and-outside', 1),
-(28, 19, 'Panties', 'No-one-will-see-it-but-quality-matters', 1),
-(29, 20, 'Blazers', 'Look-smart-and-be-comfortable', 1),
-(30, 20, 'Trench Coats', 'Most-comfortable-ever', 1),
-(31, 20, 'Faux Leather', 'Real-leather-is-hard-to-find-but-not-here', 1),
-(32, 20, 'Denim Jackets', 'No-compramise-in-jackets', 1),
-(33, 20, 'Wool and Blends', 'Real-wool-from-real-sheeps', 1),
-(34, 20, 'Faux Fur', 'So-soft-even-silkworm-will-be-jealous', 1),
-(35, 21, 'T-shirt & Tops', 'Comfort-is-the-first-priority', 1),
-(36, 21, 'Cover-ups', 'No-compramise-in-cover-ups', 1),
-(37, 21, 'Selected Crop Top', 'Select-what-you-want-to-wear', 1),
-(38, 21, 'Jumpsuits', 'Professional-jumpsuits', 1),
-(39, 21, 'Shirts', 'We-bet-you-will-look-cool-with-our-shirts', 1),
-(40, 21, 'Intimates', 'Awsome-intimates', 1),
-(41, 21, 'Sleep & Longue', 'Sleep-comfortalbe', 1),
-(42, 22, 'Hoodies & Sweatshirts', 'Premium-hoodies', 1),
-(43, 22, 'T-shirts', 'Tshirt-lasting-forever', 1),
-(44, 22, 'Shirts', 'Shirts-so-nicely-finished', 1),
-(45, 22, 'Casual Shorts', 'Casual-Shorts', 1),
-(46, 22, 'Men\'s Sets', 'Set-for-man', 1),
-(47, 22, 'Jackets', 'Yes-jackets-also-look-cool', 1),
-(48, 23, 'Casual Pants', 'Casual-but-fancy', 1),
-(49, 23, 'Sweatpants', 'Pants-looking-cool', 1),
-(50, 23, 'Cargo Pants', 'Most-comfortable-ever', 1),
-(51, 23, 'Jeans', 'Most-comfortable-pants', 1),
-(52, 23, 'Harem Pants', 'Just-awesome', 1),
-(53, 23, 'Shorts', 'So-short-and-comfortable', 1),
-(54, 24, 'Jackets', 'Jackets-look-cool', 1),
-(55, 24, 'Sweaters', 'Casual-but-fancy', 1),
-(56, 24, 'Casual Faux Leather', 'Real-leather-is-hard-to-find-but-not-here', 1),
-(57, 24, 'Genuine Leather', 'Real-leather-is-hard-to-find-but-not-here', 1),
-(58, 24, 'Parkas', 'Soft-and-smooth', 1),
-(59, 24, 'Down Jackets', 'Jackets-look-cool', 1),
-(60, 24, 'Suits & Blazer', 'Formal-but-fancy', 1),
-(61, 25, 'Boxer', 'Feel-like-a-real-boxer', 1),
-(62, 25, 'Briefs', 'Underwear-but-it-needs-to-be-cool', 1),
-(63, 25, 'Long Johns', 'Long-but-comfortable', 1),
-(64, 25, 'Men\'s sleep and lounge', 'Protect-privacy-in-sleepover', 1),
-(65, 25, 'Pajama Sets', 'Pajama-is-important-wherever-you-go', 1),
-(66, 26, 'Scarves', 'Look-like-a-hero', 1),
-(67, 26, 'Skullies & Beanies', 'Awesome-accessories', 1),
-(68, 26, 'Presciption Glasses', 'See-sharp-and-look-fashionable', 1),
-(69, 26, 'Gloves and Mittens', 'Cold-hand-is-really-not-cool', 1),
-(70, 26, 'Belts', 'Belts-that-donot-break', 1),
-(71, 26, 'Bomber Hats', 'Classical', 1),
-(72, 26, 'Fedoras', 'Awesome-accessories', 1),
-(73, 26, 'Berets', 'Awesome-accessories', 1),
-(74, 26, 'Baseball Caps', 'Play-baseball', 1),
-(75, 27, 'Cosplay Costumes', 'It-is-special', 1),
-(76, 27, 'Stage & Dance Wear', 'Perform-whatever-you-like', 1),
-(77, 27, 'Exotic Apparel', 'Exotic-Apparel', 1),
-(78, 28, 'Android Phones', 'Android-Phones', 1),
-(79, 28, 'iPhones', 'iPhones', 1),
-(80, 34, 'Feature Phones', 'Feature-phones', 1),
-(81, 34, 'Refurbished Phones', 'Refurbished-Phones', 1),
-(82, 28, '8GB RAM', '8-gb', 1),
-(83, 28, '5G Phones', '5G', 1),
-(84, 29, 'lenovo', 'lenovo', 1),
-(85, 29, 'OnePlus', 'Oneplus', 1),
-(86, 29, 'HUAWAI', 'Huawai', 1),
-(87, 29, 'Galaxy', 'Galaxy', 1),
-(88, 29, 'MEIZU', 'Meizu', 1),
-(89, 29, 'UMIDIGI', 'Umidigi', 1),
-(90, 30, 'Cases & covers', 'Cases', 1),
-(91, 30, 'Cables', 'Cables', 1),
-(92, 30, 'Power bank', 'Power-Bank', 1),
-(93, 30, 'Holders & Stands', 'Holders', 1),
-(94, 30, 'Screen Protectors', 'Protect-screen', 1),
-(95, 31, 'Cases For iPhone', 'Cases-For-iphone', 1),
-(96, 31, 'Cases For Samsung', 'Cases-For-samsung', 1),
-(97, 31, 'Cases For Huawei', 'Cases-For-huawei', 1),
-(98, 31, 'Cases For Xiaomi', 'Cases-For-Xiaomi', 1),
-(99, 31, 'Cases For Meizu', 'Cases-For-Meizu', 1),
-(100, 31, 'Cases For Oppo', 'Cases-For-Oppo', 1),
-(101, 32, 'Wireless Chargers', 'Wireless-Chargers', 1),
-(102, 32, 'Car Chargers', 'Chargers', 1),
-(103, 32, 'Lenses', 'Lenses', 1),
-(104, 32, 'Adapters & Converters', 'Adapters', 1),
-(105, 33, 'Phone LCDs', 'LCDs-for-phone', 1),
-(106, 33, 'Phone Batteries', 'Batteries-for-phone', 1),
-(107, 33, 'Housing & Frames', 'Housing-for-phones', 1),
-(108, 34, 'Walkie Talkie', 'Walkie-Talkie', 1),
-(109, 34, 'Fiber Optic Equipment', 'Fiber-optics-equipments', 1),
-(110, 34, 'Communications Antennas', 'Antennas', 1),
-(111, 35, 'CPUs', 'CPUs', 1),
-(112, 35, 'Motherboards', 'Motherboards', 1),
-(113, 35, 'Graphics card', 'Graphics-card', 1),
-(114, 35, 'Mice', 'Mouse', 1),
-(115, 35, 'Keyboards', 'Keyboard', 1),
-(116, 36, 'Gaming Laptops', 'Best-performing-laptop', 1),
-(117, 36, 'Ultraslim Laptops', 'Ultraslim', 1),
-(118, 36, 'Tablets', 'Tablets', 1),
-(119, 36, 'Tablet Accessories', 'Tablet', 1),
-(120, 36, 'Laptop Bags & Cases', 'Laptop-bags', 1),
-(121, 37, 'Surveillance Items', 'Surveillance', 1),
-(122, 37, 'Access Control System', 'Access-Control-System', 1),
-(123, 37, 'Smoke Detectors', 'Smoke-Detectors', 1),
-(124, 37, 'Safety Equipment', 'Safety-equipments', 1),
-(125, 37, 'Alarms and Sensors', 'Alarms-and-Sensors', 1),
-(126, 37, 'Door Intercom System', 'Door-Intercom-System', 1),
-(127, 38, 'USB Flash Drives', 'USB-Flash-Drives', 1),
-(128, 38, 'Memory Cards', 'Memory-Cards', 1),
-(129, 38, 'External Hard Drives', 'External-Hard-Drives', 1),
-(130, 38, 'HDD Box Enclousers', 'HDD-Box-Enclousers', 1),
-(131, 38, 'SSDs', 'SSD', 1),
-(132, 39, '3D Printers', '3D-Printers', 1),
-(133, 39, '3D Printers Parts & Accessories', '3D-Printers-Parts-and-Accessories', 1),
-(134, 39, 'Printers', 'Printers', 1),
-(135, 39, 'Printers parts', 'Printers-parts', 1),
-(136, 39, 'Scanners', 'Scanners', 1),
-(137, 39, 'Ink Cartridges', 'Ink-Cartridges', 1),
-(138, 39, '3D printing Materials', '3D-printing-Materials', 1),
-(139, 40, 'Wireless Routers', 'Wireless-Routers', 1),
-(140, 40, 'Network Cards', 'Network-Cards', 1),
-(141, 40, '3D Modems', '3D-Modems', 1),
-(142, 40, 'Modem-Router Combos', 'Modem-Router', 1),
-(143, 40, 'Networking Tools', 'Networking-Tools', 1),
-(144, 41, 'Cables & adapters', 'Cables-and-adapters', 1),
-(145, 41, 'Electronics Cigrettes', 'Electronics-Cigrettes', 1),
-(146, 41, 'Chargers', 'Charger', 1),
-(147, 41, 'Home Electronics Accessories', 'Home-Electronics-Accessories', 1),
-(148, 41, 'Bags & Cases', 'Bags-and-Cases', 1),
-(149, 42, 'Televisions', 'Televisions', 1),
-(150, 42, 'TV Receivers', 'TV-Receivers', 1),
-(151, 42, 'Projectors', 'Projectors', 1),
-(152, 42, 'Audio Amplifier Boards', 'Audio-Amplifier-Boards', 1),
-(153, 42, 'TV Sticks', 'TV-Sticks', 1),
-(154, 43, 'Digital Cameras', 'Digital-Cameras', 1),
-(155, 43, 'Camera Drones', 'Camera-Drones', 1),
-(156, 43, 'Camcorders', 'Camcorders', 1),
-(157, 43, 'Action Cameras', 'Action-Cameras', 1),
-(158, 43, 'Photo Studio Supplies', 'Photo-Studio-Supplies', 1),
-(159, 43, 'Camera & Photo Accessories', 'Camera-and-Photo-Accessories', 1),
-(160, 44, 'Earphones & Headphones', 'Earphones-and-Headphones', 1),
-(161, 44, 'Speakers', 'Speakers', 1),
-(162, 44, 'MP3 players', 'MP3-players', 1),
-(163, 44, 'Microphones', 'Microphones', 1),
-(164, 44, 'VR/AR Devices', 'VR-AR-Devices', 1),
-(165, 45, 'Wearable Devices', 'Wearable-Devices', 1),
-(166, 45, 'Smart Home Appliances', 'Smart-Home-Appliances', 1),
-(167, 45, 'Smart Remote Controls', 'Smart-Remote-Controls', 1),
-(168, 45, 'Smart Wearable Accessiories', 'Smart-Wearable-Accessiories', 1),
-(169, 45, 'Smart Watches', 'Smart-Watches', 1),
-(170, 45, 'Smart Wristbands', 'Smart-Wristbands', 1),
-(171, 46, 'Handheld Game Players', 'Handheld-Game-Players', 1),
-(172, 46, 'Game Controllers', 'Game-Controllers', 1),
-(173, 46, 'Joysticks', 'Joysticks', 1),
-(174, 46, 'Stickers', 'Stickers', 1),
-(175, 47, '925 Silver Jewelry', '925-Silver-Jewelry', 1),
-(176, 47, 'Diamond jwelry', 'Diamond-jwelry', 1),
-(177, 47, 'Pearl', 'Pearl', 1),
-(178, 47, 'Gemstones', 'Gemstones', 1),
-(179, 47, 'K-Gold', 'k-gold', 1),
-(180, 47, 'Fine earrings', 'Fine-earrings', 1),
-(181, 47, 'Fine Jewelry set', 'Fine-Jewelry-set', 1),
-(182, 47, 'Men\'s Fine Jewelry', 'Men-Fine-Jewelry', 1),
-(183, 48, 'Bridal Jewelry Sets', 'Bridal-Jewelry-Sets', 1),
-(184, 48, 'Engagement Rings', 'Engagement-Rings', 1),
-(185, 48, 'Wedding Hair jewelry', 'Wedding-Hair-jewelry', 1),
-(186, 49, 'Mechanical Watches', 'Mechanical-Watches', 1),
-(187, 49, 'Quartz Watches', 'Quartz-Watches', 1),
-(188, 49, 'Digital Watches', 'Digital-Watches', 1),
-(189, 49, 'Dual Display Watches', 'Dual-Display-Watches', 1),
-(190, 49, 'Sports Watches', 'Sports-Watches', 1),
-(191, 50, 'Women\'s Bracelet watches', 'Women-Bracelet-watches', 1),
-(192, 50, 'Elegant Watches', 'Elegant-Watches', 1),
-(193, 50, 'Romantic Watches', 'Romantic-Watches', 1),
-(194, 50, 'Sports Watches', 'Sports-Watches', 1),
-(195, 50, 'Innovative Watches', 'Innovative-Watches', 1),
-(196, 51, 'Necklaces & Pendants', 'Necklaces-and-Pendants', 1),
-(197, 51, 'Trendy Rings', 'Trendy-Rings', 1),
-(198, 51, 'Trendy Earrings', 'Trendy-Earrings', 1),
-(199, 51, 'Men\'s Cuff Links', 'Men-Cuff-Links', 1),
-(200, 51, 'Fashion Jerelry Sets', 'Fashion-Jerelry-Sets', 1),
-(201, 51, 'Charms', 'Charms', 1),
-(202, 51, 'Body Jewelry', 'Body-Jewelry', 1),
-(203, 52, 'Beads', 'Beads', 1),
-(204, 52, 'Jwelry Findings & Components', 'Jwelry-Findings-and-Components', 1),
-(205, 52, 'Jwelry packaging & Displays', 'Jwelry-packaging-and-Displays', 1),
-(206, 53, 'Sweing', 'Sweing', 1),
-(207, 53, 'Needle Arts', 'Needle-Arts', 1),
-(208, 53, 'Scrapbooking and stamps', 'Scrapbooking-and-stamps', 1),
-(209, 53, '5D DIY Diamond Painting', '5D-DIY-Diamond-Painting', 1),
-(210, 54, 'Paintings', 'Paintings', 1),
-(211, 54, 'Wall stickers', 'Wall-stickers', 1),
-(212, 54, 'Wall clocks', 'Wall-clocks', 1),
-(213, 55, 'Cushions', 'Cushions', 1),
-(214, 55, 'Curtains', 'Curtains', 1),
-(215, 55, 'Bedding Sets', 'Bedding-Sets', 1),
-(216, 55, 'Beach Towels', 'Beach-Towels', 1),
-(217, 56, 'Events', 'Beach-Towels', 1),
-(218, 56, 'Ballons', 'Ballons', 1),
-(219, 56, 'Artificial flowers', 'Artificial-flowers', 1),
-(220, 56, 'Gift bags', 'Gift-bags', 1),
-(221, 57, 'Storage boxes', 'Storage-boxes', 1),
-(222, 57, 'Drawer Organizers', 'Drawer-Organizers', 1),
-(223, 57, 'Makeup Organizers', 'Makeup-Organizers', 1),
-(224, 58, 'Umbrellas', 'Umbrellas', 1),
-(225, 58, 'Bathroom Scales', 'Bathroom-Scales', 1),
-(226, 58, 'Sweepers', 'sweepers', 1),
-(227, 59, 'Bakeware', 'Bakeware', 1),
-(228, 59, 'Drinkware', 'Drinkware', 1),
-(229, 59, 'Kitchen tools', 'Kitchen-tools', 1),
-(230, 59, 'Knifes', 'Knifes', 1),
-(231, 60, 'Irrigating kits', 'Irrigating-kits', 1),
-(232, 60, 'Flowers pots and planters', 'Flowers-pots-and-planters', 1),
-(233, 60, 'Repellents', 'Repellents', 1),
-(234, 60, 'Garden Water Timers', 'Garden-Water-Timers', 1),
-(235, 61, 'Home furniture', 'Home-furniture', 1),
-(236, 61, 'Office furniture', 'Office-furniture', 1),
-(237, 61, 'Outdoor furniture', 'Office-furniture', 1),
-(238, 61, 'Top furniture stores', 'Top-furniture-stores', 1),
-(239, 62, 'Stylish backpacks', 'stylish-backpacks', 1),
-(240, 62, 'Totes', 'totes', 1),
-(241, 62, 'Shoulder bags', 'shoulder-bags', 1),
-(242, 62, 'Wallets', 'wallets', 1),
-(243, 62, 'Evening Bags', 'Evening-bags', 1),
-(244, 62, 'Clutches', 'clutches', 1),
-(245, 63, 'Women Sandals', 'Women-Sandals', 1),
-(246, 63, 'Flats', 'flats', 1),
-(247, 63, 'High Heels', 'High-heels', 1),
-(248, 62, 'Sneakers', 'Sneakers', 1),
-(249, 63, 'Boots', 'boots', 1),
-(250, 64, 'Men Backpacks', 'Men-Backpacks', 1),
-(251, 67, 'Crossbody Bags', 'Crossbody-Bags', 1),
-(252, 64, 'Luggages', 'Luggages', 1),
-(253, 64, 'Wallets', 'wallet', 1),
-(254, 65, 'Casual', 'causal', 1),
-(255, 65, 'Sneakers', 'Sneaker', 1),
-(256, 65, 'Sandals', 'sandals', 1),
-(257, 65, 'Loafers', 'loafers', 1),
-(258, 65, 'Flip Flop', 'flipflop', 1),
-(259, 65, 'Boots', 'boot', 1),
-(260, 66, 'Kids bags', 'kids-bag', 1),
-(261, 66, 'Cosmetic bags', 'Cosmetic-bags', 1),
-(262, 67, 'Wallet and card holders', 'Wallet-and-card-holders', 1),
-(263, 66, 'Luggage Covers', 'luggage-covers', 1),
-(264, 66, 'Passport Covers', 'passport-covers', 1),
-(265, 66, 'Bag Parts and Accessories', 'Bag-Parts-and-Accessories', 1),
-(266, 67, 'Wedge Sandals', 'Wedge-Sandals', 1),
-(267, 67, 'Heels', 'heels', 1),
-(268, 67, 'Large-Sized Flats', 'large-size-flats', 1),
-(269, 67, 'Trendy Sneakers', 'trendy-sneakers', 1),
-(270, 67, 'Comfortable Sandals', 'confortable-sandals', 1);
+(1, 2, 'LCD TV', 'lcd-tv', 1),
+(2, 2, 'LED TV', 'led-tv', 1),
+(3, 2, 'Curved TV', 'curved-tv', 1),
+(4, 2, 'Plasma TV', 'plasma-tv', 1),
+(5, 3, 'Top Freezer', 'top-freezer', 1),
+(6, 3, 'Side-by-Side', 'side-by-side', 1),
+(7, 3, 'Counter-Depth', 'counter-depth', 1),
+(8, 3, 'Mini Fridge', 'mini-fridge', 1),
+(9, 4, 'Front Loading', 'front-loading', 1),
+(10, 4, 'Top Loading', 'top-loading', 1),
+(11, 4, 'Washer Dryer Combo', 'washer-dryer-combo', 1),
+(12, 4, 'Laundry Center', 'laundry-center', 1),
+(13, 5, 'Central Air', 'central-air', 1),
+(14, 5, 'Window Air', 'window-air', 1),
+(15, 5, 'Portable Air', 'portable-air', 1),
+(16, 5, 'Hybrid Air', 'hybrid-air', 1);
 
 -- --------------------------------------------------------
 
@@ -431,9 +378,8 @@ CREATE TABLE `comments` (
   `user_id` int(191) UNSIGNED NOT NULL,
   `product_id` int(191) UNSIGNED NOT NULL,
   `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `broadcasted` int(11) NOT NULL DEFAULT '0'
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -449,17 +395,30 @@ CREATE TABLE `conversations` (
   `recieved_user` int(191) NOT NULL,
   `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `is_dispute` tinyint(1) NOT NULL DEFAULT '0',
-  `closed` int(11) NOT NULL DEFAULT '0'
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `counters`
+--
+
+CREATE TABLE `counters` (
+  `id` int(11) NOT NULL,
+  `type` enum('referral','browser') NOT NULL DEFAULT 'referral',
+  `referral` varchar(255) DEFAULT NULL,
+  `total_count` int(11) NOT NULL DEFAULT '0',
+  `todays_count` int(11) NOT NULL DEFAULT '0',
+  `today` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `conversations`
+-- Dumping data for table `counters`
 --
 
-INSERT INTO `conversations` (`id`, `subject`, `sent_user`, `recieved_user`, `message`, `created_at`, `updated_at`, `is_dispute`, `closed`) VALUES
-(1, 'OPN-1592966607-6AY2', 1, 1, 'Order #OPN-1592966607-6AY2 has been paid', '2020-06-24 02:43:48', '2020-06-24 02:43:48', 0, 0);
+INSERT INTO `counters` (`id`, `type`, `referral`, `total_count`, `todays_count`, `today`) VALUES
+(19, 'browser', 'Ubuntu', 12, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -762,7 +721,32 @@ CREATE TABLE `currencies` (
 --
 
 INSERT INTO `currencies` (`id`, `name`, `sign`, `value`, `is_default`) VALUES
-(10, 'Rupees', 'Nrs', 120, 1);
+(1, 'NRs', 'Rs.', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email_templates`
+--
+
+CREATE TABLE `email_templates` (
+  `id` int(11) NOT NULL,
+  `email_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_subject` mediumtext COLLATE utf8_unicode_ci,
+  `email_body` longtext COLLATE utf8_unicode_ci,
+  `status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `email_templates`
+--
+
+INSERT INTO `email_templates` (`id`, `email_type`, `email_subject`, `email_body`, `status`) VALUES
+(1, 'new_order', 'Your Order Placed Successfully', '<p>Hello {customer_name},<br>Your Order Number is {order_number}<br>Your order has been placed successfully</p>', 1),
+(2, 'new_registration', 'Welcome To Royal Commerce', '<p>Hello {customer_name},<br>You have successfully registered to {website_title}, We wish you will have a wonderful experience using our service.</p><p>Thank You<br></p>', 1),
+(3, 'vendor_accept', 'Your Vendor Account Activated', '<p>Hello {customer_name},<br>Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.</p><p>Thank You<br></p>', 1),
+(4, 'subscription_warning', 'Your subscrption plan will end after five days', '<p>Hello {customer_name},<br>Your subscription plan duration will end after five days. Please renew your plan otherwise all of your products will be deactivated.</p><p>Thank You<br></p>', 1),
+(5, 'vendor_verification', 'Request for verification.', '<p>Hello {customer_name},<br>You are requested verify your account. Please send us photo of your passport.</p><p>Thank You<br></p>', 1);
 
 -- --------------------------------------------------------
 
@@ -776,13 +760,6 @@ CREATE TABLE `faqs` (
   `details` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `faqs`
---
-
-INSERT INTO `faqs` (`id`, `title`, `details`, `status`) VALUES
-(1, 'How does it work?', '<span style=\"color: rgb(70, 85, 65); font-family: \" open=\"\" sans\",=\"\" sans-serif;=\"\" font-size:=\"\" 16px;\"=\"\">Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.</span><br>', 1);
 
 -- --------------------------------------------------------
 
@@ -1083,7 +1060,7 @@ CREATE TABLE `generalsettings` (
 --
 
 INSERT INTO `generalsettings` (`id`, `logo`, `favicon`, `title`, `header_email`, `header_phone`, `footer`, `copyright`, `colors`, `loader`, `admin_loader`, `is_talkto`, `talkto`, `is_language`, `is_loader`, `map_key`, `is_disqus`, `disqus`, `is_contact`, `is_faq`, `guest_checkout`, `stripe_check`, `cod_check`, `stripe_key`, `stripe_secret`, `currency_format`, `withdraw_fee`, `withdraw_charge`, `tax`, `shipping_cost`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `from_email`, `from_name`, `is_smtp`, `is_comment`, `is_currency`, `add_cart`, `out_stock`, `add_wish`, `already_wish`, `wish_remove`, `add_compare`, `already_compare`, `compare_remove`, `color_change`, `coupon_found`, `no_coupon`, `already_coupon`, `order_title`, `order_text`, `is_affilate`, `affilate_charge`, `affilate_banner`, `already_cart`, `fixed_commission`, `percentage_commission`, `multiple_shipping`, `multiple_packaging`, `vendor_ship_info`, `reg_vendor`, `cod_text`, `paypal_text`, `stripe_text`, `header_color`, `footer_color`, `copyright_color`, `is_admin_loader`, `menu_color`, `menu_hover_color`, `is_home`, `is_verification_email`, `instamojo_key`, `instamojo_token`, `instamojo_text`, `is_instamojo`, `instamojo_sandbox`, `is_paystack`, `paystack_key`, `paystack_email`, `paystack_text`, `wholesell`, `is_capcha`, `error_banner`, `is_popup`, `popup_title`, `popup_text`, `popup_background`, `invoice_logo`, `user_image`, `vendor_color`, `is_secure`, `is_report`, `paypal_check`, `paypal_business`, `footer_logo`, `email_encryption`, `paytm_merchant`, `paytm_secret`, `paytm_website`, `paytm_industry`, `is_paytm`, `paytm_text`, `paytm_mode`, `is_molly`, `molly_key`, `molly_text`, `is_razorpay`, `razorpay_key`, `razorpay_secret`, `razorpay_text`, `show_stock`, `is_maintain`, `maintain_text`) VALUES
-(1, '1596094837logo_mayra.png', '1596094683mayra_fav.jpg', 'MayraSales', 'Info@example.com', '0123 456789', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae', 'COPYRIGHT © 2020 <a href=\"http://opnmarket.com/\" class=\"steem-keychain-checked\">opnmarket.com</a>', '#0f78f2', '1564224328loading3.gif', '1564224329loading3.gif', 0, '<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5bc2019c61d0b77092512d03/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>', 0, 1, 'AIzaSyB1GpE4qeoJ__70UZxvX9CTMUTZRZNHcu8', 0, '<div id=\"disqus_thread\">         \r\n    <script>\r\n    /**\r\n    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/\r\n    /*\r\n    var disqus_config = function () {\r\n    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page\'s canonical URL variable\r\n    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page\'s unique identifier variable\r\n    };\r\n    */\r\n    (function() { // DON\'T EDIT BELOW THIS LINE\r\n    var d = document, s = d.createElement(\'script\');\r\n    s.src = \'https://junnun.disqus.com/embed.js\';\r\n    s.setAttribute(\'data-timestamp\', +new Date());\r\n    (d.head || d.body).appendChild(s);\r\n    })();\r\n    </script>\r\n    <noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>\r\n    </div>', 0, 1, 0, 0, 0, 'pk_test_UnU1Coi1p5qFGwtpjZMRMgJM', 'sk_test_QQcg3vGsKRPlW6T3dXcNJsor', 0, 0, 0, 0, 5, 'in-v3.mailjet.com', '587', '0e05029e2dc70da691aa2223aa53c5be', '5df1b6242e86bce602c3fd9adc178460', 'admin@geniusocean.com', 'GeniusOcean', 1, 1, 1, 'Successfully Added To Cart', 'Out Of Stock', 'Add To Wishlist', 'Already Added To Wishlist', 'Successfully Removed From The Wishlist', 'Successfully Added To Compare', 'Already Added To Compare', 'Successfully Removed From The Compare', 'Successfully Changed The Color', 'Coupon Found', 'No Coupon Found', 'Coupon Already Applied', 'THANK YOU FOR YOUR PURCHASE.', 'We\'ll email you an order confirmation with details and tracking info.', 1, 8, '15587771131554048228onepiece.jpeg', 'Already Added To Cart', 0, 0, 1, 1, 1, 1, 'Pay with cash upon delivery.', 'Pay via your PayPal account.', 'Pay via your Credit Card.', '#ffffff', '#143250', '#02020c', 1, '#ff5500', '#02020c', 0, 0, 'test_172371aa837ae5cad6047dc3052', 'test_4ac5a785e25fc596b67dbc5c267', 'Pay via your Instamojo account.', 0, 1, 0, 'pk_test_162a56d42131cbb01932ed0d2c48f9cb99d8e8e2', 'junnuns@gmail.com', 'Pay via your Paystack account.', 6, 0, '1566878455404.png', 0, 'NEWSLETTER', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita porro ipsa nulla, alias, ab minus.', '1567488562subscribe.jpg', '1596094848logo_mayra.png', '1567655174profile.jpg', '#666666', 0, 1, 1, 'shaon143-facilitator-1@gmail.com', '1596094843logo_mayra.png', 'tls', 'tkogux49985047638244', 'LhNGUUKE9xCQ9xY8', 'WEBSTAGING', 'Retail', 1, 'Pay via your Paytm account.', 'live', 0, 'test_5HcWVs9qc5pzy36H9Tu9mwAyats33J', 'Pay with Molly Payment.', 0, 'rzp_test_xDH74d48cwl8DF', 'cr0H1BiQ20hVzhpHfHuNbGri', 'Pay via your Razorpay account.', 0, 0, '<div style=\"text-align: center;\"><font size=\"5\"><br></font></div><h1 style=\"text-align: center;\"><font size=\"6\">UNDER MAINTENANCE</font></h1>');
+(1, '1598090089logo_mayra.png', '1598090104mayra_fav.jpg', 'MayraSales', 'info@mayrasales.com', '0123 456789', 'Footer', 'COPYRIGHT © 2020. All Rights Reserved By&nbsp;mayrasales.com', '#0f78f2', '1564224328loading3.gif', '1564224329loading3.gif', 0, '<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5bc2019c61d0b77092512d03/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>', 1, 1, 'AIzaSyB1GpE4qeoJ__70UZxvX9CTMUTZRZNHcu8', 0, '<div id=\"disqus_thread\">         \r\n    <script>\r\n    /**\r\n    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/\r\n    /*\r\n    var disqus_config = function () {\r\n    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page\'s canonical URL variable\r\n    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page\'s unique identifier variable\r\n    };\r\n    */\r\n    (function() { // DON\'T EDIT BELOW THIS LINE\r\n    var d = document, s = d.createElement(\'script\');\r\n    s.src = \'https://junnun.disqus.com/embed.js\';\r\n    s.setAttribute(\'data-timestamp\', +new Date());\r\n    (d.head || d.body).appendChild(s);\r\n    })();\r\n    </script>\r\n    <noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>\r\n    </div>', 1, 1, 1, 0, 1, 'pk_test_UnU1Coi1p5qFGwtpjZMRMgJM', 'sk_test_QQcg3vGsKRPlW6T3dXcNJsor', 0, 5, 5, 0, 5, 'in-v3.mailjet.com', '587', '0e05029e2dc70da691aa2223aa53c5be', '5df1b6242e86bce602c3fd9adc178460', 'admin@geniusocean.com', 'GeniusOcean', 1, 1, 0, 'Successfully Added To Cart', 'Out Of Stock', 'Add To Wishlist', 'Already Added To Wishlist', 'Successfully Removed From The Wishlist', 'Successfully Added To Compare', 'Already Added To Compare', 'Successfully Removed From The Compare', 'Successfully Changed The Color', 'Coupon Found', 'No Coupon Found', 'Coupon Already Applied', 'THANK YOU FOR YOUR PURCHASE.', 'We\'ll email you an order confirmation with details and tracking info.', 1, 8, '15587771131554048228onepiece.jpeg', 'Already Added To Cart', 5, 5, 1, 1, 1, 1, 'Pay with cash upon delivery.', 'Pay via your PayPal account.', 'Pay via your Credit Card.', '#ffffff', '#143250', '#02020c', 1, '#ff5500', '#02020c', 0, 0, 'test_172371aa837ae5cad6047dc3052', 'test_4ac5a785e25fc596b67dbc5c267', 'Pay via your Instamojo account.', 0, 1, 0, 'pk_test_162a56d42131cbb01932ed0d2c48f9cb99d8e8e2', 'junnuns@gmail.com', 'Pay via your Paystack account.', 6, 1, '1566878455404.png', 1, 'NEWSLETTER', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita porro ipsa nulla, alias, ab minus.', '1567488562subscribe.jpg', '1598090088logo_mayra.png', '1567655174profile.jpg', '#666666', 0, 1, 0, 'shaon143-facilitator-1@gmail.com', '1598090089logo_mayra.png', 'tls', 'tkogux49985047638244', 'LhNGUUKE9xCQ9xY8', 'WEBSTAGING', 'Retail', 0, 'Pay via your Paytm account.', 'live', 0, 'test_5HcWVs9qc5pzy36H9Tu9mwAyats33J', 'Pay with Molly Payment.', 0, 'rzp_test_xDH74d48cwl8DF', 'cr0H1BiQ20hVzhpHfHuNbGri', 'Pay via your Razorpay account.', 0, 0, '<div style=\"text-align: center;\"><font size=\"5\"><br></font></div><h1 style=\"text-align: center;\"><font size=\"6\">UNDER MAINTENANCE</font></h1>');
 
 -- --------------------------------------------------------
 
@@ -1103,8 +1080,7 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `is_default`, `language`, `file`) VALUES
-(1, 1, 'English', '1570967282kjZ4U7oI.json'),
-(2, 0, 'RTL English', '1571461774YqGWmWmv.json');
+(1, 1, 'English', '1570967282kjZ4U7oI.json');
 
 -- --------------------------------------------------------
 
@@ -1122,13 +1098,6 @@ CREATE TABLE `messages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `conversation_id`, `message`, `sent_user`, `recieved_user`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Order OPN-1592966607-6AY2 has been paid. This message is for discussing the order', 0, NULL, '2020-06-24 02:43:48', '2020-06-24 02:43:48');
-
 -- --------------------------------------------------------
 
 --
@@ -1140,10 +1109,8 @@ CREATE TABLE `notifications` (
   `order_id` int(191) UNSIGNED DEFAULT NULL,
   `user_id` int(191) DEFAULT NULL,
   `vendor_id` int(191) DEFAULT NULL,
-  `admin_id` int(11) DEFAULT NULL,
   `product_id` int(191) DEFAULT NULL,
   `conversation_id` int(191) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1153,23 +1120,8 @@ CREATE TABLE `notifications` (
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `admin_id`, `product_id`, `conversation_id`, `type`, `is_read`, `created_at`, `updated_at`) VALUES
-(1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1, '2020-06-23 20:56:57', '2020-06-23 20:57:14'),
-(2, 1, NULL, 1, NULL, NULL, NULL, 'vendor', 1, '2020-06-24 02:43:48', '2020-06-25 00:51:37'),
-(3, NULL, 1, NULL, NULL, NULL, 1, 'user', 1, '2020-06-24 02:43:48', '2020-06-23 22:06:45'),
-(4, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, '2020-06-24 00:24:25', '2020-06-24 00:24:25'),
-(5, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-14 01:56:09', '2020-07-14 01:56:09'),
-(6, NULL, 3, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-14 09:28:21', '2020-07-14 09:28:21'),
-(7, NULL, 4, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-15 00:29:35', '2020-07-15 00:29:35'),
-(8, NULL, 5, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-15 06:08:31', '2020-07-15 06:08:31'),
-(9, NULL, 6, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-15 23:05:37', '2020-07-15 23:05:37'),
-(10, NULL, 7, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-16 02:46:05', '2020-07-16 02:46:05'),
-(11, NULL, 8, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-16 02:47:42', '2020-07-16 02:47:42'),
-(12, NULL, 9, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-23 22:38:22', '2020-07-23 22:38:22'),
-(13, NULL, 9, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-25 02:57:32', '2020-07-25 02:57:32'),
-(14, NULL, 10, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-25 03:21:46', '2020-07-25 03:21:46'),
-(15, NULL, 11, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-30 01:44:39', '2020-07-30 01:44:39'),
-(16, NULL, 12, NULL, NULL, NULL, NULL, NULL, 0, '2020-07-30 03:07:14', '2020-07-30 03:07:14');
+INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `product_id`, `conversation_id`, `is_read`, `created_at`, `updated_at`) VALUES
+(1, NULL, 1, NULL, NULL, NULL, 0, '2020-08-22 22:26:39', '2020-08-22 22:26:39');
 
 -- --------------------------------------------------------
 
@@ -1180,23 +1132,30 @@ INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `admin_id
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(191) DEFAULT NULL,
-  `vendor_id` int(191) NOT NULL,
   `cart` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `shipping` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pickup_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `totalQty` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `pay_amount` float NOT NULL,
   `txnid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `charge_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_number` varchar(255) NOT NULL,
   `payment_status` varchar(255) NOT NULL,
-  `customer_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `shipping_name` varchar(255) NOT NULL,
-  `shipping_country` varchar(191) NOT NULL,
-  `shipping_phone` varchar(255) NOT NULL,
-  `shipping_address` varchar(255) NOT NULL,
-  `shipping_city` varchar(255) NOT NULL,
-  `shipping_zip` varchar(255) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `customer_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `customer_country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_phone` varchar(255) NOT NULL,
+  `customer_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_zip` varchar(255) DEFAULT NULL,
+  `shipping_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shipping_country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shipping_phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shipping_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shipping_city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shipping_zip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `order_note` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `coupon_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `coupon_discount` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1209,25 +1168,12 @@ CREATE TABLE `orders` (
   `currency_value` double NOT NULL,
   `shipping_cost` double NOT NULL,
   `packing_cost` double NOT NULL DEFAULT '0',
+  `tax` int(191) NOT NULL,
   `dp` tinyint(1) NOT NULL DEFAULT '0',
   `pay_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `vendor_shipping_id` int(191) NOT NULL DEFAULT '0',
-  `vendor_packing_id` int(191) NOT NULL DEFAULT '0',
-  `paid` int(11) NOT NULL DEFAULT '0',
-  `broadcasted` tinyint(1) NOT NULL DEFAULT '0',
-  `permalink` varchar(255) DEFAULT NULL,
-  `expired` int(11) NOT NULL DEFAULT '0'
+  `vendor_packing_id` int(191) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `vendor_id`, `cart`, `method`, `shipping`, `totalQty`, `pay_amount`, `txnid`, `charge_id`, `order_number`, `payment_status`, `customer_username`, `shipping_name`, `shipping_country`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_zip`, `order_note`, `coupon_code`, `coupon_discount`, `status`, `created_at`, `updated_at`, `affilate_user`, `affilate_charge`, `currency_sign`, `currency_value`, `shipping_cost`, `packing_cost`, `dp`, `pay_id`, `vendor_shipping_id`, `vendor_packing_id`, `paid`, `broadcasted`, `permalink`, `expired`) VALUES
-(1, 1, 1, 'BZh91AY&SY\nÛC\0ß@\0Pø++ü¿ïÿúP{ÝhÔ²ÄP\0hC\0\0\0 \0\0\0(jj¦¨@\0\0\0\0BTÓFLÕ\0\Z\n42\0\0\0 \0\0\0\" Ò0JFÐM\n6¦L4<\'é³â1Ä]$h}õ?\'GD*2ZùGÈvtÉ¨¥ 4¡t·öS¹:U-^¹¢&[?\nqT©· ëY¦âÎÇe,YâS¹\0 Hænfq¸²bÛbk®m\nÂì¨4ÐÒ³/{Ê*Ïè?2D¡aLdE6ÄÜÒiÄeBÃÚÁ©M¥~¡*tXÊúK¸6Nï~Bª¢UHwxFj*æjµê rH*\\±! ã\"J1\"H¶×»¹Ó\n$@[ÚÔØJB2EÔ\"£;¸E\\È PH°bHY%]ZÔ1UUô%Ü¾ü	@@Ø\n .iÂ¬ÀÉ)ÑÇX0ÐU<8Ö),¤:à@P(Qjj÷ö\Zï$ªÐ|3} Â+B´;,ç)8á]ÎNõ¢ø³n@¶6mÃhÈs)Y°)GM#MÜÌÍP§¦²MÎ¤Xá(=>£Ær=Å#D{@òú<ªò.Ú?qµIx+{¹j£Òµãêh $*}Óôï?ÒÝ¨ â{ÏûüO3#U$r=ÙRNÀÌu7v¸¡Åd5ò!,\nìè#µ²6kPýIÙC´Ñ\n¨Áv8637ÓHÀeV&5>ä>£\'t;»öñ¥ñ±A%±TmÜV²¹±ö73!I280ÈK]6;éS=i M¹w¨ÔlÑÇ¡ÎÛÈI$¡°MËæ.¥å\"ÝÍxâÚI9!D ñX¸ëÈÚå$\\$àu0 Û0U\ZËÖè ÏÁ\'hNô.åÐlØáÌÃÖ_~Ú{ü\nºahê)\"ÀKZXT-TDæ|s°Ë,U\nI1(J³+BÄB©xGÉpÆk_gÉ!¦^¡×ÚOä±°Ó0<±õëwÊ¥óyÌæGÓl©¬Ï*¥F´ÀïZÙ\Z)ÙgK!2F9ÃJçq\ZÄ9çéémGêAûoÝK31!4«H¹,\n	µ&¦G~|¡àAUzKXÐpbP\\÷Áxspo¼ÝÜÃÒ27(ÈO©C]f>H©@²2kôKîÂûÆyt0ËCeÈ!**(ºäâOÜ|»H>Ã¬¸$ÃxÝ#w5Äkë6ò£ÖrrlAcÿrE8P\nÛC', NULL, 'shipto', '1', 25, NULL, NULL, 'OPN-1592966607-6AY2', 'Completed', 'steembestseller', 'Daniel Sapkota', 'Barbados', '343535', 'Pasang Lahmu', 'BOudha', '4500', NULL, NULL, NULL, 'pending', '2020-06-23 20:58:27', '2020-06-23 20:58:27', NULL, NULL, 'STEEM', 1, 0, 0, 0, NULL, 0, 0, 0, 1, NULL, 0),
-(2, 1, 1, 'BZh91AY&SYÅ_ö?\0¢ß@\0Pø;;ô¿ïÿúP{ÝL±t5OÔOPÚHÐÐ\0\0\0\0É¡(\r\0\0\0\0\0\0RR\r\0ÐÑ È4\0h4õ\0\0\0\0\0\0\0\0\0$BBi¦M\r	=!4mJ	Ù	.\'ÙÚDLÂ7	cÖñîgÏ&E-|#öÝIÈdÄCÙP££eì¥è0gUÙÐg»¥Þ\Zÿ\nb°©3I©³iY{L¨åÙnÂ¸\0â	|0ÚW@ I4 Iy³Ê«Î\0ÀÐ\Z»)«2îÌÁây%è2Á\0ÛË:ÎXØª=Q,µìÐatÁ6°iÛª@àA¥T*A°³´Z¨h±aS4µ¦Õà2ÄZ»¾9q.@ã\nIA*T qÄ\nMQe§BAf-BÁdwI¤­ceJbô\n¾-a_ aR«v%gÆ,R²·\\ÍA(h´+TÁe¥¢n±j	## ÀZ(\n@@T÷OwQ;a!f	-ìHGè1²ªMôDq%êY(_XÔd «\ZwV/v±¨^XeÁT&)D»2¶1i¦S&¹gªel38³.äX§ÑëÐqâ§	cÜ©c°\0õ#ï³ÔÀþøV%ä¯ïfäyÞÆ\r¥£ÉL`\nÊØBÑ°x£°2qdÖn9p&)Ìâ½Ö)IÀ8\ZÆÞÀ6rZ\r~d#°feÊHì`l>f\rM¦zGÒÆÄh<,Í4Ø\'P[,}ËìÙ²ÌÌÈgYõ  !ù\rO$b1Ãc;2Ä¶+\r¼\n÷X<O¡´ë4,4Í$ÈàÊu!,Æt$Â0tÂE%¬açO1E&FJ<A¨ØÈ9$£À\'# ||E³µ{Uä	6;ðqC\ZD òÞtäx`©\\gC\"\rBITÖâØEõ$à¹±s6ù^ÕÀ®Þgw!/â.µ­ÅEìt\\Iì°Ë,A$Æ aD©Ë7µ.@X,¤p,×3yÿþbÙØPÓ1`ÈÏÞ[_ÑfQúv«¹Ð\\?FñX*¬Aöéd©­ÍÙÞºÇN³o3ÚÀÔe¡L£!AÐi`âA\\A¾}×èû¢àD¹R #\"0(H´m	CIBl$ÞhwëËý%®	w¡H@A	FT\ZNnÍäwsdFÕsCIå(ÉdZµ(.\Zö¥õaÃ=ÝÆZl:.Ð©R$G~£åÀýÉVBmqj\rL\Z½/Q÷ÎôOÀ\'$\"j¹\"(Hb¯û', NULL, 'shipto', '1', 6.3, NULL, NULL, 'OPN-1592991287-TTOB', 'Pending', 'steembestseller', 'Daniel Sapkota', 'Bangladesh', '343535', 'Pasang Lahmu', 'BOudha', '4500', NULL, NULL, NULL, 'pending', '2020-06-24 03:49:47', '2020-06-24 03:49:47', NULL, NULL, 'STEEM', 1, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 1),
-(3, 1, 1, 'BZh91AY&SYåu\0¡_@\0Pø;;ô¿ïÿúP{Ý\02É JÀ\0\0\0\0\0\0\0BbdT\00M@Ði¦@\0I©$M\0\Z\04@`\0\0\0\0\0\0\0\"I¡4Â§¦¦IêÓS@=\'£j	\r£\0e&s¸ÊT±íqò{ûØÉEK_Aÿc/RIô!§ëöÔ#n¨þÆ&ua´ê*f`ãmT¥Y\'àÅ¯@£¦¦ÝÅhho:î2\\ßD.Ër+`ÐÉ´ ô;e&$!)~;Xô²@\Z@ÓCXtÕ{Aàyõ`ÁmçJÒXØª µqú.&Ð6\r;bõAí*ÔQ ;Eª6«0c@ËZmW;±%Q{ÕVð£B4,Q0I$=I!+(4µbéâ1»\0ñlÉÊª18w¶Ê*Åé52|ZÂ¾AJ¬)Ø¦V1b»¥â¿Eû M lÐL@FP­PSr!Eûm±j	##À]u¢¤dóÁïð\'t$-%Áÿ#¿0Ub¸X<oamA6\r²á\n¬è7äÐK¥Eâ]àY¡JÂ¼CÍ¢*RÁL]$B¹^,iFóõ?_êq?Ásâdý?°ìþfOÆÏSüó<ìKÊ¿ÉÑéxW63øÜ@,æÅ²ï6Ë\ZÎÒ\'qâzä8MC±]NkåbC¨ìnäâ`×÷!hXùí¤L\r§è`ÔÜi¨4}lmFÁáhl`Ó`|\0¶r.\\ÔÞ_nØÉ0Ë-\rñ>Ä?1©ãÌF8ô¬irXÅa·^ëÀúaa¦l#3©	h3¹&¸öð­xVÐôä}?q©$îÑÏ©È×ÖI(ò	ÉÈ |þÛî_ÙyM¤lÐÆ<Ã#Lìwèy`©\'s$Z©­bØEö$â½ê6n8t3zfp½ÝOA/$\\	k[Ù$ì\\ÉåaYTQ¦,ÞJÔ¹`²^BÀ´]Nòm\\:o$jM?\"{-4&fUúÅ®n¤£`ÝÃÂV!ËÅ®Ë%Mm¨ýÍËÄxÔñ8×C½Q2Fq¥1ºú{ïÝûßªÌ\ZTdcF	HBPÒ`Ð	8Úôþ	Eë]ÔÅÍÄ  £aDBëáÀïÕÀY¼ÚNå4åsa²zE2²ZÜFÆ¾ô¾Ì1¼gËÞgfÓº÷%J`:\"9öN\'ü$	Y|Ú ÔÉW¥ì2¿ãÙù°\nJA©þ.äp¡!Ê*ë', NULL, 'shipto', '3', 60, NULL, NULL, 'OPN-1593072120-IjO4', 'Pending', 'steembestseller', 'Daniel Sapkota', 'Afghanistan', '343535', '343535', 'BOudha', '4500', NULL, NULL, NULL, 'pending', '2020-06-25 02:17:00', '2020-06-25 02:17:00', NULL, NULL, 'STEEM', 1, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 1),
-(4, 1, 1, 'BZh91AY&SYöèF£\0¢ß@\0Pø;;ô¿ïÿúP{Ý1Ë (h#\0\0\0\0\0\0\0\0	@	Ê2\0h4\Zh\0\0&¤%À!\0ÄÀ\0\0\0\0\0\0\0\0\0HL\Zh##CM4m!§¡©A!`Õ5\0ÈçI;|±ßsÌððòFK^CýçI ò!÷ó¤#:Y)ÛýÓ¢Ü\r^pMD¶¿\nmR©»sYÂMvhAqs+Ä§\0\"\"ó2{ÃÄì%zM\"HB^-±øR\nxÕ$À10f\'	n¥8DÀf\nss¯pR^ªÕ|^\"`(1ÆY\\»4@¦ö¹liUAâIT&^bÎð¤J*5TDq40ÀÆ aKbJ(pèdIF52)tm|,çÀÄK{Z	HFHºTgw«°!Ò,GX^­jUUìôó_èJÚÀmÄ\0éeK\nÕ0YyF¢k1j	## ÀZ  ,wÏoq;!!^	-ÌHGÄc6ß)&ê&úÚIzYs[êGjcJÆ©¬ßaDA´£¦°zÌ|Û2ÅD)»hÈ¤ß6fof5¬Sô}zN÷xÌ>å{\0òõyåw,_H½G<¸Ò§<ÉBª%ã~NB§ÔÛ?àÎ¼âIµÏØø/ØÄÞ¤NKÝRNÀÈu6qaCE×ÀqSõÎX2ÆFÃ£Î¦hÄvX°i°9Î°N`uè£s\\\r²4`§)ý !ø\rODZ-ÃJ[©-£nÂºåcÔy\ræ%F¤ÎD%ÎÄEÃÌgpðzÔËu3	»N\'ÐjI;4rÔâeÈ³·qÖI(wÞX/¨Yó^³ÑxM ¶9!\"xãLêvÐï±Iù7È;ò	%Q¬pµlô$àµÔlØnÐ¾ê£7Nz4Âèê)\"à%¬®ªq\\ãQILH aÇkaBGa]N#¦å¼R8Sqö3[µ|Q\Zeª~õX\\4ËÏhÖèé°ÐªPm41ùÈè4ÛU öcT¨Öaª>U¼vÈÞp¦èC=VÉd2Do,kK»>ñAïHÆÄaBE&Ð44&ÂMÆ\'\\´ú©Á.¢ø¸ØB°J1(D-{ Ä;jà*ÝçSfbûÓHÄØ c .11\"¥Õáeù¢¥äb×±/»mîè_geÌ!**(°häOÜzp>D*ñ6¹5Eä\r]Eè2ëêöÛÛð\nJA©ö.äp¡!íÐF', NULL, 'shipto', '1', 150, NULL, NULL, 'OPN-1593085217-LerI', 'Pending', 'steembestseller', 'Daniel Sapkota', 'Barbados', '343535', '343535', 'BOudha', '4500', NULL, NULL, NULL, 'pending', '2020-06-25 05:55:17', '2020-06-25 05:55:17', NULL, NULL, 'STEEM', 1, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1247,6 +1193,28 @@ CREATE TABLE `order_tracks` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `packages`
+--
+
+CREATE TABLE `packages` (
+  `id` int(191) NOT NULL,
+  `user_id` int(191) NOT NULL DEFAULT '0',
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `subtitle` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `price` double NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `packages`
+--
+
+INSERT INTO `packages` (`id`, `user_id`, `title`, `subtitle`, `price`) VALUES
+(1, 0, 'Default Packaging', 'Default packaging by store', 0),
+(2, 0, 'Gift Packaging', 'Exclusive Gift packaging', 15);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pages`
 --
 
@@ -1260,6 +1228,15 @@ CREATE TABLE `pages` (
   `header` tinyint(1) NOT NULL DEFAULT '0',
   `footer` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`id`, `title`, `slug`, `details`, `meta_tag`, `meta_description`, `header`, `footer`) VALUES
+(1, 'About Us', 'about', '<div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 1</font><br></h2><p><span style=\"font-weight: 700;\">Lorem Ipsum</span>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div><div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 2</font><br></h2><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p></div><br helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 3</font><br></h2><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p><p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p></div><h2 helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-weight:=\"\" 700;=\"\" line-height:=\"\" 1.1;=\"\" color:=\"\" rgb(51,=\"\" 51,=\"\" 51);=\"\" margin:=\"\" 0px=\"\" 15px;=\"\" font-size:=\"\" 30px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\" style=\"font-family: \" 51);\"=\"\"><font size=\"6\">Title number 9</font><br></h2><p helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', NULL, NULL, 1, 0),
+(2, 'Privacy & Policy', 'privacy', '<div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><img src=\"https://i.imgur.com/BobQuyA.jpg\" width=\"591\"></h2><h2><font size=\"6\">Title number 1</font></h2><p><span style=\"font-weight: 700;\">Lorem Ipsum</span>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div><div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 2</font><br></h2><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p></div><br helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 3</font><br></h2><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p><p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p></div><h2 helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-weight:=\"\" 700;=\"\" line-height:=\"\" 1.1;=\"\" color:=\"\" rgb(51,=\"\" 51,=\"\" 51);=\"\" margin:=\"\" 0px=\"\" 15px;=\"\" font-size:=\"\" 30px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\" 51);\"=\"\" style=\"font-family: \"><font size=\"6\">Title number 9</font><br></h2><p helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 'test,test1,test2,test3', 'Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', 0, 1),
+(3, 'Terms & Condition', 'terms', '<div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 1</font><br></h2><p><span style=\"font-weight: 700;\">Lorem Ipsum</span>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div><div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 2</font><br></h2><p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p></div><br helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><div helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\"><h2><font size=\"6\">Title number 3</font><br></h2><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p><p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p></div><h2 helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-weight:=\"\" 700;=\"\" line-height:=\"\" 1.1;=\"\" color:=\"\" rgb(51,=\"\" 51,=\"\" 51);=\"\" margin:=\"\" 0px=\"\" 15px;=\"\" font-size:=\"\" 30px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\" 51);\"=\"\" style=\"font-family: \"><font size=\"6\">Title number 9</font><br></h2><p helvetica=\"\" neue\",=\"\" helvetica,=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" font-style:=\"\" normal;=\"\" font-variant-ligatures:=\"\" font-variant-caps:=\"\" font-weight:=\"\" 400;=\"\" letter-spacing:=\"\" orphans:=\"\" 2;=\"\" text-align:=\"\" start;=\"\" text-indent:=\"\" 0px;=\"\" text-transform:=\"\" none;=\"\" white-space:=\"\" widows:=\"\" word-spacing:=\"\" -webkit-text-stroke-width:=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);=\"\" text-decoration-style:=\"\" initial;=\"\" text-decoration-color:=\"\" initial;\"=\"\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 't1,t2,t3,t4', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1309,25 +1286,70 @@ CREATE TABLE `pagesettings` (
 --
 
 INSERT INTO `pagesettings` (`id`, `contact_success`, `contact_email`, `contact_title`, `contact_text`, `side_title`, `side_text`, `street`, `phone`, `fax`, `email`, `site`, `slider`, `service`, `featured`, `small_banner`, `best`, `top_rated`, `large_banner`, `big`, `hot_sale`, `partners`, `review_blog`, `best_seller_banner`, `best_seller_banner_link`, `big_save_banner`, `big_save_banner_link`, `bottom_small`, `flash_deal`, `best_seller_banner1`, `best_seller_banner_link1`, `big_save_banner1`, `big_save_banner_link1`, `featured_category`) VALUES
-(1, 'Success! Thanks for contacting us, we will get back to you shortly.', 'admin@geniusocean.com', '<h4 class=\"subtitle\" style=\"margin-bottom: 6px; font-weight: 600; line-height: 28px; font-size: 28px; text-transform: uppercase;\">WE\'D LOVE TO</h4><h2 class=\"title\" style=\"margin-bottom: 13px;font-weight: 600;line-height: 50px;font-size: 40px;color: #0f78f2;text-transform: uppercase;\">HEAR FROM YOU</h2>', '<span style=\"color: rgb(119, 119, 119);\">Send us a message and we\' ll respond as soon as possible</span><br>', '<h4 class=\"title\" style=\"margin-bottom: 10px; font-weight: 600; line-height: 28px; font-size: 28px;\">Let\'s Connect</h4>', '<span style=\"color: rgb(51, 51, 51);\">Get in touch with us</span>', '3584 Hickory Heights Drive ,Hanover MD 21076, USA', '00 000 000 000', '00 000 000 000', 'admin@geniusocean.com', 'https://geniusocean.com/', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, '1568889138banner1.jpg', 'http://google.com', '1565150264banner3.jpg', 'http://google.com', 1, 1, '1568889138banner2.jpg', 'http://google.com', '1565150264banner4.jpg', 'http://google.com', 1);
+(1, 'Success! Thanks for contacting us, we will get back to you shortly.', 'admin@mayrasales.com', '<h4 class=\"subtitle\" style=\"margin-bottom: 6px; font-weight: 600; line-height: 28px; font-size: 28px; text-transform: uppercase;\">WE\'D LOVE TO</h4><h2 class=\"title\" style=\"margin-bottom: 13px;font-weight: 600;line-height: 50px;font-size: 40px;color: #0f78f2;text-transform: uppercase;\">HEAR FROM YOU</h2>', '<span style=\"color: rgb(119, 119, 119);\">Send us a message and we\' ll respond as soon as possible</span><br>', '<h4 class=\"title\" style=\"margin-bottom: 10px; font-weight: 600; line-height: 28px; font-size: 28px;\">Let\'s Connect</h4>', '<span style=\"color: rgb(51, 51, 51);\">Get in touch with us</span>', '3584 Hickory Heights Drive ,Hanover MD 21076, USA', '00 000 000 000', '00 000 000 000', 'admin@mayrasales.com', 'https://mayrasales.com/', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, '1568889138banner1.jpg', 'http://google.com', '1565150264banner3.jpg', 'http://google.com', 1, 1, '1568889138banner2.jpg', 'http://google.com', '1565150264banner4.jpg', 'http://google.com', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prices`
+-- Table structure for table `partners`
 --
 
-CREATE TABLE `prices` (
-  `id` int(11) NOT NULL DEFAULT '1',
-  `steem` double NOT NULL
+CREATE TABLE `partners` (
+  `id` int(191) NOT NULL,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `prices`
+-- Dumping data for table `partners`
 --
 
-INSERT INTO `prices` (`id`, `steem`) VALUES
-(1, 0.2);
+INSERT INTO `partners` (`id`, `photo`, `link`) VALUES
+(1, '1563165366brand-1.png', 'https://www.google.com/'),
+(2, '1563165383brand-2.png', 'https://www.google.com/'),
+(3, '1563165393brand-3.png', 'https://www.google.com/'),
+(4, '1563165400brand-1.png', NULL),
+(5, '1563165411brand-2.png', NULL),
+(6, '1563165444brand-3.png', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_gateways`
+--
+
+CREATE TABLE `payment_gateways` (
+  `id` int(191) NOT NULL,
+  `subtitle` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` tinyint(10) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment_gateways`
+--
+
+INSERT INTO `payment_gateways` (`id`, `subtitle`, `title`, `details`, `status`) VALUES
+(47, NULL, 'Esewa', 'Send to 9860234454<br>', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pickups`
+--
+
+CREATE TABLE `pickups` (
+  `id` int(191) UNSIGNED NOT NULL,
+  `location` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pickups`
+--
+
+INSERT INTO `pickups` (`id`, `location`) VALUES
+(2, 'Kathmandu');
 
 -- --------------------------------------------------------
 
@@ -1355,9 +1377,7 @@ CREATE TABLE `products` (
   `size_price` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `color` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `price` double NOT NULL,
-  `usd_price` double NOT NULL,
   `previous_price` double DEFAULT NULL,
-  `usd_previous_price` double DEFAULT NULL,
   `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `stock` int(191) DEFAULT NULL,
   `policy` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -1395,17 +1415,34 @@ CREATE TABLE `products` (
   `whole_sell_qty` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `whole_sell_discount` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `is_catalog` tinyint(1) NOT NULL DEFAULT '0',
-  `catalog_id` int(191) NOT NULL DEFAULT '0',
-  `broadcasted` tinyint(1) NOT NULL DEFAULT '0',
-  `permalink` varchar(255) DEFAULT NULL
+  `catalog_id` int(191) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `sku`, `product_type`, `affiliate_link`, `user_id`, `category_id`, `subcategory_id`, `childcategory_id`, `attributes`, `name`, `slug`, `photo`, `thumbnail`, `file`, `size`, `size_qty`, `size_price`, `color`, `price`, `usd_price`, `previous_price`, `usd_previous_price`, `details`, `stock`, `policy`, `status`, `views`, `tags`, `features`, `colors`, `product_condition`, `ship`, `is_meta`, `meta_tag`, `meta_description`, `youtube`, `type`, `license`, `license_qty`, `link`, `platform`, `region`, `licence_type`, `measure`, `featured`, `best`, `top`, `hot`, `latest`, `big`, `trending`, `sale`, `created_at`, `updated_at`, `is_discount`, `discount_date`, `whole_sell_qty`, `whole_sell_discount`, `is_catalog`, `catalog_id`, `broadcasted`, `permalink`) VALUES
-(2, 'RD945961Ak', 'normal', NULL, 1, 20, NULL, NULL, NULL, 'FIFA 20', 'fifa-20-rd945961ak', '1592984609wBscJcfo.png', '1592984609Ug4Q8Ejg.jpg', NULL, NULL, NULL, NULL, NULL, 150, 30, 4.62, NULL, 'desc<br>', NULL, 'policty<br>', 1, 14, NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-06-24 01:58:29', '2020-06-25 00:41:14', 0, NULL, NULL, NULL, 0, 0, 0, NULL);
+INSERT INTO `products` (`id`, `sku`, `product_type`, `affiliate_link`, `user_id`, `category_id`, `subcategory_id`, `childcategory_id`, `attributes`, `name`, `slug`, `photo`, `thumbnail`, `file`, `size`, `size_qty`, `size_price`, `color`, `price`, `previous_price`, `details`, `stock`, `policy`, `status`, `views`, `tags`, `features`, `colors`, `product_condition`, `ship`, `is_meta`, `meta_tag`, `meta_description`, `youtube`, `type`, `license`, `license_qty`, `link`, `platform`, `region`, `licence_type`, `measure`, `featured`, `best`, `top`, `hot`, `latest`, `big`, `trending`, `sale`, `created_at`, `updated_at`, `is_discount`, `discount_date`, `whole_sell_qty`, `whole_sell_discount`, `is_catalog`, `catalog_id`) VALUES
+(1, 'hVZ6750BAK', 'normal', NULL, 1, 8, NULL, NULL, NULL, 'FIFA 20', 'fifa-20-hvz6750bak', '1598156796m1IqrPWh.png', '1598156796L8l2Tiwa.jpg', NULL, NULL, NULL, NULL, NULL, 100, 0, 'Best game<br>', NULL, 'No Return<br>', 1, 1, 'fifa,20', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-22 22:41:36', '2020-08-22 23:02:23', 0, NULL, NULL, NULL, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_clicks`
+--
+
+CREATE TABLE `product_clicks` (
+  `id` int(191) NOT NULL,
+  `product_id` int(191) NOT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_clicks`
+--
+
+INSERT INTO `product_clicks` (`id`, `product_id`, `date`) VALUES
+(1, 1, '2020-08-23');
 
 -- --------------------------------------------------------
 
@@ -1419,8 +1456,7 @@ CREATE TABLE `ratings` (
   `product_id` int(191) NOT NULL,
   `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `rating` tinyint(2) NOT NULL,
-  `review_date` datetime NOT NULL,
-  `broadcasted` int(11) NOT NULL DEFAULT '0'
+  `review_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1441,6 +1477,22 @@ CREATE TABLE `replies` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `id` int(191) NOT NULL,
+  `user_id` int(191) NOT NULL,
+  `product_id` int(192) NOT NULL,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -1449,9 +1501,7 @@ CREATE TABLE `reviews` (
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `subtitle` text COLLATE utf8mb4_unicode_ci,
-  `details` text COLLATE utf8mb4_unicode_ci,
-  `broadcasted` tinyint(1) NOT NULL DEFAULT '0',
-  `permalink` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `details` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1492,7 +1542,7 @@ CREATE TABLE `seotools` (
 --
 
 INSERT INTO `seotools` (`id`, `google_analytics`, `meta_keys`) VALUES
-(1, '<script>//Google Analytics Scriptfffffffffffffffffffffffssssfffffs</script>', 'mayra');
+(1, '<script>//Google Analytics Scriptfffffffffffffffffffffffssssfffffs</script>', 'Mayra,Sales');
 
 -- --------------------------------------------------------
 
@@ -1513,6 +1563,10 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `user_id`, `title`, `details`, `photo`) VALUES
+(2, 0, 'FREE SHIPPING', 'Free Shipping All Order', '1561348133service1.png'),
+(3, 0, 'PAYMENT METHOD', 'Secure Payment', '1561348138service2.png'),
+(4, 0, '30 DAY RETURNS', '30-Day Return Policy', '1561348143service3.png'),
+(5, 0, 'HELP CENTER', '24/7 Support System', '1561348147service4.png'),
 (6, 13, 'FREE SHIPPING', 'Free Shipping All Order', '1563247602brand1.png'),
 (7, 13, 'PAYMENT METHOD', 'Secure Payment', '1563247614brand2.png'),
 (8, 13, '30 DAY RETURNS', '30-Day Return Policy', '1563247620brand3.png'),
@@ -1529,17 +1583,16 @@ CREATE TABLE `shippings` (
   `user_id` int(191) NOT NULL DEFAULT '0',
   `title` text,
   `subtitle` text,
-  `price` double NOT NULL DEFAULT '0',
-  `usd_price` double NOT NULL DEFAULT '0'
+  `price` double NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shippings`
 --
 
-INSERT INTO `shippings` (`id`, `user_id`, `title`, `subtitle`, `price`, `usd_price`) VALUES
-(1, 0, 'Free Shipping', '(10 - 12 days)', 0, 0),
-(2, 0, 'Express Shipping', '(5 - 6 days)', 10, 13);
+INSERT INTO `shippings` (`id`, `user_id`, `title`, `subtitle`, `price`) VALUES
+(1, 0, 'Free Shipping', '(10 - 12 days)', 0),
+(2, 0, 'Express Shipping', '(5 - 6 days)', 10);
 
 -- --------------------------------------------------------
 
@@ -1572,6 +1625,7 @@ CREATE TABLE `sliders` (
 
 INSERT INTO `sliders` (`id`, `subtitle_text`, `subtitle_size`, `subtitle_color`, `subtitle_anime`, `title_text`, `title_size`, `title_color`, `title_anime`, `details_text`, `details_size`, `details_color`, `details_anime`, `photo`, `position`, `link`) VALUES
 (8, 'World Fashion', '24', '#ffffff', 'slideInUp', 'Get Up to 40% Off', '60', '#ffffff', 'slideInDown', 'Highlight your personality  and look with these fabulous and exquisite fashion.', '16', '#ffffff', 'slideInRight', '1564224870012.jpg', 'slide-three', 'https://www.google.com/'),
+(9, 'World Fashion', '24', '#ffffff', 'slideInUp', 'Get Up to 40% Off', '60', '#ffffff', 'slideInDown', 'Highlight your personality  and look with these fabulous and exquisite fashion.', '16', '#ffffff', 'slideInDown', '1564224753007.jpg', 'slide-one', 'https://www.google.com/'),
 (10, 'World Fashion', '24', '#c32d2d', 'slideInUp', 'Get Up to 40% Off', '60', '#bc2727', 'slideInDown', 'Highlight your personality  and look with these fabulous and exquisite fashion.', '16', '#c51d1d', 'slideInLeft', '156422490902.jpg', 'slide-one', 'https://www.google.com/');
 
 -- --------------------------------------------------------
@@ -1629,7 +1683,7 @@ CREATE TABLE `social_providers` (
 --
 
 INSERT INTO `social_providers` (`id`, `user_id`, `provider_id`, `provider`, `created_at`, `updated_at`) VALUES
-(2, 12, '128921545532962', 'facebook', '2020-07-30 03:07:14', '2020-07-30 03:07:14');
+(2, 1, '128921545532962', 'facebook', '2020-08-22 22:26:39', '2020-08-22 22:26:39');
 
 -- --------------------------------------------------------
 
@@ -1643,6 +1697,39 @@ CREATE TABLE `subcategories` (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subcategories`
+--
+
+INSERT INTO `subcategories` (`id`, `category_id`, `name`, `slug`, `status`) VALUES
+(2, 4, 'TELEVISION', 'television', 1),
+(3, 4, 'REFRIGERATOR', 'refrigerator', 1),
+(4, 4, 'WASHING MACHINE', 'washing-machine', 1),
+(5, 4, 'AIR CONDITIONERS', 'air-conditioners', 1),
+(6, 5, 'ACCESSORIES', 'accessories', 1),
+(7, 5, 'BAGS', 'bags', 1),
+(8, 5, 'CLOTHINGS', 'clothings', 1),
+(9, 5, 'SHOES', 'shoes', 1),
+(10, 7, 'APPLE', 'apple', 1),
+(11, 7, 'SAMSUNG', 'samsung', 1),
+(12, 7, 'LG', 'lg', 1),
+(13, 7, 'SONY', 'sony', 1),
+(14, 6, 'DSLR', 'dslr', 1),
+(15, 6, 'Camera Phone', 'camera-phone', 1),
+(16, 6, 'Action Camera', 'animation-camera', 1),
+(17, 6, 'Digital Camera', 'digital-camera', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subscribers`
+--
+
+CREATE TABLE `subscribers` (
+  `id` int(191) NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1659,8 +1746,6 @@ CREATE TABLE `subscriptions` (
   `price` double NOT NULL DEFAULT '0',
   `days` int(11) NOT NULL,
   `allowed_products` int(11) NOT NULL DEFAULT '0',
-  `percentage_commission` int(11) NOT NULL DEFAULT '0',
-  `custom_shop` tinyint(1) NOT NULL,
   `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1668,26 +1753,9 @@ CREATE TABLE `subscriptions` (
 -- Dumping data for table `subscriptions`
 --
 
-INSERT INTO `subscriptions` (`id`, `title`, `currency`, `currency_code`, `price`, `days`, `allowed_products`, `percentage_commission`, `custom_shop`, `details`) VALUES
-(9, 'Premium', 'STEEM', 'STEEM', 100, 30, 0, 0, 1, '<div>The basic plan has a maximum of&nbsp; 2 active listings, a 15% comission, and no custom shop. Upgrade to this plan for following benefits:<br></div><div><br></div><div>1. No Markup</div><div>2. Custom Shop</div><div>3. Unlimited Listing<br></div>');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subscription_payments`
---
-
-CREATE TABLE `subscription_payments` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `subscription_id` int(11) NOT NULL,
-  `paid` int(11) NOT NULL DEFAULT '0',
-  `memo` varchar(255) NOT NULL,
-  `shop_name` text NOT NULL,
-  `shop_message` text NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `subscriptions` (`id`, `title`, `currency`, `currency_code`, `price`, `days`, `allowed_products`, `details`) VALUES
+(6, 'Premium', '$', 'USD', 120, 90, 90, '<span style=\"color: rgb(0, 0, 0); font-family: \" open=\"\" sans\",=\"\" arial,=\"\" sans-serif;=\"\" text-align:=\"\" justify;\"=\"\">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span><br>'),
+(8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>');
 
 -- --------------------------------------------------------
 
@@ -1707,7 +1775,6 @@ CREATE TABLE `users` (
   `fax` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `api_token` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1745,10 +1812,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`, `phone`, `fax`, `email`, `password`, `api_token`, `remember_token`, `created_at`, `updated_at`, `is_provider`, `status`, `verification_link`, `email_verified`, `affilate_code`, `affilate_income`, `shop_name`, `owner_name`, `shop_number`, `shop_address`, `reg_number`, `shop_message`, `shop_details`, `shop_image`, `f_url`, `g_url`, `t_url`, `l_url`, `is_vendor`, `f_check`, `g_check`, `t_check`, `l_check`, `mail_sent`, `shipping_cost`, `current_balance`, `date`, `ban`) VALUES
-(8, 'Daniel Sapkota', NULL, NULL, NULL, NULL, 'Boudha', '985132542952', NULL, 'danielsapkota13@gmail.com', '$2y$10$LVDle9jgASMwNMlBFCuXfO1s1s2bodqdCDmuZsWxOF.EjQyQwPWAu', 'kFqwjmu84L5Fh69UPxsjlhTSP1ZQupOcXn0rJZTRhbtA6Ehe9BsnmnFVg9hc', 'LUh7hnSOytUISBCzfc8OxL9stmodGvDzhFJ7GxIXEIxLVVcdXqZaGBRld6nK', '2020-07-16 02:47:42', '2020-07-25 01:41:08', 0, 0, '1fb6f8bd865cc4f18a90e08cb292a724', 'Yes', '0e123e7fa3b658afa658734e897d9336', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
-(10, 'Daniel Sapkota', NULL, NULL, NULL, NULL, 'Boudha', '985132542952', NULL, 'n00bdan13@gmail.com', '$2y$10$i6QhC.Myv8waDo1BZ.VBJeIbCbYlEoacWBv8UILL3.okKSmz4llEm', 'AyqheV02JYXBXdB8QnJARRznRLduE2kaRhNA2931lcaKTpvI4bdFCJK6XswH', NULL, '2020-07-25 03:21:46', '2020-07-25 03:21:46', 0, 0, '6693aacad831a3f2d51622ba635319a9', 'Yes', '355ccc857ef50ba2bdb684de846afab3', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
-(12, 'John Daniel', 'https://graph.facebook.com/v3.0/128921545532962/picture?width=1920', NULL, NULL, NULL, NULL, NULL, NULL, 'daniel@waterbot.xyz', NULL, 'bpinNgbAneTucc3utQmN53jwLWhXvtCBh2JoBtRXdN08ozFsb5V9xiX3vSYv', NULL, '2020-07-30 03:07:14', '2020-07-30 03:07:14', 1, 0, NULL, 'Yes', '5578261a8fc5c86a097368bb83121511', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`, `phone`, `fax`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `is_provider`, `status`, `verification_link`, `email_verified`, `affilate_code`, `affilate_income`, `shop_name`, `owner_name`, `shop_number`, `shop_address`, `reg_number`, `shop_message`, `shop_details`, `shop_image`, `f_url`, `g_url`, `t_url`, `l_url`, `is_vendor`, `f_check`, `g_check`, `t_check`, `l_check`, `mail_sent`, `shipping_cost`, `current_balance`, `date`, `ban`) VALUES
+(1, 'John Daniel', 'https://graph.facebook.com/v3.0/128921545532962/picture?width=1920', NULL, NULL, NULL, NULL, NULL, NULL, 'daniel@waterbot.xyz', NULL, NULL, '2020-08-22 22:26:39', '2020-08-22 22:35:31', 1, 0, NULL, 'Yes', '5578261a8fc5c86a097368bb83121511', 0, 'Test Shop', 'Daniel', '5344253', 'Boudha', NULL, 'Welcome to my shop', NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 1, 0, 0, '2048-01-08', 0);
 
 -- --------------------------------------------------------
 
@@ -1770,10 +1835,8 @@ CREATE TABLE `user_notifications` (
 --
 
 INSERT INTO `user_notifications` (`id`, `user_id`, `order_number`, `is_read`, `created_at`, `updated_at`) VALUES
-(1, 1, 'OPN-1592966607-6AY2', 0, '2020-06-23 20:58:27', '2020-06-23 20:58:27'),
-(2, 1, 'OPN-1592991287-TTOB', 0, '2020-06-24 03:49:47', '2020-06-24 03:49:47'),
-(3, 1, 'OPN-1593072120-IjO4', 0, '2020-06-25 02:17:00', '2020-06-25 02:17:00'),
-(4, 1, 'OPN-1593085217-LerI', 0, '2020-06-25 05:55:17', '2020-06-25 05:55:17');
+(1, 13, 'fFgw1573717404', 1, '2019-11-14 01:43:24', '2019-11-23 22:30:07'),
+(2, 13, '1g811573717871', 1, '2019-11-14 01:51:11', '2019-11-23 22:30:07');
 
 -- --------------------------------------------------------
 
@@ -1801,6 +1864,16 @@ CREATE TABLE `user_subscriptions` (
   `payment_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `user_subscriptions`
+--
+
+INSERT INTO `user_subscriptions` (`id`, `user_id`, `subscription_id`, `title`, `currency`, `currency_code`, `price`, `days`, `allowed_products`, `details`, `method`, `txnid`, `charge_id`, `created_at`, `updated_at`, `status`, `payment_number`) VALUES
+(81, 27, 5, 'Standard', '$', 'NGN', 60, 45, 25, '<ol><li>Lorem ipsum dolor sit amet<br></li><li>Lorem ipsum dolor sit ame<br></li><li>Lorem ipsum dolor sit am<br></li></ol>', 'Paystack', '688094995', NULL, '2019-10-09 21:32:57', '2019-10-09 21:32:57', 1, NULL),
+(84, 13, 5, 'Standard', '$', 'NGN', 60, 45, 500, '<ol><li>Lorem ipsum dolor sit amet<br></li><li>Lorem ipsum dolor sit ame<br></li><li>Lorem ipsum dolor sit am<br></li></ol>', 'Paystack', '242099342', NULL, '2019-10-10 02:35:29', '2019-10-10 02:35:29', 1, NULL),
+(85, 1, 8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>', 'Free', NULL, NULL, '2020-08-22 22:35:31', '2020-08-22 22:35:31', 1, NULL),
+(86, 1, 8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>', 'Free', NULL, NULL, '2020-08-22 22:35:52', '2020-08-22 22:35:52', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -1822,8 +1895,8 @@ CREATE TABLE `vendor_orders` (
 --
 
 INSERT INTO `vendor_orders` (`id`, `user_id`, `order_id`, `qty`, `price`, `order_number`, `status`) VALUES
-(1, 1, 1, 1, 25, 'OPN-1592966607-6AY2', 'pending'),
-(4, 1, 4, 1, 150, 'OPN-1593085217-LerI', 'pending');
+(1, 13, 1, 1, 130, 'fFgw1573717404', 'pending'),
+(2, 13, 2, 1, 130, '1g811573717871', 'pending');
 
 -- --------------------------------------------------------
 
@@ -1843,6 +1916,13 @@ CREATE TABLE `verifications` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `verifications`
+--
+
+INSERT INTO `verifications` (`id`, `user_id`, `attachments`, `status`, `text`, `admin_warning`, `warning_reason`, `created_at`, `updated_at`) VALUES
+(4, 13, '1573723849Baby.tux-800x800.png,1573723849Baby.tux-800x800.png', 'Verified', 'TEst', 0, NULL, '2019-11-14 03:30:49', '2019-11-14 03:34:06');
+
 -- --------------------------------------------------------
 
 --
@@ -1853,6 +1933,42 @@ CREATE TABLE `wishlists` (
   `id` int(191) UNSIGNED NOT NULL,
   `user_id` int(191) UNSIGNED NOT NULL,
   `product_id` int(191) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `wishlists`
+--
+
+INSERT INTO `wishlists` (`id`, `user_id`, `product_id`) VALUES
+(1, 22, 176),
+(2, 22, 102),
+(3, 22, 101),
+(4, 22, 97),
+(5, 22, 99);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdraws`
+--
+
+CREATE TABLE `withdraws` (
+  `id` int(191) NOT NULL,
+  `user_id` int(191) DEFAULT NULL,
+  `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `acc_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `iban` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `acc_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `swift` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `amount` float DEFAULT NULL,
+  `fee` float DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `status` enum('pending','completed','rejected') NOT NULL DEFAULT 'pending',
+  `type` enum('user','vendor') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1873,6 +1989,18 @@ ALTER TABLE `admin_languages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `admin_user_conversations`
+--
+ALTER TABLE `admin_user_conversations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_user_messages`
+--
+ALTER TABLE `admin_user_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `attributes`
 --
 ALTER TABLE `attributes`
@@ -1888,6 +2016,18 @@ ALTER TABLE `attribute_options`
 -- Indexes for table `banners`
 --
 ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1915,6 +2055,12 @@ ALTER TABLE `conversations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `counters`
+--
+ALTER TABLE `counters`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
@@ -1930,6 +2076,12 @@ ALTER TABLE `coupons`
 -- Indexes for table `currencies`
 --
 ALTER TABLE `currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email_templates`
+--
+ALTER TABLE `email_templates`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1987,6 +2139,12 @@ ALTER TABLE `order_tracks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `packages`
+--
+ALTER TABLE `packages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pages`
 --
 ALTER TABLE `pages`
@@ -1999,12 +2157,36 @@ ALTER TABLE `pagesettings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `partners`
+--
+ALTER TABLE `partners`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment_gateways`
+--
+ALTER TABLE `payment_gateways`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pickups`
+--
+ALTER TABLE `pickups`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `products` ADD FULLTEXT KEY `name` (`name`);
 ALTER TABLE `products` ADD FULLTEXT KEY `attributes` (`attributes`);
+
+--
+-- Indexes for table `product_clicks`
+--
+ALTER TABLE `product_clicks`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `ratings`
@@ -2016,6 +2198,12 @@ ALTER TABLE `ratings`
 -- Indexes for table `replies`
 --
 ALTER TABLE `replies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2073,15 +2261,15 @@ ALTER TABLE `subcategories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `subscriptions`
+-- Indexes for table `subscribers`
 --
-ALTER TABLE `subscriptions`
+ALTER TABLE `subscribers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `subscription_payments`
+-- Indexes for table `subscriptions`
 --
-ALTER TABLE `subscription_payments`
+ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2122,6 +2310,12 @@ ALTER TABLE `wishlists`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `withdraws`
+--
+ALTER TABLE `withdraws`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2136,30 +2330,50 @@ ALTER TABLE `admins`
 ALTER TABLE `admin_languages`
   MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `admin_user_conversations`
+--
+ALTER TABLE `admin_user_conversations`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `admin_user_messages`
+--
+ALTER TABLE `admin_user_messages`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `attribute_options`
 --
 ALTER TABLE `attribute_options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 --
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `childcategories`
 --
 ALTER TABLE `childcategories`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -2169,7 +2383,12 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `conversations`
 --
 ALTER TABLE `conversations`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `counters`
+--
+ALTER TABLE `counters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -2184,12 +2403,17 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `email_templates`
+--
+ALTER TABLE `email_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `faqs`
 --
 ALTER TABLE `faqs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `favorite_sellers`
 --
@@ -2209,42 +2433,67 @@ ALTER TABLE `generalsettings`
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_tracks`
 --
 ALTER TABLE `order_tracks`
   MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `packages`
+--
+ALTER TABLE `packages`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `pagesettings`
 --
 ALTER TABLE `pagesettings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `partners`
+--
+ALTER TABLE `partners`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `payment_gateways`
+--
+ALTER TABLE `payment_gateways`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `pickups`
+--
+ALTER TABLE `pickups`
+  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `product_clicks`
+--
+ALTER TABLE `product_clicks`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `ratings`
 --
@@ -2255,6 +2504,11 @@ ALTER TABLE `ratings`
 --
 ALTER TABLE `replies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
@@ -2299,47 +2553,52 @@ ALTER TABLE `social_providers`
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `subscribers`
+--
+ALTER TABLE `subscribers`
   MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `subscription_payments`
---
-ALTER TABLE `subscription_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_notifications`
 --
 ALTER TABLE `user_notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_subscriptions`
 --
 ALTER TABLE `user_subscriptions`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT for table `vendor_orders`
 --
 ALTER TABLE `vendor_orders`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `verifications`
 --
 ALTER TABLE `verifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `withdraws`
+--
+ALTER TABLE `withdraws`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

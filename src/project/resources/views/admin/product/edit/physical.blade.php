@@ -456,6 +456,22 @@
 
 
 						                        </div>
+
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<ul class="list">
+															<li>
+																<input name="size_check" type="checkbox" id="size-check" value="1" {{ !empty($data->size) ? "checked":"" }}>
+																<label for="size-check">{{ __('Allow Product Sizes') }}</label>
+															</li>
+														</ul>
+													</div>
+												</div>
 													<div class="{{ !empty($data->size) ? "":"showbox" }}" id="size-display">
 													<div class="row">
 															<div  class="col-lg-4">
@@ -698,7 +714,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-													<input name="usd_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{$data->usd_price}}" required="" min="0">
+														<input name="price" type="number" class="input-field" placeholder="e.g 20" step="0.1" min="0" value="{{round($data->price * $sign->value , 2)}}" required="">
 													</div>
 												</div>
 
@@ -710,7 +726,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-													<input name="usd_previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{$data->usd_previous_price}}" min="0">
+														<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="e.g 20" value="{{round($data->previous_price * $sign->value , 2)}}" min="0">
 													</div>
 												</div>
 												<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">

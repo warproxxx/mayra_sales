@@ -44,7 +44,7 @@
                         @include('includes.admin.form-both')
 
 
-                        <!-- <div class="row justify-content-center">
+                        <div class="row justify-content-center">
                             <div class="col-lg-3">
                               <div class="left-area">
                                 <h4 class="heading">
@@ -306,9 +306,9 @@
                                     </select>
                                   </div>
                             </div>
-                          </div> -->
+                          </div>
 
-                          <!-- <div class="row justify-content-center">
+                          <div class="row justify-content-center">
                             <div class="col-lg-3">
                               <div class="left-area">
                                   <h4 class="heading">{{ __('Paytm Merchant') }} *
@@ -503,7 +503,7 @@
                             <textarea class="input-field" name="razorpay_text" placeholder="{{ __('Razorpay Text') }}" required>{{ $gs->razorpay_text }}</textarea>
 
                           </div>
-                        </div> -->
+                        </div>
 
 
 <hr>
@@ -577,7 +577,7 @@
                           </div>
                         </div>
 
-                        <!-- <div class="row justify-content-center">
+                        <div class="row justify-content-center">
                           <div class="col-lg-3">
                             <div class="left-area">
                                 <h4 class="heading">{{ __('Withdraw Fee') }} *
@@ -613,7 +613,7 @@
                           </div>
                         </div>
 
-                      <hr> -->
+                      <hr>
 
                         <h4 class="text-center">{{ __('Vendor') }}</h4>
 

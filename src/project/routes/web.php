@@ -429,7 +429,6 @@ Route::prefix('admin')->group(function() {
   Route::get('/disputes', 'Admin\MessageController@disputes')->name('admin-message-dispute');
   Route::get('/message/{id}', 'Admin\MessageController@message')->name('admin-message-show');
   Route::get('/message/load/{id}', 'Admin\MessageController@messageshow')->name('admin-message-load');
-  Route::get('/message/dispute/{id}', 'Admin\MessageController@dispute')->name('admin-single-message-dispute');
   Route::post('/message/post', 'Admin\MessageController@postmessage')->name('admin-message-store');
   Route::get('/message/{id}/delete', 'Admin\MessageController@messagedelete')->name('admin-message-delete');
   Route::post('/user/send/message', 'Admin\MessageController@usercontact')->name('admin-send-message');
@@ -952,14 +951,6 @@ Route::prefix('user')->group(function() {
   Route::post('/paypal/notify', 'User\PaypalController@notify')->name('user.payment.notify');
   Route::post('/stripe/submit', 'User\StripeController@store')->name('user.stripe.submit');
 
-
-  Route::post('/steem/submit', 'User\SteemController@store')->name('user.steem.submit');
-  Route::post('/steem/submit', 'User\SteemLoginController@store')->name('user.steemlogin.submit');
-
-  Route::get('/steem/cancle', 'User\SteemController@paycancle')->name('user.payment.cancle');
-  Route::get('/steem/return', 'User\SteemController@payreturn')->name('user.payment.return');
-  Route::post('/steem/notify', 'User\SteemController@notify')->name('user.payment.notify');
-
   Route::get('/instamojo/notify', 'User\InstamojoController@notify')->name('user.instamojo.notify');
   Route::post('/instamojo/submit', 'User\InstamojoController@store')->name('user.instamojo.submit');
 
@@ -989,11 +980,7 @@ Route::prefix('user')->group(function() {
   Route::get('/messages', 'User\MessageController@messages')->name('user-messages');
   Route::get('/message/{id}', 'User\MessageController@message')->name('user-message');
   Route::post('/message/post', 'User\MessageController@postmessage')->name('user-message-post');
-  Route::post('/message/vendor_post', 'Vendor\OrderController@postmessage')->name('vendor-message-post');
   Route::get('/message/{id}/delete', 'User\MessageController@messagedelete')->name('user-message-delete');
-  Route::get('/message/{id}/dispute', 'User\MessageController@swap_dispute')->name('user-message-dispute');
-  Route::get('/message/{id}/close', 'User\MessageController@swap_open')->name('user-message-close');
-
   Route::get('/message/load/{id}', 'User\MessageController@msgload')->name('user-vendor-message-load');
 
 // User Vendor Send Message Ends
@@ -1070,7 +1057,6 @@ Route::prefix('vendor')->group(function() {
   //------------ ADMIN ORDER SECTION ------------
   Route::get('/orders', 'Vendor\OrderController@index')->name('vendor-order-index');
   Route::get('/order/{id}/show', 'Vendor\OrderController@show')->name('vendor-order-show');
-  Route::get('/order/{id}/message', 'Vendor\OrderController@message')->name('vendor-message-show');
   Route::get('/order/{id}/invoice', 'Vendor\OrderController@invoice')->name('vendor-order-invoice');
   Route::get('/order/{id}/print', 'Vendor\OrderController@printpage')->name('vendor-order-print');
   Route::get('/order/{id1}/status/{status}', 'Vendor\OrderController@status')->name('vendor-order-status');
@@ -1173,15 +1159,8 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
 
   // Order Notification
   Route::get('/order/notf/show/{id}', 'Vendor\NotificationController@order_notf_show')->name('vendor-order-notf-show');
-  Route::get('/user/notf/show/{id}', 'User\NotificationController@order_notf_show')->name('user-order-notf-show');
-
   Route::get('/order/notf/count/{id}','Vendor\NotificationController@order_notf_count')->name('vendor-order-notf-count');
-  Route::get('/user/notf/count/{id}','User\NotificationController@order_notf_count')->name('user-order-notf-count');
-
   Route::get('/order/notf/clear/{id}','Vendor\NotificationController@order_notf_clear')->name('vendor-order-notf-clear');
-  Route::get('/user/notf/clear/{id}','User\NotificationController@order_notf_clear')->name('user-order-notf-clear');
-
-
   // Order Notification Ends
 
   // Product Notification Ends
@@ -1308,7 +1287,6 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   // REPLY SECTION ENDS
 
   // CART SECTION
-  Route::get('/carts/updatecart','Front\CartController@updatecart');
   Route::get('/carts/view','Front\CartController@cartview');
   Route::get('/carts/','Front\CartController@cart')->name('front.cart');
   Route::get('/addcart/{id}','Front\CartController@addcart')->name('product.cart.add');
@@ -1335,14 +1313,6 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   Route::post('/instamojo/submit', 'Front\InstamojoController@store')->name('instamojo.submit');
   Route::post('/paypal-submit', 'Front\PaymentController@store')->name('paypal.submit');
   Route::post('/stripe-submit', 'Front\StripeController@store')->name('stripe.submit');
-  Route::post('/steem-submit', 'Front\SteemController@store')->name('steem.submit');
-  Route::post('/steem-login-submit', 'Front\SteemLoginController@store')->name('steemlogin.submit');
-
-
-  // Steem Transaction
-  Route::get('/transaction/','Front\TransactionController@transact')->name('steem.transaction');
-  Route::get('/subscription_payment/','User\UserController@transact')->name('user-subscription-payment');
-  Route::get('/subscription_payment/{id}/remove','User\UserController@remove_transaction')->name('remove-subscription-payment');
 
 
   // Molly Routes
@@ -1382,9 +1352,6 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   // LOGIN WITH FACEBOOK OR GOOGLE SECTION
   Route::get('auth/{provider}', 'User\SocialRegisterController@redirectToProvider')->name('social-provider');
   Route::get('auth/{provider}/callback', 'User\SocialRegisterController@handleProviderCallback');
-  Route::get('/callback', 'User\SteemRegisterController@handleProviderCallback');
-  Route::get('/authorized', 'User\SteemRegisterController@authorized')->name('user-authorized');
-
   // LOGIN WITH FACEBOOK OR GOOGLE SECTION ENDS
 
   //  CRONJOB

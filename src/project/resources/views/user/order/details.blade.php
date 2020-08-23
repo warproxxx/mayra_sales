@@ -23,7 +23,12 @@
                         <div class="view-order-page">
                             <h3 class="order-code">{{ $langg->lang285 }} {{$order->order_number}} [{{$order->status}}]
                             </h3>
-
+                            <div class="print-order text-right">
+                                <a href="{{route('user-order-print',$order->id)}}" target="_blank"
+                                    class="print-order-btn">
+                                    <i class="fa fa-print"></i> {{ $langg->lang286 }}
+                                </a>
+                            </div>
                             <p class="order-date">{{ $langg->lang301 }} {{date('d-M-Y',strtotime($order->created_at))}}
                             </p>
 
@@ -32,6 +37,16 @@
                             <div class="billing-add-area">
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <h5>{{ $langg->lang287 }}</h5>
+                                        <address>
+                                            {{ $langg->lang288 }} {{$order->customer_name}}<br>
+                                            {{ $langg->lang289 }} {{$order->customer_email}}<br>
+                                            {{ $langg->lang290 }} {{$order->customer_phone}}<br>
+                                            {{ $langg->lang291 }} {{$order->customer_address}}<br>
+                                            {{$order->customer_city}}-{{$order->customer_zip}}
+                                        </address>
+                                    </div>
+                                    <div class="col-md-6">
                                         <h5>{{ $langg->lang292 }}</h5>
 
                                         <p>{{ $langg->lang798 }}:
@@ -39,9 +54,28 @@
                                         </p>
 
                                         <p>{{ $langg->lang293 }}
-                                             {{ $order->pay_amount }} {{$order->currency_sign}}
+                                            {{$order->currency_sign}}{{ round($order->pay_amount * $order->currency_value , 2) }}
                                         </p>
+                                        <p>{{ $langg->lang294 }} {{$order->method}}</p>
 
+                                        @if($order->method != "Cash On Delivery")
+                                        @if($order->method=="Stripe")
+                                        {{$order->method}} {{ $langg->lang295 }} <p>{{$order->charge_id}}</p>
+                                        @endif
+                                        {{$order->method}} {{ $langg->lang296 }} <p id="ttn">{{$order->txnid}}</p>
+                                        <a id="tid" style="cursor: pointer;" class="mybtn2">{{ $langg->lang297 }}</a> 
+
+                                        <form id="tform">
+                                            <input style="display: none; width: 100%;" type="text" id="tin" placeholder="{{ $langg->lang299 }}" required="" class="mb-3">
+                                            <input type="hidden" id="oid" value="{{$order->id}}">
+
+                                            <button style="display: none; padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tbtn" type="submit" class="mybtn1">{{ $langg->lang300 }}</button>
+                                                
+                                                <a style="display: none; cursor: pointer;  padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tc"  class="mybtn1">{{ $langg->lang298 }}</a>
+                                                
+                                                {{-- Change 1 --}}
+                                        </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -55,9 +89,11 @@
                                         <address>
                                             {{ $langg->lang288 }}
                                             {{$order->shipping_name == null ? $order->customer_name : $order->shipping_name}}<br>
+                                            {{ $langg->lang289 }}
+                                            {{$order->shipping_email == null ? $order->customer_email : $order->shipping_email}}<br>
                                             {{ $langg->lang290 }}
                                             {{$order->shipping_phone == null ? $order->customer_phone : $order->shipping_phone}}<br>
-                                            {{ $langg->lang291 }}<br>
+                                            {{ $langg->lang291 }}
                                             {{$order->shipping_address == null ? $order->customer_address : $order->shipping_address}}<br>
                                             {{$order->shipping_city == null ? $order->customer_city : $order->shipping_city}}-{{$order->shipping_zip == null ? $order->customer_zip : $order->shipping_zip}}
                                         </address>
@@ -82,6 +118,16 @@
                             <div class="billing-add-area">
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <h5>{{ $langg->lang287 }}</h5>
+                                        <address>
+                                            {{ $langg->lang288 }} {{$order->customer_name}}<br>
+                                            {{ $langg->lang289 }} {{$order->customer_email}}<br>
+                                            {{ $langg->lang290 }} {{$order->customer_phone}}<br>
+                                            {{ $langg->lang291 }} {{$order->customer_address}}<br>
+                                            {{$order->customer_city}}-{{$order->customer_zip}}
+                                        </address>
+                                    </div>
+                                    <div class="col-md-6">
                                         <h5>{{ $langg->lang292 }}</h5>
 
                                         <p>{{ $langg->lang798 }}
@@ -90,21 +136,29 @@
 
 
 
-                                        <p>Amount:
-                                            {{ $order->pay_amount }} {{$order->currency_sign}}
+                                        <p>{{ $langg->lang293 }}
+                                            {{$order->currency_sign}}{{ round($order->pay_amount * $order->currency_value , 2) }}
                                         </p>
+                                        <p>{{ $langg->lang294 }} {{$order->method}}</p>
 
                                         @if($order->method != "Cash On Delivery")
+                                        @if($order->method=="Stripe")
+                                        {{$order->method}} {{ $langg->lang295 }} <p>{{$order->charge_id}}</p>
+                                        @endif
+                                        {{$order->method}} {{ $langg->lang296 }} <p id="ttn"> {{$order->txnid}}</p>
 
-                                        <div class="print-order">
-                                <a href="/transaction?order={{ $order->order_number }}" target="_blank"
-                                    class="print-order-btn">
-                                    <i class="fa fa-dollar"></i> View Transaction
-                                </a>
-                            </div>
+                                        <a id="tid" style="cursor: pointer;" class="mybtn2">{{ $langg->lang297 }}</a> 
 
+                                        <form id="tform">
+                                            <input style="display: none; width: 100%;" type="text" id="tin" placeholder="{{ $langg->lang299 }}" required="" class="mb-3">
+                                            <input type="hidden" id="oid" value="{{$order->id}}">
+
+                                            <button style="display: none; padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tbtn" type="submit" class="mybtn1">{{ $langg->lang300 }}</button>
                                                 
+                                                <a style="display: none; cursor: pointer;  padding: 5px 15px; height: auto; width: auto; line-height: unset;" id="tc"  class="mybtn1">{{ $langg->lang298 }}</a>
                                                 
+                                                {{-- Change 1 --}}
+                                        </form>
                                         @endif
                                     </div>
                                 </div>

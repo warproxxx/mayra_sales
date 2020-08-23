@@ -457,6 +457,21 @@
 
 						                        </div>
 
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<ul class="list">
+															<li>
+																<input name="size_check" type="checkbox" id="size-check" value="1" {{ !empty($data->size) ? "checked":"" }}>
+																<label for="size-check">{{ $langg->lang648 }}</label>
+															</li>
+														</ul>
+													</div>
+												</div>
 													<div class="{{ !empty($data->size) ? "":"showbox" }}" id="size-display">
 													<div class="row">
 															<div  class="col-lg-4">
@@ -689,16 +704,16 @@
 												<div class="row">
 													<div class="col-lg-4">
 														<div class="left-area">
-														<h4 class="heading">
+															<h4 class="heading">
 																{{ $langg->lang664 }}*
 															</h4>
 															<p class="sub-heading">
-																({{ $langg->lang665 }} USD)
+																({{ $langg->lang665 }} {{$sign->name}})
 															</p>
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="usd_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{$data->usd_price}}" required="" min="0">
+														<input name="price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->price * $sign->value , 2)}}" required="" min="0">
 													</div>
 												</div>
 
@@ -710,7 +725,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="usd_previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{$data->usd_previous_price}}" min="0">
+														<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" value="{{round($data->previous_price * $sign->value , 2)}}" min="0">
 													</div>
 												</div>
 												<div class="{{ !empty($data->size) ? "showbox":"" }}" id="stckprod">

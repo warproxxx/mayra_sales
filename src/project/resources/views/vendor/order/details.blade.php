@@ -80,8 +80,28 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                 </tr>
 
 
+                                                <tr>
+                                                    <th width="45%">{{ $langg->lang795 }}</th>
+                                                    <td width="10%">:</td>
+                                                    <td width="45%">{{$order->method}}</td>
+                                                </tr>
                 
-                                                
+                                                @if($order->method != "Cash On Delivery")
+                                                @if($order->method=="Stripe")
+                                                <tr>
+                                                    <th width="45%">{{$order->method}} {{ $langg->lang796 }}</th>
+                                                    <td width="10%">:</td>
+                                                    <td width="45%">{{$order->charge_id}}</td>
+                                                </tr>                        
+                                                @endif
+                                                <tr>
+                                                    <th width="45%">{{$order->method}} {{ $langg->lang797 }}</th>
+                                                    <td width="10%">:</td>
+                                                    <td width="45%">{{$order->txnid}}</td>
+                                                </tr>                         
+                                                @endif
+
+
                                                     <th width="45%">{{ $langg->lang798 }}</th>
                                                     <th width="10%">:</th>
                                                     <td width="45%">{!! $order->payment_status == 'Pending' ? "<span class='badge badge-danger'>". $langg->lang799 ."</span>":"<span class='badge badge-success'>". $langg->lang800 ."</span>" !!}</td>
@@ -97,9 +117,56 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                         </div>
                                         <div class="footer-area">
                                             <a href="{{ route('vendor-order-invoice',$order->order_number) }}" class="mybtn1"><i class="fas fa-eye"></i> {{ $langg->lang555 }}</a>
-
-                                            
-                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="special-box">
+                                        <div class="heading-area">
+                                            <h4 class="title">
+                                            {{ $langg->lang556 }}
+                                            </h4>
+                                        </div>
+                                        <div class="table-responsive-sm">
+                                            <table class="table">
+                                                <tbody>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang557 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_name}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang558 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_email}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang559 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_phone}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang560 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_address}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang561 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_country}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang562 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_city}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="45%">{{ $langg->lang563 }}</th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">{{$order->customer_zip}}</td>
+                                                        </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +194,11 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                     <th width="10%">:</th>
                 <td>{{$order->shipping_name == null ? $order->customer_name : $order->shipping_name}}</td>
                                 </tr>
-
+                                <tr>
+                                    <th width="45%"><strong>{{ $langg->lang558 }}:</strong></th>
+                                    <th width="10%">:</th>
+                <td width="45%">{{$order->shipping_email == null ? $order->customer_email : $order->shipping_email}}</td>
+                                </tr>
                                 <tr>
                                     <th width="45%"><strong>{{ $langg->lang559 }}:</strong></th>
                                     <th width="10%">:</th>
@@ -152,17 +223,6 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                     <th width="45%"><strong>{{ $langg->lang563 }}:</strong></th>
                                     <th width="10%">:</th>
                 <td width="45%">{{$order->shipping_zip == null ? $order->customer_zip : $order->shipping_zip}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th colspan=2>
-                                    <br/>
-                                    <select class="vendor-btn {{ $order->status }}">
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'pending']) }}" {{  $order->status == "pending" ? 'selected' : ''  }}>{{ $langg->lang540 }}</option>
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'processing']) }}" {{  $order->status == "processing" ? 'selected' : ''  }}>{{ $langg->lang541 }}</option>
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'completed']) }}" {{  $order->status == "completed" ? 'selected' : ''  }}>{{ $langg->lang542 }}</option>
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'declined']) }}" {{  $order->status == "declined" ? 'selected' : ''  }}>{{ $langg->lang543 }}</option>
-                                </select></th>
                                 </tr>
                                 @endif
                                                 </tbody>
@@ -311,11 +371,11 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-lg-12 text-center mt-2">
+                                    <div class="col-lg-12 text-center mt-2">
                                         <a class="btn sendEmail send" href="javascript:;" class="send" data-email="{{ $order->customer_email }}" data-toggle="modal" data-target="#vendorform">
-                                                <i class="fa fa-send"></i> Send Message
+                                                <i class="fa fa-send"></i> {{ $langg->lang576 }}
                                         </a>
-                                    </div> -->
+                                    </div>
                                 </div>
                         </div>
                     </div>
@@ -365,7 +425,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="vendorformLabel">Send Message</h5>
+                    <h5 class="modal-title" id="vendorformLabel">{{ $langg->lang576 }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -378,13 +438,17 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                 <form id="emailreply">
                                     {{csrf_field()}}
                                     <ul>
-                                        <input type="hidden" class="input-field eml-val" id="user_id" name="user_id" value="{{ $order->user_id }}" required="">
-
+                                        <li>
+                                            <input type="email" class="input-field eml-val" id="eml" name="to" placeholder="{{ $langg->lang583 }} *" value="" required="">
+                                        </li>
+                                        <li>
+                                            <input type="text" class="input-field" id="subj" name="subject" placeholder="{{ $langg->lang581 }} *" required="">
+                                        </li>
                                         <li>
                                             <textarea class="input-field textarea" name="message" id="msg" placeholder="{{ $langg->lang582 }} *" required=""></textarea>
                                         </li>
                                     </ul>
-                                    <button class="submit-btn" id="emlsub" type="submit">Send</button>
+                                    <button class="submit-btn" id="emlsub" type="submit">{{ $langg->lang576 }}</button>
                                 </form>
                             </div>
                         </div>
@@ -397,35 +461,6 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
 </div>
 
 {{-- MESSAGE MODAL ENDS --}}
-
-<div class="modal fade" id="confirm-delete2" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="submit-loader">
-        <img  src="http://opnmarket.local/assets/images/1564224329loading3.gif" alt="">
-    </div>
-    <div class="modal-header d-block text-center">
-        <h4 class="modal-title d-inline-block">Update Status</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <p class="text-center">You are about to update the Order&#039;s Status.</p>
-        <p class="text-center">Do you want to proceed?</p>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-success btn-ok order-btn">Proceed</a>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 
 
@@ -495,17 +530,5 @@ $('#example2').dataTable( {
                 });
         });
     </script>
-
-
-
-<script type="text/javascript">
-
-
-$('.vendor-btn').on('change',function(){
-        $('#confirm-delete2').modal('show');
-        $('#confirm-delete2').find('.btn-ok').attr('href', $(this).val());
-
-});
-</script>
 
 @endsection

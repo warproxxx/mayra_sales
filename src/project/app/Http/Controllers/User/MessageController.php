@@ -33,7 +33,7 @@ class MessageController extends Controller
     {
             $user = Auth::guard('web')->user();
             $conv = Conversation::findOrfail($id);
-            return view('user.message.create',compact('user','conv', 'order'));                 
+            return view('user.message.create',compact('user','conv'));                 
     }
 
     public function messagedelete($id)
@@ -49,68 +49,6 @@ class MessageController extends Controller
             return redirect()->back()->with('success','Message Deleted Successfully');                 
     }
 
-    public function swap_dispute($id)
-    {
-            $conv = Conversation::findOrfail($id);
-            $user = Auth::guard('web')->user();
-            $new_disp = 1 - $conv->is_dispute;
-            Conversation::where('id', $id)->update(array('is_dispute' => $new_disp));
-
-            $message = "Buyer has closed a dispute";
-            $dispute_type = "dispute_close";
-            if ($new_disp == 1)
-            {
-                $message = "Buyer has opened a dispute. Admins will now handle this case";
-                $dispute_type = "dispute_open";
-            }
-
-            $msg = new Message();
-            $msg->conversation_id = $conv->id;
-            $msg->message = $message;
-            $msg->sent_user = 0;
-            $msg->save();
-
-            $notification = new Notification;
-            $notification->conversation_id = $conv->id;
-            $notification->vendor_id = $conv->recieved_user;
-            $notification->type = $dispute_type;
-            $notification->save();
-
-            $notification = new Notification;
-            $notification->conversation_id = $conv->id;
-            $notification->admin_id = 1;
-            $notification->type = $dispute_type;
-            $notification->save();
-
-            $conv = Conversation::findOrfail($id);
-
-            return view('user.message.create',compact('user','conv', 'order'));                     
-    }
-
-    public function swap_open($id)
-    {
-        $conv = Conversation::findOrfail($id);
-        $user = Auth::guard('web')->user();
-        $new_closed = 1 - $conv->closed;
-        Conversation::where('id', $id)->update(array('closed' => $new_closed));
-
-        $conv = Conversation::findOrfail($id);
-
-        $notification = new Notification;
-        $notification->conversation_id = $conv->id;
-        $notification->vendor_id = $conv->recieved_user;
-        $notification->type = "vendor_received";
-        $notification->save();
-
-        $msg = new Message();
-        $msg->conversation_id = $conv->id;
-        $msg->message = "Buyer has confirmed receiving an item";
-        $msg->sent_user = 0;
-        $msg->save();
-
-        return view('user.message.create',compact('user','conv', 'order'));                   
-    }
-
     public function msgload($id)
     {
             $conv = Conversation::findOrfail($id);
@@ -122,8 +60,7 @@ class MessageController extends Controller
     {
         $data = 1;
         $user = User::findOrFail($request->user_id);
-        $vendor = User::where('username','=',$request->username)->first();
-
+        $vendor = User::where('email','=',$request->email)->first();
         if(empty($vendor))
         {
             $data = 0;
@@ -131,24 +68,35 @@ class MessageController extends Controller
         }
 
         $subject = $request->subject;
-        $to = $vendor->username;
-        $from = $request->username;
+        $to = $vendor->email;
+        $name = $request->name;
+        $from = $request->email;
+        $msg = "Name: ".$name."\nEmail: ".$from."\nMessage: ".$request->message;
+        $gs = Generalsetting::findOrfail(1);
+        if($gs->is_smtp == 1)
+        {
+        $data = [
+            'to' => $vendor->email,
+            'subject' => $request->subject,
+            'body' => $msg,
+        ];
+
+        $mailer = new GeniusMailer();
+        $mailer->sendCustomMail($data);
+        }
+        else
+        {
+        $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
+        mail($to,$subject,$msg,$headers);
+        }
 
         $conv = Conversation::where('sent_user','=',$user->id)->where('subject','=',$subject)->first();
-        
         if(isset($conv)){
             $msg = new Message();
             $msg->conversation_id = $conv->id;
             $msg->message = $request->message;
             $msg->sent_user = $user->id;
             $msg->save();
-
-            $notification = new Notification;
-            $notification->conversation_id = $conv->id;
-            $notification->vendor_id = $conv->received_user;
-            $notification->type = "vendor";
-            $notification->save();
-
             return response()->json($data);   
         }
         else{
@@ -164,13 +112,6 @@ class MessageController extends Controller
             $msg->message = $request->message;
             $msg->sent_user = $request->user_id;;
             $msg->save();
-
-            $notification = new Notification;
-            $notification->conversation_id = $message->id;
-            $notification->vendor_id = $request->user_id;
-            $notification->type = "vendor";
-            $notification->save();
-
             return response()->json($data);   
         }
     }
@@ -182,25 +123,8 @@ class MessageController extends Controller
         $msg->fill($input)->save();
         //--- Redirect Section     
         $msg = 'Message Sent!';
-
-        $notification = new Notification;
-        $notification->conversation_id = $request->conversation_id;
-        $notification->vendor_id = $request->reciever;
-        $notification->type = "vendor";
-        $notification->save();
-
-        #send admin notification if disputed
-        $conv = Conversation::where('id','=',$request->conversation_id)->first();
-        if ($conv->is_dispute == 1)
-        {
-            $notification = new Notification;
-            $notification->conversation_id = $request->conversation_id;
-            $notification->admin_id = 1;
-            $notification->type = "admin";
-            $notification->save();
-        }
-
         return response()->json($msg);      
+        //--- Redirect Section Ends  
     }
 
     public function adminmessages()
@@ -213,8 +137,7 @@ class MessageController extends Controller
     public function adminDiscordmessages()
     {
             $user = Auth::guard('web')->user();
-            $convs = Conversation::where('is_dispute','=',1)->get();
-            print_r($convs);
+            $convs = AdminUserConversation::where('type','=','Dispute')->where('user_id','=',$user->id)->get();
             return view('user.dispute.index',compact('convs'));            
     }
 

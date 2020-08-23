@@ -1,15 +1,13 @@
-		<a class="clear">New Message(s)</a>
+		<a class="clear">{{ $langg->lang436 }}</a>
 		@if(count($datas) > 0)
 		<a id="order-notf-clear" data-href="{{ route('vendor-order-notf-clear',Auth::guard('web')->user()->id) }}" class="clear" href="javascript:;">
 			{{ $langg->lang437 }}
 		</a>
 		<ul>
 		@foreach($datas as $data)
-			@if(isset($data->conversation_id))
 			<li>
-					<a href="{{ route('vendor-message-show',$data->conversation_id) }}"> <i class="fas fa-newspaper"></i> You have a new message.</a>
+				<a href="{{ route('vendor-order-show',$data->order_number) }}"> <i class="fas fa-newspaper"></i> {{ $langg->lang438 }}</a>
 			</li>
-			@endif
 		@endforeach
 
 		</ul>

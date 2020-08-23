@@ -719,10 +719,6 @@ $('#category_select').on('change',function(){
             else if(data == 0) {
               toastr.error(langg.out_stock);
               }
-              else if (data == -1)
-              {
-                toastr.error("Cart can only consist of same seller's item");
-              }
             else {
               $("#cart-count").html(data[0]);
               $("#cart-items").load(mainurl+'/carts/view');
@@ -732,38 +728,6 @@ $('#category_select').on('change',function(){
                     return false;
     });
 
-    $(document).ready(function(){
-      setInterval(function(){
-              $.ajax({
-                      type: "GET",
-                      url:$("#order-notf-count").data('href'),
-                      success:function(data){
-                          $("#order-notf-count").html(data);
-                        }
-                });
-      }, 5000);
-  });
-
-  $(document).ready(function(){
-      $.ajax({
-              type: "GET",
-              url:$("#order-notf-count").data('href'),
-              success:function(data){
-                  $("#order-notf-count").html(data);
-                }
-        });
-
-});
-  
-  $(document).on('click','#notf_order',function(){
-    $("#order-notf-count").html('0');
-    $('#order-notf-show').load($("#order-notf-show").data('href'));
-  });
-  
-  $(document).on('click','#order-notf-clear',function(){
-    $(this).parent().parent().trigger('click');
-    $.get($('#order-notf-clear').data('href'));
-  });
 
     $(document).on('click', '.cart-remove', function(){
       var $selector = $(this).data('class');
@@ -775,7 +739,6 @@ $('#category_select').on('change',function(){
                 $('#cart-items').html('<p class="mt-1 pl-3 text-left">Cart is empty.</p>');
                 $('.cartpage .col-lg-4').html('');
               }
-              
             else {
                $('.cart-quantity').html(data[1]);
                $('.cart-total').html(data[0]);
@@ -1151,16 +1114,10 @@ prices = $(".product-attr:checked").map(function() {
             if(data == 'digital') {
                 toastr.error(langg.already_cart);
              }
-            else if(data == 0) 
-              {
+            else if(data == 0) {
                 toastr.error(langg.out_stock);
               }
-              else if (data == -1)
-              {
-                toastr.error("Cart can only consist of same seller's item");
-              }
             else {
-              console.log(data);
               $("#cart-count").html(data[0]);
               $("#cart-items").load(mainurl+'/carts/view');
                 toastr.success(langg.add_cart);

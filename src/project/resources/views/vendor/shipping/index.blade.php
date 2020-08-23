@@ -121,7 +121,7 @@
                ajax: '{{ route('vendor-shipping-datatables') }}',
                columns: [
                   { data: 'title', name: 'title' },
-                  { data: 'usd_price', name: 'usd_price' },
+                  { data: 'price', name: 'price' },
                   { data: 'action', searchable: false, orderable: false }
 
                      ],

@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="author" content="OpenMarket">
+    	<meta name="author" content="GeniusOcean">
       	<meta name="csrf-token" content="{{ csrf_token() }}">
 		<!-- Title -->
 		<title>{{$gs->title}}</title>
@@ -144,17 +144,17 @@
 								</a>
 								<ul class="collapse list-unstyled" id="menu2" data-parent="#accordion">
 									<li>
-										<a href="{{ route('vendor-prod-physical-create') }}"><span>{{ $langg->lang445 }}</span></a>
+										<a href="{{ route('vendor-prod-types') }}"><span>{{ $langg->lang445 }}</span></a>
 									</li>
 									<li>
 										<a href="{{ route('vendor-prod-index') }}"><span>{{ $langg->lang446 }}</span></a>
 									</li>
-									<!-- <li>
+									<li>
 										<a href="{{ route('admin-vendor-catalog-index') }}"><span>{{ $langg->lang785 }}</span></a>
-									</li> -->
+									</li>
 								</ul>
 							</li>
-<!-- 
+
 							<li>
 								<a href="#affiliateprod" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
 									<i class="icofont-cart"></i>{{ $langg->lang447 }}
@@ -167,24 +167,24 @@
 										<a href="{{ route('vendor-import-index') }}"><span>{{ $langg->lang449 }}</span></a>
 									</li>
 								</ul>
-							</li> -->
+							</li>
 
 
-							<!-- <li>
+							<li>
 								<a href="{{ route('vendor-prod-import') }}"><i class="fas fa-upload"></i>{{ $langg->lang450 }}</a>
-							</li> -->
-							<!-- <li>
+							</li>
+							<li>
 								<a href="{{ route('vendor-wt-index') }}" class=" wave-effect"><i class="fas fa-list"></i>{{ $langg->lang451 }}</a>
-							</li> -->
+							</li>
 
 							<li>
 								<a href="#general" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
 									<i class="fas fa-cogs"></i>{{ $langg->lang452 }}
 								</a>
 								<ul class="collapse list-unstyled" id="general" data-parent="#accordion">
-                                    <!-- <li>
+                                    <li>
                                     	<a href="{{ route('vendor-service-index') }}"><span>{{ $langg->lang453 }}</span></a>
-                                    </li> -->
+                                    </li>
                                     <li>
                                     	<a href="{{ route('vendor-banner') }}"><span>{{ $langg->lang454 }}</span></a>
                                     </li>
@@ -193,7 +193,14 @@
 	                                    	<a href="{{ route('vendor-shipping-index') }}"><span>{{ $langg->lang719 }}</span></a>
 	                                    </li>
 	                                @endif
-
+	                                @if($gs->multiple_packaging == 1)
+	                                    <li>
+	                                    	<a href="{{ route('vendor-package-index') }}"><span>{{ $langg->lang721 }}</span></a>
+	                                    </li>
+	                                @endif
+                                    <li>
+                                    	<a href="{{ route('vendor-social-index') }}"><span>{{ $langg->lang456 }}</span></a>
+                                    </li>
 								</ul>
 							</li>
 

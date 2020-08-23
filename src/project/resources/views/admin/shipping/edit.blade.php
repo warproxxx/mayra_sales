@@ -40,11 +40,11 @@
                           <div class="col-lg-4">
                             <div class="left-area">
                                 <h4 class="heading">{{ __('Price') }} *</h4>
-                                <p class="sub-heading">({{ __('In USD') }})</p>
+                                <p class="sub-heading">({{ __('In') }} {{ $sign->name }})</p>
                             </div>
                           </div>
                           <div class="col-lg-7">
-                            <input type="number" class="input-field" name="usd_price" placeholder="{{ __('Price') }}" required="" value="{{ $data->usd_price }}" min="0" step="0.1">
+                            <input type="number" class="input-field" name="price" placeholder="{{ __('Price') }}" required="" value="{{ $data->price }}" min="0" step="0.1">
                           </div>
                         </div>
 

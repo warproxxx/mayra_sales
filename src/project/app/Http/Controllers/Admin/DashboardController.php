@@ -37,10 +37,13 @@ class DashboardController extends Controller
         }
         $users = User::all();
         $products = Product::all();
+        $blogs = Blog::all();
         $pproducts = Product::orderBy('id','desc')->take(5)->get();
         $rorders = Order::orderBy('id','desc')->take(5)->get();
         $poproducts = Product::orderBy('views','desc')->take(5)->get();
         $rusers = User::orderBy('id','desc')->take(5)->get();
+        $referrals = Counter::where('type','referral')->orderBy('total_count','desc')->take(5)->get();
+        $browsers = Counter::where('type','browser')->orderBy('total_count','desc')->take(5)->get();
 
         $activation_notify = "";
         if (file_exists(public_path().'/rooted.txt')){
@@ -51,7 +54,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users', 'days','sales','pproducts','rorders','poproducts','rusers','browsers'));
+        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers'));
     }
 
     public function profile()
@@ -237,7 +240,7 @@ class DashboardController extends Controller
         $src = base_path().'/vendor/update';
         $this->recurse_copy($src,$destination);
         $files = public_path();
-        $bkupname = 'OpnMarket-'.date('Y-m-d').'.zip';
+        $bkupname = 'GeniusCart-By-GeniusOcean-'.date('Y-m-d').'.zip';
 
         $zipper = new \Chumper\Zipper\Zipper;
 

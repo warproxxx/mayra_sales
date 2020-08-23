@@ -9,7 +9,6 @@ use Datatables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
-use App\Models\Price;
 
 class ShippingController extends Controller
 {
@@ -24,9 +23,9 @@ class ShippingController extends Controller
          $datas = Shipping::all();
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
-                            ->editColumn('usd_price', function(Shipping $data) {
+                            ->editColumn('price', function(Shipping $data) {
                                 $sign = Currency::where('is_default','=',1)->first();
-                                $price = "$".$data->usd_price;
+                                $price = $sign->sign.$data->price;
                                 return  $price;
                             })
                             ->addColumn('action', function(Shipping $data) {
@@ -64,10 +63,6 @@ class ShippingController extends Controller
         //--- Logic Section
         $data = new Shipping();
         $input = $request->all();
-
-        $price = Price::where('id','=',1)->first();
-        $input['price'] = $input['usd_price'] / $price->steem;
-
         $data->fill($input)->save();
         //--- Logic Section Ends
 
@@ -101,10 +96,6 @@ class ShippingController extends Controller
         //--- Logic Section
         $data = Shipping::findOrFail($id);
         $input = $request->all();
-
-        $price = Price::where('id','=',1)->first();
-        $input['price'] = $input['usd_price'] / $price->steem;
-        
         $data->update($input);
         //--- Logic Section Ends
 

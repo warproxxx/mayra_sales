@@ -80,7 +80,7 @@
                   <ul>
 
                     <li>
-                      <input type="text" class="input-field" id="username" name="username" placeholder="Username *" required="">
+                      <input type="email" class="input-field" id="eml" name="email" placeholder="{{ $langg->lang363 }} *" required="">
                     </li>
 
 
@@ -143,9 +143,10 @@
           var token = $(this).find('input[name=_token]').val();
           var subject = $(this).find('input[name=subject]').val();
           var message =  $(this).find('textarea[name=message]').val();
-          var username = $(this).find('input[name=username]').val();
+          var email = $(this).find('input[name=email]').val();
+          var name = $(this).find('input[name=name]').val();
           var user_id = $(this).find('input[name=user_id]').val();
-          $('#username').prop('disabled', true);
+          $('#eml').prop('disabled', true);
           $('#subj').prop('disabled', true);
           $('#msg').prop('disabled', true);
           $('#emlsub').prop('disabled', true);
@@ -156,18 +157,19 @@
                 '_token': token,
                 'subject'   : subject,
                 'message'  : message,
-                'username'   : username,
+                'email'   : email,
+                'name'  : name,
                 'user_id'   : user_id
                   },
             success: function( data) {
-          $('#username').prop('disabled', false);
+          $('#eml').prop('disabled', false);
           $('#subj').prop('disabled', false);
           $('#msg').prop('disabled', false);
           $('#subj').val('');
           $('#msg').val('');
           $('#emlsub').prop('disabled', false);
         if(data == 0)
-          toastr.error("Username not found!");
+          toastr.error("{{ $langg->email_not_found }}");
         else
           toastr.success("{{ $langg->message_sent }}");
 

@@ -10,14 +10,12 @@ use App\Models\Currency;
 use App\Models\Coupon;
 use App\Models\Generalsetting;
 use Session;
-use DateTime;
 
 class CartController extends Controller
 {
 
     public function cart()
     {
-        $this->updatecart();
         $this->code_image();
         if (!Session::has('cart')) {
             return view('front.cart');
@@ -53,47 +51,13 @@ class CartController extends Controller
         return view('front.cart', compact('products','totalPrice','mainTotal','tx')); 
     }
 
-    public function updatecart()
-    {
-        if (Session::has('cart'))
-        {
-            if (isset(Session::get('cart')->items))
-            {
-                $cart = Session::get('cart');
-
-                foreach(array_keys($cart->items) as $key)
-                {
-                    $prod = Product::where('id','=',$key)->first();
-                    $cart->items[$key]['price'] = $prod['price'] * $cart->items[$key]['qty'];
-
-                    foreach(array_keys($cart->items[$key]) as $child_key)
-                    {
-                        if (isset(($cart->items[$key][$child_key]['price'])))
-                        {
-                            $cart->items[$key][$child_key]['price'] = $prod['price'];
-                        }
-                    }
-                }
-
-                $cart->totalPrice = 0;
-
-                foreach($cart->items as $data)
-                    $cart->totalPrice += $data['price'];
-                
-                Session::put('cart',$cart);
-            }
-        }
-    }
-
     public function cartview()
     {
-        $this->updatecart();
-        return view('load.cart', compact('result')); 
+        return view('load.cart'); 
     }
 
    public function addtocart($id)
     {
-        $this->updatecart();
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
 
         // Set Attrubutes
@@ -344,13 +308,6 @@ class CartController extends Controller
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
         $cart->totalPrice += $data['price'];
-
-        foreach($cart->items as $item)
-        {
-            if ($item['item']['user_id'] != $prod->user_id)
-                return -1;
-        }
-        
         Session::put('cart',$cart);
         $data[0] = count($cart->items);        
         return response()->json($data);           
@@ -454,16 +411,7 @@ class CartController extends Controller
 
         $cart->totalPrice = 0;
         foreach($cart->items as $data)
-        $cart->totalPrice += $data['price'];  
-        
-        foreach($cart->items as $item)
-        {
-            if ($item['item']['user_id'] != $prod->user_id)
-                return -1;
-        }
-        
-
-
+        $cart->totalPrice += $data['price'];        
         Session::put('cart',$cart);
         $data[0] = count($cart->items);   
         return response()->json($data);        

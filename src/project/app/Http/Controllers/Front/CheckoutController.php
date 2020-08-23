@@ -36,43 +36,14 @@ class CheckoutController extends Controller
         $payment = $slug1;
         $pay_id = $slug2;
         $gateway = '';
-
+        if($pay_id != 0) {
+            $gateway = PaymentGateway::findOrFail($pay_id);
+        }
         return view('load.payment',compact('payment','pay_id','gateway','curr'));
     }
 
     public function checkout()
     {
-
-        if (Session::has('cart'))
-        {
-            if (isset(Session::get('cart')->items))
-            {
-                $cart = Session::get('cart');
-
-                foreach(array_keys($cart->items) as $key)
-                {
-                    $prod = Product::where('id','=',$key)->first();
-                    $cart->items[$key]['price'] = $prod['price'] * $cart->items[$key]['qty'];
-
-                    foreach(array_keys($cart->items[$key]) as $child_key)
-                    {
-                        if (isset(($cart->items[$key][$child_key]['price'])))
-                        {
-                            $cart->items[$key][$child_key]['price'] = $prod['price'];
-                        }
-                    }
-                }
-
-                $cart->totalPrice = 0;
-
-                foreach($cart->items as $data)
-                    $cart->totalPrice += $data['price'];
-                
-                Session::put('cart',$cart);
-            }
-        }
-
-        
         $this->code_image();
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success',"You don't have any product to checkout.");
@@ -94,6 +65,8 @@ class CheckoutController extends Controller
 
         if(Auth::guard('web')->check())
         {
+                $gateways =  PaymentGateway::where('status','=',1)->get();
+                $pickups = Pickup::all();
                 $oldCart = Session::get('cart');
                 $cart = new Cart($oldCart);
                 $products = $cart->items;
@@ -127,6 +100,35 @@ class CheckoutController extends Controller
                 $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
                 }
 
+                // Packaging
+
+                if($gs->multiple_packaging == 1)
+                {
+                    $user = null;
+                    foreach ($cart->items as $prod) {
+                            $user[] = $prod['item']['user_id'];
+                    }
+                    $users = array_unique($user);
+                    if(count($users) == 1)
+                    {
+                        $package_data  = DB::table('packages')->where('user_id','=',$users[0])->get();
+                        if(count($package_data) == 0){
+                            $package_data  = DB::table('packages')->where('user_id','=',0)->get();
+                        }
+                        else{
+                            $vendor_packing_id = $users[0];
+                        }
+                    }
+                    else {
+                        $package_data  = DB::table('packages')->where('user_id','=',0)->get();
+                    }
+
+                }
+                else{
+                $package_data  = DB::table('packages')->where('user_id','=',0)->get();
+                }
+
+
                 foreach ($products as $prod) {
                     if($prod['item']['type'] == 'Physical')
                     {
@@ -154,7 +156,7 @@ class CheckoutController extends Controller
                 $total = Session::get('coupon_total');  
                 $total = $total + round(0 * $curr->value, 2); 
                 }
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'totalQty' => $cart->totalQty, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);             
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);             
         }
 
         else

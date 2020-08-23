@@ -46,6 +46,6 @@ return [
         'redirect' => '',
     ],
     'genius' => [
-        'ocean' => 'https://opnmarket.com/verify/'
+        'ocean' => 'https://geniusocean.com/verify/'
     ],
 ];

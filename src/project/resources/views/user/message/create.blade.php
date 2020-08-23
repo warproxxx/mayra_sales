@@ -10,30 +10,13 @@
 					<div class="user-profile-details">
 						<div class="order-history">
 							<div class="header-area">
-                            <div style="display: flex;">
-                            <div style="flex-grow: 1;">
 								<h4 class="title">
-									{{ $conv->subject }}
-                            
-                            <a  class="mybtn1" href="{{ route('user-orders') }}"> <i class="fas fa-arrow-left"></i> {{ $langg->lang373 }}</a></div>
-                                <div>
-
-                                    @if($conv->closed == 0)
-                                        <a class="mybtn2" href="{{ route('user-message-close',$conv->id) }}">Confirm Received</a>
-                                    @endif 
-
-                                    @if($conv->is_dispute == 0)
-                                    <a class="redbutton" href="{{ route('user-message-dispute',$conv->id) }}">Open Dispute</a>
-                                    @else
-                                    <a class="redbutton" href="{{ route('user-message-dispute',$conv->id) }}">Close Dispute</a>
-                                    @endif 
-                                    
-                                   
-                                    
-                                </div>
-                            </div>
-
-
+									{{ $langg->lang372 }}
+                            @if($user->id == $conv->sent->id)
+                            {{$conv->recieved->name}}    
+                            @else
+                            {{$conv->sent->name}}
+                            @endif <a  class="mybtn1" href="{{ route('user-messages') }}"> <i class="fas fa-arrow-left"></i> {{ $langg->lang373 }}</a>
 								</h4>
 							</div>
 
@@ -108,24 +91,20 @@
                                   <input type="hidden" name="reciever" value="{{$conv->sent->id}}">
                                   <input type="hidden" name="recieved_user" value="{{$conv->recieved->id}}">
                               @endif
-                             
-                        </div>
-                            @if($conv->closed == 0)
+
                                 <textarea class="form-control" name="message" id="wrong-invoice" rows="5" style="resize: vertical;" required="" placeholder="{{ $langg->lang374 }}"></textarea>
                             </div>
-                            <br/>
                             <div class="form-group">
                                 <button class="mybtn1">
                                     {{ $langg->lang375 }}
                                 </button>
                             </div>
-                            @else
-                            </div>
-                            @endif
-
                         </form>
                     </div>
                 </div>
+
+
+						</div>
 					</div>
 				</div>
 			</div>

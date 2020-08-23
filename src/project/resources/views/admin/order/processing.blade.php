@@ -33,7 +33,7 @@
                                                 <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                                     <thead>
                                                         <tr>
-                                                            <th>{{ __('Customer Username') }}</th>
+                                                            <th>{{ __('Customer Email') }}</th>
                                                             <th>{{ __('Order Number') }}</th>
                                                             <th>{{ __('Total Qty') }}</th>
                                                             <th>{{ __('Total Cost') }}</th>
@@ -168,7 +168,7 @@
                serverSide: true,
                ajax: '{{ route('admin-order-datatables','processing') }}',
                columns: [
-                        { data: 'customer_username', name: 'customer_username' },
+                        { data: 'customer_email', name: 'customer_email' },
                         { data: 'id', name: 'id' },
                         { data: 'totalQty', name: 'totalQty' },
                         { data: 'pay_amount', name: 'pay_amount' },

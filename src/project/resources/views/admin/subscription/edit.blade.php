@@ -82,28 +82,6 @@
                           </div>
                         </div>
 
-                        <div class="row">
-                          <div class="col-lg-4">
-                            <div class="left-area">
-                                <h4 class="heading">{{ __("Percentage Commission") }} *</h4>
-                            </div>
-                          </div>
-                          <div class="col-lg-7">
-                            <input type="text" class="input-field" name="percentage_commission" placeholder="{{ __("Enter Comission Percentage") }}" required="" value="{{ $data->percentage_commission }}">
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-4">
-                            <div class="left-area">
-                                <h4 class="heading">{{ __("Custom Shop") }} *</h4>
-                            </div>
-                          </div>
-                          <div class="col-lg-7">
-                            <input type="text" class="input-field" name="custom_shop" placeholder="{{ __("Is Custom Shop allowed?") }}" required="" value="{{ $data->custom_shop }}">
-                          </div>
-                        </div>
-
                         <div class="{{ $data->allowed_products == 0 ? 'showbox' : '' }}" id="limits">
                           <div class="row">
                             <div class="col-lg-4">

@@ -92,6 +92,7 @@
                                             {{ csrf_field() }}
 
 
+                                        @if($user->is_vendor == 0)
 
                                         <div class="row">
                                             <div class="col-lg-4">
@@ -100,7 +101,59 @@
                                                 </h5>
                                             </div>
                                             <div class="col-lg-8">
-                                                    <input type="text"  id="shop-name" class="option" name="shop_name" value="{{ $user->shop_name }}" placeholder="{{ $langg->lang238 }}" required>
+                                                    <input type="text"  id="shop-name" class="option" name="shop_name" placeholder="{{ $langg->lang238 }}" required>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <h5 class="title pt-1">
+                                                    {{ $langg->lang239 }} *
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                    <input type="text" class="option" name="owner_name" placeholder="{{ $langg->lang239 }}" required>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <h5 class="title pt-1">
+                                                    {{ $langg->lang240 }} *
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                    <input type="text" class="option" name="shop_number" placeholder="{{ $langg->lang240 }}" required>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <h5 class="title pt-1">
+                                                    {{ $langg->lang241 }} *
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                    <input type="text" class="option" name="shop_address" placeholder="{{ $langg->lang241 }}" required>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <h5 class="title pt-1">
+                                                    {{ $langg->lang242 }} <small>{{ $langg->lang417 }}</small>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                    <input type="text" class="option" name="reg_number" placeholder="{{ $langg->lang242 }}">
                                             </div>
                                         </div>
 
@@ -113,13 +166,14 @@
                                                 </h5>
                                             </div>
                                             <div class="col-lg-8">
-                                                <textarea class="option" name="shop_message" placeholder="{{ $langg->lang243 }}" rows="5">{{ $user->shop_message }}</textarea>
+                                                <textarea class="option" name="shop_message" placeholder="{{ $langg->lang243 }}" rows="5"></textarea>
                                             </div>
                                         </div>
 
                                         <br>
 
 
+                                        @endif
                                         <input type="hidden" name="subs_id" value="{{ $subs->id }}">
 
                                  @if($subs->price != 0)       
@@ -134,8 +188,27 @@
 
                                             <select name="method" id="option" onchange="meThods(this)" class="option" required="">
                                                 <option value="">{{ $langg->lang419 }}</option>
-                                                    <option value="Steemlogin">Steemlogin</option>
-                                                    <option value="Steem">Steem</option>
+                                                @if($gs->paypal_check == 1)
+                                                    <option value="Paypal">{{ $langg->lang420 }}</option>
+                                                @endif
+                                                @if($gs->stripe_check == 1)
+                                                    <option value="Stripe">{{ $langg->lang421 }}</option>
+                                                @endif
+                                                @if($gs->is_instamojo == 1)
+                                                    <option value="Instamojo">{{ $langg->lang763 }}</option>
+                                                @endif
+                                                @if($gs->is_paystack == 1)
+                                                    <option value="Paystack">{{ $langg->lang764 }}</option>
+                                                @endif
+                                                @if($gs->is_molly == 1)
+                                                    <option value="Molly">{{ $langg->lang802 }}</option>
+                                                @endif
+                                                @if($gs->is_paytm == 1)
+                                                    <option value="Paytm">{{ $langg->paytm }}</option>
+                                                @endif
+                                                @if($gs->is_razorpay == 1)
+                                                    <option value="Razorpay">{{ $langg->razorpay }}</option>
+                                                @endif
                                             </select>
 
                                     </div>

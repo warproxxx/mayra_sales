@@ -11,7 +11,6 @@ use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Childcategory;
 use App\Models\Generalsetting;
-use App\Models\UserSubscription;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,18 +62,6 @@ class VendorController extends Controller
         $vprods = (new Collection(Product::filterProducts($prods)))->paginate(9);
         $data['vprods'] = $vprods;
 
-        $res = UserSubscription::where('id','=',$prods[0]->user_id)->first();
-        $active_subscription = 0;
-
-        if ($res != null)
-        {
-          if ($res->status == 1)
-            $active_subscription = 1;
-        }
-
-        if ($active_subscription == 0)
-            return redirect()->back();
-
 
         return view('front.vendor', $data);
     }
@@ -108,20 +95,12 @@ class VendorController extends Controller
 
 
     $conv = Conversation::where('sent_user','=',$user->id)->where('subject','=',$subject)->first();
-        if(isset($conv))
-        {
+        if(isset($conv)){
             $msg = new Message();
             $msg->conversation_id = $conv->id;
             $msg->message = $request->message;
             $msg->sent_user = $user->id;
             $msg->save();
-
-            $notification = new Notification;
-            $notification->conversation_id = $conv->id;
-            $notification->user_id = $conv->sent_user;
-            $notification->type = "user";
-            $notification->save();
-        
         }
         else{
             $message = new Conversation();
@@ -130,18 +109,11 @@ class VendorController extends Controller
             $message->recieved_user = $request->vendor_id;
             $message->message = $request->message;
             $message->save();
-
             $msg = new Message();
             $msg->conversation_id = $message->id;
             $msg->message = $request->message;
             $msg->sent_user = $request->user_id;;
             $msg->save();
-
-            $notification = new Notification;
-            $notification->conversation_id = $message->id;
-            $notification->user_id = $request->user_id;
-            $notification->type = "user";
-            $notification->save();
 
         }
     }

@@ -219,6 +219,21 @@
 
 						                        </div>
 
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<ul class="list">
+															<li>
+																<input name="size_check" type="checkbox" id="size-check" value="1">
+																<label for="size-check">{{ $langg->lang648 }}</label>
+															</li>
+														</ul>
+													</div>
+												</div>
 													<div class="showbox" id="size-display">
 													<div class="row">
 															<div  class="col-lg-4">
@@ -363,24 +378,24 @@
 																{{ $langg->lang664 }}*
 															</h4>
 															<p class="sub-heading">
-																({{ $langg->lang665 }} USD)
+																({{ $langg->lang665 }} {{$sign->name}})
 															</p>
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="usd_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" required="" min="0">
+														<input name="price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" required="" min="0">
 													</div>
 												</div>
 
 												<div class="row">
 													<div class="col-lg-4">
 														<div class="left-area">
-																<h4 class="heading">{{ $langg->lang667 }}</h4>
-																<p class="sub-heading">{{ $langg->lang668 }} In USD</p>
+																<h4 class="heading">{{ $langg->lang667 }}*</h4>
+																<p class="sub-heading">{{ $langg->lang668 }}</p>
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input name="usd_previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" min="0">
+														<input name="previous_price" step="0.1" type="number" class="input-field" placeholder="{{ $langg->lang666 }}" min="0">
 													</div>
 												</div>
 

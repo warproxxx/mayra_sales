@@ -20,11 +20,11 @@
 	    <meta property="og:title" content="{{$productt->name}}" />
 	    <meta property="og:description" content="{{ $productt->meta_description != null ? $productt->meta_description : strip_tags($productt->description) }}" />
 	    <meta property="og:image" content="{{asset('assets/images/'.$productt->photo)}}" />
-	    <meta name="author" content="OpenMarket">
+	    <meta name="author" content="GeniusOcean">
     	<title>{{substr($productt->name, 0,11)."-"}}{{$gs->title}}</title>
     @else
 	    <meta name="keywords" content="{{ $seo->meta_keys }}">
-	    <meta name="author" content="OpenMarket">
+	    <meta name="author" content="GeniusOcean">
 		<title>{{$gs->title}}</title>
     @endif
 	<!-- favicon -->
@@ -87,6 +87,26 @@
     <div style="display:none">
         <img src="{{asset('assets/images/'.$gs->popup_background)}}">
     </div>
+
+    <!--  Starting of subscribe-pre-loader Area   -->
+    <div class="subscribe-preloader-wrap" id="subscriptionForm" style="display: none;">
+        <div class="subscribePreloader__thumb" style="background-image: url({{asset('assets/images/'.$gs->popup_background)}});">
+            <span class="preload-close"><i class="fas fa-times"></i></span>
+            <div class="subscribePreloader__text text-center">
+                <h1>{{$gs->popup_title}}</h1>
+                <p>{{$gs->popup_text}}</p>
+                <form action="{{route('front.subscribe')}}" id="subscribeform" method="POST">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <input type="email" name="email"  placeholder="{{ $langg->lang741 }}" required="">
+                        <button id="sub-btn" type="submit">{{ $langg->lang742 }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  Ending of subscribe-pre-loader Area   -->
+
 @endif
 
 @endif
@@ -137,7 +157,6 @@
 								<ul>
 									@if(!Auth::guard('web')->check())
 									<li class="login">
-									
 										<a href="{{ route('user.login') }}" class="sign-log">
 											<div class="links">
 												<span class="sign-in">{{ $langg->lang12 }}</span> <span>|</span>
@@ -164,10 +183,6 @@
 													@endif
 
 													<li>
-														<a href="/user/orders"><i class="fas fa-angle-double-right"></i> Orders</a>
-													</li>
-
-													<li>
 														<a href="{{ route('user-profile') }}"><i class="fas fa-angle-double-right"></i> {{ $langg->lang205 }}</a>
 													</li>
 
@@ -177,11 +192,24 @@
 												</ul>
 											</div>
 										</li>
-
-										<!-- This is a possible place too -->
 									@endif
 
 
+                        			@if($gs->reg_vendor == 1)
+										<li>
+                        				@if(Auth::check())
+	                        				@if(Auth::guard('web')->user()->is_vendor == 2)
+	                        					<a href="{{ route('vendor-dashboard') }}" class="sell-btn">{{ $langg->lang220 }}</a>
+	                        				@else
+	                        					<a href="{{ route('user-package') }}" class="sell-btn">{{ $langg->lang220 }}</a>
+	                        				@endif
+										</li>
+                        				@else
+										<li>
+											<a href="javascript:;" data-toggle="modal" data-target="#vendor-login" class="sell-btn">{{ $langg->lang220 }}</a>
+										</li>
+										@endif
+									@endif
 
 
 								</ul>
@@ -240,7 +268,7 @@
 				<div class="col-lg-2 col-sm-6 col-7 remove-padding order-lg-last">
 					<div class="helpful-links">
 						<ul class="helpful-links-inner">
-							<li class="my-dropdown"  data-toggle="tooltip" data-placement="top" title="{{ $langg->lang3 }}" style="margin-left:-30px;">
+							<li class="my-dropdown"  data-toggle="tooltip" data-placement="top" title="{{ $langg->lang3 }}">
 								<a href="javascript:;" class="cart carticon">
 									<div class="icon">
 										<i class="icofont-cart"></i>
@@ -274,20 +302,6 @@
 								</a>
 							</li>
 
-							@if (Auth::guard('web')->user() != null)
-							<li class="my-dropdown"  data-toggle="tooltip" data-placement="top" title="Notification">
-								<a id="notf_order" href="javascript:;" class="cart carticon">
-									<div class="icon">
-										<i class="icofont-globe"></i>
-										<span data-href="{{ route('user-order-notf-count',Auth::guard('web')->user()->id) }}" id="order-notf-count">{{ App\Models\UserNotification::countOrder(Auth::guard('web')->user()->id) }}</span>
-									</div>
-
-								</a>
-								<div class="my-dropdown-menu" id="cart-items">
-									<div class="dropdownmenu-wrapper" data-href="{{ route('user-order-notf-show',Auth::guard('web')->user()->id) }}" id="order-notf-show"></div>
-								</div>
-							</li>
-							@endif
 
 						</ul>
 					</div>
@@ -392,14 +406,19 @@
 							@if($gs->is_home == 1)
 							<li><a href="{{ route('front.index') }}">{{ $langg->lang17 }}</a></li>
 							@endif
+							<li><a href="{{ route('front.blog') }}">{{ $langg->lang18 }}</a></li>
 							@if($gs->is_faq == 1)
 							<li><a href="{{ route('front.faq') }}">{{ $langg->lang19 }}</a></li>
 							@endif
-							
+							@foreach(DB::table('pages')->where('header','=',1)->get() as $data)
+								<li><a href="{{ route('front.page',$data->slug) }}">{{ $data->title }}</a></li>
+							@endforeach
 							@if($gs->is_contact == 1)
 							<li><a href="{{ route('front.contact') }}">{{ $langg->lang20 }}</a></li>
 							@endif
-
+							<li>
+								<a href="javascript:;" data-toggle="modal" data-target="#track-order-modal" class="track-btn">{{ $langg->lang16 }}</a>
+							</li>
 						</ul>
 
 					</nav>
@@ -430,11 +449,47 @@
 					</div>
 					<div class="fotter-social-links">
 						<ul>
-							<li>
-							<a href="https://discord.gg/JascmKM" class="facebook" target="_blank">
-								<i class="fab fa-discord"></i>
-							</a>
-							</li>
+
+                               	     @if(App\Models\Socialsetting::find(1)->f_status == 1)
+                                      <li>
+                                        <a href="{{ App\Models\Socialsetting::find(1)->facebook }}" class="facebook" target="_blank">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                      </li>
+                                      @endif
+
+                                      @if(App\Models\Socialsetting::find(1)->g_status == 1)
+                                      <li>
+                                        <a href="{{ App\Models\Socialsetting::find(1)->gplus }}" class="google-plus" target="_blank">
+                                            <i class="fab fa-google-plus-g"></i>
+                                        </a>
+                                      </li>
+                                      @endif
+
+                                      @if(App\Models\Socialsetting::find(1)->t_status == 1)
+                                      <li>
+                                        <a href="{{ App\Models\Socialsetting::find(1)->twitter }}" class="twitter" target="_blank">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                      </li>
+                                      @endif
+
+                                      @if(App\Models\Socialsetting::find(1)->l_status == 1)
+                                      <li>
+                                        <a href="{{ App\Models\Socialsetting::find(1)->linkedin }}" class="linkedin" target="_blank">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                      </li>
+                                      @endif
+
+                                      @if(App\Models\Socialsetting::find(1)->d_status == 1)
+                                      <li>
+                                        <a href="{{ App\Models\Socialsetting::find(1)->dribble }}" class="dribbble" target="_blank">
+                                            <i class="fab fa-dribbble"></i>
+                                        </a>
+                                      </li>
+                                      @endif
+
 						</ul>
 					</div>
 				</div>
@@ -458,10 +513,42 @@
 							</li>
 							@endforeach
 
+							<li>
+								<a href="{{ route('front.contact') }}">
+									<i class="fas fa-angle-double-right"></i>{{ $langg->lang23 }}
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
-				
+				<div class="col-md-6 col-lg-4">
+					<div class="footer-widget recent-post-widget">
+						<h4 class="title">
+							{{ $langg->lang24 }}
+						</h4>
+						<ul class="post-list">
+							@foreach (App\Models\Blog::orderBy('created_at', 'desc')->limit(3)->get() as $blog)
+							<li>
+								<div class="post">
+								  <div class="post-img">
+									<img style="width: 73px; height: 59px;" src="{{ asset('assets/images/blogs/'.$blog->photo) }}" alt="">
+								  </div>
+								  <div class="post-details">
+									<a href="{{ route('front.blogshow',$blog->id) }}">
+										<h4 class="post-title">
+											{{strlen($blog->title) > 45 ? substr($blog->title,0,45)." .." : $blog->title}}
+										</h4>
+									</a>
+									<p class="date">
+										{{ date('M d - Y',(strtotime($blog->created_at))) }}
+									</p>
+								  </div>
+								</div>
+							  </li>
+							@endforeach
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -546,7 +633,29 @@
 										<input type="hidden" name="modal" value="1">
 										<input class="mauthdata" type="hidden" value="{{ $langg->lang177 }}">
 										<button type="submit" class="submit-btn">{{ $langg->lang178 }}</button>
-
+										@if(App\Models\Socialsetting::find(1)->f_check == 1 ||
+										App\Models\Socialsetting::find(1)->g_check == 1)
+										<div class="social-area">
+											<h3 class="title">{{ $langg->lang179 }}</h3>
+											<p class="text">{{ $langg->lang180 }}</p>
+											<ul class="social-links">
+												@if(App\Models\Socialsetting::find(1)->f_check == 1)
+												<li>
+													<a href="{{ route('social-provider','facebook') }}">
+														<i class="fab fa-facebook-f"></i>
+													</a>
+												</li>
+												@endif
+												@if(App\Models\Socialsetting::find(1)->g_check == 1)
+												<li>
+													<a href="{{ route('social-provider','google') }}">
+														<i class="fab fa-google-plus-g"></i>
+													</a>
+												</li>
+												@endif
+											</ul>
+										</div>
+										@endif
 									</form>
 								</div>
 							</div>
@@ -676,6 +785,228 @@
 	<!-- FORGOT MODAL ENDS -->
 
 
+<!-- VENDOR LOGIN MODAL -->
+	<div class="modal fade" id="vendor-login" tabindex="-1" role="dialog" aria-labelledby="vendor-login-Title" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" style="transition: .5s;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+				<nav class="comment-log-reg-tabmenu">
+					<div class="nav nav-tabs" id="nav-tab1" role="tablist">
+						<a class="nav-item nav-link login active" id="nav-log-tab11" data-toggle="tab" href="#nav-log11" role="tab" aria-controls="nav-log" aria-selected="true">
+							{{ $langg->lang234 }}
+						</a>
+						<a class="nav-item nav-link" id="nav-reg-tab11" data-toggle="tab" href="#nav-reg11" role="tab" aria-controls="nav-reg" aria-selected="false">
+							{{ $langg->lang235 }}
+						</a>
+					</div>
+				</nav>
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-log11" role="tabpanel" aria-labelledby="nav-log-tab">
+				        <div class="login-area">
+				          <div class="login-form signin-form">
+				                @include('includes.admin.form-login')
+				            <form class="mloginform" action="{{ route('user.login.submit') }}" method="POST">
+				              {{ csrf_field() }}
+				              <div class="form-input">
+				                <input type="email" name="email" placeholder="{{ $langg->lang173 }}" required="">
+				                <i class="icofont-user-alt-5"></i>
+				              </div>
+				              <div class="form-input">
+				                <input type="password" class="Password" name="password" placeholder="{{ $langg->lang174 }}" required="">
+				                <i class="icofont-ui-password"></i>
+				              </div>
+				              <div class="form-forgot-pass">
+				                <div class="left">
+				                  <input type="checkbox" name="remember"  id="mrp1" {{ old('remember') ? 'checked' : '' }}>
+				                  <label for="mrp1">{{ $langg->lang175 }}</label>
+				                </div>
+				                <div class="right">
+				                  <a href="javascript:;" id="show-forgot1">
+				                    {{ $langg->lang176 }}
+				                  </a>
+				                </div>
+				              </div>
+				              <input type="hidden" name="modal"  value="1">
+				               <input type="hidden" name="vendor"  value="1">
+				              <input class="mauthdata" type="hidden"  value="{{ $langg->lang177 }}">
+				              <button type="submit" class="submit-btn">{{ $langg->lang178 }}</button>
+					              @if(App\Models\Socialsetting::find(1)->f_check == 1 || App\Models\Socialsetting::find(1)->g_check == 1)
+					              <div class="social-area">
+					                  <h3 class="title">{{ $langg->lang179 }}</h3>
+					                  <p class="text">{{ $langg->lang180 }}</p>
+					                  <ul class="social-links">
+					                    @if(App\Models\Socialsetting::find(1)->f_check == 1)
+					                    <li>
+					                      <a href="{{ route('social-provider','facebook') }}">
+					                        <i class="fab fa-facebook-f"></i>
+					                      </a>
+					                    </li>
+					                    @endif
+					                    @if(App\Models\Socialsetting::find(1)->g_check == 1)
+					                    <li>
+					                      <a href="{{ route('social-provider','google') }}">
+					                        <i class="fab fa-google-plus-g"></i>
+					                      </a>
+					                    </li>
+					                    @endif
+					                  </ul>
+					              </div>
+					              @endif
+				            </form>
+				          </div>
+				        </div>
+					</div>
+					<div class="tab-pane fade" id="nav-reg11" role="tabpanel" aria-labelledby="nav-reg-tab">
+                <div class="login-area signup-area">
+                    <div class="login-form signup-form">
+                       @include('includes.admin.form-login')
+                        <form class="mregisterform" action="{{route('user-register-submit')}}" method="POST">
+                          {{ csrf_field() }}
+
+                          <div class="row">
+
+                          <div class="col-lg-6">
+                            <div class="form-input">
+                                <input type="text" class="User Name" name="name" placeholder="{{ $langg->lang182 }}" required="">
+                                <i class="icofont-user-alt-5"></i>
+                            	</div>
+                           </div>
+
+                           <div class="col-lg-6">
+ <div class="form-input">
+                                <input type="email" class="User Name" name="email" placeholder="{{ $langg->lang183 }}" required="">
+                                <i class="icofont-email"></i>
+                            </div>
+
+                           	</div>
+                           <div class="col-lg-6">
+    <div class="form-input">
+                                <input type="text" class="User Name" name="phone" placeholder="{{ $langg->lang184 }}" required="">
+                                <i class="icofont-phone"></i>
+                            </div>
+
+                           	</div>
+                           <div class="col-lg-6">
+
+<div class="form-input">
+                                <input type="text" class="User Name" name="address" placeholder="{{ $langg->lang185 }}" required="">
+                                <i class="icofont-location-pin"></i>
+                            </div>
+                           	</div>
+
+                           <div class="col-lg-6">
+ <div class="form-input">
+                                <input type="text" class="User Name" name="shop_name" placeholder="{{ $langg->lang238 }}" required="">
+                                <i class="icofont-cart-alt"></i>
+                            </div>
+
+                           	</div>
+                           <div class="col-lg-6">
+
+ <div class="form-input">
+                                <input type="text" class="User Name" name="owner_name" placeholder="{{ $langg->lang239 }}" required="">
+                                <i class="icofont-cart"></i>
+                            </div>
+                           	</div>
+                           <div class="col-lg-6">
+
+<div class="form-input">
+                                <input type="text" class="User Name" name="shop_number" placeholder="{{ $langg->lang240 }}" required="">
+                                <i class="icofont-shopping-cart"></i>
+                            </div>
+                           	</div>
+                           <div class="col-lg-6">
+
+ <div class="form-input">
+                                <input type="text" class="User Name" name="shop_address" placeholder="{{ $langg->lang241 }}" required="">
+                                <i class="icofont-opencart"></i>
+                            </div>
+                           	</div>
+                           <div class="col-lg-6">
+
+<div class="form-input">
+                                <input type="text" class="User Name" name="reg_number" placeholder="{{ $langg->lang242 }}" required="">
+                                <i class="icofont-ui-cart"></i>
+                            </div>
+                           	</div>
+                           <div class="col-lg-6">
+
+ <div class="form-input">
+                                <input type="text" class="User Name" name="shop_message" placeholder="{{ $langg->lang243 }}" required="">
+                                <i class="icofont-envelope"></i>
+                            </div>
+                           	</div>
+
+                           <div class="col-lg-6">
+  <div class="form-input">
+                                <input type="password" class="Password" name="password" placeholder="{{ $langg->lang186 }}" required="">
+                                <i class="icofont-ui-password"></i>
+                            </div>
+
+                           	</div>
+                           <div class="col-lg-6">
+ 								<div class="form-input">
+                                <input type="password" class="Password" name="password_confirmation" placeholder="{{ $langg->lang187 }}" required="">
+                                <i class="icofont-ui-password"></i>
+                            	</div>
+                           	</div>
+
+                            @if($gs->is_capcha == 1)
+
+<div class="col-lg-6">
+
+
+                            <ul class="captcha-area">
+                                <li>
+                                 	<p>
+                                 		<img class="codeimg1" src="{{asset("assets/images/capcha_code.png")}}" alt=""> <i class="fas fa-sync-alt pointer refresh_code "></i>
+                                 	</p>
+
+                                </li>
+                            </ul>
+
+
+</div>
+
+<div class="col-lg-6">
+
+ <div class="form-input">
+                                <input type="text" class="Password" name="codes" placeholder="{{ $langg->lang51 }}" required="">
+                                <i class="icofont-refresh"></i>
+
+                            </div>
+
+
+
+                          </div>
+
+                          @endif
+
+				            <input type="hidden" name="vendor"  value="1">
+                            <input class="mprocessdata" type="hidden"  value="{{ $langg->lang188 }}">
+                            <button type="submit" class="submit-btn">{{ $langg->lang189 }}</button>
+
+                           	</div>
+
+
+
+
+                        </form>
+                    </div>
+                </div>
+					</div>
+				</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- VENDOR LOGIN MODAL ENDS -->
+
 <!-- Product Quick View Modal -->
 
 	  <div class="modal fade" id="quickview" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -699,6 +1030,41 @@
 	  </div>
 <!-- Product Quick View Modal -->
 
+<!-- Order Tracking modal Start-->
+    <div class="modal fade" id="track-order-modal" tabindex="-1" role="dialog" aria-labelledby="order-tracking-modal" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"> <b>{{ $langg->lang772 }}</b> </h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                        <div class="order-tracking-content">
+                            <form id="track-form" class="track-form">
+                                {{ csrf_field() }}
+                                <input type="text" id="track-code" placeholder="{{ $langg->lang773 }}" required="">
+                                <button type="submit" class="mybtn1">{{ $langg->lang774 }}</button>
+                                <a href="#"  data-toggle="modal" data-target="#order-tracking-modal"></a>
+                            </form>
+                        </div>
+
+                        <div>
+				            <div class="submit-loader d-none">
+								<img src="{{asset('assets/images/'.$gs->loader)}}" alt="">
+							</div>
+							<div id="track-order">
+
+							</div>
+                        </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+<!-- Order Tracking modal End -->
 
 <script type="text/javascript">
   var mainurl = "{{url('/')}}";

@@ -41,11 +41,11 @@
                           <div class="col-lg-4">
                             <div class="left-area">
                                 <h4 class="heading">{{ $langg->lang738 }} *</h4>
-                                <p class="sub-heading">In USD</p>
+                                <p class="sub-heading">({{ $langg->lang665 }} {{ $sign->name }})</p>
                             </div>
                           </div>
                           <div class="col-lg-7">
-                            <input type="number" class="input-field" name="usd_price" placeholder="{{ $langg->lang738 }}" required="" value="" min="0" step="0.1">
+                            <input type="number" class="input-field" name="price" placeholder="{{ $langg->lang738 }}" required="" value="" min="0" step="0.1">
                           </div>
                         </div>
 

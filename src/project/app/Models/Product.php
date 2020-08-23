@@ -10,16 +10,16 @@ use Illuminate\Support\Facades\Session;
 class Product extends Model
 {
 
-    protected $fillable = ['user_id','category_id','product_type','affiliate_link','sku', 'subcategory_id', 'childcategory_id', 'attributes', 'name', 'photo', 'size','size_qty','size_price', 'color', 'details', 'price', 'usd_price', 'previous_price','stock','policy','status', 'views','tags','featured','best','top','hot','latest','big','trending','sale','features','colors','product_condition','ship','meta_tag','meta_description','youtube','type','file','license','license_qty','link','platform','region','licence_type','measure','discount_date','is_discount','whole_sell_qty','whole_sell_discount','catalog_id','slug'];
+    protected $fillable = ['user_id','category_id','product_type','affiliate_link','sku', 'subcategory_id', 'childcategory_id', 'attributes', 'name', 'photo', 'size','size_qty','size_price', 'color', 'details','price','previous_price','stock','policy','status', 'views','tags','featured','best','top','hot','latest','big','trending','sale','features','colors','product_condition','ship','meta_tag','meta_description','youtube','type','file','license','license_qty','link','platform','region','licence_type','measure','discount_date','is_discount','whole_sell_qty','whole_sell_discount','catalog_id','slug'];
 
     public static function filterProducts($collection)
     {
         foreach ($collection as $key => $data) {
-            // if($data->user_id != 0){
-            //     if($data->user->is_vendor != 2){
-            //         unset($collection[$key]);
-            //     }
-            // }
+            if($data->user_id != 0){
+                if($data->user->is_vendor != 2){
+                    unset($collection[$key]);
+                }
+            }
             if(isset($_GET['max'])){
                  if($data->vendorSizePrice() >= $_GET['max']) {
                     unset($collection[$key]);
@@ -143,10 +143,10 @@ class Product extends Model
         }
         $price = round($price * $curr->value,2);
         if($gs->currency_format == 0){
-            return $price." ".$curr->sign;
+            return $curr->sign.$price;
         }
         else{
-            return $price." ".$curr->sign;
+            return $price.$curr->sign;
         }
     }
 
@@ -201,10 +201,10 @@ class Product extends Model
 
         $price = round(($price) * $curr->value,2);
         if($gs->currency_format == 0){
-            return $price." ".$curr->sign;
+            return $curr->sign.$price;
         }
         else{
-            return $price. " " .$curr->sign;
+            return $price.$curr->sign;
         }
     }
 
@@ -257,10 +257,10 @@ class Product extends Model
         }
         $price = round($price * $curr->value,2);
         if($gs->currency_format == 0){
-            return $price." ".$curr->sign;
+            return $curr->sign.$price;
         }
         else{
-            return $price." ".$curr->sign;
+            return $price.$curr->sign;
         }
     }
 
@@ -276,10 +276,10 @@ class Product extends Model
         }
         $price = round($price * $curr->value,2);
         if($gs->currency_format == 0){
-            return $price." ".$curr->sign;
+            return $curr->sign.$price;
         }
         else{
-            return $price." ".$curr->sign;
+            return $price.$curr->sign;
         }
     }
 
@@ -289,10 +289,10 @@ class Product extends Model
         $curr = Currency::where('is_default','=',1)->first();
         $price = round($price * $curr->value,2);
         if($gs->currency_format == 0){
-            return $price." ".$curr->sign;
+            return $curr->sign.$price;
         }
         else{
-            return $price." ".$curr->sign;
+            return $price.$curr->sign;
         }
     }
 
@@ -308,10 +308,10 @@ class Product extends Model
         }
         $price = round($price * $curr->value,2);
         if($gs->currency_format == 0){
-            return $price." ".$curr->sign;
+            return $curr->sign.$price;
         }
         else{
-            return $price." ".$curr->sign;
+            return $price.$curr->sign;
         }
     }
 

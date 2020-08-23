@@ -14,7 +14,6 @@ use App\Models\Subscription;
 use App\Models\Generalsetting;
 use App\Models\UserSubscription;
 use App\Models\FavoriteSeller;
-use App\Models\SubscriptionPayment;
 
 class UserController extends Controller
 {
@@ -26,15 +25,6 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();  
-
-        if ($user != null)
-        {
-            if (time() > $user->token_expirity)
-            {
-                return redirect()->route('user-logout');
-            }
-        }
-
         return view('user.dashboard',compact('user'));
     }
 
@@ -44,18 +34,14 @@ class UserController extends Controller
         return view('user.profile',compact('user'));
     }
 
-    public function api_profile()
-    {
-        return Auth::user();  
-    }
-
     public function profileupdate(Request $request)
     {
         //--- Validation Section
 
         $rules =
         [
-            'photo' => 'mimes:jpeg,jpg,png,svg'
+            'photo' => 'mimes:jpeg,jpg,png,svg',
+            'email' => 'unique:users,email,'.Auth::user()->id
         ];
 
 
@@ -120,25 +106,15 @@ class UserController extends Controller
 
     public function vendorrequest($id)
     {
+        $subs = Subscription::findOrFail($id);
+        $gs = Generalsetting::findOrfail(1);
         $user = Auth::user();
-        $selected = SubscriptionPayment::where('user_id', $user->id)->where('paid', 0)->get();
-
-        if($selected->isNotEmpty())
+        $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
+        if($gs->reg_vendor != 1)
         {
-            return redirect()->route('user-subscription-payment', ['order'=> $selected[0]->id]);
+            return redirect()->back();
         }
-        else
-        {
-            $subs = Subscription::findOrFail($id);
-            $gs = Generalsetting::findOrfail(1);
-            
-            $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
-            if($gs->reg_vendor != 1)
-            {
-                return redirect()->back();
-            }
-            return view('user.package.details',compact('user','subs','package'));
-        }
+        return view('user.package.details',compact('user','subs','package'));
     }
 
     public function vendorrequestsub(Request $request)
@@ -149,42 +125,50 @@ class UserController extends Controller
                'shop_name.unique' => 'This shop name has already been taken.'
             ]);
         $user = Auth::user();
+        $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
+        $subs = Subscription::findOrFail($request->subs_id);
+        $settings = Generalsetting::findOrFail(1);
+                    $today = Carbon::now()->format('Y-m-d');
+                    $input = $request->all();  
+                    $user->is_vendor = 2;
+                    $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+                    $user->mail_sent = 1;     
+                    $user->update($input);
+                    $sub = new UserSubscription;
+                    $sub->user_id = $user->id;
+                    $sub->subscription_id = $subs->id;
+                    $sub->title = $subs->title;
+                    $sub->currency = $subs->currency;
+                    $sub->currency_code = $subs->currency_code;
+                    $sub->price = $subs->price;
+                    $sub->days = $subs->days;
+                    $sub->allowed_products = $subs->allowed_products;
+                    $sub->details = $subs->details;
+                    $sub->method = 'Free';
+                    $sub->status = 1;
+                    $sub->save();
+                    if($settings->is_smtp == 1)
+                    {
+                    $data = [
+                        'to' => $user->email,
+                        'type' => "vendor_accept",
+                        'cname' => $user->name,
+                        'oamount' => "",
+                        'aname' => "",
+                        'aemail' => "",
+                        'onumber' => "",
+                    ];    
+                    $mailer = new GeniusMailer();
+                    $mailer->sendAutoMail($data);        
+                    }
+                    else
+                    {
+                    $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
+                    mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
+                    }
 
+                    return redirect()->route('user-dashboard')->with('success','Vendor Account Activated Successfully');
 
-        $sub = new SubscriptionPayment;
-        $sub->user_id = $user->id;
-        $sub->subscription_id = $request->subs_id;
-        $sub->memo = md5(uniqid(rand(), true));
-        $sub->shop_name = $request->shop_name;
-        $sub->shop_message = $request->shop_message;
-        $sub->save();   
-
-        return redirect()->route('user-subscription-payment', ['order'=> $sub->id]);
-    }
-
-    public function transact()
-    {
-        $order_id = $_GET['order'];
-        $selected = SubscriptionPayment::where('id', $order_id)->where('paid', 0)->first();
-
-        $order_id = $selected->memo;
-
-        $payment_status = "PAID";
-
-        if ($selected->paid == 0)
-            $payment_status = "UNPAID";
-
-
-        $pay_amount = Subscription::where('id', $selected->subscription_id)->first()->price;
-        $id = $_GET['order'];
-        return view('front.subscription_transact',compact('id','order_id', 'pay_amount', 'payment_status'));
-    }
-
-    public function remove_transaction($id)
-    {
-        $file = SubscriptionPayment::where('id', $id)->first(); // File::find($id)
-        $file->delete();
-        return redirect()->route('user-package');
     }
 
 

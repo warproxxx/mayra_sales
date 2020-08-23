@@ -34,7 +34,7 @@
                                                             <th>{{ $langg->lang534 }}</th>
                                                             <th>{{ $langg->lang535 }}</th>
                                                             <th>{{ $langg->lang536 }}</th>
-                                                            <th>Messages</th>
+                                                            <th>{{ $langg->lang537 }}</th>
                                                             <th>{{ $langg->lang538 }}</th>
                                                         </tr>
                                                     </thead>
@@ -52,25 +52,28 @@
 @php 
 
   if($user->shipping_cost != 0){
-      $price +=  round($user->shipping_cost * $order->currency_value , 2);
+      $price +=  round($user->shipping_cost * $order->order->currency_value , 2);
     }
+  if(App\Models\Order::where('order_number','=',$order->order->order_number)->first()->tax != 0){
+      $price  += ($price / 100) * App\Models\Order::where('order_number','=',$order->order->order_number)->first()->tax;
+    }    
 
 @endphp
                                                         <tr>
-                                                    <td> <a href="{{route('vendor-order-invoice',$order->order_number)}}">{{ $order->order_number}}</a></td>
+                                                    <td> <a href="{{route('vendor-order-invoice',$order->order_number)}}">{{ $order->order->order_number}}</a></td>
                                           <td>{{$qty}}</td>
-                                      <td>{{ $order->currency_sign }}{{round($price)}}</td>
-                                      <td><a href="{{route('vendor-message-show',$order->conversation_id)}}" target="_blank">Message</td>
+                                      <td>{{$order->order->currency_sign}}{{round($price * $order->order->currency_value, 2)}}</td>
+                                      <td>{{$order->order->method}}</td>
                                       <td>
 
                                         <div class="action-list">
 
-                                        <a href="{{route('vendor-order-show',$order->order_number)}}" class="btn btn-primary product-btn"><i class="fa fa-eye"></i> {{ $langg->lang539 }}</a>
+                                        <a href="{{route('vendor-order-show',$order->order->order_number)}}" class="btn btn-primary product-btn"><i class="fa fa-eye"></i> {{ $langg->lang539 }}</a>
                                             <select class="vendor-btn {{ $order->status }}">
-                                            <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'pending']) }}" {{  $order->status == "pending" ? 'selected' : ''  }}>{{ $langg->lang540 }}</option>
-                                            <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'processing']) }}" {{  $order->status == "processing" ? 'selected' : ''  }}>{{ $langg->lang541 }}</option>
-                                            <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'completed']) }}" {{  $order->status == "completed" ? 'selected' : ''  }}>{{ $langg->lang542 }}</option>
-                                            <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'declined']) }}" {{  $order->status == "declined" ? 'selected' : ''  }}>{{ $langg->lang543 }}</option>
+                                            <option value="{{ route('vendor-order-status',['slug' => $order->order->order_number, 'status' => 'pending']) }}" {{  $order->status == "pending" ? 'selected' : ''  }}>{{ $langg->lang540 }}</option>
+                                            <option value="{{ route('vendor-order-status',['slug' => $order->order->order_number, 'status' => 'processing']) }}" {{  $order->status == "processing" ? 'selected' : ''  }}>{{ $langg->lang541 }}</option>
+                                            <option value="{{ route('vendor-order-status',['slug' => $order->order->order_number, 'status' => 'completed']) }}" {{  $order->status == "completed" ? 'selected' : ''  }}>{{ $langg->lang542 }}</option>
+                                            <option value="{{ route('vendor-order-status',['slug' => $order->order->order_number, 'status' => 'declined']) }}" {{  $order->status == "declined" ? 'selected' : ''  }}>{{ $langg->lang543 }}</option>
                                             </select>
 
                                         </div>

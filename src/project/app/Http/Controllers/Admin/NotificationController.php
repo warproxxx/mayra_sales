@@ -15,19 +15,19 @@ class NotificationController extends Controller
 
     public function user_notf_count()
     {
-        $data = Notification::where('user_id','!=',null)->where('is_read','=',0)->where('admin_id','=',1)->get()->count();
+        $data = Notification::where('user_id','!=',null)->where('is_read','=',0)->get()->count();
         return response()->json($data);            
     } 
 
     public function user_notf_clear()
     {
-        $data = Notification::where('user_id','!=',null)->where('admin_id','=',1);
+        $data = Notification::where('user_id','!=',null);
         $data->delete();        
     } 
 
     public function user_notf_show()
     {
-        $datas = Notification::where('user_id','!=',null)->where('admin_id','=',1)->get();
+        $datas = Notification::where('user_id','!=',null)->get();
         if($datas->count() > 0){
           foreach($datas as $data){
             $data->is_read = 1;
@@ -40,19 +40,19 @@ class NotificationController extends Controller
 
     public function order_notf_count()
     {
-        $data = Notification::where('order_id','!=',null)->where('admin_id','=',1)->where('is_read','=',0)->get()->count();
+        $data = Notification::where('order_id','!=',null)->where('is_read','=',0)->get()->count();
         return response()->json($data);            
     } 
 
     public function order_notf_clear()
     {
-        $data = Notification::where('order_id','!=',null)->where('admin_id','=',1);
+        $data = Notification::where('order_id','!=',null);
         $data->delete();        
     } 
 
     public function order_notf_show()
     {
-        $datas = Notification::where('order_id','!=',null)->where('admin_id','=',1)->get();
+        $datas = Notification::where('order_id','!=',null)->get();
         if($datas->count() > 0){
           foreach($datas as $data){
             $data->is_read = 1;
@@ -90,19 +90,19 @@ class NotificationController extends Controller
 
     public function conv_notf_count()
     {
-        $data = Notification::where('conversation_id','!=',null)->where('admin_id','=',1)->where('is_read','=',0)->get()->count();
+        $data = Notification::where('conversation_id','!=',null)->where('is_read','=',0)->get()->count();
         return response()->json($data);            
     } 
 
     public function conv_notf_clear()
     {
-        $data = Notification::where('conversation_id','!=',null)->where('admin_id','=',1);
+        $data = Notification::where('conversation_id','!=',null);
         $data->delete();        
     } 
 
     public function conv_notf_show()
     {
-        $datas = Notification::where('conversation_id','!=',null)->where('admin_id','=',1)->get();
+        $datas = Notification::where('conversation_id','!=',null)->get();
         if($datas->count() > 0){
           foreach($datas as $data){
             $data->is_read = 1;
@@ -110,6 +110,6 @@ class NotificationController extends Controller
           }
         }       
         return view('admin.notification.message',compact('datas'));           
-    }
+    } 
 
 }

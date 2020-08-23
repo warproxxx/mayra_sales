@@ -12,8 +12,6 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Socialite;
-use Log;
-use Illuminate\Support\Str;
 
 class SocialRegisterController extends Controller
 {
@@ -48,11 +46,9 @@ class SocialRegisterController extends Controller
         }
         //check if we have logged provider
         $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
-
-        $user_id = 0;
-
         if(!$socialProvider)
         {
+
             //create a new user and provider
             $user = new User;
             $user->email = $socialUser->email;
@@ -62,14 +58,11 @@ class SocialRegisterController extends Controller
             $user->is_provider = 1;
             $user->affilate_code = $socialUser->name.$socialUser->email;
             $user->affilate_code = md5($user->affilate_code);
-            $user->api_token = Str::random(60);
             $user->save();
 
             $user->socialProviders()->create(
                 ['provider_id' => $socialUser->getId(), 'provider' => $provider]
             );
-            
-            $user_id = $user->id;
             $notification = new Notification;
             $notification->user_id = $user->id;
             $notification->save();
@@ -77,22 +70,12 @@ class SocialRegisterController extends Controller
         }
         else
         {
+
             $user = $socialProvider->user;
-            $user_id = $user->id;
         }
 
-        $user = User::where('id', $user_id)->first();
-
-        $resp = array();
-        $resp['user_type'] = 'user';
-        $resp['token'] = $user->api_token;
-
-        if($user->is_vendor == 2)
-        {
-          $resp['user_type'] = 'vendor';
-        }
-
-        return response()->json($resp, 200);
+        Auth::guard('web')->login($user); 
+        return redirect()->route('user-dashboard');
 
     }
 }

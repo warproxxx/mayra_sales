@@ -12,7 +12,6 @@ use App\Models\Currency;
 use App\Models\Gallery;
 use App\Models\Attribute;
 use App\Models\AttributeOption;
-use App\Models\Price;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
@@ -46,7 +45,7 @@ class ProductController extends Controller
                             ->editColumn('price', function(Product $data) {
                                 $sign = Currency::where('is_default','=',1)->first();
                                 $price = round($data->price * $sign->value , 2);
-                                $price = $price." ".$sign->sign ;
+                                $price = $sign->sign.$price ;
                                 return  $price;
                             })
                             ->editColumn('stock', function(Product $data) {
@@ -452,16 +451,10 @@ class ProductController extends Controller
         }
 
 
-        $price = Price::where('id','=',1)->first();
-
-        $input['price'] = $input['usd_price'] / $price->steem;
-
-        if (!(is_null($input['usd_previous_price'])))
-            $input['previous_price'] = $input['usd_previous_price']  / $price->steem;
 
         // Conert Price According to Currency
-        // $input['price'] = ($input['price'] / $sign->value);
-        // $input['previous_price'] = ($input['previous_price'] / $sign->value);
+        $input['price'] = ($input['price'] / $sign->value);
+        $input['previous_price'] = ($input['previous_price'] / $sign->value);
 
 
 
@@ -936,16 +929,10 @@ if (!Product::where('sku',$line[0])->exists()){
          {
             $input['tags'] = null;
          }
-        
-         $price = Price::where('id','=',1)->first();
 
-        $input['price'] = $input['usd_price'] / $price->steem;
 
-        if (!(is_null($input['usd_previous_price'])))
-            $input['previous_price'] = $input['usd_previous_price']  / $price->steem;
-
-        //  $input['price'] = $input['price'] / $sign->value;
-        //  $input['previous_price'] = $input['previous_price'] / $sign->value;
+         $input['price'] = $input['price'] / $sign->value;
+         $input['previous_price'] = $input['previous_price'] / $sign->value;
 
          // store filtering attributes for physical product
          $attrArr = [];

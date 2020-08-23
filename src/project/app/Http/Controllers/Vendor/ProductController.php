@@ -12,7 +12,6 @@ use App\Models\Generalsetting;
 use App\Models\Subcategory;
 use App\Models\Attribute;
 use App\Models\AttributeOption;
-use App\Models\Price;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -63,7 +62,7 @@ class ProductController extends Controller
                             ->editColumn('price', function(Product $data) {
                                 $sign = Currency::where('is_default','=',1)->first();
                                 $price = round($data->price * $sign->value , 2);
-                                $price = $price." ".$sign->sign ;
+                                $price = $sign->sign.$price ;
                                 return  $price;
                             })
                             ->addColumn('status', function(Product $data) {
@@ -369,28 +368,7 @@ if (!Product::where('sku',$line[0])->exists()){
 
         $user = Auth::user();
         $package = $user->subscribes()->orderBy('id','desc')->first();
-
-        $product_limit = 9999;
-
-        if ($package === null) 
-        {
-            $product_limit = 2;
-        }
-        else if ($package->status != 1)
-        {
-            $product_limit = 2;
-        }
-
         $prods = $user->products()->orderBy('id','desc')->get()->count();
-
-        if ($product_limit == 2)
-        {
-            if ($prods >= 2)
-            {
-                return response()->json(array('errors' => [ 0 => 'You Can\'t Add More Product. Subscribe to a new plan!']));
-            }
-        }
-
         if(Generalsetting::find(1)->verify_product == 1)
         {
             if(!$user->checkStatus())
@@ -398,7 +376,8 @@ if (!Product::where('sku',$line[0])->exists()){
                 return response()->json(array('errors' => [ 0 => 'You must complete your verfication first.']));
             }
         }
-
+        if($prods < $package->allowed_products || $package->allowed_products == 0)
+        {
 
         //--- Validation Section
         $rules = [
@@ -568,16 +547,8 @@ if (!Product::where('sku',$line[0])->exists()){
              }
 
             // Conert Price According to Currency
-
-             $price = Price::where('id','=',1)->first();
-
-             $input['price'] = $input['usd_price'] * $price->steem;
-
-            if (!(is_null($input['usd_previous_price'])))
-                $input['previous_price'] = $input['usd_previous_price']  * $price->steem;
-
-            //  $input['price'] = ($input['price'] / $sign->value);
-            //  $input['previous_price'] = ($input['previous_price'] / $sign->value);
+             $input['price'] = ($input['price'] / $sign->value);
+             $input['previous_price'] = ($input['previous_price'] / $sign->value);
          	 $input['user_id'] = Auth::user()->id;
 
            // store filtering attributes for physical product
@@ -686,7 +657,14 @@ if (!Product::where('sku',$line[0])->exists()){
         $msg = 'New Product Added Successfully.<a href="'.route('vendor-prod-index').'">View Product Lists.</a>';
         return response()->json($msg);
         //--- Redirect Section Ends
+        }
+        else
+        {
+        //--- Redirect Section
+        return response()->json(array('errors' => [ 0 => 'You Can\'t Add More Product.']));
 
+        //--- Redirect Section Ends
+        }
 
     }
 
@@ -921,15 +899,8 @@ if (!Product::where('sku',$line[0])->exists()){
             $input['tags'] = null;
          }
 
-         $price = Price::where('id','=',1)->first();
-
-        $input['price'] = $input['usd_price'] * $price->steem;
-
-        if (!(is_null($input['usd_previous_price'])))
-            $input['previous_price'] = $input['usd_previous_price']  * $price->steem;
-
-        //  $input['price'] = $input['price'] / $sign->value;
-        //  $input['previous_price'] = $input['previous_price'] / $sign->value;
+         $input['price'] = $input['price'] / $sign->value;
+         $input['previous_price'] = $input['previous_price'] / $sign->value;
 
          // store filtering attributes for physical product
          $attrArr = [];
@@ -1364,7 +1335,12 @@ if (!Product::where('sku',$line[0])->exists()){
                 $gal->delete();
             }
         }
-
+        if($data->clicks->count() > 0)
+        {
+            foreach ($data->clicks as $gal) {
+                $gal->delete();
+            }
+        }
         if($data->comments->count() > 0)
         {
             foreach ($data->comments as $gal) {

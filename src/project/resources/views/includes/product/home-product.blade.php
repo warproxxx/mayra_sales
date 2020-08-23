@@ -2,6 +2,7 @@
                                 @if($prod->user_id != 0)
 
                                 {{-- check  If This vendor status is active --}}
+                                @if($prod->user->is_vendor == 2)
 
 	                            @if(isset($_GET['max']))  
 
@@ -164,6 +165,7 @@
 
 									</div>
 
+								@endif
 
 								@endif
 

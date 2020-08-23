@@ -27,7 +27,8 @@
 												<table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
 													<thead>
 														<tr>
-									                        <th>{{ __("Username") }}</th>
+									                        <th>{{ __("Name") }}</th>
+									                        <th>{{ __("Email") }}</th>
 									                        <th>{{ __("Options") }}</th>
 														</tr>
 													</thead>
@@ -154,7 +155,8 @@
                serverSide: true,
                ajax: '{{ route('admin-user-datatables') }}',
                columns: [
-                        { data: 'username', name: 'username' },
+                        { data: 'name', name: 'name' },
+                        { data: 'email', name: 'email' },
             			{ data: 'action', searchable: false, orderable: false }
                      ],
                language : {

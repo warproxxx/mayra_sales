@@ -45,6 +45,60 @@
                                                 </div>
                                                 @endif
                                             </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input name="name" type="text" class="input-field"
+                                                        placeholder="{{ $langg->lang264 }}" required=""
+                                                        value="{{ $user->name }}">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input name="email" type="email" class="input-field"
+                                                        placeholder="{{ $langg->lang265 }}" required=""
+                                                        value="{{ $user->email }}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input name="phone" type="text" class="input-field"
+                                                        placeholder="{{ $langg->lang266 }}" required=""
+                                                        value="{{ $user->phone }}">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <input name="fax" type="text" class="input-field"
+                                                        placeholder="{{ $langg->lang267 }}" value="{{ $user->fax }}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <input name="city" type="text" class="input-field"
+                                                        placeholder="{{ $langg->lang268 }}" value="{{ $user->city }}">
+                                                </div>
+    
+                                                <div class="col-lg-6">
+                                                    <select class="input-field" name="country">
+                                                        <option value="">{{ $langg->lang157 }}</option>
+                                                        @foreach (DB::table('countries')->get() as $data)
+                                                            <option value="{{ $data->country_name }}" {{ $user->country == $data->country_name ? 'selected' : '' }}>
+                                                                {{ $data->country_name }}
+                                                            </option>		
+                                                         @endforeach
+                                                    </select>
+                                                </div>
+    
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col-lg-6">
+                                                            <input name="zip" type="text" class="input-field"
+                                                                placeholder="{{ $langg->lang269 }}" value="{{ $user->zip }}">
+                                                        </div>
+    
+                                                <div class="col-lg-6">
+                                                    <textarea class="input-field" name="address" required=""
+                                                        placeholder="{{ $langg->lang270 }}">{{ $user->address }}</textarea>
+                                                </div>
+    
+                                            </div>
+    
                                             <div class="form-links">
                                                 <button class="submit-btn" type="submit">{{ $langg->lang271 }}</button>
                                             </div>

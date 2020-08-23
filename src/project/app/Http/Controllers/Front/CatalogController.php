@@ -14,8 +14,6 @@ use App\Models\Rating;
 use App\Models\Reply;
 use App\Models\Report;
 use App\Models\Subcategory;
-use App\Models\UserSubscription;
-use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -227,7 +225,6 @@ class CatalogController extends Controller
         $productt = Product::where('slug','=',$slug)->firstOrFail();
         $productt->views+=1;
         $productt->update();
-
         if (Session::has('currency'))
         {
             $curr = Currency::find(Session::get('currency'));
@@ -236,7 +233,11 @@ class CatalogController extends Controller
         {
             $curr = Currency::where('is_default','=',1)->first();
         }
-        
+        $product_click =  new ProductClick;
+        $product_click->product_id = $productt->id;
+        $product_click->date = Carbon::now()->format('Y-m-d');
+        $product_click->save();
+
         if($productt->user_id != 0)
         {
             $vendors = Product::where('status','=',1)->where('user_id','=',$productt->user_id)->take(8)->get();
@@ -245,18 +246,8 @@ class CatalogController extends Controller
         {
             $vendors = Product::where('status','=',1)->where('user_id','=',0)->take(8)->get();
         }
+        return view('front.product',compact('productt','curr','vendors'));
 
-        $res = UserSubscription::where('id','=',$productt->user_id)->first();
-        $active_subscription = 0;
-
-        if ($res != null)
-        {
-          if ($res->status == 1)
-            $active_subscription = 1;
-        }
-
-
-        return view('front.product',compact('productt','curr','vendors', 'active_subscription'));
     }
 
 

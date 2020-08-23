@@ -28,11 +28,13 @@
                 </a>
               </li>
               
-              <li>
-                <a href="{{ route('vendor-dashboard') }}">
-                  {{ $langg->lang230 }}
-                </a>
-              </li>
+              @if(Auth::user()->IsVendor())
+                <li>
+                  <a href="{{ route('vendor-dashboard') }}">
+                    {{ $langg->lang230 }}
+                  </a>
+                </li>
+              @endif
 
               <li class="{{ $link == route('user-orders') ? 'active':'' }}">
                 <a href="{{ route('user-orders') }}">
@@ -40,7 +42,7 @@
                 </a>
               </li>
 
-              <!-- @if($gs->is_affilate == 1)
+              @if($gs->is_affilate == 1)
 
                 <li class="{{ $link == route('user-affilate-code') ? 'active':'' }}">
                     <a href="{{ route('user-affilate-code') }}">{{ $langg->lang202 }}</a>
@@ -50,28 +52,28 @@
                     <a href="{{route('user-wwt-index')}}">{{ $langg->lang203 }}</a>
                 </li>
 
-              @endif -->
+              @endif
 
 
-              <!-- <li class="{{ $link == route('user-order-track') ? 'active':'' }}">
+              <li class="{{ $link == route('user-order-track') ? 'active':'' }}">
                   <a href="{{route('user-order-track')}}">{{ $langg->lang772 }}</a>
-              </li> -->
+              </li>
 
               <li class="{{ $link == route('user-favorites') ? 'active':'' }}">
                   <a href="{{route('user-favorites')}}">{{ $langg->lang231 }}</a>
               </li>
-<!-- 
+
               <li class="{{ $link == route('user-messages') ? 'active':'' }}">
                   <a href="{{route('user-messages')}}">{{ $langg->lang232 }}</a>
-              </li> -->
+              </li>
 
-              <!-- <li class="{{ $link == route('user-message-index') ? 'active':'' }}">
+              <li class="{{ $link == route('user-message-index') ? 'active':'' }}">
                   <a href="{{route('user-message-index')}}">{{ $langg->lang204 }}</a>
-              </li> -->
+              </li>
 
-              <!-- <li class="{{ $link == route('user-dmessage-index') ? 'active':'' }}">
+              <li class="{{ $link == route('user-dmessage-index') ? 'active':'' }}">
                   <a href="{{route('user-dmessage-index')}}">{{ $langg->lang250 }}</a>
-              </li> -->
+              </li>
 
               <li class="{{ $link == route('user-profile') ? 'active':'' }}">
                 <a href="{{ route('user-profile') }}">
@@ -79,11 +81,11 @@
                 </a>
               </li>
 
-              <!-- <li class="{{ $link == route('user-reset') ? 'active':'' }}">
+              <li class="{{ $link == route('user-reset') ? 'active':'' }}">
                 <a href="{{ route('user-reset') }}">
                  {{ $langg->lang206 }}
                 </a>
-              </li> -->
+              </li>
 
               <li>
                 <a href="{{ route('user-logout') }}">
@@ -97,9 +99,7 @@
             <div class="row mt-4">
               <div class="col-lg-12 text-center">
                 <a href="{{ route('user-package') }}" class="mybtn1 lg">
-
-                  <i class="fas fa-dollar-sign"></i> SUBSCRIPTIONS
-                  
+                  <i class="fas fa-dollar-sign"></i> {{ Auth::user()->is_vendor == 1 ? $langg->lang233 : (Auth::user()->is_vendor == 0 ? $langg->lang233 : $langg->lang237) }}
                 </a>
               </div>
             </div>

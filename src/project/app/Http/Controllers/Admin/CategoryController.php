@@ -43,7 +43,7 @@ class CategoryController extends Controller
                             ->rawColumns(['status','attributes','action'])
                             ->toJson(); //--- Returning Json Data To Client Side
     }
-    
+
     //*** GET Request
     public function index()
     {
@@ -55,7 +55,6 @@ class CategoryController extends Controller
     {
         return view('admin.category.create');
     }
-    
 
     //*** POST Request
     public function store(Request $request)

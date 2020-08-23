@@ -59,9 +59,21 @@ table#example2 {
                                                             <td>{{$data->id}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>{{ __("Username") }}</th>
-                                                            <td>{{$data->username}}</td>
+                                                            <th>{{ __("Name") }}</th>
+                                                            <td>{{$data->name}}</td>
                                                         </tr>
+                                                        <tr>
+                                                            <th>{{ __("Email") }}</th>
+                                                            <td>{{$data->email}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                                <th>{{ __("Phone") }}</th>
+                                                                <td>{{$data->phone}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>{{ __("Address") }}</th>
+                                                                <td>{{$data->address}}</td>
+                                                            </tr>
 
                                                         </table>
                                                         </div>

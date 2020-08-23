@@ -50,7 +50,7 @@
 
 @endif
 
-<!-- 
+
 @if(Auth::guard('admin')->user()->sectionCheck('affilate_products'))
 
     <li>
@@ -67,7 +67,7 @@
         </ul>
     </li>
 
-@endif -->
+@endif
 
 
 @if(Auth::guard('admin')->user()->sectionCheck('customers'))
@@ -80,9 +80,9 @@
             <li>
                 <a href="{{ route('admin-user-index') }}"><span>{{ __('Customers List') }}</span></a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="{{ route('admin-withdraw-index') }}"><span>{{ __('Withdraws') }}</span></a>
-            </li> -->
+            </li>
             <li>
                 <a href="{{ route('admin-user-image') }}"><span>{{ __('Customer Default Image') }}</span></a>
             </li>
@@ -114,7 +114,7 @@
         </ul>
     </li>
 
-    <!-- <li>
+    <li>
         <a href="#vendor1" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
                 <i class="icofont-verification-check"></i>{{ __('Vendor Verifications') }}
         </a>
@@ -126,7 +126,7 @@
                 <a href="{{ route('admin-vr-pending') }}"><span>{{ __('Pending Verifications') }}</span></a>
             </li>
         </ul>
-    </li> -->
+    </li>
 
 
 @endif
@@ -165,15 +165,15 @@
 
 @endif
 
-<!-- @if(Auth::guard('admin')->user()->sectionCheck('bulk_product_upload'))
+@if(Auth::guard('admin')->user()->sectionCheck('bulk_product_upload'))
 
     <li>
         <a href="{{ route('admin-prod-import') }}"><i class="fas fa-upload"></i>{{ __('Bulk Product Upload') }}</a>
     </li>
 
-@endif -->
+@endif
 
-<!-- @if(Auth::guard('admin')->user()->sectionCheck('product_discussion'))
+@if(Auth::guard('admin')->user()->sectionCheck('product_discussion'))
 
     <li>
         <a href="#menu4" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -192,17 +192,52 @@
         </ul>
     </li>
 
-@endif -->
+@endif
 
-<!-- @if(Auth::guard('admin')->user()->sectionCheck('set_coupons'))
+@if(Auth::guard('admin')->user()->sectionCheck('set_coupons'))
 
     <li>
         <a href="{{ route('admin-coupon-index') }}" class=" wave-effect"><i class="fas fa-percentage"></i>{{ __('Set Coupons') }}</a>
     </li>
 
-@endif -->
+@endif
+
+@if(Auth::guard('admin')->user()->sectionCheck('blog'))
+
+    <li>
+        <a href="#blog" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+            <i class="fas fa-fw fa-newspaper"></i>{{ __('Blog') }}
+        </a>
+        <ul class="collapse list-unstyled" id="blog" data-parent="#accordion">
+            <li>
+                <a href="{{ route('admin-cblog-index') }}"><span>{{ __('Categories') }}</span></a>
+            </li>
+            <li>
+                <a href="{{ route('admin-blog-index') }}"><span>{{ __('Posts') }}</span></a>
+            </li>
+        </ul>
+    </li>
+
+@endif
 
 
+@if(Auth::guard('admin')->user()->sectionCheck('messages'))
+
+    <li>
+        <a href="#msg" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+            <i class="fas fa-fw fa-newspaper"></i>{{ __('Messages') }}
+        </a>
+        <ul class="collapse list-unstyled" id="msg" data-parent="#accordion">
+            <li>
+                <a href="{{ route('admin-message-index') }}"><span>{{ __('Tickets') }}</span></a>
+            </li>
+            <li>
+                <a href="{{ route('admin-message-dispute') }}"><span>{{ __('Disputes') }}</span></a>
+            </li>
+        </ul>
+    </li>
+
+@endif
 
 
 @if(Auth::guard('admin')->user()->sectionCheck('general_settings'))
@@ -224,21 +259,21 @@
             <li>
                 <a href="{{ route('admin-shipping-index') }}"><span>{{ __('Shipping Methods') }}</span></a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="{{ route('admin-package-index') }}"><span>{{ __('Packagings') }}</span></a>
-            </li> -->
-            <!-- <li>
+            </li>
+            <li>
                 <a href="{{ route('admin-pick-index') }}"><span>{{ __('Pickup Locations') }}</span></a>
-            </li> -->
+            </li>
             <li>
             <a href="{{ route('admin-gs-contents') }}"><span>{{ __('Website Contents') }}</span></a>
             </li>
             <li>
                 <a href="{{ route('admin-gs-footer') }}"><span>{{ __('Footer') }}</span></a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="{{ route('admin-gs-affilate') }}"><span>{{__('Affiliate Information')}}</span></a>
-            </li> -->
+            </li>
 
             <li>
                 <a href="{{ route('admin-gs-popup') }}"><span>{{ __('Popup Banner') }}</span></a>
@@ -292,9 +327,9 @@
             <li>
                 <a href="{{ route('admin-review-index') }}"><span>{{ __('Reviews') }}</span></a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="{{ route('admin-partner-index') }}"><span>{{ __('Partners') }}</span></a>
-            </li> -->
+            </li>
 
             
             <li>
@@ -328,7 +363,7 @@
 @endif
 
 
-<!-- @if(Auth::guard('admin')->user()->sectionCheck('emails_settings'))
+@if(Auth::guard('admin')->user()->sectionCheck('emails_settings'))
 
     <li>
         <a href="#emails" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -341,7 +376,7 @@
         </ul>
     </li>
 
-@endif -->
+@endif
 
 
 @if(Auth::guard('admin')->user()->sectionCheck('payment_settings'))
@@ -352,16 +387,29 @@
         </a>
         <ul class="collapse list-unstyled" id="payments" data-parent="#accordion">
             <li><a href="{{route('admin-gs-payments')}}"><span>{{__('Payment Information')}}</span></a></li>  
-            <!-- <li><a href="{{route('admin-payment-index')}}"><span>{{ __('Payment Gateways') }}</span></a></li>   -->
+            <li><a href="{{route('admin-payment-index')}}"><span>{{ __('Payment Gateways') }}</span></a></li>  
             <li><a href="{{route('admin-currency-index')}}"><span>{{ __('Currencies') }}</span></a></li>  
         </ul>
     </li>
 
 @endif
 
+@if(Auth::guard('admin')->user()->sectionCheck('social_settings'))
 
+    <li>
+        <a href="#socials" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+            <i class="fas fa-paper-plane"></i>{{ __('Social Settings') }}
+        </a>
+        <ul class="collapse list-unstyled" id="socials" data-parent="#accordion">
+                <li><a href="{{route('admin-social-index')}}"><span>{{ __('Social Links') }}</span></a></li>   
+                <li><a href="{{route('admin-social-facebook')}}"><span>{{ __('Facebook Login') }}</span></a></li>
+                <li><a href="{{route('admin-social-google')}}"><span>{{ __('Google Login') }}</span></a></li>
+        </ul>
+    </li>
 
-<!-- @if(Auth::guard('admin')->user()->sectionCheck('language_settings'))
+@endif
+
+@if(Auth::guard('admin')->user()->sectionCheck('language_settings'))
 
     <li>
         <a href="#langs" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -374,13 +422,13 @@
         </ul>
     </li>
 
-@endif -->
+@endif
 
 @if(Auth::guard('admin')->user()->sectionCheck('seo_tools'))
 
     <li>
         <a href="#seoTools" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
-            <i class="fas fa-wrench"></i>{{ __('Tools') }}
+            <i class="fas fa-wrench"></i>{{ __('SEO Tools') }}
         </a>
         <ul class="collapse list-unstyled" id="seoTools" data-parent="#accordion">
             <li>
@@ -398,14 +446,22 @@
 
 @endif
 
+@if(Auth::guard('admin')->user()->sectionCheck('manage_staffs'))
 
 
-<!-- @if(Auth::guard('admin')->user()->sectionCheck('subscribers'))
+    <li>
+        <a href="{{ route('admin-staff-index') }}" class=" wave-effect"><i class="fas fa-user-secret"></i>{{ __('Manage Staffs') }}</a>
+    </li>
+
+@endif
+
+
+@if(Auth::guard('admin')->user()->sectionCheck('subscribers'))
 
     <li>
         <a href="{{ route('admin-subs-index') }}" class=" wave-effect"><i class="fas fa-users-cog mr-2"></i>{{ __('Subscribers') }}</a>
     </li>
 
-@endif -->
+@endif
 
 @endif

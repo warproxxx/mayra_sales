@@ -365,8 +365,80 @@
 		<!-- Blog Area start-->
 	@endif
 
+	@if($ps->partners == 1)
+		<!-- Partners Area Start -->
+		<section class="partners">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-top">
+							<h2 class="section-title">
+								{{ $langg->lang236 }}
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="partner-slider">
+							@foreach($partners as $data)
+								<div class="item-slide">
+									<a href="{{ $data->link }}" target="_blank">
+										<img src="{{asset('assets/images/partner/'.$data->photo)}}" alt="">
+									</a>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Partners Area Start -->
+	@endif
 
-		
+	@if($ps->service == 1)
+
+	{{-- Info Area Start --}}
+	<section class="info-area">
+			<div class="container">
+
+					@foreach($services->chunk(4) as $chunk)
+	
+						<div class="row">
+	
+							<div class="col-lg-12 p-0">
+								<div class="info-big-box">
+									<div class="row">
+										@foreach($chunk as $service)
+											<div class="col-6 col-xl-3 p-0">
+												<div class="info-box">
+													<div class="icon">
+														<img src="{{ asset('assets/images/services/'.$service->photo) }}">
+													</div>
+													<div class="info">
+														<div class="details">
+															<h4 class="title">{{ $service->title }}</h4>
+															<p class="text">
+																{!! $service->details !!}
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										@endforeach
+									</div>
+								</div>
+							</div>
+	
+						</div>
+	
+					@endforeach
+	
+			</div>
+		</section>
+		{{-- Info Area End  --}}
+
+		@endif		
 
 	<!-- main -->
 	<script src="{{asset('assets/front/js/mainextra.js')}}"></script>

@@ -532,6 +532,12 @@ if(w <= 991 )
             $('.subscribe-preloader-wrap').hide();
          });
 
+        $(window).load(function(){
+            setTimeout(function(){
+                $('#subscriptionForm').show();
+            },10000)
+        });
+
 
     // partner-slider
     var $partner_Slider = $('.partner-slider');

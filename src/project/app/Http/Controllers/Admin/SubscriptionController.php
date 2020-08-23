@@ -84,7 +84,6 @@ class SubscriptionController extends Controller
         //--- Logic Section
         $data = Subscription::findOrFail($id);
         $input = $request->all();
-
         if($input['limit'] == 0)
          {
             $input['allowed_products'] = 0;

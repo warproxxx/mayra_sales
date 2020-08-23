@@ -244,7 +244,7 @@
                           <label class="custom-control-label" for="{{$attrKey}}{{ $optionKey }}">{{ $optionVal }}
                           @if (!empty($attrVal['prices'][$optionKey]))
                             +
-                            {{$attrVal['prices'][$optionKey] * $curr->value}} {{$curr->sign}}
+                            {{$curr->sign}} {{$attrVal['prices'][$optionKey] * $curr->value}}
                           @endif
                         </label>
                         </div>
@@ -502,11 +502,6 @@ $.ajax({
       else if(data == 0) {
           toastr.error(langg.out_stock);
       }
-      else if(data == -1) 
-      {
-        toastr.error("Cart can only consist of same seller's item");
-      }
-
       else {
           $("#cart-count").html(data[0]);
           $("#cart-items").load(mainurl+'/carts/view');

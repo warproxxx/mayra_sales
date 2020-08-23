@@ -34,8 +34,6 @@
                                           <th>{{ __("Cost") }}</th>
                                           <th>{{ __("Duration") }}</th>
                                           <th>{{ __("Product Allowed") }}</th>
-                                          <th>{{ __("Percentage Commission") }}</th>
-                                          <th>{{ __("Custom Shop") }}</th>
                                           <th>{{ __("Options") }}</th>
                             </tr>
                           </thead>
@@ -127,9 +125,7 @@
                         { data: 'price', name: 'price' },
                         { data: 'days', name: 'days' },
                         { data: 'allowed_products', name: 'allowed_products' },
-                        { data: 'percentage_commission', name: 'percentage_commission'},
-                        { data: 'custom_shop', name: 'custom_shop'},
-                        { data: 'action', searchable: false, orderable: false }
+                  { data: 'action', searchable: false, orderable: false }
 
                      ],
                 language : {

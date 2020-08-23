@@ -1,7 +1,8 @@
                                 {{-- If This product belongs to vendor then apply this --}}
                                 @if($prod->user_id != 0)
 
-
+                                {{-- check  If This vendor status is active --}}
+                                @if($prod->user->is_vendor == 2)
 
 										<a href="{{ route('front.product', $prod->slug) }}" class="item">
 											<div class="item-img">
@@ -75,6 +76,7 @@
 											</div>
 										</a>
 
+								@endif
 
                                 {{-- If This product belongs admin and apply this --}}
 

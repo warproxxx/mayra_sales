@@ -13,11 +13,6 @@ use App\Models\AdminUserMessage;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Generalsetting;
-use App\Models\Conversation;
-use App\Models\Message;
-use App\Models\Notification;
-
-
 use Auth;
 
 class MessageController extends Controller
@@ -30,15 +25,19 @@ class MessageController extends Controller
     //*** JSON Request
     public function datatables($type)
     {
-         $datas =  Conversation::where('is_dispute','=',1)->get();
-         
+         $datas = AdminUserConversation::where('type','=',$type)->get();
+         //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
-                            ->editColumn('created_at', function(Conversation $data) {
+                            ->editColumn('created_at', function(AdminUserConversation $data) {
                                 $date = $data->created_at->diffForHumans();
                                 return  $date;
                             })
-                            ->addColumn('action', function(Conversation $data) {
-                                return '<div class="action-list"><a href="' . route('admin-message-show',$data->id) . '"> <i class="fas fa-eye"></i> Details</a></div>';
+                            ->addColumn('name', function(AdminUserConversation $data) {
+                                $name = $data->user->name;
+                                return  $name;
+                            })
+                            ->addColumn('action', function(AdminUserConversation $data) {
+                                return '<div class="action-list"><a href="' . route('admin-message-show',$data->id) . '"> <i class="fas fa-eye"></i> Details</a><a href="javascript:;" data-href="' . route('admin-message-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
                             }) 
                             ->rawColumns(['action'])
                             ->toJson(); //--- Returning Json Data To Client Side
@@ -53,54 +52,22 @@ class MessageController extends Controller
     //*** GET Request
     public function disputes()
     {
-        return view('admin.message.dispute', compact('convs'));            
+        return view('admin.message.dispute');            
     }
 
     //*** GET Request
     public function message($id)
     {
-        $conv = Conversation::findOrfail($id);
+        $conv = AdminUserConversation::findOrfail($id);
         return view('admin.message.create',compact('conv'));                 
     }   
 
     //*** GET Request
     public function messageshow($id)
     {
-        $conv = Conversation::findOrfail($id);
+        $conv = AdminUserConversation::findOrfail($id);
         return view('load.message',compact('conv'));                 
     }   
-
-    public function dispute($id)
-    {
-        $conv = Conversation::findOrfail($id);
-        $user = Auth::guard('web')->user();
-        $new_disp = 1 - $conv->is_dispute;
-        Conversation::where('id', $id)->update(array('is_dispute' => $new_disp));
-
-        $message = "Admin has closed the dispute";
-
-        $msg = new Message();
-        $msg->conversation_id = $conv->id;
-        $msg->message = $message;
-        $msg->sent_user = 0;
-        $msg->save();
-
-        $notification = new Notification();
-        $notification->conversation_id = $conv->id;
-        $notification->user_id = $conv->sent_user;
-        $notification->type = "admin_dispute_close";
-        $notification->save();
-
-        $notification = new Notification();
-        $notification->conversation_id = $conv->id;
-        $notification->vendor_id = $conv->recieved_user;
-        $notification->type = "admin_dispute_close";
-        $notification->save();
-
-        $conv = Conversation::findOrfail($id);
-
-        return view('admin.message.dispute', compact('convs'));                 
-    }
 
     //*** GET Request
     public function messagedelete($id)
@@ -122,32 +89,13 @@ class MessageController extends Controller
     //*** POST Request
     public function postmessage(Request $request)
     {
-        $input = $request->all(); 
-        
-        $msg = new Message();
-        $msg->conversation_id = $input['conversation_id'];
-        $msg->message = $input['message'];
-        $msg->sent_user = 0;
-        $msg->save();
-
-
-        $conv = Conversation::findOrfail($input['conversation_id']);
-
-        $notification = new Notification();
-        $notification->conversation_id = $input['conversation_id'];
-        $notification->user_id = $conv->sent_user;
-        $notification->type = "user";
-        $notification->save();
-
-        $notification = new Notification();
-        $notification->conversation_id = $input['conversation_id'];
-        $notification->vendor_id = $conv->recieved_user;
-        $notification->type = "vendor";
-        $notification->save();
-
+        $msg = new AdminUserMessage();
+        $input = $request->all();  
+        $msg->fill($input)->save();
+        //--- Redirect Section     
         $msg = 'Message Sent!';
-
         return response()->json($msg);      
+        //--- Redirect Section Ends    
     }
 
     //*** POST Request

@@ -31,8 +31,10 @@
                         <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                           <thead>
                             <tr>
+                              <th>{{ __('Name') }}</th>
                               <th>{{ __('Subject') }}</th>
-                              <th>{{ __('Created') }}</th>
+                              <th>{{ __('Order Number') }}</th>
+                              <th>{{ __('Date') }}</th>
                               <th>{{ __('Actions') }}</th>
                             </tr>
                           </thead>
@@ -98,6 +100,13 @@
                                     {{csrf_field()}}
                                     <ul>
                                         <li>
+                                            <input type="email" class="input-field eml-val" id="eml1" name="to" placeholder="{{ __('Email') }} *" value="" required="">
+                                        </li>
+                                        <li>
+                                            <input type="text" class="input-field" id="order" name="order_number" placeholder="{{ __('Order Numebr') }} *" value="" required="">
+                                        </li>
+
+                                        <li>
                                             <input type="text" class="input-field" id="subj1" name="subject" placeholder="{{ __('Subject') }} *" required="">
                                         </li>
                                         <li>
@@ -134,7 +143,9 @@
                serverSide: true,
                ajax: '{{ route('admin-message-datatables','Dispute') }}',
                columns: [
+                  { data: 'name', name: 'name' },
                   { data: 'subject', name: 'subject' },
+                  { data: 'order_number', name: 'order_number' },
                   { data: 'created_at', name: 'created_at'},
                   { data: 'action', searchable: false, orderable: false }
 
@@ -148,7 +159,10 @@
             });
          
 
-                    
+        $(function() {
+        $(".btn-area").append('<div class="col-sm-4 text-right">'+
+          '<a class="add-btn" href="javascript:;" data-toggle="modal" data-target="#vendorform"><i class="fas fa-envelope"></i> {{ __('Add Dispute') }}</a>'+'</div>');
+      });                       
       
 
     </script>

@@ -88,7 +88,35 @@
 								<div class="content-box">
 								
 									<div class="content">
-
+										<div class="personal-info">
+											<h5 class="title">
+												{{ $langg->lang746 }} :
+											</h5>
+											<div class="row">
+												<div class="col-lg-6">
+													<input type="text" id="personal-name" class="form-control" name="personal_name" placeholder="{{ $langg->lang747 }}" value="{{ Auth::check() ? Auth::user()->name : '' }}" {!! Auth::check() ? 'readonly' : '' !!}>
+												</div>
+												<div class="col-lg-6">
+													<input type="email" id="personal-email" class="form-control" name="personal_email" placeholder="{{ $langg->lang748 }}" value="{{ Auth::check() ? Auth::user()->email : '' }}"  {!! Auth::check() ? 'readonly' : '' !!}>
+												</div>
+											</div>
+											@if(!Auth::check())
+											<div class="row">
+												<div class="col-lg-12 mt-3">
+														<input class="styled-checkbox" id="open-pass" type="checkbox" value="1" name="pass_check">
+														<label for="open-pass">{{ $langg->lang749 }}</label>
+												</div>
+											</div>
+											<div class="row set-account-pass d-none">
+												<div class="col-lg-6">
+													<input type="password" name="personal_pass" id="personal-pass" class="form-control" placeholder="{{ $langg->lang750 }}">
+												</div>
+												<div class="col-lg-6">
+													<input type="password" name="personal_confirm" id="personal-pass-confirm" class="form-control" placeholder="{{ $langg->lang751 }}">
+												</div>
+											</div>
+											@endif
+										</div>
 										<div class="billing-address">
 											<h5 class="title">
 												{{ $langg->lang147 }}
@@ -100,9 +128,58 @@
 														<option value="pickup">{{ $langg->lang150 }}</option>
 													</select>
 												</div>
+		
+												<div class="col-lg-6 d-none" id="shipshow">
+													<select class="form-control nice" name="pickup_location">
+														@foreach($pickups as $pickup)
+														<option value="{{$pickup->location}}">{{$pickup->location}}</option>
+														@endforeach
+													</select>
+												</div>
+		
+												<div class="col-lg-6">
+													<input class="form-control" type="text" name="name"
+														placeholder="{{ $langg->lang152 }}" required=""
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->name : '' }}">
+												</div>
+												<div class="col-lg-6">
+													<input class="form-control" type="text" name="phone"
+														placeholder="{{ $langg->lang153 }}" required=""
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : '' }}">
+												</div>
+												<div class="col-lg-6">
+													<input class="form-control" type="text" name="email"
+														placeholder="{{ $langg->lang154 }}" required=""
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->email : '' }}">
+												</div>
+												<div class="col-lg-6">
+													<input class="form-control" type="text" name="address"
+														placeholder="{{ $langg->lang155 }}" required=""
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->address : '' }}">
+												</div>
+												<div class="col-lg-6">
+													<select class="form-control" name="customer_country" required="">
+														@include('includes.countries')
+													</select>
+												</div>
+												<div class="col-lg-6">
+													<input class="form-control" type="text" name="city"
+														placeholder="{{ $langg->lang158 }}" required=""
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->city : '' }}">
+												</div>
+												<div class="col-lg-6">
+													<input class="form-control" type="text" name="zip"
+														placeholder="{{ $langg->lang159 }}" required=""
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : '' }}">
+												</div>
 											</div>
 										</div>
-
+										<div class="row {{ $digital == 1 ? 'd-none' : '' }}">
+											<div class="col-lg-12 mt-3">
+													<input class="styled-checkbox" id="ship-diff-address" type="checkbox" value="value1" >
+													<label for="ship-diff-address">{{ $langg->lang160 }}</label>
+											</div>
+										</div>
 										<div class="ship-diff-addres-area d-none">
 												<h5 class="title">
 														{{ $langg->lang752 }}
@@ -254,10 +331,11 @@
 														<li>
 															<p id="shipping_phone"></p>
 														</li>
-
+														<li>
+															<p id="shipping_email"></p>
+														</li>
 													</ul>
 											</div>
-
 											<div class="payment-information">
 													<h4 class="title">
 														{{ $langg->lang759 }}
@@ -265,44 +343,249 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="nav flex-column"  role="tablist" aria-orientation="vertical">
-														
-														<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('steemlogin.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'steem','slug2' => 0]) }}" id="v-pills-tab1-tab" data-toggle="pill" href="#v-pills-tab1" role="tab" aria-controls="v-pills-tab1" aria-selected="true">
-															<div class="icon">
-																	<span class="radio"></span>
-															</div>
-															<p>
-																Steemlogin
-																<small>
-																		Transfer using steemlogin
-																</small>
-															</p>
-														</a>
-														
-														<a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('steem.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'steem','slug2' => 0]) }}" id="v-pills-tab2-tab" data-toggle="pill" href="#v-pills-tab2" role="tab" aria-controls="v-pills-tab2" aria-selected="false">
+														@if($gs->paypal_check == 1)
+															<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('paypal.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'paypal','slug2' => 0]) }}" id="v-pills-tab1-tab" data-toggle="pill" href="#v-pills-tab1" role="tab" aria-controls="v-pills-tab1" aria-selected="true">
+																	<div class="icon">
+																			<span class="radio"></span>
+																	</div>
+																<p>
+																		{{ $langg->lang760 }}
+
+																	@if($gs->paypal_text != null)
+
+																	<small>
+																			{{ $gs->paypal_text }}
+																	</small>
+
+																	@endif
+
+																</p>
+															</a>
+														@endif
+														@if($gs->stripe_check == 1)
+															<a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('stripe.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'stripe','slug2' => 0]) }}" id="v-pills-tab2-tab" data-toggle="pill" href="#v-pills-tab2" role="tab" aria-controls="v-pills-tab2" aria-selected="false">
 																	<div class="icon">
 																			<span class="radio"></span>
 																	</div>
 																	<p>
-																	Steem
+																	{{ $langg->lang761 }}
+
+																		@if($gs->stripe_text != null)
 
 																		<small>
-																			Pay manually using steem
+																			{{ $gs->stripe_text }}
 																		</small>
 
+																		@endif
+
 																	</p>
-														</a>
+															</a>
+														@endif
+														@if($gs->cod_check == 1)
+														 @if($digital == 0)
+															<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('cash.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'cod','slug2' => 0]) }}" id="v-pills-tab3-tab" data-toggle="pill" href="#v-pills-tab3" role="tab" aria-controls="v-pills-tab3" aria-selected="false">
+																	<div class="icon">
+																			<span class="radio"></span>
+																	</div>
+																	<p>
+																			{{ $langg->lang762 }}
 
-														
+																		@if($gs->cod_text != null)
 
+																		<small>
+																				{{ $gs->cod_text }}
+																		</small>
+
+																		@endif
+
+																	</p>
+															</a>
+														 @endif
+														@endif
+														@if($gs->is_instamojo == 1)
+															<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('instamojo.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'instamojo','slug2' => 0]) }}"  id="v-pills-tab4-tab" data-toggle="pill" href="#v-pills-tab4" role="tab" aria-controls="v-pills-tab4" aria-selected="false">
+																	<div class="icon">
+																			<span class="radio"></span>
+																	</div>
+																	<p>
+																			{{ $langg->lang763 }}
+
+																		@if($gs->instamojo_text != null)
+
+																		<small>
+																				{{ $gs->instamojo_text }}
+																		</small>
+
+																		@endif
+
+																	</p>
+															</a>
+															@endif
+															@if($gs->is_paytm == 1)
+																<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('paytm.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'paytm','slug2' => 0]) }}"  id="v-pills-tab5-tab" data-toggle="pill" href="#v-pills-tab5" role="tab" aria-controls="v-pills-tab5" aria-selected="false">
+																		<div class="icon">
+																				<span class="radio"></span>
+																		</div>
+																		<p>
+																				{{ $langg->paytm }}
+	
+																			@if($gs->paytm_text != null)
+	
+																			<small>
+																					{{ $gs->paytm_text }}
+																			</small>
+	
+																			@endif
+	
+																		</p>
+																</a>
+																@endif
+																@if($gs->is_razorpay == 1)
+																	<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('razorpay.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'razorpay','slug2' => 0]) }}"  id="v-pills-tab6-tab" data-toggle="pill" href="#v-pills-tab6" role="tab" aria-controls="v-pills-tab6" aria-selected="false">
+																			<div class="icon">
+																					<span class="radio"></span>
+																			</div>
+																			<p>
+																					
+																				{{ $langg->razorpay }}
+		
+																				@if($gs->razorpay_text != null)
+		
+																				<small>
+																						{{ $gs->razorpay_text }}
+																				</small>
+		
+																				@endif
+		
+																			</p>
+																	</a>
+																	@endif
+															@if($gs->is_paystack == 1)
+
+															<a class="nav-link payment" data-val="paystack" data-show="no" data-form="{{route('paystack.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'paystack','slug2' => 0]) }}" id="v-pills-tab7-tab" data-toggle="pill" href="#v-pills-tab7" role="tab" aria-controls="v-pills-tab7" aria-selected="false">
+																	<div class="icon">
+																			<span class="radio"></span>
+																	</div>
+																	<p>
+																			{{ $langg->lang764 }}
+
+																		@if($gs->paystack_text != null)
+
+																		<small>
+																				{{ $gs->paystack_text }}
+																		</small>
+
+																		@endif
+																	</p>
+															</a>
+
+															@endif
+
+
+															@if($gs->is_molly == 1)
+															<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('molly.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'molly','slug2' => 0]) }}" id="v-pills-tab8-tab" data-toggle="pill" href="#v-pills-tab8" role="tab" aria-controls="v-pills-tab8" aria-selected="false">
+																	<div class="icon">
+																			<span class="radio"></span>
+																	</div>
+																	<p>
+																			{{ $langg->lang802 }}
+
+																		@if($gs->molly_text != null)
+
+																		<small>
+																				{{ $gs->molly_text }}
+																		</small>
+
+																		@endif
+																	</p>
+															</a>
+
+															@endif
+
+
+@if($digital == 0)
+
+@foreach($gateways as $gt)
+
+															<a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('gateway.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $gt->id]) }}" id="v-pills-tab{{ $gt->id }}-tab" data-toggle="pill" href="#v-pills-tab{{ $gt->id }}" role="tab" aria-controls="v-pills-tab{{ $gt->id }}" aria-selected="false">
+																	<div class="icon">
+																			<span class="radio"></span>
+																	</div>
+																	<p>
+																			{{ $gt->title }}
+
+																		@if($gt->subtitle != null)
+
+																		<small>
+																				{{ $gt->subtitle }}
+																		</small>
+
+																		@endif
+
+																	</p>
+															</a>
+
+
+
+@endforeach
+
+@endif
 
 														</div>
 													</div>
+													<div class="col-lg-12">
+													  <div class="pay-area d-none">
+														<div class="tab-content" id="v-pills-tabContent">
+															@if($gs->paypal_check == 1)
+															<div class="tab-pane fade" id="v-pills-tab1" role="tabpanel" aria-labelledby="v-pills-tab1-tab">
 
-													
+															</div>
+															@endif
+															@if($gs->stripe_check == 1)
+															<div class="tab-pane fade" id="v-pills-tab2" role="tabpanel" aria-labelledby="v-pills-tab2-tab">
+															</div>
+															@endif
+															@if($gs->cod_check == 1)
+															@if($digital == 0)
+															<div class="tab-pane fade" id="v-pills-tab3" role="tabpanel" aria-labelledby="v-pills-tab3-tab">
+															</div>
+															@endif
+															@endif
+															@if($gs->is_instamojo == 1)
+																<div class="tab-pane fade" id="v-pills-tab4" role="tabpanel" aria-labelledby="v-pills-tab4-tab">
+																</div>
+															@endif
+															@if($gs->is_paytm == 1)
+																<div class="tab-pane fade" id="v-pills-tab5" role="tabpanel" aria-labelledby="v-pills-tab5-tab">
+																</div>
+															@endif
+															@if($gs->is_razorpay == 1)
+																<div class="tab-pane fade" id="v-pills-tab6" role="tabpanel" aria-labelledby="v-pills-tab6-tab">
+																</div>
+															@endif
+															@if($gs->is_paystack == 1)
+																<div class="tab-pane fade" id="v-pills-tab7" role="tabpanel" aria-labelledby="v-pills-tab7-tab">
+																</div>
+															@endif
+															@if($gs->is_molly == 1)
+																<div class="tab-pane fade" id="v-pills-tab8" role="tabpanel" aria-labelledby="v-pills-tab8-tab">
+																</div>
+															@endif
 
+													@if($digital == 0)
+														@foreach($gateways as $gt)
+
+															<div class="tab-pane fade" id="v-pills-tab{{ $gt->id }}" role="tabpanel" aria-labelledby="v-pills-tab{{ $gt->id }}-tab">
+
+															</div>
+
+														@endforeach		
+													@endif												
+													</div>
+														</div>
+													</div>
 												</div>
 											</div>
-
 											
 										<div class="row">
 												<div class="col-lg-12 mt-3">
@@ -432,9 +715,9 @@
 
 						@if(Session::has('coupon_total'))
 							@if($gs->currency_format == 0)
-								<span id="total-cost">{{ $totalPrice }} {{ $curr->sign }}</span>
+								<span id="total-cost">{{ $curr->sign }}{{ $totalPrice }}</span>
 							@else 
-								<span id="total-cost">{{ $totalPrice }} {{ $curr->sign }}</span>
+								<span id="total-cost">{{ $totalPrice }}{{ $curr->sign }}</span>
 							@endif
 
 						@elseif(Session::has('coupon_total1'))
@@ -476,7 +759,7 @@
 										<label for="free-shepping{{ $data->id }}"> 
 												{{ $data->title }}
 												@if($data->price != 0)
-												+ {{ round($data->price,2) }} {{ $curr->sign }}
+												+ {{ $curr->sign }}{{ round($data->price * $curr->value,2) }}
 												@endif
 												<small>{{ $data->subtitle }}</small>
 										</label>
@@ -486,6 +769,29 @@
 
 						</div>
 						{{-- Shipping Method Area End --}}
+
+						{{-- Packeging Area Start --}}
+						<div class="packeging-area">
+								<h4 class="title">{{ $langg->lang766 }}</h4>
+
+							@foreach($package_data as $data)	
+
+								<div class="radio-design">
+										<input type="radio" class="packing" id="free-package{{ $data->id }}" name="packeging" value="{{ round($data->price * $curr->value,2) }}" {{ ($loop->first) ? 'checked' : '' }}> 
+										<span class="checkmark"></span>
+										<label for="free-package{{ $data->id }}"> 
+												{{ $data->title }}
+												@if($data->price != 0)
+												+ {{ $curr->sign }}{{ round($data->price * $curr->value,2) }}
+												@endif
+												<small>{{ $data->subtitle }}</small>
+										</label>
+								</div>
+
+							@endforeach	
+
+						</div>
+						{{-- Packeging Area End Start--}}
 
 						{{-- Final Price Area Start--}}
 						<div class="final-price">
@@ -722,10 +1028,10 @@ ftotal = parseFloat(ftotal);
         ftotal = ftotal.toFixed(2);
       }
 		if(pos == 0){
-			$('#final-cost').html(ftotal + " " + '{{ $curr->sign }}')
+			$('#final-cost').html('{{ $curr->sign }}'+ftotal)
 		}
 		else{
-			$('#final-cost').html(ftotal + " " + '{{ $curr->sign }}')
+			$('#final-cost').html(ftotal+'{{ $curr->sign }}')
 		}
 
 $('#grandtotal').val(ftotal);
@@ -747,16 +1053,7 @@ $('#shipop').on('change',function(){
 	}
 
 });
-$( document ).ready(function() {
-    $('#shipshow').addClass('d-none');
-		$("#ship-diff-address").parent().removeClass('d-none');
-        $('.ship-diff-addres-area').removeClass('d-none');  
-        $('.ship-diff-addres-area input, .ship-diff-addres-area select').prop('required',true); 
-});
 
-
-
-		
 
 $('.shipping').on('click',function(){
 	mship = $(this).val();
@@ -769,7 +1066,7 @@ ttotal = parseFloat(ttotal);
         ttotal = ttotal.toFixed(2);
       }
 		if(pos == 0){
-			$('#final-cost').html(ttotal+' '+'{{ $curr->sign }}');
+			$('#final-cost').html('{{ $curr->sign }}'+ttotal);
 		}
 		else{
 			$('#final-cost').html(ttotal+'{{ $curr->sign }}');
@@ -790,10 +1087,10 @@ ttotal = parseFloat(ttotal);
       }
 
 		if(pos == 0){
-			$('#final-cost').html(ttotal+' '+'{{ $curr->sign }}');
+			$('#final-cost').html('{{ $curr->sign }}'+ttotal);
 		}
 		else{
-			$('#final-cost').html(ttotal+' '+'{{ $curr->sign }}');
+			$('#final-cost').html(ttotal+'{{ $curr->sign }}');
 		}	
 
 
@@ -853,10 +1150,10 @@ ttotal = parseFloat(ttotal);
       }
 
 		if(pos == 0){
-			$('#final-cost').html(ttotal + " " + '{{ $curr->sign }}')
+			$('#final-cost').html('{{ $curr->sign }}'+ttotal)
 		}
 		else{
-			$('#final-cost').html(ttotal + " " + '{{ $curr->sign }}')
+			$('#final-cost').html(ttotal+'{{ $curr->sign }}')
 		}	
 
                         	toastr.success(langg.coupon_found);

@@ -24,7 +24,6 @@
 														<th>{{ $langg->lang280 }}</th>
 														<th>{{ $langg->lang281 }}</th>
 														<th>{{ $langg->lang282 }}</th>
-														<th>Conversation</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -37,7 +36,7 @@
 																{{date('d M Y',strtotime($order->created_at))}}
 														</td>
 														<td>
-																{{$order->currency_sign}}{{ round($order->pay_amount) }}
+																{{$order->currency_sign}}{{ round($order->pay_amount * $order->currency_value , 2) }}
 														</td>
 														<td>
 															<div class="order-status {{ $order->status }}">
@@ -46,12 +45,7 @@
 														</td>
 														<td>
 															<a href="{{route('user-order',$order->id)}}">
-																	VIEW
-															</a>
-														</td>
-														<td>
-															<a href="{{route('user-message',$order->conversation_id)}}">
-																	DISCUSS
+																	{{ $langg->lang283 }}
 															</a>
 														</td>
 													</tr>

@@ -263,7 +263,7 @@
 
                                     @if (!empty($attrVal['prices'][$optionKey]))
                                       +
-                                      {{$attrVal['prices'][$optionKey] * $curr->value}} {{$curr->sign}}
+                                      {{$curr->sign}} {{$attrVal['prices'][$optionKey] * $curr->value}}
                                     @endif
                                     </label>
                                   </div>
@@ -425,9 +425,9 @@
                                     <img
                                       src="{{ $review->user->photo ? asset('assets/images/users/'.$review->user->photo):asset('assets/images/noimage.png') }}"
                                       alt="">
-                                    <h5 class="name">{{ $review->user->username }}</h5>
+                                    <h5 class="name">{{ $review->user->name }}</h5>
                                     <p class="date">
-                                      {{ $review->review_date }}
+                                      {{ Carbon\Carbon::createFromFormat('Y-m-dH:i:s',$review->review_date)->diffForHumans() }}
                                     </p>
                                   </div>
                                   <div class="right-area">
@@ -557,7 +557,7 @@
       </div>
       @endif
 
-      @if($active_subscription == 1)
+
       <div class="seller-info mt-3">
         <div class="content">
           <h4 class="title">
@@ -709,7 +709,6 @@
                   {{-- CONTACT SELLER ENDS --}}
 
       </div>
-      @endif
 
 
 

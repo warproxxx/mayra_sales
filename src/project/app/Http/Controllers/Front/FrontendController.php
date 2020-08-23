@@ -6,9 +6,6 @@ use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
-use App\Models\Category;
-use App\Models\Subcategory;
-use App\Models\Childcategory;
 use App\Models\Counter;
 use App\Models\Generalsetting;
 use App\Models\Order;
@@ -21,15 +18,55 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 use Markury\MarkuryPost;
-use Auth;
-use Redirect;
-use DateTime;
 
 class FrontendController extends Controller
 {
     public function __construct()
     {
         $this->auth_guests();
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $referral = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+            if ($referral != $_SERVER['SERVER_NAME']){
+
+                $brwsr = Counter::where('type','browser')->where('referral',$this->getOS());
+                if($brwsr->count() > 0){
+                    $brwsr = $brwsr->first();
+                    $tbrwsr['total_count']= $brwsr->total_count + 1;
+                    $brwsr->update($tbrwsr);
+                }else{
+                    $newbrws = new Counter();
+                    $newbrws['referral']= $this->getOS();
+                    $newbrws['type']= "browser";
+                    $newbrws['total_count']= 1;
+                    $newbrws->save();
+                }
+
+                $count = Counter::where('referral',$referral);
+                if($count->count() > 0){
+                    $counts = $count->first();
+                    $tcount['total_count']= $counts->total_count + 1;
+                    $counts->update($tcount);
+                }else{
+                    $newcount = new Counter();
+                    $newcount['referral']= $referral;
+                    $newcount['total_count']= 1;
+                    $newcount->save();
+                }
+            }
+        }else{
+            $brwsr = Counter::where('type','browser')->where('referral',$this->getOS());
+            if($brwsr->count() > 0){
+                $brwsr = $brwsr->first();
+                $tbrwsr['total_count']= $brwsr->total_count + 1;
+                $brwsr->update($tbrwsr);
+            }else{
+                $newbrws = new Counter();
+                $newbrws['referral']= $this->getOS();
+                $newbrws['type']= "browser";
+                $newbrws['total_count']= 1;
+                $newbrws->save();
+            }
+        }
     }
 
     function getOS() {
@@ -74,31 +111,6 @@ class FrontendController extends Controller
         return $os_platform;
     }
 
-    // -------------------------------- API SECTION ----------------------------------------
-
-    #fix the formatting of these
-    public function get_categories_api()
-    {
-        $datas = Category::orderBy('id','desc')->get();
-        return $datas;
-    }
-
-    public function get_subcategories_api()
-    {
-        $datas = Subcategory::orderBy('id','desc')->get();
-        return $datas;
-    }
-
-    public function get_childcategories_api()
-    {
-        $datas = Childcategory::orderBy('id','desc')->get();
-        return $datas;
-    }
-
-
-
-
-    // -------------------------------- API SECTION ENDS ----------------------------------------
 
 // -------------------------------- HOME PAGE SECTION ----------------------------------------
 
@@ -126,17 +138,6 @@ class FrontendController extends Controller
         $ps = DB::table('pagesettings')->find(1);
         $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
 
-        $user = Auth::user();
-        if ($user != null)
-        {
-            if (time() > $user->token_expirity)
-            {
-                return redirect()->route('user-logout');
-            }
-            if ($user->authorized == 0)
-                return Redirect::to("https://steemlogin.com/authorize/opnmarket.com/?redirect_uri=http://opnmarket.local/authorized");
-        }
-
 	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products'));
 	}
 
@@ -149,6 +150,7 @@ class FrontendController extends Controller
         $large_banners = DB::table('banners')->where('type','=','Large')->get();
         $reviews =  DB::table('reviews')->get();
         $ps = DB::table('pagesettings')->find(1);
+        $partners = DB::table('partners')->get();
         $discount_products =  Product::where('is_discount','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
         $best_products = Product::where('best','=',1)->where('status','=',1)->orderBy('id','desc')->take(6)->get();
         $top_products = Product::where('top','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();;
@@ -230,9 +232,6 @@ class FrontendController extends Controller
             }
         }
     }
-
-
-    
 
 
 
@@ -445,7 +444,7 @@ class FrontendController extends Controller
         $settings = Generalsetting::findOrFail(1);
         $today = Carbon::now()->format('Y-m-d');
         $newday = strtotime($today);
-        foreach (DB::table('users')->get() as  $user) {
+        foreach (DB::table('users')->where('is_vendor','=',2)->get() as  $user) {
                 $lastday = $user->date;
                 $secs = strtotime($lastday)-$newday;
                 $days = $secs / 86400;
@@ -474,6 +473,10 @@ class FrontendController extends Controller
                     }
                     DB::table('users')->where('id',$user->id)->update(['mail_sent' => 0]);
                   }
+                }
+                if($today > $lastday)
+                {
+                    DB::table('users')->where('id',$user->id)->update(['is_vendor' => 1]);
                 }
             }
     }
