@@ -33,7 +33,6 @@
 													<thead>
 														<tr>
 									                        <th>{{ $langg->lang608 }}</th>
-									                        <th>{{ $langg->lang609 }}</th>
 									                        <th>{{ $langg->lang610 }}</th>
 									                        <th>{{ $langg->lang611 }}</th>
 									                        <th>{{ $langg->lang612 }}</th>
@@ -167,7 +166,6 @@
                ajax: '{{ route('vendor-prod-datatables') }}',
                columns: [
                         { data: 'name', name: 'name' },
-                        { data: 'type', name: 'type' },
                         { data: 'price', name: 'price' },
                         { data: 'status', searchable: false, orderable: false},
             			{ data: 'action', searchable: false, orderable: false }
@@ -183,7 +181,7 @@
 
       	$(function() {
         $(".btn-area").append('<div class="col-sm-4 table-contents">'+
-        	'<a class="add-btn" href="{{route('vendor-prod-types')}}">'+
+        	'<a class="add-btn" href="{{route('vendor-prod-physical-create')}}">'+
           '<i class="fas fa-plus"></i> <span class="remove-mobile">{{ $langg->lang623 }}<span>'+
           '</a>'+
           '</div>');
