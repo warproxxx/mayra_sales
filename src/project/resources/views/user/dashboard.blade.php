@@ -48,9 +48,7 @@
                     <p><span class="user-title">{{ $langg->lang214 }}:</span> {{ $user->address }}</p>
                   </li>
                   @endif
-                  <li>
-                    <p><span class="user-title">{{ $langg->lang215 }}:</span> {{ App\Models\Product::vendorConvertPrice($user->affilate_income) }}</p>
-                  </li>
+
                 </ul>
               </div>
             </div>

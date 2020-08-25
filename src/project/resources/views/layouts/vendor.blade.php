@@ -155,7 +155,7 @@
 								</ul>
 							</li>
 
-							<li>
+							<!-- <li>
 								<a href="#affiliateprod" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
 									<i class="icofont-cart"></i>{{ $langg->lang447 }}
 								</a>
@@ -167,15 +167,15 @@
 										<a href="{{ route('vendor-import-index') }}"><span>{{ $langg->lang449 }}</span></a>
 									</li>
 								</ul>
-							</li>
+							</li> -->
 
 
-							<li>
+							<!-- <li>
 								<a href="{{ route('vendor-prod-import') }}"><i class="fas fa-upload"></i>{{ $langg->lang450 }}</a>
 							</li>
 							<li>
 								<a href="{{ route('vendor-wt-index') }}" class=" wave-effect"><i class="fas fa-list"></i>{{ $langg->lang451 }}</a>
-							</li>
+							</li> -->
 
 							<li>
 								<a href="#general" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">

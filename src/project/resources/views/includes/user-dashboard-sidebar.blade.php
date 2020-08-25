@@ -42,7 +42,7 @@
                 </a>
               </li>
 
-              @if($gs->is_affilate == 1)
+              <!-- @if($gs->is_affilate == 1)
 
                 <li class="{{ $link == route('user-affilate-code') ? 'active':'' }}">
                     <a href="{{ route('user-affilate-code') }}">{{ $langg->lang202 }}</a>
@@ -52,7 +52,7 @@
                     <a href="{{route('user-wwt-index')}}">{{ $langg->lang203 }}</a>
                 </li>
 
-              @endif
+              @endif -->
 
 
               <li class="{{ $link == route('user-order-track') ? 'active':'' }}">

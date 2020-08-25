@@ -51,7 +51,7 @@
 @endif
 
 
-@if(Auth::guard('admin')->user()->sectionCheck('affilate_products'))
+<!-- @if(Auth::guard('admin')->user()->sectionCheck('affilate_products'))
 
     <li>
         <a href="#affiliateprod" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
@@ -67,7 +67,7 @@
         </ul>
     </li>
 
-@endif
+@endif -->
 
 
 @if(Auth::guard('admin')->user()->sectionCheck('customers'))
@@ -164,14 +164,14 @@
     </li>
 
 @endif
-
+<!-- 
 @if(Auth::guard('admin')->user()->sectionCheck('bulk_product_upload'))
 
     <li>
         <a href="{{ route('admin-prod-import') }}"><i class="fas fa-upload"></i>{{ __('Bulk Product Upload') }}</a>
     </li>
 
-@endif
+@endif -->
 
 @if(Auth::guard('admin')->user()->sectionCheck('product_discussion'))
 
@@ -271,9 +271,9 @@
             <li>
                 <a href="{{ route('admin-gs-footer') }}"><span>{{ __('Footer') }}</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('admin-gs-affilate') }}"><span>{{__('Affiliate Information')}}</span></a>
-            </li>
+            </li> -->
 
             <li>
                 <a href="{{ route('admin-gs-popup') }}"><span>{{ __('Popup Banner') }}</span></a>
@@ -456,12 +456,12 @@
 @endif
 
 
-@if(Auth::guard('admin')->user()->sectionCheck('subscribers'))
+<!-- @if(Auth::guard('admin')->user()->sectionCheck('subscribers'))
 
     <li>
         <a href="{{ route('admin-subs-index') }}" class=" wave-effect"><i class="fas fa-users-cog mr-2"></i>{{ __('Subscribers') }}</a>
     </li>
 
-@endif
+@endif -->
 
 @endif
