@@ -1205,6 +1205,16 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
  Route::get('/warning/verify/{id}', 'Vendor\VendorController@warningVerify')->name('vendor-warning');
  Route::post('/verify', 'Vendor\VendorController@verifysubmit')->name('vendor-verify-submit');
 
+ //Vendor Payment Gateway
+ Route::get('/paymentgateway/datatables', 'Vendor\PaymentGatewayController@datatables')->name('vendor-payment-datatables'); //JSON REQUEST
+ Route::get('/paymentgateway', 'Vendor\PaymentGatewayController@index')->name('vendor-payment-index');
+ Route::get('/paymentgateway/create', 'Vendor\PaymentGatewayController@create')->name('vendor-payment-create');
+ Route::post('/paymentgateway/create', 'Vendor\PaymentGatewayController@store')->name('vendor-payment-store');
+ Route::get('/paymentgateway/edit/{id}', 'Vendor\PaymentGatewayController@edit')->name('vendor-payment-edit');
+ Route::post('/paymentgateway/update/{id}', 'Vendor\PaymentGatewayController@update')->name('vendor-payment-update');
+ Route::get('/paymentgateway/delete/{id}', 'Vendor\PaymentGatewayController@destroy')->name('vendor-payment-delete');
+ Route::get('/paymentgateway/status/{id1}/{id2}', 'Vendor\PaymentGatewayController@status')->name('vendor-payment-status');
+
   });
 
 });

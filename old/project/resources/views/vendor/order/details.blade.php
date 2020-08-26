@@ -92,6 +92,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                     <td width="45%">{{$order->order_note}}</td>
                                                 @endif
                                                 
+                                                
                                                 </tbody>
                                             </table>
                                         </div>
@@ -154,16 +155,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                 <td width="45%">{{$order->shipping_zip == null ? $order->customer_zip : $order->shipping_zip}}</td>
                                 </tr>
 
-                                <tr>
-                                    <th colspan=2>
-                                    <br/>
-                                    <select class="vendor-btn {{ $order->status }}">
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'pending']) }}" {{  $order->status == "pending" ? 'selected' : ''  }}>{{ $langg->lang540 }}</option>
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'processing']) }}" {{  $order->status == "processing" ? 'selected' : ''  }}>{{ $langg->lang541 }}</option>
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'completed']) }}" {{  $order->status == "completed" ? 'selected' : ''  }}>{{ $langg->lang542 }}</option>
-                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'declined']) }}" {{  $order->status == "declined" ? 'selected' : ''  }}>{{ $langg->lang543 }}</option>
-                                </select></th>
-                                </tr>
+                                
                                 @endif
                                                 </tbody>
                                             </table>
@@ -432,6 +424,34 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
 
 @endsection
 
+<div class="modal fade" id="confirm-delete2" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="submit-loader">
+        <img  src="{{asset('assets/images/'.$gs->admin_loader)}}" alt="">
+    </div>
+    <div class="modal-header d-block text-center">
+        <h4 class="modal-title d-inline-block">{{ $langg->lang544 }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p class="text-center">{{ $langg->lang545 }}</p>
+        <p class="text-center">{{ $langg->lang546 }}</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ $langg->lang547 }}</button>
+            <a class="btn btn-success btn-ok order-btn">{{ $langg->lang548 }}</a>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 @section('scripts')
 

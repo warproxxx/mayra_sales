@@ -204,6 +204,12 @@
 								</ul>
 							</li>
 
+							<li>
+								<a href="{{ route('vendor-payment-index') }}"><i class="fa fa-file-code mr-2"></i>Payment Gateways</a>
+							</li>
+
+							
+
 						</ul>
 					</nav>
 					<!-- Main Content Area Start -->

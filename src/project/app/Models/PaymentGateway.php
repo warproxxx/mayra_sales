@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentGateway extends Model
 {
-    protected $fillable = ['title', 'details', 'subtitle'];
+    protected $fillable = ['title', 'details', 'subtitle', 'user_id'];
     public $timestamps = false;
 }

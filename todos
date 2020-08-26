@@ -1,10 +1,8 @@
-
-Fix order status change.
-Set payment methods in vendor. Make them choose who will pay. 
-Order Automessaging and notification to user system.
+only display of the creator
+Set payment methods in vendor only. Set shipping handling. Also same vendor only in cart. And in admin show those which admin should manage.
 
 Try Dispute/Message current system. Make dispute system work as before if required. ADd notification for useer when message received
-Also same vendor only in cart.
+
 
 Show premium products in homepage
 Then the requirements said
