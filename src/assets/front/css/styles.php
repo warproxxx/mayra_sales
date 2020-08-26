@@ -2,7 +2,8 @@
 header("Content-type: text/css; charset: UTF-8");
 if(isset($_GET['color']))
 {
-  $color = '#'.$_GET['color'];
+  // $color = '#'.$_GET['color'];
+  $color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
 }
 else {
   $color = '#0f78f2';
@@ -18,7 +19,9 @@ else {
 
 if(isset($_GET['footer_color']))
 {
-  $footer_color = '#'.$_GET['footer_color'];
+  // $footer_color = '#'.$_GET['footer_color'];
+  $footer_color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
+
 }
 else {
   $footer_color = '#143250';
@@ -42,7 +45,9 @@ else {
 
 if(isset($_GET['menu_hover_color']))
 {
-  $menu_hover_color = '#'.$_GET['menu_hover_color'];
+  // $menu_hover_color = '#'.$_GET['menu_hover_color'];
+  $menu_hover_color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
+
 }
 else {
   $menu_hover_color = '#02020c';
