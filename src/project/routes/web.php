@@ -66,7 +66,9 @@ Route::prefix('admin')->group(function() {
   Route::get('/order/{id}/show', 'Admin\OrderController@show')->name('admin-order-show');
   Route::get('/order/{id}/invoice', 'Admin\OrderController@invoice')->name('admin-order-invoice');
   Route::get('/order/{id}/print', 'Admin\OrderController@printpage')->name('admin-order-print');
-  Route::get('/order/{id1}/status/{status}', 'Admin\OrderController@status')->name('admin-order-status');
+  Route::get('/order/{id1}/status_update/{status}', 'Admin\OrderController@status')->name('admin-order-status');
+  Route::get('/order/{id1}/payment_update/{status}', 'Admin\OrderController@payment')->name('admin-order-payment');
+
   Route::post('/order/email/', 'Admin\OrderController@emailsub')->name('admin-order-emailsub');
   Route::post('/order/{id}/license', 'Admin\OrderController@license')->name('admin-order-license');
 
@@ -1060,6 +1062,9 @@ Route::prefix('vendor')->group(function() {
   Route::get('/order/{id}/invoice', 'Vendor\OrderController@invoice')->name('vendor-order-invoice');
   Route::get('/order/{id}/print', 'Vendor\OrderController@printpage')->name('vendor-order-print');
   Route::get('/order/{id1}/status/{status}', 'Vendor\OrderController@status')->name('vendor-order-status');
+  Route::get('/order/{id1}/payment/{status}', 'Vendor\OrderController@payment')->name('vendor-order-payment');
+  
+
   Route::post('/order/email/', 'Vendor\OrderController@emailsub')->name('vendor-order-emailsub');
   Route::post('/order/{slug}/license', 'Vendor\OrderController@license')->name('vendor-order-license');
 

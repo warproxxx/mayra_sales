@@ -41,7 +41,7 @@ class OrderController extends Controller
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
                             ->editColumn('id', function(Order $data) {
-                                $id = '<a href="'.route('admin-order-invoice',$data->id).'">'.$data->order_number.'</a>';
+                                $id = '<a href="'.route('admin-order-show',$data->id).'">'.$data->order_number.'</a>';
                                 return $id;
                             })
                             ->editColumn('pay_amount', function(Order $data) {
@@ -264,9 +264,28 @@ class OrderController extends Controller
         return response()->json($msg);
     }
 
-    public function status($id,$status)
+    public function status($slug,$status)
     {
-        $mainorder = Order::findOrFail($id);
+        $mainorder = VendorOrder::where('order_number','=',$slug)->first();
+        if ($mainorder->status == "completed"){
+            return redirect()->back()->with('success','This Order is Already Completed');
+        }else{
 
+        $order = VendorOrder::where('order_number','=',$slug)->update(['status' => $status]);
+        $on_user = Order::where('order_number','=',$slug)->update(['status' => $status]);
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        return redirect()->route('admin-order-show',$order->id)->with('success','Order Updated');
+     }
+    }
+
+    public function payment($slug,$status)
+    {
+        $on_user = Order::where('order_number','=',$slug)->update(['payment_status' => $status]);
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        return redirect()->route('admin-order-show',$order->id)->with('success','Order Updated');
     }
 }

@@ -68,8 +68,26 @@ class OrderController extends Controller
 
         $user = Auth::user();
         $order = VendorOrder::where('order_number','=',$slug)->where('user_id','=',$user->id)->update(['status' => $status]);
-        return redirect()->route('vendor-order-index')->with('success','Order Status Updated Successfully');
+        $on_user = Order::where('order_number','=',$slug)->update(['status' => $status]);
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        return redirect()->route('vendor-order-show',$order->order_number);
+     }
     }
+
+    public function payment($slug,$status)
+    {
+        $mainorder = VendorOrder::where('order_number','=',$slug)->first();
+
+
+        $user = Auth::user();
+        $on_user = Order::where('order_number','=',$slug)->update(['payment_status' => $status]);
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        return redirect()->route('vendor-order-show',$order->order_number);
     }
+
 
 }

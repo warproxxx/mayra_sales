@@ -232,9 +232,19 @@ a.clear {
     .pending {
       background-color: #ff9600 !important;
     }
+
+    .Pending {
+      background-color: #ff9600 !important;
+    }
+
     .completed {
       background-color: #01c004 !important;
     }
+
+    .Completed {
+      background-color: #01c004 !important;
+    }
+
     .processing {
       background-color: #02abff !important;
     }
@@ -704,6 +714,21 @@ select.vendor-btn {
 select.vendor-btn option {
     background: #fff;
     color: black;
+}
+
+select.vendor-btn-two {
+  color: #fff;
+  width: auto;
+  height: auto;
+  padding: 5px 10px;
+  border: 0px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+select.vendor-btn2 option {
+  background: #fff;
+  color: black;
 }
 
 .price-container {

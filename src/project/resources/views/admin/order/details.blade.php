@@ -91,13 +91,33 @@
 
                                                     <th width="45%">{{ __('Payment Status') }}</th>
                                                     <th width="10%">:</th>
-                                                    <td width="45%">{!! $order->payment_status == 'Pending' ? "<span class='badge badge-danger'>Unpaid</span>":"<span class='badge badge-success'>Paid</span>" !!}</td>
+                                                    <td width="45%">
+
+                                                    <select class="vendor-btn-two {{ $order->payment_status }}">
+                                                        <option value="{{ route('admin-order-payment',['slug' => $order->order_number, 'status' => 'Pending']) }}" {{  $order->payment_status == "Pending" ? 'selected' : ''  }}>Pending</option>
+                                                        <option value="{{ route('admin-order-payment',['slug' => $order->order_number, 'status' => 'Completed']) }}" {{  $order->payment_status == "Completed" ? 'selected' : ''  }}>Completed</option>
+                                                    </select>
+                                                    </td>
 
                                                 @if(!empty($order->order_note))
                                                     <th width="45%">{{ __('Order Note') }}</th>
                                                     <th width="10%">:</th>
                                                     <td width="45%">{{$order->order_note}}</td>
                                                 @endif
+
+                                                <tr>
+                                    <th width="45%">Order Status</th>
+                                    <th width="10%"><span style="font-weight:normal">:</span></th>
+                                    <td width="45%">
+                                    <br/>
+                                        <select class="vendor-btn {{ $order->status }}">
+                                            <option value="{{ route('admin-order-status',['slug' => $order->order_number, 'status' => 'pending']) }}" {{  $order->status == "pending" ? 'selected' : ''  }}>{{ $langg->lang540 }}</option>
+                                            <option value="{{ route('admin-order-status',['slug' => $order->order_number, 'status' => 'processing']) }}" {{  $order->status == "processing" ? 'selected' : ''  }}>{{ $langg->lang541 }}</option>
+                                            <option value="{{ route('admin-order-status',['slug' => $order->order_number, 'status' => 'completed']) }}" {{  $order->status == "completed" ? 'selected' : ''  }}>{{ $langg->lang542 }}</option>
+                                            <option value="{{ route('admin-order-status',['slug' => $order->order_number, 'status' => 'declined']) }}" {{  $order->status == "declined" ? 'selected' : ''  }}>{{ $langg->lang543 }}</option>
+                                        </select>
+                                    </td>
+                                </tr>
 
                                                 </tbody>
                                             </table>
@@ -587,5 +607,20 @@ $('#example2').dataTable( {
                 });
         });
     </script>
+<script type="text/javascript">
 
+
+$('.vendor-btn').on('change',function(){
+        $('#confirm-delete2').modal('show');
+        $('#confirm-delete2').find('.btn-ok').attr('href', $(this).val());
+
+});
+
+$('.vendor-btn-two').on('change',function(){
+        $('#confirm-delete2').modal('show');
+        $('#confirm-delete2').find('.btn-ok').attr('href', $(this).val());
+
+});
+
+</script>
 @endsection

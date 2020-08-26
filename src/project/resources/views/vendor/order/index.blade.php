@@ -60,7 +60,7 @@
 
 @endphp
                                                         <tr>
-                                                    <td> <a href="{{route('vendor-order-invoice',$order->order_number)}}">{{ $order->order->order_number}}</a></td>
+                                                    <td> <a href="{{route('vendor-order-show',$order->order_number)}}">{{ $order->order->order_number}}</a></td>
                                           <td>{{$qty}}</td>
                                       <td>{{$order->order->currency_sign}}{{round($price * $order->order->currency_value, 2)}}</td>
                                       <td>{{$order->order->method}}</td>
