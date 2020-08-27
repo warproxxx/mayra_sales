@@ -428,7 +428,7 @@ nav .menu li.dropdown.open > a,
 }
  .top-header .content .right-content .list ul li a.sell-btn:hover {
  transition: 0.3s;
- background: #fff;
+ <!-- background: #fff; -->
 color: <?php echo $color; ?>;
 }
 .sub-categori .left-area .service-center .body-area .list li i {

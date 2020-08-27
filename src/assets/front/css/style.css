@@ -171,8 +171,8 @@ select:focus {
   .mybtn1 i {
     padding-left: 5px; }
   .mybtn1:hover {
-    background: none;
-    color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)!important;
+    /* background: none; */
+    color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff) !important;
     }
 
 
@@ -2221,7 +2221,7 @@ nav button {
   .footer .footer-info-area .text {
     margin-bottom: 24px; }
     .footer .footer-info-area .text p {
-      color: #bac9e6;
+      color: #fff;
       font-size: 14px; }
   .footer .fotter-social-links ul {
     padding-left: 0px;
@@ -2238,8 +2238,8 @@ nav button {
         text-align: center;
         line-height: 38px;
         margin: 0px 3px;
-        color: #bac9e6;
-        border: 1px solid #bac9e6;
+        color: #fff;
+        border: 1px solid #fff;
         background: none;
         -webkit-transition: 0.3s ease-in;
         -moz-transition: 0.3s ease-in;
@@ -2260,7 +2260,7 @@ nav button {
         font-size: 14px;
         line-height: 24px;
         margin-bottom: 0px;
-        color: #bac9e6; }
+        color: #fff; }
       .footer .copy-bg .content .content a {
         font-size: 14px;
         line-height: 24px;
@@ -2278,7 +2278,7 @@ nav button {
     .footer .footer-widget ul li {
       list-style: none; }
       .footer .footer-widget ul li a {
-        color: #bac9e6;
+        color: #fff;
         -webkit-transition: all 0.3s ease-in;
         -o-transition: all 0.3s ease-in;
         transition: all 0.3s ease-in; }
