@@ -327,21 +327,21 @@ ul {
 #sidebar ul > li > ul > li a{
 	display: flex;
 	justify-content: space-between;
-	color: #a8bcfc;
+	color: #fff;
 }
 #sidebar ul > li > ul > li a:hover{
-	color: #a8bcfc;
+	color: #fff;
 	background: linear-gradient(to right, #eb719e, #e471ae, #da72bd, #cb76cd, #b77bdb, #a287eb, #8893f7, #689eff, #40b0ff, #00c0ff, #00ceff, #03dbff);
 }
 #sidebar ul > li > ul > li a:hover span{
-	color: #a8bcfc;
+	color: #fff;
 }
 
 #sidebar ul > li > ul > li > ul > li > a:hover span{
-	color: #a8bcfc;
+	color: #fff;
 }
 #sidebar ul > li > ul > li > ul > li > a:hover{
-	color: #a8bcfc;
+	color: #fff;
 }
 
 #sidebar ul > li > ul > li a.accordion-toggle{
