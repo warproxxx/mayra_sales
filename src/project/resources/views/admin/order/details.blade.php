@@ -85,7 +85,14 @@
                                                     <th width="45%">{{$order->method}} {{ __('Transaction ID') }}</th>
                                                     <td width="10%">:</td>
                                                     <td width="45%">{{$order->txnid}}</td>
-                                                </tr>                         
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th width="45%">Transaction Screenshot</th>
+                                                    <td width="10%">:</td>
+                                                    <td width="45%"><a target="_blank" href="/assets/images/users/{{$order->txn_image}}" ><img src="/assets/images/users/{{$order->txn_image}}"></a></td>
+                                                </tr> 
+                                                
                                                 @endif
 
 
