@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use Datatables;
 use App\Models\PaymentGateway;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use DB;
+use Log;
 
 class PaymentGatewayController extends Controller
 {
@@ -19,13 +22,17 @@ class PaymentGatewayController extends Controller
     //*** JSON Request
     public function datatables()
     {
-         $datas = PaymentGateway::orderBy('id','desc')->get();
+         $datas = PaymentGateway::orderBy('id','desc')->get(); #fix this
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
                             ->editColumn('details', function(PaymentGateway $data) {
                                 $details = strlen(strip_tags($data->details)) > 250 ? substr(strip_tags($data->details),0,250).'...' : strip_tags($data->details);
                                 return  $details;
                             })
+                            ->addColumn('added_by', function(PaymentGateway $data) {
+                                $user = User::where('id', $data->user_id)->first();
+                                return $user->shop_name;
+                            }) 
                             ->addColumn('status', function(PaymentGateway $data) {
                                 $class = $data->status == 1 ? 'drop-success' : 'drop-danger';
                                 $s = $data->status == 1 ? 'selected' : '';

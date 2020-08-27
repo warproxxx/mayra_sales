@@ -11,9 +11,11 @@ use App\Models\Generalsetting;
 use App\Models\Withdraw;
 use App\Models\Currency;
 use App\Models\UserSubscription;
+use App\Models\PaymentGateway;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use Auth;
+use Log;
 
 class VendorController extends Controller
 {
@@ -189,7 +191,8 @@ class VendorController extends Controller
     public function show($id)
     {
         $data = User::findOrFail($id);
-        return view('admin.vendor.show',compact('data'));
+        $gateways = PaymentGateway::where('user_id', $data->id)->get();
+        return view('admin.vendor.show',compact('data', 'gateways'));
     }
     
 

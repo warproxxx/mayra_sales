@@ -39,7 +39,9 @@ class PaymentGatewayController extends Controller
     //*** JSON Request
     public function datatables()
     {
-         $datas = PaymentGateway::orderBy('id','desc')->get();
+
+        $user = Auth::user();
+         $datas = PaymentGateway::where('user_id', '=', $user->id)->get();
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
                             ->editColumn('details', function(PaymentGateway $data) {

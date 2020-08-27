@@ -175,6 +175,37 @@ table#example2 {
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            <div class="order-table-wrap">
+                                                <div class="order-details-table">
+                                                    <div class="mr-table">
+                                                        <h4 class="title">{{ __("Payment Gateways") }}</h4>
+                                                        <div class="table-responsive">
+                                                                <table id="example2" class="table table-hover dt-responsive" cellspacing="0" width="100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>{{ __("Title") }}</th>
+                                                                            <th>{{ __("Subtitle") }}</th>
+                                                                            <th>{{ __("Details") }}</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach($gateways as $gateway)
+                                                                        <tr>
+                                                                            <td>{{ $gateway->title }}</td>
+                                                                            <td>{{ $gateway->subtitle }}</td>
+                                                                            <td>{!!  $gateway->details !!}</td>
+                                                                        </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

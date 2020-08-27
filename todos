@@ -1,5 +1,5 @@
-only display of the creator
-Set payment methods in vendor only. Set shipping handling. Also same vendor only in cart. And in admin show those which admin should manage.
+Choose who ships. On registeration and able to change for vendor.
+Also same vendor only in cart. Show only vendor wise in front end. Upload picture along with transaction id. And in admin show those which admin should manage.
 
 Try Dispute/Message current system. Make dispute system work as before if required. ADd notification for useer when message received
 
