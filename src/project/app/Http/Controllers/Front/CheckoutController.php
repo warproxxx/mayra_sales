@@ -22,6 +22,7 @@ use DB;
 use Illuminate\Http\Request;
 use Session;
 use Validator;
+use Log;
 
 class CheckoutController extends Controller
 {
@@ -641,14 +642,10 @@ class CheckoutController extends Controller
 
 $input = $request->all();
 
-$rules = [
-    'txn_id4' => 'required',
-];
+$rules = [];
 
 
-$messages = [
-    'required' => 'The Transaction ID field is required.',
-];
+$messages = [];
 
 $validator = Validator::make($input, $rules, $messages);
 
@@ -759,7 +756,30 @@ $validator = Validator::make($input, $rules, $messages);
         $order['currency_sign'] = $curr->sign;
         $order['currency_value'] = $curr->value;
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
-        $order['vendor_packing_id'] = $request->vendor_packing_id;        
+        $order['vendor_packing_id'] = $request->vendor_packing_id;     
+        
+        if ($request->hasFile('txn_image')) 
+        {
+            //  Let's do everything here
+            if ($request->file('txn_image')->isValid()) 
+            {
+                $image_name = date('mdYHis') . uniqid() .$request->file('txn_image')->getClientOriginalName();
+                $order['txn_image'] = $image_name;
+                $path = 'assets/images/users';
+                $request->file('txn_image')->move($path,$image_name);
+
+
+                // $image = file_get_contents($request->file('txn_image'));
+                // $image = base64_decode($image);
+                // Log::info($image);
+                // $image_name = time().str_random(8).'.png';
+                // $path = 'assets/images/users/'.$image_name;
+                // file_put_contents($path, $image);
+                #find upload code in product upload
+            }
+        }
+
+
             if (Session::has('affilate')) 
             {
                 $val = $request->total / 100;

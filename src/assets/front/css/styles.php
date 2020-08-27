@@ -6,7 +6,8 @@ if(isset($_GET['color']))
   $color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
 }
 else {
-  $color = '#0f78f2';
+  // $color = '#0f78f2';
+  $color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
 }
 
 if(isset($_GET['header_color']))
@@ -37,10 +38,13 @@ else {
 
 if(isset($_GET['menu_color']))
 {
-  $menu_color = '#'.$_GET['menu_color'];
+  // $menu_color = '#'.$_GET['menu_color'];
+  $menu_color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
 }
 else {
-  $menu_color = '#02020c';
+  // $menu_color = '#02020c';
+  $menu_color = 'linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)';
+
 }
 
 if(isset($_GET['menu_hover_color']))
@@ -514,7 +518,7 @@ color: <?php echo $color; ?>;
 
         .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a {
 
-          border: 1px solid #ff5500;
+          border: 1px solid linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
           background: <?php echo $color; ?>; }
           .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a:hover {
             color: <?php echo $color; ?>; }

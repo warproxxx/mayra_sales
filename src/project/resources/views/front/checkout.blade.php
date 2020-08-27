@@ -75,7 +75,7 @@
 
 
 
-		<form id="" action="" method="POST" class="checkoutform">
+		<form id="" action="" method="POST" class="checkoutform" enctype="multipart/form-data">
 
 			@include('includes.form-success')
 			@include('includes.form-error')
