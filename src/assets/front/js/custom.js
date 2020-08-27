@@ -707,26 +707,30 @@ $('#category_select').on('change',function(){
 
 // Cart Section
 
-    $(document).on('click', '.add-to-cart', function(){
+$(document).on('click', '.add-to-cart', function(){
 
 
 
-        $.get( $(this).data('href') , function( data ) {
+  $.get( $(this).data('href') , function( data ) {
 
-            if(data == 'digital') {
-              toastr.error(langg.already_cart);
-             }
-            else if(data == 0) {
-              toastr.error(langg.out_stock);
-              }
-            else {
-              $("#cart-count").html(data[0]);
-              $("#cart-items").load(mainurl+'/carts/view');
-              toastr.success(langg.add_cart);
-              }
-        });
-                    return false;
-    });
+      if(data == 'digital') {
+        toastr.error(langg.already_cart);
+       }
+      else if(data == 0) {
+        toastr.error(langg.out_stock);
+        }
+        else if (data == -1)
+        {
+          toastr.error("Cart can only consist of same seller's item");
+        }
+      else {
+        $("#cart-count").html(data[0]);
+        $("#cart-items").load(mainurl+'/carts/view');
+        toastr.success(langg.add_cart);
+        }
+  });
+              return false;
+});
 
 
     $(document).on('click', '.cart-remove', function(){

@@ -113,6 +113,7 @@ select:focus {
   background-color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   -webkit-box-shadow: 0px 5px 10px 0px rgba(14, 35, 107, 0.3);
   box-shadow: 0px 5px 10px 0px rgba(14, 35, 107, 0.3);
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   text-align: center;
   color: #fff;
   font-size: 16px;
