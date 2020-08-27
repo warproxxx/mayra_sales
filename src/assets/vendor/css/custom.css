@@ -1,5 +1,5 @@
   a.btn-back {
-      background: #2d3274;
+      background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
       padding: 7px 15px;
       color: #fff;
       font-size: 14px;
@@ -40,7 +40,7 @@
 }
 
 .add-btn {
-      background: #2d3274;
+      background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
       padding: 7px 15px;
       color: #fff;
       font-size: 14px;
@@ -285,7 +285,7 @@ a.clear {
   background: #1f224f;
   color: #fff; }
   .btn.sendEmail:hover {
-    background: #2d3274; }
+    background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); }
 /* Order Invoice Area Start */
 .invoice_table .mr-table .table tr,
 .order-details-table .table tr {
@@ -334,7 +334,7 @@ a.clear {
   background: #1f224f;
   color: #fff; }
   .add-newProduct-btn.print:hover {
-  background: #2d3274; }
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); }
   #lines {
     padding: 0;
   }
@@ -396,20 +396,20 @@ a.clear {
   padding: 0px 25px;
   line-height: 40px;
   text-align: center;
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   color: #fff;
   border: 0px;
   border-radius: 50px;
   margin-right: 20px;
 }
 .nice-select .list{
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 }
 .special-box .footer-area .mybtn1{
   display: inline-block;
   text-transform: unset;
   border-radius: 50px;
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   box-shadow: none;
 }
 .special-box .footer-area .mybtn1:hover {
@@ -471,7 +471,7 @@ a.clear {
   margin-top: 10px;
   border-radius: 50px;
   font-weight: 600;
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   height: 40px;
   line-height: 40px;
   width: 150px;
@@ -502,7 +502,7 @@ a.clear {
  padding-bottom: 0px;
 }
 .customar-details-area .view-details{
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   color: #fff;
   font-size: 14px;
   line-height: 30px;
@@ -580,7 +580,7 @@ table.dataTable thead th, table.dataTable thead td {
 }
 .content-area h5.card-header {
     color: #fff;
-    background: #2d3274;
+    background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 }
 
 /* Other Css Start */

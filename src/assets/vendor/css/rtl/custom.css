@@ -1,5 +1,5 @@
 a.btn-back {
-    background: #2d3274;
+    background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
     padding: 7px 15px;
     color: #fff;
     font-size: 14px;
@@ -40,7 +40,7 @@ td img {
 }
 
 .add-btn {
-    background: #2d3274;
+    background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
     padding: 7px 15px;
     color: #fff;
     font-size: 14px;
@@ -69,7 +69,7 @@ margin: 20px 20px;
 
 }
 .product-description .panel-heading.text-center h3 {
-  background-color: #1f224f;
+  background-color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   color: #ffffff;
   padding: 10px 0px 10px;
 }
@@ -271,10 +271,10 @@ padding-bottom: 10px; }
 padding: 0.50rem; }
 
 .btn.sendEmail {
-background: #1f224f;
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 color: #fff; }
 .btn.sendEmail:hover {
-  background: #2d3274; }
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); }
 /* Order Invoice Area Start */
 .invoice_table .mr-table .table tr,
 .order-details-table .table tr {
@@ -320,10 +320,10 @@ margin-top: 20px; }
 max-width: 250px; }
 
 .add-newProduct-btn.print {
-background: #1f224f;
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 color: #fff; }
 .add-newProduct-btn.print:hover {
-background: #2d3274; }
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); }
 #lines {
   padding: 0;
 }
@@ -385,20 +385,20 @@ height: 40px;
 padding: 0px 25px;
 line-height: 40px;
 text-align: center;
-background: #2d3274;
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 color: #fff;
 border: 0px;
 border-radius: 50px;
 margin-right: 20px;
 }
 .nice-select .list{
-background: #2d3274;
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 }
 .special-box .footer-area .mybtn1{
   display: inline-block;
   text-transform: unset;
   border-radius: 50px;
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
   box-shadow: none;
 }
 .special-box .footer-area .mybtn1:hover {
@@ -461,7 +461,7 @@ margin: 0 auto;
 margin-top: 10px;
 border-radius: 50px;
 font-weight: 600;
-background: #2d3274;
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 height: 40px;
 line-height: 40px;
 width: 150px;
@@ -492,7 +492,7 @@ margin-bottom: 0px;
 padding-bottom: 0px;
 }
 .customar-details-area .view-details{
-background: #2d3274;
+background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 color: #fff;
 font-size: 14px;
 line-height: 30px;
@@ -529,7 +529,7 @@ font-size: 14px;
 
 .profile-btn {
 border-radius: 50px;
-background-color: #1f224f;
+background-color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 -webkit-box-shadow: 0px 5px 10px 0px rgba(14, 35, 107, 0.3);
 box-shadow: 0px 5px 10px 0px rgba(14, 35, 107, 0.3);
 text-align: center;
@@ -570,7 +570,7 @@ position: relative; }
 }
 .content-area h5.card-header {
   color: #fff;
-  background: #2d3274;
+  background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
 }
 
 /* Other Css Start */

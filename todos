@@ -1,5 +1,3 @@
-See changing color in vendor and admin.
-
 Choose who ships. On registeration and able to change for vendor. Show orders to ship in admin.
 Also same vendor only in cart. Show only vendor wise in front end. Upload picture along with transaction id. And in admin show those which admin should manage.
 
@@ -9,4 +7,12 @@ Try Dispute/Message current system. Make dispute system work as before if requir
 Show premium products in homepage
 Then the requirements said
 
-linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)
+#1f224f to linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)
+
+Ff85b2
+A797ff
+00e5ff
+
+darkened eb719e, 9383eb, 03DBFF
+
+#2d3274 to linear-gradient(to right, #eb719e, #e471ae, #da72bd, #cb76cd, #b77bdb, #a287eb, #8893f7, #689eff, #40b0ff, #00c0ff, #00ceff, #03dbff)
