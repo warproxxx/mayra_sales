@@ -65,12 +65,21 @@ class CheckoutController extends Controller
 
         if(Auth::guard('web')->check())
         {
-                $gateways =  PaymentGateway::where('status','=',1)->get();
-                $pickups = Pickup::all();
-                $oldCart = Session::get('cart');
-                $cart = new Cart($oldCart);
-                $products = $cart->items;
+            $oldCart = Session::get('cart');
+            $cart = new Cart($oldCart);
 
+            $vendor_id = 0;
+
+            foreach ($cart->items as $prod) {
+                $vendor_id = $prod['item']['user_id'];
+                break;
+            }
+
+                $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
+                $pickups = Pickup::all();
+                
+                $products = $cart->items;
+                    
                 // Shipping Method
 
                 if($gs->multiple_shipping == 1)
