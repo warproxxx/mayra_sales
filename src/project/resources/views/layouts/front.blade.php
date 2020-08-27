@@ -187,6 +187,10 @@
 													</li>
 
 													<li>
+														<a href="{{ route('user-orders') }}"><i class="fas fa-angle-double-right"></i> My Orders</a>
+													</li>
+
+													<li>
 														<a href="{{ route('user-logout') }}"><i class="fas fa-angle-double-right"></i> {{ $langg->lang223 }}</a>
 													</li>
 												</ul>

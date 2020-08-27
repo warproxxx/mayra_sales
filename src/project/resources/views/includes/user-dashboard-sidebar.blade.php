@@ -55,9 +55,9 @@
               @endif -->
 
 
-              <li class="{{ $link == route('user-order-track') ? 'active':'' }}">
+              <!-- <li class="{{ $link == route('user-order-track') ? 'active':'' }}">
                   <a href="{{route('user-order-track')}}">{{ $langg->lang772 }}</a>
-              </li>
+              </li> -->
 
               <li class="{{ $link == route('user-favorites') ? 'active':'' }}">
                   <a href="{{route('user-favorites')}}">{{ $langg->lang231 }}</a>
