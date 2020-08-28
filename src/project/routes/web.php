@@ -431,6 +431,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/disputes', 'Admin\MessageController@disputes')->name('admin-message-dispute');
   Route::get('/message/{id}', 'Admin\MessageController@message')->name('admin-message-show');
   Route::get('/message/load/{id}', 'Admin\MessageController@messageshow')->name('admin-message-load');
+  Route::get('/message/dispute/{id}', 'Admin\MessageController@dispute')->name('admin-single-message-dispute');
   Route::post('/message/post', 'Admin\MessageController@postmessage')->name('admin-message-store');
   Route::get('/message/{id}/delete', 'Admin\MessageController@messagedelete')->name('admin-message-delete');
   Route::post('/user/send/message', 'Admin\MessageController@usercontact')->name('admin-send-message');
@@ -487,21 +488,6 @@ Route::prefix('admin')->group(function() {
   Route::get('/package/delete/{id}', 'Admin\PackageController@destroy')->name('admin-package-delete');
 
   //------------ ADMIN PACKAGE ENDS------------
-
-
-  //------------ VENDOR NOTIFICATION SECTION ------------
-
-  // Order Notification
-  Route::get('/user/notf/show/{id}', 'User\NotificationController@order_notf_show')->name('user-order-notf-show');
-  Route::get('/user/notf/count/{id}','User\NotificationController@order_notf_count')->name('user-order-notf-count');
-  Route::get('/user/notf/clear/{id}','User\NotificationController@order_notf_clear')->name('user-order-notf-clear');
-
-
-  // Order Notification Ends
-
-  // Product Notification Ends
-
-  //------------ VENDOR NOTIFICATION SECTION ENDS ------------
 
 
   //------------ ADMIN GENERAL SETTINGS JSON SECTION ------------
@@ -953,6 +939,12 @@ Route::prefix('user')->group(function() {
   Route::get('/json/trans','User\OrderController@trans');
 
 // User Orders Ends
+
+//------------ USER NOTIFICATION SECTION ------------
+Route::get('/notf/show/{id}', 'User\NotificationController@order_notf_show')->name('user-order-notf-show');
+Route::get('/notf/count/{id}','User\NotificationController@order_notf_count')->name('user-order-notf-count');
+Route::get('/notf/clear/{id}','User\NotificationController@order_notf_clear')->name('user-order-notf-clear');
+//------------ USER NOTIFICATION SECTION ENDS ------------
 
 
 // User Subscription

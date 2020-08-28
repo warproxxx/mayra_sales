@@ -732,6 +732,41 @@ $(document).on('click', '.add-to-cart', function(){
               return false;
 });
 
+$(document).ready(function(){
+  setInterval(function(){
+          $.ajax({
+                  type: "GET",
+                  url:$("#order-notf-count").data('href'),
+                  success:function(data){
+                      $("#order-notf-count").html(data);
+                    }
+            });
+  }, 5000);
+});
+
+$(document).ready(function(){
+  $.ajax({
+          type: "GET",
+          url:$("#order-notf-count").data('href'),
+          success:function(data){
+              $("#order-notf-count").html(data);
+            }
+    });
+
+});
+
+$(document).on('click','#notf_order',function(){
+$("#order-notf-count").html('0');
+$('#order-notf-show').load($("#order-notf-show").data('href'));
+});
+
+$(document).on('click','#order-notf-clear',function(){
+$(this).parent().parent().trigger('click');
+$.get($('#order-notf-clear').data('href'));
+});
+
+
+
 
     $(document).on('click', '.cart-remove', function(){
       var $selector = $(this).data('class');

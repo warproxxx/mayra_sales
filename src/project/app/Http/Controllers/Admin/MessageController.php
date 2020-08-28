@@ -13,6 +13,10 @@ use App\Models\AdminUserMessage;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\Generalsetting;
+use App\Models\Conversation;
+use App\Models\Message;
+use App\Models\Notification;
+
 use Auth;
 
 class MessageController extends Controller
@@ -25,19 +29,15 @@ class MessageController extends Controller
     //*** JSON Request
     public function datatables($type)
     {
-         $datas = AdminUserConversation::where('type','=',$type)->get();
-         //--- Integrating This Collection Into Datatables
+         $datas =  Conversation::where('is_dispute','=',1)->get();
+         
          return Datatables::of($datas)
-                            ->editColumn('created_at', function(AdminUserConversation $data) {
+                            ->editColumn('created_at', function(Conversation $data) {
                                 $date = $data->created_at->diffForHumans();
                                 return  $date;
                             })
-                            ->addColumn('name', function(AdminUserConversation $data) {
-                                $name = $data->user->name;
-                                return  $name;
-                            })
-                            ->addColumn('action', function(AdminUserConversation $data) {
-                                return '<div class="action-list"><a href="' . route('admin-message-show',$data->id) . '"> <i class="fas fa-eye"></i> Details</a><a href="javascript:;" data-href="' . route('admin-message-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
+                            ->addColumn('action', function(Conversation $data) {
+                                return '<div class="action-list"><a href="' . route('admin-message-show',$data->id) . '"> <i class="fas fa-eye"></i> Details</a></div>';
                             }) 
                             ->rawColumns(['action'])
                             ->toJson(); //--- Returning Json Data To Client Side
@@ -55,19 +55,65 @@ class MessageController extends Controller
         return view('admin.message.dispute');            
     }
 
-    //*** GET Request
-    public function message($id)
+     //*** GET Request
+     public function message($id)
+     {
+         $conv = Conversation::findOrfail($id);
+         return view('admin.message.create',compact('conv'));                 
+     }   
+ 
+     //*** GET Request
+     public function messageshow($id)
+     {
+         $conv = Conversation::findOrfail($id);
+         return view('load.message',compact('conv'));                 
+     }   
+
+     //*** GET Request
+    public function message_ticket($id)
     {
         $conv = AdminUserConversation::findOrfail($id);
-        return view('admin.message.create',compact('conv'));                 
+        return view('admin.message.create_ticket',compact('conv'));                 
     }   
 
     //*** GET Request
-    public function messageshow($id)
+    public function messageshow_ticket($id)
     {
         $conv = AdminUserConversation::findOrfail($id);
         return view('load.message',compact('conv'));                 
     }   
+
+    public function dispute($id)
+    {
+        $conv = Conversation::findOrfail($id);
+        $user = Auth::guard('web')->user();
+        $new_disp = 1 - $conv->is_dispute;
+        Conversation::where('id', $id)->update(array('is_dispute' => $new_disp));
+
+        $message = "Admin has closed the dispute";
+
+        $msg = new Message();
+        $msg->conversation_id = $conv->id;
+        $msg->message = $message;
+        $msg->sent_user = 0;
+        $msg->save();
+
+        $notification = new Notification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->sent_user;
+        $notification->type = "admin_dispute_close";
+        $notification->save();
+
+        $notification = new Notification();
+        $notification->conversation_id = $conv->id;
+        $notification->vendor_id = $conv->recieved_user;
+        $notification->type = "admin_dispute_close";
+        $notification->save();
+
+        $conv = Conversation::findOrfail($id);
+
+        return view('admin.message.dispute', compact('convs'));                 
+    }
 
     //*** GET Request
     public function messagedelete($id)

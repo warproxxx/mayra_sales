@@ -6,23 +6,10 @@
 <div class="mr-breadcrumb">
     <div class="row">
         <div class="col-lg-12">
-
-            <div style="display: flex;">
-                <div style="flex-grow: 1;">
-                    <h4 class="heading">{{ __('Order Number') }}: {{$conv->subject}} 
-                    <a class="add-btn" href="{{ url()->previous() }}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a>
-                </div>
-                
-                <div>
-                    
-                    <a class="redbutton" href="{{ route('admin-single-message-dispute',$conv->id) }}">Close Dispute</a>
-                </div>
-            </div>
-            
-            </h4>
-                
-
-
+            @if($conv->order_number != null)
+            <h4 class="heading">{{ __('Order Number') }}: {{$conv->order_number}}</h4>
+            @endif
+            <h4 class="heading">{{ __('Conversation with') }} {{$conv->user->name}} <a class="add-btn" href="{{ url()->previous() }}"><i class="fas fa-arrow-left"></i> {{ __('Back') }}</a></h4>
                 <ul class="links">
                     <li>
                         <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>

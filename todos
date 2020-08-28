@@ -1,11 +1,19 @@
+Start with user notification
+
+Fix notification for message display in front, vendor, admin too potentially.
+
+Tickets need to be working too.
+Then fix colors where needed on dispute.
+Remeber password in https://mayrasales.local/user/login
+
+REmove the black from favicon. Select better logo.
+Copy Dispute, messages, notifications from before.
 Fix disappearing in https://mayrasales.local/item/fifa-20-hvz6750bak
-Try Dispute/Message current system. Make dispute system work as before if required. ADd notification for useer when message received
 Buy now places in cart wrong too
 
 Show premium products in homepage
 Then the requirements said
 Choose who ships. On registeration and able to change for vendor. Show orders to ship in admin.
-REmove the black from favicon. Select better logo.
 
 
 #1f224f to linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)
