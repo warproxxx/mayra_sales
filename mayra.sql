@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 25, 2020 at 08:48 PM
+-- Generation Time: Aug 28, 2020 at 09:17 PM
 -- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
@@ -34,6 +34,7 @@ CREATE TABLE `admins` (
   `role_id` int(191) NOT NULL DEFAULT '0',
   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `api_token` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -45,8 +46,8 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
-(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', 1, '6euvcSK8vdNhGXTxFWvZ6ghWjiqQJNWa5KiRKQRATJolDakBQQQQmcAiDEbF', '2018-02-28 23:27:08', '2019-07-26 21:21:32', 'Genius Store');
+INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `api_token`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
+(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', '9PwWzW2Al8boW9qBXc6aDNhLdoXQsAyaNC528U61w1yu9ZPAALQNIav5bWxR', 1, '6euvcSK8vdNhGXTxFWvZ6ghWjiqQJNWa5KiRKQRATJolDakBQQQQmcAiDEbF', '2018-02-28 23:27:08', '2019-07-26 21:21:32', 'Genius Store');
 
 -- --------------------------------------------------------
 
@@ -363,9 +364,18 @@ CREATE TABLE `conversations` (
   `sent_user` int(191) NOT NULL,
   `recieved_user` int(191) NOT NULL,
   `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_dispute` tinyint(1) NOT NULL DEFAULT '0',
+  `closed` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `conversations`
+--
+
+INSERT INTO `conversations` (`id`, `subject`, `sent_user`, `recieved_user`, `message`, `is_dispute`, `closed`, `created_at`, `updated_at`) VALUES
+(8, 'MAYRA-CQQ91598622801', 1, 1, 'Order details discussion', 0, 1, '2020-08-28 08:08:21', '2020-08-28 08:40:28');
 
 -- --------------------------------------------------------
 
@@ -387,7 +397,9 @@ CREATE TABLE `counters` (
 --
 
 INSERT INTO `counters` (`id`, `type`, `referral`, `total_count`, `todays_count`, `today`) VALUES
-(19, 'browser', 'Ubuntu', 37, 0, NULL);
+(19, 'browser', 'Ubuntu', 118, 0, NULL),
+(20, 'browser', 'Linux', 8, 0, NULL),
+(21, 'browser', 'Unknown OS Platform', 22, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1029,7 +1041,7 @@ CREATE TABLE `generalsettings` (
 --
 
 INSERT INTO `generalsettings` (`id`, `logo`, `favicon`, `title`, `header_email`, `header_phone`, `footer`, `copyright`, `colors`, `loader`, `admin_loader`, `is_talkto`, `talkto`, `is_language`, `is_loader`, `map_key`, `is_disqus`, `disqus`, `is_contact`, `is_faq`, `guest_checkout`, `stripe_check`, `cod_check`, `stripe_key`, `stripe_secret`, `currency_format`, `withdraw_fee`, `withdraw_charge`, `tax`, `shipping_cost`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `from_email`, `from_name`, `is_smtp`, `is_comment`, `is_currency`, `add_cart`, `out_stock`, `add_wish`, `already_wish`, `wish_remove`, `add_compare`, `already_compare`, `compare_remove`, `color_change`, `coupon_found`, `no_coupon`, `already_coupon`, `order_title`, `order_text`, `is_affilate`, `affilate_charge`, `affilate_banner`, `already_cart`, `fixed_commission`, `percentage_commission`, `multiple_shipping`, `multiple_packaging`, `vendor_ship_info`, `reg_vendor`, `cod_text`, `paypal_text`, `stripe_text`, `header_color`, `footer_color`, `copyright_color`, `is_admin_loader`, `menu_color`, `menu_hover_color`, `is_home`, `is_verification_email`, `instamojo_key`, `instamojo_token`, `instamojo_text`, `is_instamojo`, `instamojo_sandbox`, `is_paystack`, `paystack_key`, `paystack_email`, `paystack_text`, `wholesell`, `is_capcha`, `error_banner`, `is_popup`, `popup_title`, `popup_text`, `popup_background`, `invoice_logo`, `user_image`, `vendor_color`, `is_secure`, `is_report`, `paypal_check`, `paypal_business`, `footer_logo`, `email_encryption`, `paytm_merchant`, `paytm_secret`, `paytm_website`, `paytm_industry`, `is_paytm`, `paytm_text`, `paytm_mode`, `is_molly`, `molly_key`, `molly_text`, `is_razorpay`, `razorpay_key`, `razorpay_secret`, `razorpay_text`, `show_stock`, `is_maintain`, `maintain_text`) VALUES
-(1, '1598090089logo_mayra.png', '1598090104mayra_fav.jpg', 'MayraSales', 'info@mayrasales.com', '0123 456789', 'Footer', 'COPYRIGHT © 2020. All Rights Reserved By&nbsp;mayrasales.com', '#0f78f2', '1564224328loading3.gif', '1564224329loading3.gif', 0, '<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5bc2019c61d0b77092512d03/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>', 1, 1, 'AIzaSyB1GpE4qeoJ__70UZxvX9CTMUTZRZNHcu8', 0, '<div id=\"disqus_thread\">         \r\n    <script>\r\n    /**\r\n    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/\r\n    /*\r\n    var disqus_config = function () {\r\n    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page\'s canonical URL variable\r\n    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page\'s unique identifier variable\r\n    };\r\n    */\r\n    (function() { // DON\'T EDIT BELOW THIS LINE\r\n    var d = document, s = d.createElement(\'script\');\r\n    s.src = \'https://junnun.disqus.com/embed.js\';\r\n    s.setAttribute(\'data-timestamp\', +new Date());\r\n    (d.head || d.body).appendChild(s);\r\n    })();\r\n    </script>\r\n    <noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>\r\n    </div>', 1, 1, 1, 0, 1, 'pk_test_UnU1Coi1p5qFGwtpjZMRMgJM', 'sk_test_QQcg3vGsKRPlW6T3dXcNJsor', 0, 0, 0, 0, 5, 'smtp.zoho.com', '587', 'admin@mayrasales.com', '7Px!wHBwQgx%Tt', 'admin@mayrasales.com', 'Mayra', 0, 1, 0, 'Successfully Added To Cart', 'Out Of Stock', 'Add To Wishlist', 'Already Added To Wishlist', 'Successfully Removed From The Wishlist', 'Successfully Added To Compare', 'Already Added To Compare', 'Successfully Removed From The Compare', 'Successfully Changed The Color', 'Coupon Found', 'No Coupon Found', 'Coupon Already Applied', 'THANK YOU FOR YOUR PURCHASE.', 'We\'ll email you an order confirmation with details and tracking info.', 1, 8, '15587771131554048228onepiece.jpeg', 'Already Added To Cart', 0, 0, 1, 1, 1, 1, 'Pay with cash upon delivery.', 'Pay via your PayPal account.', 'Pay via your Credit Card.', '#ffffff', '#143250', '#02020c', 1, '#ff5500', '#02020c', 0, 0, 'test_172371aa837ae5cad6047dc3052', 'test_4ac5a785e25fc596b67dbc5c267', 'Pay via your Instamojo account.', 0, 0, 0, 'pk_test_162a56d42131cbb01932ed0d2c48f9cb99d8e8e2', 'junnuns@gmail.com', 'Pay via your Paystack account.', 6, 1, '1566878455404.png', 0, 'NEWSLETTER', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita porro ipsa nulla, alias, ab minus.', '1567488562subscribe.jpg', '1598090088logo_mayra.png', '1567655174profile.jpg', '#666666', 0, 1, 0, 'shaon143-facilitator-1@gmail.com', '1598090089logo_mayra.png', 'tls', 'tkogux49985047638244', 'LhNGUUKE9xCQ9xY8', 'WEBSTAGING', 'Retail', 0, 'Pay via your Paytm account.', 'live', 0, 'test_5HcWVs9qc5pzy36H9Tu9mwAyats33J', 'Pay with Molly Payment.', 0, 'rzp_test_xDH74d48cwl8DF', 'cr0H1BiQ20hVzhpHfHuNbGri', 'Pay via your Razorpay account.', 0, 0, '<div style=\"text-align: center;\"><font size=\"5\"><br></font></div><h1 style=\"text-align: center;\"><font size=\"6\">UNDER MAINTENANCE</font></h1>');
+(1, '1598611319logo (copy).png', '1598610921favicon.png', 'MayraSales', 'info@mayrasales.com', '0123 456789', 'Footer', 'COPYRIGHT © 2020. All Rights Reserved By&nbsp;mayrasales.com', '#0f78f2', '1564224328loading3.gif', '1564224329loading3.gif', 0, '<script type=\"text/javascript\">\r\nvar Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n(function(){\r\nvar s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\ns1.async=true;\r\ns1.src=\'https://embed.tawk.to/5bc2019c61d0b77092512d03/default\';\r\ns1.charset=\'UTF-8\';\r\ns1.setAttribute(\'crossorigin\',\'*\');\r\ns0.parentNode.insertBefore(s1,s0);\r\n})();\r\n</script>', 1, 1, 'AIzaSyB1GpE4qeoJ__70UZxvX9CTMUTZRZNHcu8', 0, '<div id=\"disqus_thread\">         \r\n    <script>\r\n    /**\r\n    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.\r\n    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/\r\n    /*\r\n    var disqus_config = function () {\r\n    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page\'s canonical URL variable\r\n    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page\'s unique identifier variable\r\n    };\r\n    */\r\n    (function() { // DON\'T EDIT BELOW THIS LINE\r\n    var d = document, s = d.createElement(\'script\');\r\n    s.src = \'https://junnun.disqus.com/embed.js\';\r\n    s.setAttribute(\'data-timestamp\', +new Date());\r\n    (d.head || d.body).appendChild(s);\r\n    })();\r\n    </script>\r\n    <noscript>Please enable JavaScript to view the <a href=\"https://disqus.com/?ref_noscript\">comments powered by Disqus.</a></noscript>\r\n    </div>', 1, 1, 1, 0, 1, 'pk_test_UnU1Coi1p5qFGwtpjZMRMgJM', 'sk_test_QQcg3vGsKRPlW6T3dXcNJsor', 0, 0, 0, 0, 5, 'smtp.zoho.com', '587', 'admin@mayrasales.com', '7Px!wHBwQgx%Tt', 'admin@mayrasales.com', 'Mayra', 0, 1, 0, 'Successfully Added To Cart', 'Out Of Stock', 'Add To Wishlist', 'Already Added To Wishlist', 'Successfully Removed From The Wishlist', 'Successfully Added To Compare', 'Already Added To Compare', 'Successfully Removed From The Compare', 'Successfully Changed The Color', 'Coupon Found', 'No Coupon Found', 'Coupon Already Applied', 'THANK YOU FOR YOUR PURCHASE.', 'We\'ll email you an order confirmation with details and tracking info.', 1, 8, '15587771131554048228onepiece.jpeg', 'Already Added To Cart', 0, 0, 1, 1, 1, 1, 'Pay with cash upon delivery.', 'Pay via your PayPal account.', 'Pay via your Credit Card.', '#ffffff', '#143250', '#02020c', 1, '#ff5500', '#02020c', 0, 0, 'test_172371aa837ae5cad6047dc3052', 'test_4ac5a785e25fc596b67dbc5c267', 'Pay via your Instamojo account.', 0, 0, 0, 'pk_test_162a56d42131cbb01932ed0d2c48f9cb99d8e8e2', 'junnuns@gmail.com', 'Pay via your Paystack account.', 6, 1, '1566878455404.png', 0, 'NEWSLETTER', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita porro ipsa nulla, alias, ab minus.', '1567488562subscribe.jpg', '1598611331logo (copy).png', '1567655174profile.jpg', '#666666', 0, 1, 0, 'shaon143-facilitator-1@gmail.com', '1598611328logo (copy).png', 'tls', 'tkogux49985047638244', 'LhNGUUKE9xCQ9xY8', 'WEBSTAGING', 'Retail', 0, 'Pay via your Paytm account.', 'live', 0, 'test_5HcWVs9qc5pzy36H9Tu9mwAyats33J', 'Pay with Molly Payment.', 0, 'rzp_test_xDH74d48cwl8DF', 'cr0H1BiQ20hVzhpHfHuNbGri', 'Pay via your Razorpay account.', 0, 0, '<div style=\"text-align: center;\"><font size=\"5\"><br></font></div><h1 style=\"text-align: center;\"><font size=\"6\">UNDER MAINTENANCE</font></h1>');
 
 -- --------------------------------------------------------
 
@@ -1067,6 +1079,30 @@ CREATE TABLE `messages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `conversation_id`, `message`, `sent_user`, `recieved_user`, `created_at`, `updated_at`) VALUES
+(24, 8, 'Order details discussion', 0, NULL, '2020-08-28 08:08:21', '2020-08-28 08:08:21'),
+(25, 8, 'Test Message', 1, NULL, '2020-08-28 08:11:19', '2020-08-28 08:11:19'),
+(26, 8, 'The status of this order has been changed to processing', 1, NULL, '2020-08-28 08:12:10', '2020-08-28 08:12:10'),
+(27, 8, 'The status of this order has been changed to processing', 1, NULL, '2020-08-28 08:29:49', '2020-08-28 08:29:49'),
+(28, 8, 'The status of this order has been changed to pending', 1, NULL, '2020-08-28 08:32:16', '2020-08-28 08:32:16'),
+(29, 8, 'The status of this order has been changed to processing', 1, NULL, '2020-08-28 08:32:23', '2020-08-28 08:32:23'),
+(30, 8, 'Test', 1, NULL, '2020-08-28 08:33:14', '2020-08-28 08:33:14'),
+(31, 8, 'Reply', 1, NULL, '2020-08-28 08:33:29', '2020-08-28 08:33:29'),
+(32, 8, 'REply', 1, NULL, '2020-08-28 08:35:05', '2020-08-28 08:35:05'),
+(33, 8, 'rr', 1, NULL, '2020-08-28 08:35:52', '2020-08-28 08:35:52'),
+(34, 8, 'sdsd', 1, NULL, '2020-08-28 08:37:54', '2020-08-28 08:37:54'),
+(35, 8, 'sds', 1, NULL, '2020-08-28 08:38:13', '2020-08-28 08:38:13'),
+(36, 8, 'xdsf', 1, NULL, '2020-08-28 08:38:24', '2020-08-28 08:38:24'),
+(37, 8, 'Buyer has opened a dispute. Admins will now handle this case', 0, NULL, '2020-08-28 08:39:10', '2020-08-28 08:39:10'),
+(38, 8, 'plz no', 1, NULL, '2020-08-28 08:39:42', '2020-08-28 08:39:42'),
+(39, 8, 'Suck my hairy ballz', 1, NULL, '2020-08-28 08:40:01', '2020-08-28 08:40:01'),
+(40, 8, 'Admin has closed the dispute', 0, NULL, '2020-08-28 08:40:13', '2020-08-28 08:40:13'),
+(41, 8, 'Buyer has confirmed receiving an item', 0, NULL, '2020-08-28 08:40:28', '2020-08-28 08:40:28');
+
 -- --------------------------------------------------------
 
 --
@@ -1080,7 +1116,9 @@ CREATE TABLE `notifications` (
   `vendor_id` int(191) DEFAULT NULL,
   `product_id` int(191) DEFAULT NULL,
   `conversation_id` int(191) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  `type` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1089,13 +1127,12 @@ CREATE TABLE `notifications` (
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `product_id`, `conversation_id`, `is_read`, `created_at`, `updated_at`) VALUES
-(1, NULL, 1, NULL, NULL, NULL, 1, '2020-08-22 22:26:39', '2020-08-24 22:12:16'),
-(2, 1, NULL, NULL, NULL, NULL, 1, '2020-08-25 02:22:50', '2020-08-25 04:11:13'),
-(3, 2, NULL, NULL, NULL, NULL, 1, '2020-08-25 04:12:48', '2020-08-25 04:30:35'),
-(4, 3, NULL, NULL, NULL, NULL, 1, '2020-08-25 04:31:46', '2020-08-25 04:36:11'),
-(5, 4, NULL, NULL, NULL, NULL, 1, '2020-08-25 05:07:14', '2020-08-25 05:08:45'),
-(6, 5, NULL, NULL, NULL, NULL, 1, '2020-08-25 05:08:14', '2020-08-25 05:08:45');
+INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `product_id`, `conversation_id`, `admin_id`, `is_read`, `type`, `created_at`, `updated_at`) VALUES
+(47, NULL, NULL, NULL, NULL, 8, NULL, 1, 'dispute_open', '2020-08-28 08:39:10', '2020-08-28 08:39:15'),
+(48, NULL, NULL, NULL, NULL, 8, NULL, 1, NULL, '2020-08-28 08:39:42', '2020-08-28 08:39:47'),
+(49, NULL, NULL, NULL, NULL, 8, NULL, 1, 'admin', '2020-08-28 08:40:01', '2020-08-28 08:40:15'),
+(50, NULL, 3, NULL, NULL, NULL, NULL, 0, NULL, '2020-08-28 09:09:13', '2020-08-28 09:09:13'),
+(51, NULL, 4, NULL, NULL, NULL, NULL, 0, NULL, '2020-08-28 09:13:28', '2020-08-28 09:13:28');
 
 -- --------------------------------------------------------
 
@@ -1113,6 +1150,7 @@ CREATE TABLE `orders` (
   `totalQty` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `pay_amount` float NOT NULL,
   `txnid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `txn_image` varchar(255) DEFAULT NULL,
   `charge_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_number` varchar(255) NOT NULL,
   `payment_status` varchar(255) NOT NULL,
@@ -1153,12 +1191,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `cart`, `method`, `shipping`, `pickup_location`, `totalQty`, `pay_amount`, `txnid`, `charge_id`, `order_number`, `payment_status`, `customer_email`, `customer_name`, `customer_country`, `customer_phone`, `customer_address`, `customer_city`, `customer_zip`, `shipping_name`, `shipping_country`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_zip`, `order_note`, `coupon_code`, `coupon_discount`, `status`, `created_at`, `updated_at`, `affilate_user`, `affilate_charge`, `currency_sign`, `currency_value`, `shipping_cost`, `packing_cost`, `tax`, `dp`, `pay_id`, `vendor_shipping_id`, `vendor_packing_id`) VALUES
-(1, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Esewa', 'shipto', 'Kathmandu', '1', 100, '46655454', NULL, 'sbl41598342870', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '9802384031', 'Tero bau ko lado', 'SFasf', '22', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-08-25 02:22:50', '2020-08-25 02:22:50', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0),
-(2, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Esewa', 'shipto', 'Kathmandu', '1', 100, '335', NULL, 'NzSX1598349468', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '9884540124', '2335 asd lahu street', 'Test', '22', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-08-25 04:12:48', '2020-08-25 04:12:48', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0),
-(3, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Esewa', 'shipto', 'Kathmandu', '1', 100, '46546', NULL, 'Tnnm1598350606', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '4354554', 'Boudha', 'Kathmandu', '435544', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-08-25 04:31:46', '2020-08-25 04:31:46', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0),
-(4, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Cash On Delivery', 'shipto', 'Kathmandu', '1', 100, NULL, NULL, 'PtuA1598352734', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '4354554', 'Boudha', 'Kathmandu', '435544', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-08-25 05:07:14', '2020-08-25 05:07:14', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0),
-(5, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Cash On Delivery', 'shipto', 'Kathmandu', '1', 100, NULL, NULL, 'sm3y1598352794', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '4354554', 'Boudha', 'Kathmandu', '435544', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-08-25 05:08:14', '2020-08-25 05:08:14', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0);
+INSERT INTO `orders` (`id`, `user_id`, `cart`, `method`, `shipping`, `pickup_location`, `totalQty`, `pay_amount`, `txnid`, `txn_image`, `charge_id`, `order_number`, `payment_status`, `customer_email`, `customer_name`, `customer_country`, `customer_phone`, `customer_address`, `customer_city`, `customer_zip`, `shipping_name`, `shipping_country`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_zip`, `order_note`, `coupon_code`, `coupon_discount`, `status`, `created_at`, `updated_at`, `affilate_user`, `affilate_charge`, `currency_sign`, `currency_value`, `shipping_cost`, `packing_cost`, `tax`, `dp`, `pay_id`, `vendor_shipping_id`, `vendor_packing_id`) VALUES
+(11, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Cash On Delivery', 'shipto', 'Kathmandu', '1', 100, NULL, NULL, NULL, 'MAYRA-CQQ91598622801', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '4354554', 'Boudha', 'Kathmandu', '435544', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'processing', '2020-08-28 08:08:21', '2020-08-28 08:32:23', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1180,11 +1214,7 @@ CREATE TABLE `order_tracks` (
 --
 
 INSERT INTO `order_tracks` (`id`, `order_id`, `title`, `text`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Pending', 'You have successfully placed your order.', '2020-08-25 02:22:50', '2020-08-25 02:22:50'),
-(2, 2, 'Pending', 'You have successfully placed your order.', '2020-08-25 04:12:48', '2020-08-25 04:12:48'),
-(3, 3, 'Pending', 'You have successfully placed your order.', '2020-08-25 04:31:46', '2020-08-25 04:31:46'),
-(4, 4, 'Pending', 'You have successfully placed your order.', '2020-08-25 05:07:14', '2020-08-25 05:07:14'),
-(5, 5, 'Pending', 'You have successfully placed your order.', '2020-08-25 05:08:14', '2020-08-25 05:08:14');
+(27, 11, 'Pending', 'You have successfully placed your order.', '2020-08-28 08:08:21', '2020-08-28 08:08:21');
 
 -- --------------------------------------------------------
 
@@ -1316,7 +1346,9 @@ CREATE TABLE `payment_gateways` (
 --
 
 INSERT INTO `payment_gateways` (`id`, `user_id`, `subtitle`, `title`, `details`, `status`) VALUES
-(47, 0, NULL, 'Esewa', 'Send to 9860234454<br>', 1);
+(51, 0, NULL, 'Khalti Test', 'Our Khalti address is 89439349<br>', 1),
+(53, 0, NULL, 'Esewa', 'Address is 956<br>', 1),
+(54, 1, NULL, 'Bank Transfer', 'Send to sidd bank<br>', 1);
 
 -- --------------------------------------------------------
 
@@ -1408,7 +1440,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `sku`, `product_type`, `affiliate_link`, `user_id`, `category_id`, `subcategory_id`, `childcategory_id`, `attributes`, `name`, `slug`, `photo`, `thumbnail`, `file`, `size`, `size_qty`, `size_price`, `color`, `price`, `previous_price`, `details`, `stock`, `policy`, `status`, `views`, `tags`, `features`, `colors`, `product_condition`, `ship`, `is_meta`, `meta_tag`, `meta_description`, `youtube`, `type`, `license`, `license_qty`, `link`, `platform`, `region`, `licence_type`, `measure`, `featured`, `best`, `top`, `hot`, `latest`, `big`, `trending`, `sale`, `created_at`, `updated_at`, `is_discount`, `discount_date`, `whole_sell_qty`, `whole_sell_discount`, `is_catalog`, `catalog_id`) VALUES
-(1, 'hVZ6750BAK', 'normal', NULL, 1, 8, NULL, NULL, NULL, 'FIFA 20', 'fifa-20-hvz6750bak', '1598156796m1IqrPWh.png', '1598156796L8l2Tiwa.jpg', NULL, NULL, NULL, NULL, NULL, 100, 0, 'Best game<br>', NULL, 'No Return<br>', 1, 3, 'fifa,20', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-22 22:41:36', '2020-08-25 02:00:48', 0, NULL, NULL, NULL, 0, 0);
+(1, 'hVZ6750BAK', 'normal', NULL, 1, 8, NULL, NULL, NULL, 'FIFA 20', 'fifa-20-hvz6750bak', '1598156796m1IqrPWh.png', '1598156796L8l2Tiwa.jpg', NULL, NULL, NULL, NULL, NULL, 100, 0, 'Best game<br>', NULL, 'No Return<br>', 1, 17, 'fifa,20', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-22 22:41:36', '2020-08-27 05:13:52', 0, NULL, NULL, NULL, 0, 0),
+(2, 'xIN58194K9', 'normal', NULL, 2, 8, NULL, NULL, NULL, 'Football', 'football-xin58194k9', '159851587131qZTebm.png', '1598515871Wit1IMgy.jpg', NULL, NULL, NULL, NULL, NULL, 500, 0, 'Good Product', NULL, 'None', 1, 0, 'footy', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-27 02:26:11', '2020-08-27 02:26:11', 0, NULL, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1429,7 +1462,21 @@ CREATE TABLE `product_clicks` (
 INSERT INTO `product_clicks` (`id`, `product_id`, `date`) VALUES
 (1, 1, '2020-08-23'),
 (2, 1, '2020-08-23'),
-(3, 1, '2020-08-25');
+(3, 1, '2020-08-25'),
+(4, 1, '2020-08-27'),
+(5, 1, '2020-08-27'),
+(6, 1, '2020-08-27'),
+(7, 1, '2020-08-27'),
+(8, 1, '2020-08-27'),
+(9, 1, '2020-08-27'),
+(10, 1, '2020-08-27'),
+(11, 1, '2020-08-27'),
+(12, 1, '2020-08-27'),
+(13, 1, '2020-08-27'),
+(14, 1, '2020-08-27'),
+(15, 1, '2020-08-27'),
+(16, 1, '2020-08-27'),
+(17, 1, '2020-08-27');
 
 -- --------------------------------------------------------
 
@@ -1758,6 +1805,7 @@ CREATE TABLE `users` (
   `fax` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `api_token` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1795,8 +1843,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`, `phone`, `fax`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `is_provider`, `status`, `verification_link`, `email_verified`, `affilate_code`, `affilate_income`, `shop_name`, `owner_name`, `shop_number`, `shop_address`, `reg_number`, `shop_message`, `shop_details`, `shop_image`, `f_url`, `g_url`, `t_url`, `l_url`, `is_vendor`, `f_check`, `g_check`, `t_check`, `l_check`, `mail_sent`, `shipping_cost`, `current_balance`, `date`, `ban`) VALUES
-(1, 'John Daniel', 'https://graph.facebook.com/v3.0/128921545532962/picture?width=1920', '435544', 'Kathmandu', 'Nepal', 'Boudha', '4354554', NULL, 'daniel@waterbot.xyz', NULL, NULL, '2020-08-22 22:26:39', '2020-08-25 04:31:23', 1, 0, NULL, 'Yes', '5578261a8fc5c86a097368bb83121511', 0, 'Test Shop', 'Daniel', '5344253', 'Boudha', NULL, 'Welcome to my shop', NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 1, 0, 0, '2048-01-08', 0);
+INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`, `phone`, `fax`, `email`, `password`, `api_token`, `remember_token`, `created_at`, `updated_at`, `is_provider`, `status`, `verification_link`, `email_verified`, `affilate_code`, `affilate_income`, `shop_name`, `owner_name`, `shop_number`, `shop_address`, `reg_number`, `shop_message`, `shop_details`, `shop_image`, `f_url`, `g_url`, `t_url`, `l_url`, `is_vendor`, `f_check`, `g_check`, `t_check`, `l_check`, `mail_sent`, `shipping_cost`, `current_balance`, `date`, `ban`) VALUES
+(0, 'Admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin@mayrasales.com', NULL, '', NULL, NULL, NULL, 0, 0, NULL, 'Yes', NULL, 0, 'Admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
+(1, 'John Daniel', 'https://graph.facebook.com/v3.0/128921545532962/picture?width=1920', '435544', 'Kathmandu', 'Nepal', 'Boudha', '4354554', NULL, 'daniel@waterbot.xyz', NULL, 'kFqwjmu84L5Fh69UPxsjlhTSP1ZQupOcXn0rJZTRhbtA6Ehe9BsnmnFVg9hc', 'tB7CWC6wMYlxft53qJcZF55xgWM4GYogEZQbLWHS79Cgrd0tNJulW8yQwApN', '2020-08-22 22:26:39', '2020-08-25 04:31:23', 1, 0, NULL, 'Yes', '5578261a8fc5c86a097368bb83121511', 0, 'Test Shop', 'Daniel', '5344253', 'Boudha', NULL, 'Welcome to my shop', NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 1, 0, 0, '2048-01-08', 0),
+(2, 'John Doe', NULL, NULL, NULL, NULL, 'BOudh', '03940', NULL, 'jdoe03744@gmail.com', '$2y$10$3RWR0PGaoeNSAA2arvjnK.0OqRBD9rkV4pRVKztbrPpSR6Aj6Rpb2', '', NULL, '2020-08-27 00:33:35', '2020-08-27 00:33:56', 0, 0, 'fc427703d72074edcd42dcfb72bdd39d', 'Yes', 'f65471995cc2ec27b3af63681b335e5f', 0, 'Lorem', 'Ipsum', '343', 'BOudh', NULL, 'Buy Now', NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 1, 0, 0, '2048-01-12', 0),
+(4, 'Daniel Sapkota', NULL, NULL, NULL, NULL, 'Boudha', '985132542952', NULL, 'danielsapkotaa13@gmail.com', '$2y$10$OBrcIverihNfdq9.y4wYqOBbY08ytoeLkdH03ogjX9RDfmcsIMR5m', 'o2qMzNetmJPIYf0eJ73r8dwoEjUGnNGliYQAPFanqJQ0di0b6ZRvZ81PEo1B', NULL, '2020-08-28 09:13:28', '2020-08-28 09:29:33', 0, 0, '290bc1440e44d8f8f1d1cbe28bd94e6f', 'Yes', '2860320a199b7aaac75f2e49646fc042', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1807,7 +1858,7 @@ INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`,
 CREATE TABLE `user_notifications` (
   `id` int(191) NOT NULL,
   `user_id` int(191) NOT NULL,
-  `order_number` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `conversation_id` int(11) NOT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1817,14 +1868,15 @@ CREATE TABLE `user_notifications` (
 -- Dumping data for table `user_notifications`
 --
 
-INSERT INTO `user_notifications` (`id`, `user_id`, `order_number`, `is_read`, `created_at`, `updated_at`) VALUES
-(1, 13, 'fFgw1573717404', 1, '2019-11-14 01:43:24', '2019-11-23 22:30:07'),
-(2, 13, '1g811573717871', 1, '2019-11-14 01:51:11', '2019-11-23 22:30:07'),
-(3, 1, 'sbl41598342870', 1, '2020-08-25 02:22:50', '2020-08-25 04:36:45'),
-(4, 1, 'NzSX1598349468', 1, '2020-08-25 04:12:48', '2020-08-25 04:36:45'),
-(5, 1, 'Tnnm1598350606', 1, '2020-08-25 04:31:46', '2020-08-25 04:36:45'),
-(6, 1, 'PtuA1598352734', 0, '2020-08-25 05:07:14', '2020-08-25 05:07:14'),
-(7, 1, 'sm3y1598352794', 0, '2020-08-25 05:08:14', '2020-08-25 05:08:14');
+INSERT INTO `user_notifications` (`id`, `user_id`, `conversation_id`, `is_read`, `created_at`, `updated_at`) VALUES
+(6, 1, 8, 1, '2020-08-28 08:11:19', '2020-08-28 08:11:34'),
+(7, 1, 8, 1, '2020-08-28 08:12:10', '2020-08-28 08:33:22'),
+(8, 1, 8, 1, '2020-08-28 08:29:49', '2020-08-28 08:33:22'),
+(9, 1, 8, 1, '2020-08-28 08:32:16', '2020-08-28 08:33:22'),
+(10, 1, 8, 1, '2020-08-28 08:32:23', '2020-08-28 08:33:22'),
+(11, 1, 8, 1, '2020-08-28 08:33:14', '2020-08-28 08:33:22'),
+(12, 1, 8, 1, '2020-08-28 08:39:42', '2020-08-28 08:39:53'),
+(13, 1, 8, 0, '2020-08-28 08:40:13', '2020-08-28 08:40:13');
 
 -- --------------------------------------------------------
 
@@ -1860,7 +1912,36 @@ INSERT INTO `user_subscriptions` (`id`, `user_id`, `subscription_id`, `title`, `
 (81, 27, 5, 'Standard', '$', 'NGN', 60, 45, 25, '<ol><li>Lorem ipsum dolor sit amet<br></li><li>Lorem ipsum dolor sit ame<br></li><li>Lorem ipsum dolor sit am<br></li></ol>', 'Paystack', '688094995', NULL, '2019-10-09 21:32:57', '2019-10-09 21:32:57', 1, NULL),
 (84, 13, 5, 'Standard', '$', 'NGN', 60, 45, 500, '<ol><li>Lorem ipsum dolor sit amet<br></li><li>Lorem ipsum dolor sit ame<br></li><li>Lorem ipsum dolor sit am<br></li></ol>', 'Paystack', '242099342', NULL, '2019-10-10 02:35:29', '2019-10-10 02:35:29', 1, NULL),
 (85, 1, 8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>', 'Free', NULL, NULL, '2020-08-22 22:35:31', '2020-08-22 22:35:31', 1, NULL),
-(86, 1, 8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>', 'Free', NULL, NULL, '2020-08-22 22:35:52', '2020-08-22 22:35:52', 1, NULL);
+(86, 1, 8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>', 'Free', NULL, NULL, '2020-08-22 22:35:52', '2020-08-22 22:35:52', 1, NULL),
+(87, 2, 8, 'Basic', '$', 'USD', 0, 9999, 0, '<ol><li>Lorem ipsum dolor sit amet<br></li></ol>', 'Free', NULL, NULL, '2020-08-27 00:33:56', '2020-08-27 00:33:56', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendor_notifications`
+--
+
+CREATE TABLE `vendor_notifications` (
+  `id` int(191) NOT NULL,
+  `user_id` int(191) NOT NULL,
+  `conversation_id` int(11) NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vendor_notifications`
+--
+
+INSERT INTO `vendor_notifications` (`id`, `user_id`, `conversation_id`, `is_read`, `created_at`, `updated_at`) VALUES
+(9, 1, 8, 1, '2020-08-28 08:08:21', '2020-08-28 08:08:48'),
+(10, 1, 8, 1, '2020-08-28 08:38:13', '2020-08-28 08:38:18'),
+(11, 1, 8, 1, '2020-08-28 08:38:24', '2020-08-28 08:38:40'),
+(12, 1, 8, 1, '2020-08-28 08:39:10', '2020-08-28 08:39:36'),
+(13, 1, 8, 0, '2020-08-28 08:40:01', '2020-08-28 08:40:01'),
+(14, 1, 8, 0, '2020-08-28 08:40:13', '2020-08-28 08:40:13'),
+(15, 1, 8, 0, '2020-08-28 08:40:28', '2020-08-28 08:40:28');
 
 -- --------------------------------------------------------
 
@@ -1883,13 +1964,7 @@ CREATE TABLE `vendor_orders` (
 --
 
 INSERT INTO `vendor_orders` (`id`, `user_id`, `order_id`, `qty`, `price`, `order_number`, `status`) VALUES
-(1, 13, 1, 1, 130, 'fFgw1573717404', 'pending'),
-(2, 13, 2, 1, 130, '1g811573717871', 'pending'),
-(3, 1, 1, 1, 100, 'sbl41598342870', 'processing'),
-(4, 1, 2, 1, 100, 'NzSX1598349468', 'processing'),
-(5, 1, 3, 1, 100, 'Tnnm1598350606', 'processing'),
-(6, 1, 4, 1, 100, 'PtuA1598352734', 'pending'),
-(7, 1, 5, 1, 100, 'sm3y1598352794', 'pending');
+(8, 1, 11, 1, 100, 'MAYRA-CQQ91598622801', 'processing');
 
 -- --------------------------------------------------------
 
@@ -1927,17 +2002,6 @@ CREATE TABLE `wishlists` (
   `user_id` int(191) UNSIGNED NOT NULL,
   `product_id` int(191) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `wishlists`
---
-
-INSERT INTO `wishlists` (`id`, `user_id`, `product_id`) VALUES
-(1, 22, 176),
-(2, 22, 102),
-(3, 22, 101),
-(4, 22, 97),
-(5, 22, 99);
 
 -- --------------------------------------------------------
 
@@ -2285,6 +2349,12 @@ ALTER TABLE `user_subscriptions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vendor_notifications`
+--
+ALTER TABLE `vendor_notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vendor_orders`
 --
 ALTER TABLE `vendor_orders`
@@ -2326,12 +2396,12 @@ ALTER TABLE `admin_languages`
 -- AUTO_INCREMENT for table `admin_user_conversations`
 --
 ALTER TABLE `admin_user_conversations`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `admin_user_messages`
 --
 ALTER TABLE `admin_user_messages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `attributes`
 --
@@ -2376,12 +2446,12 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `conversations`
 --
 ALTER TABLE `conversations`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `counters`
 --
 ALTER TABLE `counters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -2431,22 +2501,22 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `order_tracks`
 --
 ALTER TABLE `order_tracks`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2466,12 +2536,12 @@ ALTER TABLE `pagesettings`
 -- AUTO_INCREMENT for table `partners`
 --
 ALTER TABLE `partners`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `payment_gateways`
 --
 ALTER TABLE `payment_gateways`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `pickups`
 --
@@ -2481,12 +2551,12 @@ ALTER TABLE `pickups`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `product_clicks`
 --
 ALTER TABLE `product_clicks`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `ratings`
 --
@@ -2561,22 +2631,27 @@ ALTER TABLE `subscriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_notifications`
 --
 ALTER TABLE `user_notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `user_subscriptions`
 --
 ALTER TABLE `user_subscriptions`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+--
+-- AUTO_INCREMENT for table `vendor_notifications`
+--
+ALTER TABLE `vendor_notifications`
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `vendor_orders`
 --
 ALTER TABLE `vendor_orders`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `verifications`
 --
