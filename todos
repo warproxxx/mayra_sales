@@ -1,14 +1,18 @@
-Start with user notification
+I have already Commented out all admin_id. That might make a difference but shouldn't.
+Check if all inserts are right. If they are work on showing. For showing its always order_number. Need to create links by type in user and vendor
 
-Fix notification for message display in front, vendor, admin too potentially.
 
-Tickets need to be working too.
+Status change dosen't work in conversation page. REmove it.
+reload the number in notification automatically.
+
+Tickets need to be working too. Dosen't with the current way.
+Don't show messages in front. Don't give option to do that.
+Ship to different add tickbox no color
+
 Then fix colors where needed on dispute.
 Remeber password in https://mayrasales.local/user/login
-
-REmove the black from favicon. Select better logo.
-Copy Dispute, messages, notifications from before.
 Fix disappearing in https://mayrasales.local/item/fifa-20-hvz6750bak
+
 Buy now places in cart wrong too
 
 Show premium products in homepage
@@ -20,3 +24,21 @@ Choose who ships. On registeration and able to change for vendor. Show orders to
 #2d3274 to linear-gradient(to right, #eb719e, #e471ae, #da72bd, #cb76cd, #b77bdb, #a287eb, #8893f7, #689eff, #40b0ff, #00c0ff, #00ceff, #03dbff)
 
 #a8bcfc to #fff
+
+To clear:
+DELETE FROM admin_user_conversations;
+DELETE FROM admin_user_messages;
+DELETE FROM comments;
+DELETE FROM conversations;
+DELETE FROM messages;
+DELETE FROM notifications;
+DELETE FROM orders;
+DELETE FROM order_tracks;
+DELETE FROM ratings;
+DELETE FROM replies;
+DELETE FROM reviews;
+DELETE FROM reports;
+DELETE FROM user_notifications;
+DELETE FROM vendor_notifications;
+DELETE FROM vendor_orders;
+DELETE FROM wishlists;

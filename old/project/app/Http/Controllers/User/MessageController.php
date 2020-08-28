@@ -78,7 +78,7 @@ class MessageController extends Controller
 
             $notification = new Notification;
             $notification->conversation_id = $conv->id;
-            $notification->admin_id = 1;
+            // $notification->admin_id = 1;
             $notification->type = $dispute_type;
             $notification->save();
 
@@ -195,7 +195,7 @@ class MessageController extends Controller
         {
             $notification = new Notification;
             $notification->conversation_id = $request->conversation_id;
-            $notification->admin_id = 1;
+            // $notification->admin_id = 1;
             $notification->type = "admin";
             $notification->save();
         }

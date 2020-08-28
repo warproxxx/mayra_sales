@@ -8,6 +8,8 @@ use Auth;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Notification;
+use App\Models\UserNotification;
+use App\Models\VendorNotification;
 use App\Models\Order;
 use App\Models\VendorOrder;
 
@@ -32,9 +34,24 @@ class OrderController extends Controller
     public function show($slug)
     {
         $user = Auth::user();
-        $order = Order::where('order_number','=',$slug)->first();
+
+        if (strlen($slug) < 5)
+        {
+            $conversation =  Conversation::where('id', '=', $slug)->first();
+            $conversation_id = $conversation->id;
+
+            $order = Order::where('order_number','=',$conversation->subject)->first();
+        }
+        else
+        {
+            $order = Order::where('order_number','=',$slug)->first();
+
+            $conversation =  Conversation::where('subject', '=', $slug)->first();
+            $conversation_id = $conversation->id;
+        }
+        
         $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
-        $conversation_id = Conversation::where('subject', '=', $slug)->first()->id;
+
         return view('vendor.order.details',compact('user','order','cart','conversation_id'));
     }
 
@@ -99,10 +116,19 @@ class OrderController extends Controller
         $msg->save();
         
         $order = Order::where('order_number','=',$slug)->first();
-        $notification = new Notification;
-        $notification->conversation_id = $conv->id;
+
+        $notification = new UserNotification();
+        $notification->conversation_id =  $conv->id;
         $notification->user_id = $order->user_id;
         $notification->save();
+
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $conv->id;
+            // $notification->admin_id = 1;
+            $notification->save();
+        }
 
         return redirect()->route('vendor-order-show',$order->order_number);
      }
@@ -127,10 +153,20 @@ class OrderController extends Controller
         $msg->save();
         
         $order = Order::where('order_number','=',$slug)->first();
-        $notification = new Notification;
-        $notification->conversation_id = $conv->id;
+
+        $notification = new UserNotification();
+        $notification->conversation_id =  $conv->id;
         $notification->user_id = $order->user_id;
         $notification->save();
+
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $conv->id;
+            // $notification->admin_id = 1;
+            $notification->save();
+        }
+
 
         return redirect()->route('vendor-order-show',$order->order_number);
     }
@@ -143,10 +179,11 @@ class OrderController extends Controller
         //--- Redirect Section     
         $msg = 'Message Sent!';
 
-        $notification = new Notification;
-        $notification->conversation_id = $request->conversation_id;
+        $notification = new UserNotification();
+        $notification->conversation_id =  $request->conversation_id;
         $notification->user_id = $request->reciever;
         $notification->save();
+
 
         #send admin notification if disputed
         $conv = Conversation::where('id','=',$request->conversation_id)->first();
@@ -154,7 +191,7 @@ class OrderController extends Controller
         {
             $notification = new Notification;
             $notification->conversation_id = $request->conversation_id;
-            $notification->admin_id = 1;
+            // $notification->admin_id = 1;
             $notification->save();
         }
 

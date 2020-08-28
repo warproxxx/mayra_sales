@@ -17,19 +17,19 @@ class NotificationController extends Controller
 
     public function order_notf_count($id)
     {
-        $data = Notification::where('user_id','=',$id)->where('is_read','=',0)->get()->count();
+        $data = UserNotification::where('user_id','=',$id)->where('is_read','=',0)->get()->count();
         return response()->json($data);            
     } 
 
     public function order_notf_clear($id)
     {
-        $data = Notification::where('user_id','=',$id);
+        $data = UserNotification::where('user_id','=',$id);
         $data->delete();        
     } 
 
     public function order_notf_show($id)
     {
-        $datas = Notification::where('user_id','=',$id)->get();
+        $datas = UserNotification::where('user_id','=',$id)->get();
         if($datas->count() > 0){
           foreach($datas as $data){
             $data->is_read = 1;

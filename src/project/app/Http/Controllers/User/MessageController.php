@@ -12,6 +12,8 @@ use App\Models\AdminUserConversation;
 use App\Models\AdminUserMessage;
 use App\Models\Generalsetting;
 use App\Models\Notification;
+use App\Models\UserNotification;
+use App\Models\VendorNotification;
 use App\Models\User;
 
 
@@ -69,16 +71,15 @@ class MessageController extends Controller
             $msg->message = $message;
             $msg->sent_user = 0;
             $msg->save();
-
-            $notification = new Notification;
+            
+            $notification = new VendorNotification();
             $notification->conversation_id = $conv->id;
-            $notification->vendor_id = $conv->recieved_user;
-            $notification->type = $dispute_type;
+            $notification->user_id = $conv->recieved_user;
             $notification->save();
 
             $notification = new Notification;
             $notification->conversation_id = $conv->id;
-            $notification->admin_id = 1;
+            // $notification->admin_id = 1;
             $notification->type = $dispute_type;
             $notification->save();
 
@@ -96,10 +97,9 @@ class MessageController extends Controller
 
         $conv = Conversation::findOrfail($id);
 
-        $notification = new Notification;
+        $notification = new VendorNotification();
         $notification->conversation_id = $conv->id;
-        $notification->vendor_id = $conv->recieved_user;
-        $notification->type = "vendor_received";
+        $notification->user_id = $conv->recieved_user;
         $notification->save();
 
         $msg = new Message();
@@ -185,8 +185,27 @@ class MessageController extends Controller
         $msg->fill($input)->save();
         //--- Redirect Section     
         $msg = 'Message Sent!';
+
+
+        $conv = Conversation::where('id','=',$request->conversation_id)->first();
+
+        $notification = new VendorNotification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+
+        #send admin notification if disputed
+        
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $request->conversation_id;
+            // $notification->admin_id = 1;
+            $notification->type = "admin";
+            $notification->save();
+        }
+
         return response()->json($msg);      
-        //--- Redirect Section Ends  
     }
 
     public function adminmessages()

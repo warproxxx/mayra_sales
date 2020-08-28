@@ -19,6 +19,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\VendorOrder;
+use App\Models\VendorNotification;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -506,9 +507,10 @@ class CheckoutController extends Controller
             break;
         }
 
-        $notification = new Notification;
-        $notification->order_id = $order->id;
-        $notification->save();
+        // $notification = new UserNotification;
+        // $notification->order_id = $order->id;
+        // $notification->user_id = Auth::user()->id;
+        // $notification->save();
 
         $conversation = new Conversation;
         $conversation->subject = $order_number;
@@ -522,6 +524,12 @@ class CheckoutController extends Controller
         $message->message = "Order details discussion";
         $message->sent_user = 0;
         $message->save();
+
+        $notification = new VendorNotification;
+        $notification->conversation_id = $conversation->id;;
+        $notification->user_id = $vendor_id;
+        $notification->save();
+
 
                     if($request->coupon_id != "")
                     {
@@ -588,17 +596,6 @@ class CheckoutController extends Controller
                 $vorder->save();
             }
 
-        }
-
-        if(!empty($notf))
-        {
-            $users = array_unique($notf);
-            foreach ($users as $user) {
-                $notification = new UserNotification;
-                $notification->user_id = $user;
-                $notification->order_number = $order->order_number;
-                $notification->save();    
-            }
         }
 
         Session::put('temporder',$order);
@@ -833,10 +830,6 @@ $validator = Validator::make($input, $rules, $messages);
         $track->order_id = $order->id;
         $track->save();
         
-        $notification = new Notification;
-        $notification->order_id = $order->id;
-        $notification->save();
-        
         $conversation = new Conversation;
         $conversation->subject = $order_number;
         $conversation->sent_user = Auth::user()->id;
@@ -849,6 +842,11 @@ $validator = Validator::make($input, $rules, $messages);
         $message->message = "Order details discussion";
         $message->sent_user = 0;
         $message->save();
+
+        $notification = new VendorNotification;
+        $notification->conversation_id = $conversation->id;;
+        $notification->user_id = $vendor_id;
+        $notification->save();
 
         // gets inserted
         // $user_notification = new UserNotification;
@@ -923,17 +921,6 @@ $validator = Validator::make($input, $rules, $messages);
                 $vorder->save();
             }
 
-        }
-
-        if(!empty($notf))
-        {
-            $users = array_unique($notf);
-            foreach ($users as $user) {
-                $notification = new UserNotification;
-                $notification->user_id = $user;
-                $notification->order_number = $order->order_number;
-                $notification->save();    
-            }
         }
 
         Session::put('temporder',$order);

@@ -16,6 +16,7 @@ use App\Models\Generalsetting;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Notification;
+use App\Models\VendorNotification;
 
 use Auth;
 
@@ -98,16 +99,14 @@ class MessageController extends Controller
         $msg->sent_user = 0;
         $msg->save();
 
-        $notification = new Notification();
+        $notification = new UserNotification();
         $notification->conversation_id = $conv->id;
         $notification->user_id = $conv->sent_user;
-        $notification->type = "admin_dispute_close";
         $notification->save();
 
-        $notification = new Notification();
+        $notification = new VendorNotification();
         $notification->conversation_id = $conv->id;
-        $notification->vendor_id = $conv->recieved_user;
-        $notification->type = "admin_dispute_close";
+        $notification->user_id = $conv->recieved_user;
         $notification->save();
 
         $conv = Conversation::findOrfail($id);
@@ -135,13 +134,30 @@ class MessageController extends Controller
     //*** POST Request
     public function postmessage(Request $request)
     {
-        $msg = new AdminUserMessage();
-        $input = $request->all();  
-        $msg->fill($input)->save();
-        //--- Redirect Section     
+        $input = $request->all(); 
+        
+        $msg = new Message();
+        $msg->conversation_id = $input['conversation_id'];
+        $msg->message = $input['message'];
+        $msg->sent_user = 0;
+        $msg->save();
+
+
+        $conv = Conversation::findOrfail($input['conversation_id']);
+
+        $notification = new UserNotification();
+        $notification->conversation_id = $input['conversation_id'];
+        $notification->user_id = $conv->sent_user;
+        $notification->save();
+
+        $notification = new VendorNotification();
+        $notification->conversation_id = $input['conversation_id'];
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+
         $msg = 'Message Sent!';
+
         return response()->json($msg);      
-        //--- Redirect Section Ends    
     }
 
     //*** POST Request

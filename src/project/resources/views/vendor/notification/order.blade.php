@@ -5,9 +5,11 @@
 		</a>
 		<ul>
 		@foreach($datas as $data)
+			@if(isset($data->conversation_id))
 			<li>
-				<a href="{{ route('vendor-order-show',$data->order_number) }}"> <i class="fas fa-newspaper"></i> {{ $langg->lang438 }}</a>
+					<a href="{{ route('vendor-message-show',$data->conversation_id) }}"> <i class="fas fa-newspaper"></i> You have a new message.</a>
 			</li>
+			@endif
 		@endforeach
 
 		</ul>
