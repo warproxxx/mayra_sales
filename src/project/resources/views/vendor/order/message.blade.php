@@ -1,39 +1,21 @@
-@extends('layouts.front')
+@extends('layouts.vendor')
 @section('content')
 
 
-<section class="user-dashbord">
-    <div class="container">
+<section class="content-area">
+    <div class="mr-breadcrumb">
       <div class="row">
-        @include('includes.user-dashboard-sidebar')
-        <div class="col-lg-8">
+        <div class="col-lg-12">
 					<div class="user-profile-details">
 						<div class="order-history">
 							<div class="header-area">
-                            <div style="display: flex;">
-                            <div style="flex-grow: 1;">
 								<h4 class="title">
-									{{ $conv->subject }}
-                            
-                            <a  class="mybtn1" href="{{ route('user-orders') }}"> <i class="fas fa-arrow-left"></i> {{ $langg->lang373 }}</a></div>
-                                <div>
-
-                                    @if($conv->closed == 0)
-                                        <a class="mybtn2" href="{{ route('user-message-close',$conv->id) }}">Confirm Received</a>
-                                    @endif 
-
-                                    @if($conv->is_dispute == 0)
-                                    <a class="mybtn2" href="{{ route('user-message-dispute',$conv->id) }}">Open Dispute</a>
-                                    @else
-                                    <a class="mybtn2" href="{{ route('user-message-dispute',$conv->id) }}">Close Dispute</a>
-                                    @endif 
-                                    
-                                   
-                                    
-                                </div>
-                            </div>
-
-
+									{{ $langg->lang372 }}
+                            @if($user->id == $conv->sent->id)
+                            {{$conv->recieved->name}}    
+                            @else
+                            {{$conv->sent->name}}
+                            @endif <a  class="mybtn1" href="{{ route('vendor-order-index') }}"> <i class="fas fa-arrow-left"></i> {{ $langg->lang373 }}</a>
 								</h4>
 							</div>
 
@@ -97,7 +79,7 @@
 
                     </div>
                     <div class="panel-footer">
-                        <form id="messageform" data-href="{{ route('user-vendor-message-load',$conv->id) }}" action="{{route('user-message-post')}}" method="POST">
+                        <form id="messageform" data-href="{{ route('user-vendor-message-load',$conv->id) }}" action="{{route('vendor-message-post')}}" method="POST">
                             {{csrf_field()}}
                             <div class="form-group">
                                               <input type="hidden" name="conversation_id" value="{{$conv->id}}">
@@ -108,28 +90,74 @@
                                   <input type="hidden" name="reciever" value="{{$conv->sent->id}}">
                                   <input type="hidden" name="recieved_user" value="{{$conv->recieved->id}}">
                               @endif
-                             
-                        </div>
-                            @if($conv->closed == 0)
+
                                 <textarea class="form-control" name="message" id="wrong-invoice" rows="5" style="resize: vertical;" required="" placeholder="{{ $langg->lang374 }}"></textarea>
                             </div>
-                            <br/>
                             <div class="form-group">
                                 <button class="mybtn1">
                                     {{ $langg->lang375 }}
                                 </button>
-                            </div>
-                            @else
-                            </div>
-                            @endif
 
+                                <!-- <a href="{{route('vendor-order-show',$order->order_number)}}" class="btn btn-primary product-btn"><i class="fa fa-eye"></i> {{ $langg->lang539 }}</a> -->
+                                <select class="vendor-btn {{ $order->status }}">
+                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'pending']) }}" {{  $order->status == "pending" ? 'selected' : ''  }}>{{ $langg->lang540 }}</option>
+                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'processing']) }}" {{  $order->status == "processing" ? 'selected' : ''  }}>{{ $langg->lang541 }}</option>
+                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'completed']) }}" {{  $order->status == "completed" ? 'selected' : ''  }}>{{ $langg->lang542 }}</option>
+                                <option value="{{ route('vendor-order-status',['slug' => $order->order_number, 'status' => 'declined']) }}" {{  $order->status == "declined" ? 'selected' : ''  }}>{{ $langg->lang543 }}</option>
+                                </select>
+
+                            </div>
+                                
+
+                            </div>
                         </form>
-                    </div>
+                    </div
                 </div>
+
+
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
+    <div class="modal fade" id="confirm-delete2" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="submit-loader">
+        <img  src="http://opnmarket.local/assets/images/1564224329loading3.gif" alt="">
+    </div>
+    <div class="modal-header d-block text-center">
+        <h4 class="modal-title d-inline-block">Update Status</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p class="text-center">You are about to update the Order&#039;s Status.</p>
+        <p class="text-center">Do you want to proceed?</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-success btn-ok order-btn">Proceed</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="http://opnmarket.local/assets/vendor/js/vendors/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+
+
+$('.vendor-btn').on('change',function(){
+          $('#confirm-delete2').modal('show');
+          $('#confirm-delete2').find('.btn-ok').attr('href', $(this).val());
+
+});
+</script>
 @endsection

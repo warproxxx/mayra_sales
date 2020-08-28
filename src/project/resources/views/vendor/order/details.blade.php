@@ -103,7 +103,14 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                 <tr>
                                                     <th width="45%">Transaction Screenshot</th>
                                                     <td width="10%">:</td>
-                                                    <td width="45%"><a target="_blank" href="/assets/images/users/{{$order->txn_image}}" ><img src="/assets/images/users/{{$order->txn_image}}"></a></td>
+                                                    
+                                                    <td width="45%">
+                                                        @if(is_null($order->txn_image))
+                                                            Not Uploaded
+                                                        @else
+                                                            <a target="_blank" href="/assets/images/users/{{$order->txn_image}}" ><img src="/assets/images/users/{{$order->txn_image}}"></a>
+                                                        @endif
+                                                    </td>
                                                 </tr> 
 
                                                 @endif
@@ -142,7 +149,9 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                         </div>
                                         <div class="footer-area">
                                             <a href="{{ route('vendor-order-invoice',$order->order_number) }}" class="mybtn1"><i class="fas fa-eye"></i> {{ $langg->lang555 }}</a>
+                                            &nbsp;&nbsp;<a href="{{route('vendor-message-show',$conversation_id) }}" class="mybtn1"><i class="fas fa-envelope"></i>Send Message</a>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

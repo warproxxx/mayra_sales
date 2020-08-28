@@ -24,6 +24,7 @@
 														<th>{{ $langg->lang280 }}</th>
 														<th>{{ $langg->lang281 }}</th>
 														<th>{{ $langg->lang282 }}</th>
+														<th>Conversation</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -45,7 +46,12 @@
 														</td>
 														<td>
 															<a href="{{route('user-order',$order->id)}}">
-																	{{ $langg->lang283 }}
+																	VIEW
+															</a>
+														</td>
+														<td>
+															<a href="{{route('user-message',$order->conversation_id)}}">
+																	DISCUSS
 															</a>
 														</td>
 													</tr>

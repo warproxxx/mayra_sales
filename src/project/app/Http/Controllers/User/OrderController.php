@@ -20,7 +20,11 @@ class OrderController extends Controller
     public function orders()
     {
         $user = Auth::guard('web')->user();
-        $orders = Order::where('user_id','=',$user->id)->orderBy('id','desc')->get();
+        $orders = Order::where('user_id','=',$user->id)
+        ->leftJoin('conversations', 'orders.order_number', '=', 'conversations.subject')
+        ->select('orders.id','orders.created_at', 'orders.pay_amount', 'orders.status', 'orders.order_number', 'conversations.id AS conversation_id')
+        ->orderBy('orders.id','desc')->get();
+        
         return view('user.order.index',compact('user','orders'));
     }
 

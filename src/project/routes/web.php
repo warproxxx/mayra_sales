@@ -998,6 +998,8 @@ Route::prefix('user')->group(function() {
   Route::post('/message/post', 'User\MessageController@postmessage')->name('user-message-post');
   Route::get('/message/{id}/delete', 'User\MessageController@messagedelete')->name('user-message-delete');
   Route::get('/message/load/{id}', 'User\MessageController@msgload')->name('user-vendor-message-load');
+  Route::get('/message/{id}/dispute', 'User\MessageController@swap_dispute')->name('user-message-dispute');
+  Route::get('/message/{id}/close', 'User\MessageController@swap_open')->name('user-message-close');
 
 // User Vendor Send Message Ends
 
@@ -1127,6 +1129,11 @@ Route::prefix('vendor')->group(function() {
   Route::post('/products/catalog/{id}', 'Vendor\ProductController@catalogupdate')->name('vendor-prod-catalog-update');
 
   // EDIT SECTION ENDS
+
+  //MEssage section
+  Route::post('/message/vendor_post', 'Vendor\OrderController@postmessage')->name('vendor-message-post');
+  Route::get('/order/{id}/message', 'Vendor\OrderController@message')->name('vendor-message-show');
+  //Message section ends    
 
   // STATUS SECTION
   Route::get('/products/status/{id1}/{id2}', 'Vendor\ProductController@status')->name('vendor-prod-status');

@@ -49,6 +49,68 @@ class MessageController extends Controller
             return redirect()->back()->with('success','Message Deleted Successfully');                 
     }
 
+    public function swap_dispute($id)
+    {
+            $conv = Conversation::findOrfail($id);
+            $user = Auth::guard('web')->user();
+            $new_disp = 1 - $conv->is_dispute;
+            Conversation::where('id', $id)->update(array('is_dispute' => $new_disp));
+
+            $message = "Buyer has closed a dispute";
+            $dispute_type = "dispute_close";
+            if ($new_disp == 1)
+            {
+                $message = "Buyer has opened a dispute. Admins will now handle this case";
+                $dispute_type = "dispute_open";
+            }
+
+            $msg = new Message();
+            $msg->conversation_id = $conv->id;
+            $msg->message = $message;
+            $msg->sent_user = 0;
+            $msg->save();
+
+            $notification = new Notification;
+            $notification->conversation_id = $conv->id;
+            $notification->vendor_id = $conv->recieved_user;
+            $notification->type = $dispute_type;
+            $notification->save();
+
+            $notification = new Notification;
+            $notification->conversation_id = $conv->id;
+            $notification->admin_id = 1;
+            $notification->type = $dispute_type;
+            $notification->save();
+
+            $conv = Conversation::findOrfail($id);
+
+            return view('user.message.create',compact('user','conv', 'order'));                     
+    }
+
+    public function swap_open($id)
+    {
+        $conv = Conversation::findOrfail($id);
+        $user = Auth::guard('web')->user();
+        $new_closed = 1 - $conv->closed;
+        Conversation::where('id', $id)->update(array('closed' => $new_closed));
+
+        $conv = Conversation::findOrfail($id);
+
+        $notification = new Notification;
+        $notification->conversation_id = $conv->id;
+        $notification->vendor_id = $conv->recieved_user;
+        $notification->type = "vendor_received";
+        $notification->save();
+
+        $msg = new Message();
+        $msg->conversation_id = $conv->id;
+        $msg->message = "Buyer has confirmed receiving an item";
+        $msg->sent_user = 0;
+        $msg->save();
+
+        return view('user.message.create',compact('user','conv', 'order'));                   
+    }
+
     public function msgload($id)
     {
             $conv = Conversation::findOrfail($id);
