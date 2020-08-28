@@ -489,6 +489,20 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN PACKAGE ENDS------------
 
 
+  //------------ VENDOR NOTIFICATION SECTION ------------
+
+  // Order Notification
+  Route::get('/user/notf/show/{id}', 'User\NotificationController@order_notf_show')->name('user-order-notf-show');
+  Route::get('/user/notf/count/{id}','User\NotificationController@order_notf_count')->name('user-order-notf-count');
+  Route::get('/user/notf/clear/{id}','User\NotificationController@order_notf_clear')->name('user-order-notf-clear');
+
+
+  // Order Notification Ends
+
+  // Product Notification Ends
+
+  //------------ VENDOR NOTIFICATION SECTION ENDS ------------
+
 
   //------------ ADMIN GENERAL SETTINGS JSON SECTION ------------
 

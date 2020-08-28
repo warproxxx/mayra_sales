@@ -272,7 +272,7 @@
 				<div class="col-lg-2 col-sm-6 col-7 remove-padding order-lg-last">
 					<div class="helpful-links">
 						<ul class="helpful-links-inner">
-							<li class="my-dropdown"  data-toggle="tooltip" data-placement="top" title="{{ $langg->lang3 }}">
+							<li class="my-dropdown"  data-toggle="tooltip" data-placement="top" title="{{ $langg->lang3 }}" style="margin-left:-30px;">
 								<a href="javascript:;" class="cart carticon">
 									<div class="icon">
 										<i class="icofont-cart"></i>
@@ -305,7 +305,20 @@
 									</div>
 								</a>
 							</li>
+							@if (Auth::guard('web')->user() != null)
+							<li class="my-dropdown"  data-toggle="tooltip" data-placement="top" title="Notification">
+								<a id="notf_order" href="javascript:;" class="cart carticon">
+									<div class="icon">
+										<i class="icofont-globe"></i>
+										<span data-href="{{ route('user-order-notf-count',Auth::guard('web')->user()->id) }}" id="order-notf-count">{{ App\Models\UserNotification::countOrder(Auth::guard('web')->user()->id) }}</span>
+									</div>
 
+								</a>
+								<div class="my-dropdown-menu" id="cart-items">
+									<div class="dropdownmenu-wrapper" data-href="{{ route('user-order-notf-show',Auth::guard('web')->user()->id) }}" id="order-notf-show"></div>
+								</div>
+							</li>
+							@endif
 
 						</ul>
 					</div>

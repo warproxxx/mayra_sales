@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Front;
 use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Conversation;
 use App\Models\Coupon;
 use App\Models\Currency;
 use App\Models\Generalsetting;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderTrack;
@@ -455,7 +457,8 @@ class CheckoutController extends Controller
         $order['packing_cost'] = $request->packing_cost;
         $order['tax'] = $request->tax;
         $order['customer_phone'] = $request->phone;
-        $order['order_number'] = str_random(4).time();
+        $order_number = "MAYRA-" . str_random(4).time();
+        $order['order_number'] = $order_number;
         $order['customer_address'] = $request->address;
         $order['customer_country'] = $request->customer_country;
         $order['customer_city'] = $request->city;
@@ -495,9 +498,31 @@ class CheckoutController extends Controller
         $track->order_id = $order->id;
         $track->save();
 
+        
+        $vendor_id = 0;
+
+        foreach ($cart->items as $prod) {
+            $vendor_id = $prod['item']['user_id'];
+            break;
+        }
+
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
+
+        $conversation = new Conversation;
+        $conversation->subject = $order_number;
+        $conversation->sent_user = Auth::user()->id;
+        $conversation->recieved_user = $vendor_id;
+        $conversation->message = "Order details discussion";
+        $conversation->save();
+
+        $message = new Message;
+        $message->conversation_id = $conversation->id;
+        $message->message = "Order details discussion";
+        $message->sent_user = 0;
+        $message->save();
+
                     if($request->coupon_id != "")
                     {
                        $coupon = Coupon::findOrFail($request->coupon_id);
@@ -691,6 +716,15 @@ $validator = Validator::make($input, $rules, $messages);
             {
                 $curr = Currency::where('is_default','=',1)->first();
             }
+
+
+        $vendor_id = 0;
+
+        foreach ($cart->items as $prod) {
+            $vendor_id = $prod['item']['user_id'];
+            break;
+        }
+
         foreach($cart->items as $key => $prod)
         {
         if(!empty($prod['item']['license']) && !empty($prod['item']['license_qty']))
@@ -735,7 +769,8 @@ $validator = Validator::make($input, $rules, $messages);
         $order['packing_cost'] = $request->packing_cost;
         $order['tax'] = $request->tax;
         $order['customer_phone'] = $request->phone;
-        $order['order_number'] = str_random(4).time();
+        $order_number = "MAYRA-" . str_random(4).time();
+        $order['order_number'] = $order_number;
         $order['customer_address'] = $request->address;
         $order['customer_country'] = $request->customer_country;
         $order['customer_city'] = $request->city;
@@ -801,6 +836,28 @@ $validator = Validator::make($input, $rules, $messages);
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
+        
+        $conversation = new Conversation;
+        $conversation->subject = $order_number;
+        $conversation->sent_user = Auth::user()->id;
+        $conversation->recieved_user = $vendor_id;
+        $conversation->message = "Order details discussion";
+        $conversation->save();
+
+        $message = new Message;
+        $message->conversation_id = $conversation->id;
+        $message->message = "Order details discussion";
+        $message->sent_user = 0;
+        $message->save();
+
+        // gets inserted
+        // $user_notification = new UserNotification;
+        // $user_notification->user_id = Auth::user()->id;
+        // $user_notification->order_number = $order_number;
+        // $user_notification->save();
+
+
+        
                     if($request->coupon_id != "")
                     {
                        $coupon = Coupon::findOrFail($request->coupon_id);
