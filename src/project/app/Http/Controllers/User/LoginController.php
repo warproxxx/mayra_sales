@@ -22,6 +22,50 @@ class LoginController extends Controller
       return view('user.login');
     }
 
+    public function api_login(Request $request)
+    {
+      $rules = [
+        'email'   => 'required|email',
+        'password' => 'required'
+      ];
+
+      $validator = Validator::make(Input::all(), $rules);
+
+      if ($validator->fails()) {
+        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+      }
+
+      if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
+      {
+        if(Auth::guard('web')->user()->ban == 1)
+        {
+          Auth::guard('web')->logout();
+          return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));   
+        }
+
+        if(Auth::guard('web')->user()->email_verified == 'No')
+        {
+          Auth::guard('web')->logout();
+          return response()->json(array('errors' => [ 0 => 'Your Email is not Verified!' ]));   
+        }
+
+        $resp = array();
+        $resp['user_type'] = 'user';
+        $resp['token'] = Auth::guard('web')->user()->api_token;
+
+        if(Auth::guard('web')->user()->is_vendor == 2)
+        {
+          $resp['user_type'] = 'vendor';
+        }
+
+        return response()->json(['status' => 'success', 'details' => "", "user_type" => $resp['user_type'], "token" => $resp['token']]);
+
+      }
+
+      return response()->json(['status' => 'failure', 'details' => "Credentials dosent match", "user_type" => "", "token" => ""]);
+
+    }
+    
     public function login(Request $request)
     {
         //--- Validation Section

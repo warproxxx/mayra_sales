@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Counter;
+use App\Models\Category;
+use App\Models\Subcategory;
+use App\Models\Childcategory;
 use App\Models\Generalsetting;
 use App\Models\Order;
 use App\Models\Product;
@@ -163,6 +166,43 @@ class FrontendController extends Controller
 
         return view('front.extraindex',compact('ps','services','reviews','large_banners','bottom_small_banners','best_products','top_products','hot_products','latest_products','big_products','trending_products','sale_products','discount_products','partners'));
     }
+
+    public function get_categories_api()
+    {
+        $categories = Category::all();
+        return response()->json(['status' => 'success', 'details' => $categories]);
+    }
+
+    public function get_subcategories_api()
+    {
+        $subcategories = Subcategory::all();
+        return response()->json(['status' => 'success', 'details' => $subcategories]);
+    }
+
+    public function get_childcategories_api()
+    {
+        $subcategories = Childcategory::all();
+        return response()->json(['status' => 'success', 'details' => $subcategories]);
+    }
+
+    public function get_product_by_category_api($id)
+    {
+        
+        $products = Product::where('category_id','=',$id)->get();
+        return response()->json(['status' => 'success', 'details' => $products]);
+    }
+
+    // public function get_subcategories_api($slug)
+    // {
+    //     $subcategories = Subcategory::where('category_id' , '=', $slug);
+    //     return response()->json(['status' => 'success', 'details' => $subcategories]);
+    // }
+
+    // public function get_childcategories_api($slug)
+    // {
+    //     $subcategories = Childcategory::find($slug);
+    //     return response()->json(['status' => 'success', 'details' => $subcategories]);
+    // }
 
 // -------------------------------- HOME PAGE SECTION ENDS ----------------------------------------
 
