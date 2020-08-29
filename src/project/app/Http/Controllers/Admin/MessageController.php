@@ -19,6 +19,7 @@ use App\Models\Notification;
 use App\Models\VendorNotification;
 
 use Auth;
+use Log;
 
 class MessageController extends Controller
 {
@@ -42,6 +43,77 @@ class MessageController extends Controller
                             }) 
                             ->rawColumns(['action'])
                             ->toJson(); //--- Returning Json Data To Client Side
+    }
+
+    public function datatables_ticket($type)
+    {
+         $datas = AdminUserConversation::where('type','=',$type)->get();
+         //--- Integrating This Collection Into Datatables
+         return Datatables::of($datas)
+                            ->editColumn('created_at', function(AdminUserConversation $data) {
+                                $date = $data->created_at->diffForHumans();
+                                return  $date;
+                            })
+                            ->addColumn('name', function(AdminUserConversation $data) {
+                                $name = $data->user->name;
+                                return  $name;
+                            })
+                            ->addColumn('action', function(AdminUserConversation $data) {
+                                return '<div class="action-list"><a href="' . route('admin-ticket-show',$data->id) . '"> <i class="fas fa-eye"></i> Details</a><a href="javascript:;" data-href="' . route('admin-message-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
+                            }) 
+                            ->rawColumns(['action'])
+                            ->toJson(); //--- Returning Json Data To Client Side
+    }
+
+    //*** GET Request
+    public function message_ticket($id)
+    {
+        $conv = AdminUserConversation::findOrfail($id);
+        return view('admin.message.create_ticket',compact('conv'));                 
+    }   
+
+    //*** GET Request
+    public function messageshow_ticket($id)
+    {
+        $conv = AdminUserConversation::findOrfail($id);
+        return view('load.message',compact('conv'));                 
+    }   
+
+    //*** GET Request
+    public function messagedelete_ticket($id)
+    {
+        $conv = AdminUserConversation::findOrfail($id);
+        if($conv->messages->count() > 0)
+         {
+           foreach ($conv->messages as $key) {
+            $key->delete();
+            }
+         }
+          $conv->delete();
+        //--- Redirect Section     
+        $msg = 'Data Deleted Successfully.';
+        return response()->json($msg);      
+        //--- Redirect Section Ends               
+    }
+
+    //*** POST Request
+    public function postmessage_ticket(Request $request)
+    {
+        $msg = new AdminUserMessage();
+        $input = $request->all();  
+        $msg->fill($input)->save();
+        //--- Redirect Section     
+        $msg = 'Message Sent!';
+
+        $conv = AdminUserConversation::findOrfail($request->conversation_id);
+
+        $notification = new UserNotification;
+        $notification->ticket_id = $request->conversation_id;
+        $notification->user_id = $conv->user_id;
+        $notification->save();
+
+        return response()->json($msg);      
+        //--- Redirect Section Ends    
     }
 
     //*** GET Request
@@ -68,21 +140,7 @@ class MessageController extends Controller
      {
          $conv = Conversation::findOrfail($id);
          return view('load.message',compact('conv'));                 
-     }   
-
-     //*** GET Request
-    public function message_ticket($id)
-    {
-        $conv = AdminUserConversation::findOrfail($id);
-        return view('admin.message.create_ticket',compact('conv'));                 
-    }   
-
-    //*** GET Request
-    public function messageshow_ticket($id)
-    {
-        $conv = AdminUserConversation::findOrfail($id);
-        return view('load.message',compact('conv'));                 
-    }   
+     }
 
     public function dispute($id)
     {

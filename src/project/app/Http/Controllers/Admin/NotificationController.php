@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
+use Log;
 
 class NotificationController extends Controller
 {
@@ -90,7 +91,9 @@ class NotificationController extends Controller
 
     public function conv_notf_count()
     {
-        $data = Notification::where('conversation_id','!=',null)->where('is_read','=',0)->get()->count();
+        $data = Notification::where('conversation_id','!=',null)
+        ->orWhere('ticket_id','!=',null)
+        ->where('is_read','=',0)->get()->count();
         return response()->json($data);            
     } 
 
@@ -102,7 +105,7 @@ class NotificationController extends Controller
 
     public function conv_notf_show()
     {
-        $datas = Notification::where('conversation_id','!=',null)->get();
+        $datas = Notification::where('conversation_id','!=',null)->orWhere('ticket_id','!=',null)->get();
         if($datas->count() > 0){
           foreach($datas as $data){
             $data->is_read = 1;

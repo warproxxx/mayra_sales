@@ -82,7 +82,7 @@
                                 @endforeach
                             </div>
                             <div class="panel-footer">
-                                <form id="messageform" action="{{route('admin-message-store')}}" data-href="{{ route('admin-message-load',$conv->id) }}" method="POST">
+                                <form id="messageform" action="{{route('admin-ticket-store')}}" data-href="{{ route('admin-ticket-load',$conv->id) }}" method="POST">
                                     {{csrf_field()}}
                                     <div class="form-group">
                                         <input type="hidden" name="conversation_id" value="{{$conv->id}}">

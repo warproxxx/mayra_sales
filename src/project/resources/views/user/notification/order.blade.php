@@ -10,7 +10,12 @@
 			<li>
 					<a href="{{ route('user-message',$data->conversation_id) }}"> <i class="fas fa-newspaper"></i> You have a new message.</a>
 			</li>
+			@else
+			<li>
+					<a href="{{ route('user-message-show',$data->ticket_id) }}"> <i class="fas fa-newspaper"></i> You have a new message.</a>
+			</li>
 			@endif
+
 		@endforeach
 
 		</ul>

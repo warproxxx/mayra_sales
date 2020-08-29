@@ -137,7 +137,7 @@
          ordering: false,
                processing: true,
                serverSide: true,
-               ajax: '{{ route('admin-message-datatables','Ticket') }}',
+               ajax: '{{ route('admin-message-datatables-ticket','Ticket') }}',
                columns: [
                   { data: 'name', name: 'name' },
                   { data: 'subject', name: 'subject' },

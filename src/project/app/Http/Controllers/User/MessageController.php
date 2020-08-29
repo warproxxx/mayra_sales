@@ -299,6 +299,11 @@ class MessageController extends Controller
             $msg->message = $request->message;
             $msg->user_id = $user->id;
             $msg->save();
+
+            $notification = new Notification;
+            $notification->ticket_id = $conv->id;
+            $notification->save();
+
             return response()->json($data);   
         }
         else{
@@ -309,9 +314,11 @@ class MessageController extends Controller
             $message->order_number = $request->order;
             $message->type = $request->type;
             $message->save();
+
             $notification = new Notification;
-            $notification->conversation_id = $message->id;
+            $notification->ticket_id = $message->id;
             $notification->save();
+
             $msg = new AdminUserMessage();
             $msg->conversation_id = $message->id;
             $msg->message = $request->message;

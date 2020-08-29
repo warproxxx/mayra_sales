@@ -178,9 +178,9 @@
             <li>
                 <a href="{{ route('admin-message-index') }}"><span>{{ __('Tickets') }}</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('admin-message-dispute') }}"><span>{{ __('Disputes') }}</span></a>
-            </li>
+            </li> -->
         </ul>
     </li>
 

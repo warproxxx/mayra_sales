@@ -427,12 +427,24 @@ Route::prefix('admin')->group(function() {
   Route::group(['middleware'=>'permissions:messages'],function(){
 
   Route::get('/messages/datatables/{type}', 'Admin\MessageController@datatables')->name('admin-message-datatables');
+  Route::get('/messages/datatables/{type}', 'Admin\MessageController@datatables_ticket')->name('admin-message-datatables-ticket');
+
   Route::get('/tickets', 'Admin\MessageController@index')->name('admin-message-index');
   Route::get('/disputes', 'Admin\MessageController@disputes')->name('admin-message-dispute');
+
   Route::get('/message/{id}', 'Admin\MessageController@message')->name('admin-message-show');
-  Route::get('/message/load/{id}', 'Admin\MessageController@messageshow')->name('admin-message-load');
-  Route::get('/message/dispute/{id}', 'Admin\MessageController@dispute')->name('admin-single-message-dispute');
+  Route::get('/ticket/{id}', 'Admin\MessageController@message_ticket')->name('admin-ticket-show');
+
   Route::post('/message/post', 'Admin\MessageController@postmessage')->name('admin-message-store');
+  Route::post('/ticket/post', 'Admin\MessageController@postmessage_ticket')->name('admin-ticket-store');
+
+  Route::get('/message/load/{id}', 'Admin\MessageController@messageshow')->name('admin-message-load');
+  Route::get('/ticket/load/{id}', 'Admin\MessageController@messageshow_ticket')->name('admin-ticket-load');
+
+  Route::get('/message/dispute/{id}', 'Admin\MessageController@dispute')->name('admin-single-message-dispute');
+  
+
+
   Route::get('/message/{id}/delete', 'Admin\MessageController@messagedelete')->name('admin-message-delete');
   Route::post('/user/send/message', 'Admin\MessageController@usercontact')->name('admin-send-message');
 
