@@ -1,7 +1,3 @@
-I have already Commented out all admin_id. That might make a difference but shouldn't.
-Check if all inserts are right. If they are work on showing. For showing its always order_number. Need to create links by type in user and vendor
-
-
 Status change dosen't work in conversation page. REmove it.
 reload the number in notification automatically.
 
