@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 28, 2020 at 09:17 PM
+-- Generation Time: Aug 29, 2020 at 07:22 PM
 -- Server version: 5.7.31-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
@@ -370,13 +370,6 @@ CREATE TABLE `conversations` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `conversations`
---
-
-INSERT INTO `conversations` (`id`, `subject`, `sent_user`, `recieved_user`, `message`, `is_dispute`, `closed`, `created_at`, `updated_at`) VALUES
-(8, 'MAYRA-CQQ91598622801', 1, 1, 'Order details discussion', 0, 1, '2020-08-28 08:08:21', '2020-08-28 08:40:28');
-
 -- --------------------------------------------------------
 
 --
@@ -397,7 +390,7 @@ CREATE TABLE `counters` (
 --
 
 INSERT INTO `counters` (`id`, `type`, `referral`, `total_count`, `todays_count`, `today`) VALUES
-(19, 'browser', 'Ubuntu', 118, 0, NULL),
+(19, 'browser', 'Ubuntu', 128, 0, NULL),
 (20, 'browser', 'Linux', 8, 0, NULL),
 (21, 'browser', 'Unknown OS Platform', 22, 0, NULL);
 
@@ -1079,30 +1072,6 @@ CREATE TABLE `messages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `conversation_id`, `message`, `sent_user`, `recieved_user`, `created_at`, `updated_at`) VALUES
-(24, 8, 'Order details discussion', 0, NULL, '2020-08-28 08:08:21', '2020-08-28 08:08:21'),
-(25, 8, 'Test Message', 1, NULL, '2020-08-28 08:11:19', '2020-08-28 08:11:19'),
-(26, 8, 'The status of this order has been changed to processing', 1, NULL, '2020-08-28 08:12:10', '2020-08-28 08:12:10'),
-(27, 8, 'The status of this order has been changed to processing', 1, NULL, '2020-08-28 08:29:49', '2020-08-28 08:29:49'),
-(28, 8, 'The status of this order has been changed to pending', 1, NULL, '2020-08-28 08:32:16', '2020-08-28 08:32:16'),
-(29, 8, 'The status of this order has been changed to processing', 1, NULL, '2020-08-28 08:32:23', '2020-08-28 08:32:23'),
-(30, 8, 'Test', 1, NULL, '2020-08-28 08:33:14', '2020-08-28 08:33:14'),
-(31, 8, 'Reply', 1, NULL, '2020-08-28 08:33:29', '2020-08-28 08:33:29'),
-(32, 8, 'REply', 1, NULL, '2020-08-28 08:35:05', '2020-08-28 08:35:05'),
-(33, 8, 'rr', 1, NULL, '2020-08-28 08:35:52', '2020-08-28 08:35:52'),
-(34, 8, 'sdsd', 1, NULL, '2020-08-28 08:37:54', '2020-08-28 08:37:54'),
-(35, 8, 'sds', 1, NULL, '2020-08-28 08:38:13', '2020-08-28 08:38:13'),
-(36, 8, 'xdsf', 1, NULL, '2020-08-28 08:38:24', '2020-08-28 08:38:24'),
-(37, 8, 'Buyer has opened a dispute. Admins will now handle this case', 0, NULL, '2020-08-28 08:39:10', '2020-08-28 08:39:10'),
-(38, 8, 'plz no', 1, NULL, '2020-08-28 08:39:42', '2020-08-28 08:39:42'),
-(39, 8, 'Suck my hairy ballz', 1, NULL, '2020-08-28 08:40:01', '2020-08-28 08:40:01'),
-(40, 8, 'Admin has closed the dispute', 0, NULL, '2020-08-28 08:40:13', '2020-08-28 08:40:13'),
-(41, 8, 'Buyer has confirmed receiving an item', 0, NULL, '2020-08-28 08:40:28', '2020-08-28 08:40:28');
-
 -- --------------------------------------------------------
 
 --
@@ -1116,23 +1085,13 @@ CREATE TABLE `notifications` (
   `vendor_id` int(191) DEFAULT NULL,
   `product_id` int(191) DEFAULT NULL,
   `conversation_id` int(191) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   `admin_id` int(11) DEFAULT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
   `type` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `order_id`, `user_id`, `vendor_id`, `product_id`, `conversation_id`, `admin_id`, `is_read`, `type`, `created_at`, `updated_at`) VALUES
-(47, NULL, NULL, NULL, NULL, 8, NULL, 1, 'dispute_open', '2020-08-28 08:39:10', '2020-08-28 08:39:15'),
-(48, NULL, NULL, NULL, NULL, 8, NULL, 1, NULL, '2020-08-28 08:39:42', '2020-08-28 08:39:47'),
-(49, NULL, NULL, NULL, NULL, 8, NULL, 1, 'admin', '2020-08-28 08:40:01', '2020-08-28 08:40:15'),
-(50, NULL, 3, NULL, NULL, NULL, NULL, 0, NULL, '2020-08-28 09:09:13', '2020-08-28 09:09:13'),
-(51, NULL, 4, NULL, NULL, NULL, NULL, 0, NULL, '2020-08-28 09:13:28', '2020-08-28 09:13:28');
 
 -- --------------------------------------------------------
 
@@ -1187,13 +1146,6 @@ CREATE TABLE `orders` (
   `vendor_packing_id` int(191) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `cart`, `method`, `shipping`, `pickup_location`, `totalQty`, `pay_amount`, `txnid`, `txn_image`, `charge_id`, `order_number`, `payment_status`, `customer_email`, `customer_name`, `customer_country`, `customer_phone`, `customer_address`, `customer_city`, `customer_zip`, `shipping_name`, `shipping_country`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_zip`, `order_note`, `coupon_code`, `coupon_discount`, `status`, `created_at`, `updated_at`, `affilate_user`, `affilate_charge`, `currency_sign`, `currency_value`, `shipping_cost`, `packing_cost`, `tax`, `dp`, `pay_id`, `vendor_shipping_id`, `vendor_packing_id`) VALUES
-(11, 1, 'BZh91AY&SY3Ï?\0ß@\0Pø++ô¿ïÿúP{Ýí@ôè{°Á*hC@i @ÐÐ\0J\0¨h¡ \0Ð\0h!BFÐ\Z4Ð4\Z\r4\r4JP\0\0\0h\0\0\0\" 4\0¦Éª4\r4\Ziê¦Hø	iéLfqHÉ=èù4hFK^ñ$Ðd?ÌCÒ\ZPºÛû©ÜJ/]XÉÏÊU*mÈ;6fi°¦&&§]hAbÌ¯\0r=DöÂ¤Ò ãÄiÕÃBÚ`Bpi¡¥+{Ê*ÎÇà\nDÎ.«Ò\"m¹©ª	m`ÔEMNAMJ³Qq6ae3nS(P$ªUH ¢ )0ï8hrH¥w®ANA0±Æ$²dIF2dRéÚø°[9 ÒD¥½­M¤#$]B*3»UÌZt$ÒÒªIK1¥!|/ ÈC@Ø\r ¨v mÄ46¥B«Ó FÚnÒ\ZM! ML!ØicÜnzí7k	IU¡øf´\nT­\nÐÛiT1Åï|½h¾,Û&íctÚ2ÊbC,&\nQÓ,zkyªãÖQi¹ÓT0åâ±\ZIJäàä55+(ïäw±/s6¢­T`ÚV¼|B§©«,HLzXG<¥J7\nÄ\n`¸U¹£Êap3M@ö:,Æ¾$%CÅ¡cCA£Ö§Db;¬X46-B÷\r´;i¤`L2«CÏÔæ2wòw~é|lPeIlUw¬®w>FÃyQ¦d)&G	b3¹%Ñs¸ô´x¾µ3ÝMmÏéýI\'f]L¹vÔõJn\\õÔ#\'c(Z9¬KñÀéjÈhPÜñÔó¹I8<ó	%Q¬±½núq	Õò6ºZôfà)×ÈíÌcGqjÕ7BAR8ü\'l~×AC@Ã@Â©Ë6´,@T*HàY-ÃøÍnê,ø£$4ËÔ0<¿2{,l4ÌpÖ?èòØt*\ZÃÔ~§B<eH=Æy|%V¶ÉßCÆáûY¬)1Èd(<ÆÇ\"[ý8mèx^T`Æ&ìd	¤ÁiiA46\0Ø\ZLjMÆGlùÂ+½/`ª¾ÒÖ4!\\%\"M`È;ôpoØlÆnaid§T¡À.³4T Y5Ù/ê3ßÔÃ-ËBTTQuÍÈùð>Â@äÑòñVÒÖ2¯³PµX±¡6\r8_âîH§\nyçáÀ', 'Cash On Delivery', 'shipto', 'Kathmandu', '1', 100, NULL, NULL, NULL, 'MAYRA-CQQ91598622801', 'Pending', 'daniel@waterbot.xyz', 'John Daniel', 'Nepal', '4354554', 'Boudha', 'Kathmandu', '435544', NULL, 'Nepal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'processing', '2020-08-28 08:08:21', '2020-08-28 08:32:23', NULL, NULL, 'Rs.', 1, 0, 0, 0, 0, NULL, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -1208,13 +1160,6 @@ CREATE TABLE `order_tracks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_tracks`
---
-
-INSERT INTO `order_tracks` (`id`, `order_id`, `title`, `text`, `created_at`, `updated_at`) VALUES
-(27, 11, 'Pending', 'You have successfully placed your order.', '2020-08-28 08:08:21', '2020-08-28 08:08:21');
 
 -- --------------------------------------------------------
 
@@ -1440,7 +1385,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `sku`, `product_type`, `affiliate_link`, `user_id`, `category_id`, `subcategory_id`, `childcategory_id`, `attributes`, `name`, `slug`, `photo`, `thumbnail`, `file`, `size`, `size_qty`, `size_price`, `color`, `price`, `previous_price`, `details`, `stock`, `policy`, `status`, `views`, `tags`, `features`, `colors`, `product_condition`, `ship`, `is_meta`, `meta_tag`, `meta_description`, `youtube`, `type`, `license`, `license_qty`, `link`, `platform`, `region`, `licence_type`, `measure`, `featured`, `best`, `top`, `hot`, `latest`, `big`, `trending`, `sale`, `created_at`, `updated_at`, `is_discount`, `discount_date`, `whole_sell_qty`, `whole_sell_discount`, `is_catalog`, `catalog_id`) VALUES
-(1, 'hVZ6750BAK', 'normal', NULL, 1, 8, NULL, NULL, NULL, 'FIFA 20', 'fifa-20-hvz6750bak', '1598156796m1IqrPWh.png', '1598156796L8l2Tiwa.jpg', NULL, NULL, NULL, NULL, NULL, 100, 0, 'Best game<br>', NULL, 'No Return<br>', 1, 17, 'fifa,20', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-22 22:41:36', '2020-08-27 05:13:52', 0, NULL, NULL, NULL, 0, 0),
+(1, 'hVZ6750BAK', 'normal', NULL, 1, 8, NULL, NULL, NULL, 'FIFA 20', 'fifa-20-hvz6750bak', '1598156796m1IqrPWh.png', '1598156796L8l2Tiwa.jpg', NULL, NULL, NULL, NULL, NULL, 100, 0, 'Best game<br>', NULL, 'No Return<br>', 1, 54, 'fifa,20', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-22 22:41:36', '2020-08-29 07:50:15', 0, NULL, NULL, NULL, 0, 0),
 (2, 'xIN58194K9', 'normal', NULL, 2, 8, NULL, NULL, NULL, 'Football', 'football-xin58194k9', '159851587131qZTebm.png', '1598515871Wit1IMgy.jpg', NULL, NULL, NULL, NULL, NULL, 500, 0, 'Good Product', NULL, 'None', 1, 0, 'footy', NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, 'Physical', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, '2020-08-27 02:26:11', '2020-08-27 02:26:11', 0, NULL, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
@@ -1476,7 +1421,44 @@ INSERT INTO `product_clicks` (`id`, `product_id`, `date`) VALUES
 (14, 1, '2020-08-27'),
 (15, 1, '2020-08-27'),
 (16, 1, '2020-08-27'),
-(17, 1, '2020-08-27');
+(17, 1, '2020-08-27'),
+(18, 1, '2020-08-29'),
+(19, 1, '2020-08-29'),
+(20, 1, '2020-08-29'),
+(21, 1, '2020-08-29'),
+(22, 1, '2020-08-29'),
+(23, 1, '2020-08-29'),
+(24, 1, '2020-08-29'),
+(25, 1, '2020-08-29'),
+(26, 1, '2020-08-29'),
+(27, 1, '2020-08-29'),
+(28, 1, '2020-08-29'),
+(29, 1, '2020-08-29'),
+(30, 1, '2020-08-29'),
+(31, 1, '2020-08-29'),
+(32, 1, '2020-08-29'),
+(33, 1, '2020-08-29'),
+(34, 1, '2020-08-29'),
+(35, 1, '2020-08-29'),
+(36, 1, '2020-08-29'),
+(37, 1, '2020-08-29'),
+(38, 1, '2020-08-29'),
+(39, 1, '2020-08-29'),
+(40, 1, '2020-08-29'),
+(41, 1, '2020-08-29'),
+(42, 1, '2020-08-29'),
+(43, 1, '2020-08-29'),
+(44, 1, '2020-08-29'),
+(45, 1, '2020-08-29'),
+(46, 1, '2020-08-29'),
+(47, 1, '2020-08-29'),
+(48, 1, '2020-08-29'),
+(49, 1, '2020-08-29'),
+(50, 1, '2020-08-29'),
+(51, 1, '2020-08-29'),
+(52, 1, '2020-08-29'),
+(53, 1, '2020-08-29'),
+(54, 1, '2020-08-29');
 
 -- --------------------------------------------------------
 
@@ -1858,25 +1840,12 @@ INSERT INTO `users` (`id`, `name`, `photo`, `zip`, `city`, `country`, `address`,
 CREATE TABLE `user_notifications` (
   `id` int(191) NOT NULL,
   `user_id` int(191) NOT NULL,
-  `conversation_id` int(11) NOT NULL,
+  `conversation_id` int(11) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_notifications`
---
-
-INSERT INTO `user_notifications` (`id`, `user_id`, `conversation_id`, `is_read`, `created_at`, `updated_at`) VALUES
-(6, 1, 8, 1, '2020-08-28 08:11:19', '2020-08-28 08:11:34'),
-(7, 1, 8, 1, '2020-08-28 08:12:10', '2020-08-28 08:33:22'),
-(8, 1, 8, 1, '2020-08-28 08:29:49', '2020-08-28 08:33:22'),
-(9, 1, 8, 1, '2020-08-28 08:32:16', '2020-08-28 08:33:22'),
-(10, 1, 8, 1, '2020-08-28 08:32:23', '2020-08-28 08:33:22'),
-(11, 1, 8, 1, '2020-08-28 08:33:14', '2020-08-28 08:33:22'),
-(12, 1, 8, 1, '2020-08-28 08:39:42', '2020-08-28 08:39:53'),
-(13, 1, 8, 0, '2020-08-28 08:40:13', '2020-08-28 08:40:13');
 
 -- --------------------------------------------------------
 
@@ -1930,19 +1899,6 @@ CREATE TABLE `vendor_notifications` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `vendor_notifications`
---
-
-INSERT INTO `vendor_notifications` (`id`, `user_id`, `conversation_id`, `is_read`, `created_at`, `updated_at`) VALUES
-(9, 1, 8, 1, '2020-08-28 08:08:21', '2020-08-28 08:08:48'),
-(10, 1, 8, 1, '2020-08-28 08:38:13', '2020-08-28 08:38:18'),
-(11, 1, 8, 1, '2020-08-28 08:38:24', '2020-08-28 08:38:40'),
-(12, 1, 8, 1, '2020-08-28 08:39:10', '2020-08-28 08:39:36'),
-(13, 1, 8, 0, '2020-08-28 08:40:01', '2020-08-28 08:40:01'),
-(14, 1, 8, 0, '2020-08-28 08:40:13', '2020-08-28 08:40:13'),
-(15, 1, 8, 0, '2020-08-28 08:40:28', '2020-08-28 08:40:28');
-
 -- --------------------------------------------------------
 
 --
@@ -1958,13 +1914,6 @@ CREATE TABLE `vendor_orders` (
   `order_number` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` enum('pending','processing','completed','declined','on delivery') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `vendor_orders`
---
-
-INSERT INTO `vendor_orders` (`id`, `user_id`, `order_id`, `qty`, `price`, `order_number`, `status`) VALUES
-(8, 1, 11, 1, 100, 'MAYRA-CQQ91598622801', 'processing');
 
 -- --------------------------------------------------------
 
@@ -2396,12 +2345,12 @@ ALTER TABLE `admin_languages`
 -- AUTO_INCREMENT for table `admin_user_conversations`
 --
 ALTER TABLE `admin_user_conversations`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `admin_user_messages`
 --
 ALTER TABLE `admin_user_messages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `attributes`
 --
@@ -2446,7 +2395,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `conversations`
 --
 ALTER TABLE `conversations`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `counters`
 --
@@ -2501,22 +2450,22 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `order_tracks`
 --
 ALTER TABLE `order_tracks`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `packages`
 --
@@ -2556,7 +2505,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_clicks`
 --
 ALTER TABLE `product_clicks`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `ratings`
 --
@@ -2636,7 +2585,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_notifications`
 --
 ALTER TABLE `user_notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `user_subscriptions`
 --
@@ -2646,12 +2595,12 @@ ALTER TABLE `user_subscriptions`
 -- AUTO_INCREMENT for table `vendor_notifications`
 --
 ALTER TABLE `vendor_notifications`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `vendor_orders`
 --
 ALTER TABLE `vendor_orders`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `verifications`
 --
@@ -2661,7 +2610,7 @@ ALTER TABLE `verifications`
 -- AUTO_INCREMENT for table `wishlists`
 --
 ALTER TABLE `wishlists`
-  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(191) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `withdraws`
 --

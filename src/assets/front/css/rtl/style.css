@@ -93,13 +93,13 @@ a {
   text-decoration: none;
 }
 
-a,
+/* a,
 a:hover,
 a:focus,
 a:active {
   text-decoration: none;
   outline: none;
-}
+} */
 
 a i {
   padding: 0 2px;

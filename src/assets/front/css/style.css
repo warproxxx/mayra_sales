@@ -90,13 +90,13 @@ a {
   color: #143250;
   text-decoration: none; }
 
-a,
+/* a,
 a:hover,
 a:focus,
 a:active {
   text-decoration: none;
   outline: none;
-  }
+  } */
 
 a i {
   padding: 0 2px;
