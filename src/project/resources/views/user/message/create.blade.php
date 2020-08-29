@@ -110,7 +110,6 @@
                               @endif
                              
                         </div>
-                            @if($conv->closed == 0)
                                 <textarea class="form-control" name="message" id="wrong-invoice" rows="5" style="resize: vertical;" required="" placeholder="{{ $langg->lang374 }}"></textarea>
                             </div>
                             <br/>
@@ -119,9 +118,6 @@
                                     {{ $langg->lang375 }}
                                 </button>
                             </div>
-                            @else
-                            </div>
-                            @endif
 
                         </form>
                     </div>

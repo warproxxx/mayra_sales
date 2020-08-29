@@ -62,10 +62,10 @@
               <li class="{{ $link == route('user-favorites') ? 'active':'' }}">
                   <a href="{{route('user-favorites')}}">{{ $langg->lang231 }}</a>
               </li>
-
+<!-- 
               <li class="{{ $link == route('user-messages') ? 'active':'' }}">
                   <a href="{{route('user-messages')}}">{{ $langg->lang232 }}</a>
-              </li>
+              </li> -->
 
               <li class="{{ $link == route('user-message-index') ? 'active':'' }}">
                   <a href="{{route('user-message-index')}}">{{ $langg->lang204 }}</a>

@@ -716,6 +716,18 @@ $(document).ready(function(){
     }, 5000);
 });
 
+
+$(document).ready(function(){
+  $.ajax({
+    type: "GET",
+    url:$("#user-notf-count").data('href'),
+    success:function(data){
+        $("#user-notf-count").html(data);
+      }
+  });
+
+});
+
 $(document).on('click','#notf_user',function(){
   $("#user-notf-count").html('0');
   $('#user-notf-show').load($("#user-notf-show").data('href'));
@@ -740,6 +752,17 @@ $(document).ready(function(){
                       }
               });
     }, 5000);
+});
+
+$(document).ready(function(){
+  $.ajax({
+    type: "GET",
+    url:$("#order-notf-count").data('href'),
+    success:function(data){
+        $("#order-notf-count").html(data);
+      }
+});
+
 });
 
 $(document).on('click','#notf_order',function(){
@@ -768,6 +791,17 @@ $(document).ready(function(){
     }, 5000);
 });
 
+$(document).ready(function(){
+  $.ajax({
+    type: "GET",
+    url:$("#product-notf-count").data('href'),
+    success:function(data){
+        $("#product-notf-count").html(data);
+      }
+});
+
+});
+
 $(document).on('click','#notf_product',function(){
   $("#product-notf-count").html('0');
   $('#product-notf-show').load($("#product-notf-show").data('href'));
@@ -792,6 +826,17 @@ $(document).ready(function(){
                       }
               });
     }, 5000);
+});
+
+$(document).ready(function(){
+  $.ajax({
+    type: "GET",
+    url:$("#conv-notf-count").data('href'),
+    success:function(data){
+        $("#conv-notf-count").html(data);
+      }
+});
+
 });
 
 $(document).on('click','#notf_conv',function(){
