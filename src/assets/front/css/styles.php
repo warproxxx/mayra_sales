@@ -590,8 +590,8 @@ color: <?php echo $color; ?>;
   background: <?php echo $color; ?>;
 }
 input[type=checkbox]:checked + label:before {
-  background-color: <?php echo $color; ?>;
-  border-color: <?php echo $color; ?>;
+  background-color: #0f78f2;
+  border-color: #0f78f2;
 }
     .radio-design .checkmark::after{
       background: <?php echo $color; ?>;
