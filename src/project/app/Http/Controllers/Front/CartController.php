@@ -93,6 +93,8 @@ class CartController extends Controller
 
    public function addtocart($id)
     {
+        $cart = null;
+        Session::put('cart',$cart);
         $this->updatecart();
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
 

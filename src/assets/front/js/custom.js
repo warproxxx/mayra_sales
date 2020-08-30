@@ -1119,26 +1119,26 @@ $(document).on('click','#comment-area .remove',function(){
 
 
     $(document).on("click", "#addcrt" , function(){
-     var qty = $('.qttotal').html();
-     var pid = $(this).parent().parent().parent().parent().find("#product_id").val();
+          var qty = $('.qttotal').html();
+          var pid = $(this).parent().parent().parent().parent().find("#product_id").val();
 
-if($('.product-attr').length > 0)
-{
-  values = $(".product-attr:checked").map(function() {
-   return $(this).val();
-}).get();
+      if($('.product-attr').length > 0)
+      {
+        values = $(".product-attr:checked").map(function() {
+        return $(this).val();
+      }).get();
 
-keys = $(".product-attr:checked").map(function() {
-   return $(this).data('key');
-}).get();
+      keys = $(".product-attr:checked").map(function() {
+        return $(this).data('key');
+      }).get();
 
-prices = $(".product-attr:checked").map(function() {
-   return $(this).data('price');
-}).get();
+      prices = $(".product-attr:checked").map(function() {
+        return $(this).data('price');
+      }).get();
 
 
 
-}
+      }
 
 
 
@@ -1156,6 +1156,10 @@ prices = $(".product-attr:checked").map(function() {
             else if(data == 0) {
                 toastr.error(langg.out_stock);
               }
+            else if (data == -1)
+            {
+              toastr.error("Cart can only consist of same seller's item");
+            }
             else {
               $("#cart-count").html(data[0]);
               $("#cart-items").load(mainurl+'/carts/view');

@@ -1395,7 +1395,9 @@ nav button {
     }
 
 
-
+a:hover{
+  text-decoration: none;
+}
 
 /* hero Slider dot design End */
 
