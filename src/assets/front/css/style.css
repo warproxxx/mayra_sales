@@ -90,13 +90,6 @@ a {
   color: #143250;
   text-decoration: none; }
 
-/* a,
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-  outline: none;
-  } */
 
 a i {
   padding: 0 2px;
@@ -1517,7 +1510,7 @@ nav button {
     }
     .trending .owl-carousel .owl-controls .owl-nav .owl-prev:hover,
     .trending .owl-carousel .owl-controls .owl-nav .owl-next:hover {
-      background: #fff!important;
+      /* background: #fff!important; */
       color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
     }
   .trending .owl-carousel .owl-controls .owl-nav .owl-prev {
@@ -2755,7 +2748,8 @@ nav button {
             font-size: 13px;
             margin-right: 4px; }
           .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a:hover {
-            background: #fff;
+            /* background: #fff; */
+            text-decoration: none; /* removed here */
             color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); }
       .product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite, .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare {
         display: inline-block;
@@ -2778,8 +2772,10 @@ nav button {
           transition: all 0.3s ease-in;
           }
           .product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite a:hover, .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare a:hover {
-            background: #fff;
-            color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); }
+            /* background: #fff; */
+            text-decoration: none;
+            color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff); 
+          }
       .product-details-page .right-area .product-info .info-meta-3 .meta-list li:last-child {
         margin-right: 0px; }
   .product-details-page .right-area .product-info .social-links {
@@ -3470,7 +3466,7 @@ nav button {
                 font-weight: 600;
                 }
                 .seller-info .view-stor:hover{
-                  background: #fff;
+                  text-decoration: none;
                   color: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
                 }
 /*-----------------------------

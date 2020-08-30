@@ -533,7 +533,7 @@ color: <?php echo $color; ?>;
           border: 1px solid <?php echo $color; ?>;
           background: <?php echo $color; ?>;}
           .product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite a:hover, .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare a:hover {
-                      background: #fff;
+                      <!-- background: #fff; -->
             color: <?php echo $color; ?>; }
 
                 .seller-info .content .title {
@@ -553,7 +553,6 @@ color: <?php echo $color; ?>;
 
                 }
                 .seller-info .view-stor:hover{
-                  background: #fff;
                   color: <?php echo $color; ?>;
                 }
           .product-details-page .categori .owl-carousel .owl-controls .owl-nav .owl-prev,
