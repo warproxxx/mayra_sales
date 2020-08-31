@@ -61,15 +61,6 @@ class PaymentGatewayController extends Controller
     //*** POST Request
     public function store(Request $request)
     {
-        //--- Validation Section
-        $rules = ['title' => 'unique:payment_gateways'];
-
-        $validator = Validator::make(Input::all(), $rules);
-        if ($validator->fails()) {
-          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-        }
-        //--- Validation Section Ends
-
         //--- Logic Section
         $data = new PaymentGateway();
         $input = $request->all();

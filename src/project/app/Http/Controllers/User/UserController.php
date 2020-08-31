@@ -14,6 +14,8 @@ use App\Models\Subscription;
 use App\Models\Generalsetting;
 use App\Models\UserSubscription;
 use App\Models\FavoriteSeller;
+use App\Models\PaymentGateway;
+use Log;
 
 class UserController extends Controller
 {
@@ -114,7 +116,9 @@ class UserController extends Controller
         {
             return redirect()->back();
         }
-        return view('user.package.details',compact('user','subs','package'));
+
+        $payment_gateways = PaymentGateway::where('user_id', '=', 0)->get();
+        return view('user.package.details',compact('user','subs','package', 'payment_gateways'));
     }
 
     public function vendorrequestsub(Request $request)

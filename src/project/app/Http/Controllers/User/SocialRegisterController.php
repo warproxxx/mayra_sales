@@ -58,6 +58,7 @@ class SocialRegisterController extends Controller
             $user->is_provider = 1;
             $user->affilate_code = $socialUser->name.$socialUser->email;
             $user->affilate_code = md5($user->affilate_code);
+            $user->api_token = Str::random(60);
             $user->save();
 
             $user->socialProviders()->create(

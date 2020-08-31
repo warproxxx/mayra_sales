@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <p class="value">
-                                            {{$subs->price}}{{$subs->currency}}
+                                            {{$subs->currency}} {{$subs->price}}
                                         </p>
                                     </div>
                                 </div>
@@ -187,7 +187,10 @@
                                     <div class="col-lg-8">
 
                                             <select name="method" id="option" onchange="meThods(this)" class="option" required="">
-                                                <option value="">{{ $langg->lang419 }}</option>
+                                                @foreach($payment_gateways as $payment_gateway)
+                                                    <option value="{{ $payment_gateway->id }}" selected>{{ $payment_gateway->title }}</option>
+                                                @endforeach
+                                                
                                                 @if($gs->paypal_check == 1)
                                                     <option value="Paypal">{{ $langg->lang420 }}</option>
                                                 @endif

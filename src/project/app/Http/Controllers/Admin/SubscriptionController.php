@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use Log;
 
 class SubscriptionController extends Controller
 {
@@ -52,7 +53,6 @@ class SubscriptionController extends Controller
     //*** POST Request
     public function store(Request $request)
     {
-
         //--- Logic Section
         $data = new Subscription();
         $input = $request->all();

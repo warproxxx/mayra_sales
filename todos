@@ -1,4 +1,26 @@
-Then the requirements said
+Google Analytics
+Fix payment for premium. Fix subscription.
+
+While creating account, mobille number, Location picture, Google Map Location, 
+Reported number for customers. Customer service gets notification. Remove cash on delivery for that customer.
+Customer chooses delivery time/range
+Delivery charge relative to distance.
+Admin can delete/freeze accounts.
+"You may also like" in search
+Navigate in map while delivering.
+Sellers can see customer profile while delivering (profile pic etc)
+Delivery guy clicks deliver. Delivery team/customer get notifiaction.
+Invite facebook friends
+Ad.
+Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
+Nofify admin 15 days, 10 days, and 1 day before expirity of vendor account
+Display premium products randomly in home. 
+Write premium below premium products with premium logo.
+Analytics: how many people online, how many vendors, How many customers.  This month customer/vendors. How many % of ID online in last month. Total sales, per account sales.
+Data Backup
+Support reviews items before they are sold. Can edit. If not reviewed in 72 hours, product gets uploaded automatically.
+Locations.
+Don't so dispute so directly.
 
 
 #1f224f to linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)
@@ -23,3 +45,16 @@ DELETE FROM user_notifications;
 DELETE FROM vendor_notifications;
 DELETE FROM vendor_orders;
 DELETE FROM wishlists;
+
+More serious:
+DELETE FROM blogs;
+DELETE FROM counters;
+DELETE FROM coupons;
+DELETE FROM favorite_sellers;
+DELETE FROM messages;
+DELETE FROM notifications;
+DELETE FROM orders;
+DELETE FROM order_tracks;
+DELETE FROM ratings;
+DELETE FROM replies;
+DELETE FROM reviews;
