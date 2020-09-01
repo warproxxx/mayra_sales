@@ -1,5 +1,4 @@
-Google Analytics
-Fix payment for premium. Fix subscription.
+Fix payment for premium. Fix subscription. I need to copy from there. Not do myself.
 
 While creating account, mobille number, Location picture, Google Map Location, 
 Reported number for customers. Customer service gets notification. Remove cash on delivery for that customer.
@@ -21,6 +20,7 @@ Data Backup
 Support reviews items before they are sold. Can edit. If not reviewed in 72 hours, product gets uploaded automatically.
 Locations.
 Don't so dispute so directly.
+Google Analytics
 
 
 #1f224f to linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)
@@ -51,10 +51,9 @@ DELETE FROM blogs;
 DELETE FROM counters;
 DELETE FROM coupons;
 DELETE FROM favorite_sellers;
-DELETE FROM messages;
-DELETE FROM notifications;
-DELETE FROM orders;
 DELETE FROM order_tracks;
-DELETE FROM ratings;
-DELETE FROM replies;
-DELETE FROM reviews;
+DELETE FROM product_clicks;
+DELETE FROM user_subscriptions;
+DELETE FROM verifications;
+DELETE FROM users WHERE id!=0;
+DELETE FROM products;

@@ -178,11 +178,21 @@ class CheckoutController extends Controller
 // If guest checkout is activated then user can go for checkout
            	if($gs->guest_checkout == 1)
               {
-                $gateways =  PaymentGateway::where('status','=',1)->get();
                 $pickups = Pickup::all();
                 $oldCart = Session::get('cart');
                 $cart = new Cart($oldCart);
                 $products = $cart->items;
+                
+                $vendor_id = 0;
+
+                foreach ($cart->items as $prod) {
+                    $vendor_id = $prod['item']['user_id'];
+                    break;
+                }
+    
+                $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
+
+                
 
                 // Shipping Method
 

@@ -192,6 +192,18 @@ class FrontendController extends Controller
         return response()->json(['status' => 'success', 'details' => $products]);
     }
 
+    public function get_products_api()
+    {
+        $products = Product::all();
+        return response()->json(['status' => 'success', 'details' => $products]);
+    }
+
+    public function get_product_detail_api($id)
+    {
+        $products = Product::where('id','=',$id)->get();
+        return response()->json(['status' => 'success', 'details' => $products]);
+    }
+
     // public function get_subcategories_api($slug)
     // {
     //     $subcategories = Subcategory::where('category_id' , '=', $slug);

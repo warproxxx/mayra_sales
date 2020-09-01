@@ -26,7 +26,8 @@ Route::get('/childcategories', 'Front\FrontendController@get_childcategories_api
 Route::get('/category/{id}', 'Front\FrontendController@get_product_by_category_api'); #8
 
 #get products and details
-Route::get('/product', 'Front\FrontendController@get_products_api');
+Route::get('/products', 'Front\FrontendController@get_products_api');
+Route::get('/product/{id}', 'Front\FrontendController@get_product_detail_api');
 
 
 #cart, wishlist

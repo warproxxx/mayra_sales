@@ -188,7 +188,7 @@
 
                                             <select name="method" id="option" onchange="meThods(this)" class="option" required="">
                                                 @foreach($payment_gateways as $payment_gateway)
-                                                    <option value="{{ $payment_gateway->id }}" selected>{{ $payment_gateway->title }}</option>
+                                                    <option value="{{ $payment_gateway->id }}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $payment_gateway->id]) }}" selected>{{ $payment_gateway->title }}</option>
                                                 @endforeach
                                                 
                                                 @if($gs->paypal_check == 1)
@@ -322,6 +322,12 @@
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
 <script type="text/javascript">
+
+$('select').on('change', function() {
+    thisdata = $(this).attr('data-href');
+    alert( thisdata );
+});
+
     
         $(document).on('submit','#paystack-form',function(e){
             var val = $('#sub').val();
