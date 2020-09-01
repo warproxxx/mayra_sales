@@ -333,6 +333,9 @@
 
 <script type="text/javascript">
 	$('a.payment:first').addClass('active');
+    $('a.payment:first').find('span').css("background-color","grey");
+
+
 	$($('a.payment:first').attr('href')).load($('a.payment:first').data('href'));
 
 
@@ -348,6 +351,11 @@
 
 
     $('.payment').on('click',function(){
+
+        $(this).find('span').css("background-color","grey");
+        $(".payment").not(this).removeClass("active");
+        $(".payment").not(this).find('span').css("background-color","white");
+
 		$('.pay-form').prop('id','');
 		$('.pay-form').prop('action',$(this).data('form'));
 
