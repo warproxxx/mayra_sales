@@ -186,33 +186,43 @@
                                     </div>
                                     <div class="col-lg-8">
 
-                                            <select name="method" id="option" onchange="meThods(this)" class="option" required="">
-                                                @foreach($payment_gateways as $payment_gateway)
-                                                    <option value="{{ $payment_gateway->id }}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $payment_gateway->id]) }}" selected>{{ $payment_gateway->title }}</option>
-                                                @endforeach
-                                                
-                                                @if($gs->paypal_check == 1)
-                                                    <option value="Paypal">{{ $langg->lang420 }}</option>
-                                                @endif
-                                                @if($gs->stripe_check == 1)
-                                                    <option value="Stripe">{{ $langg->lang421 }}</option>
-                                                @endif
-                                                @if($gs->is_instamojo == 1)
-                                                    <option value="Instamojo">{{ $langg->lang763 }}</option>
-                                                @endif
-                                                @if($gs->is_paystack == 1)
-                                                    <option value="Paystack">{{ $langg->lang764 }}</option>
-                                                @endif
-                                                @if($gs->is_molly == 1)
-                                                    <option value="Molly">{{ $langg->lang802 }}</option>
-                                                @endif
-                                                @if($gs->is_paytm == 1)
-                                                    <option value="Paytm">{{ $langg->paytm }}</option>
-                                                @endif
-                                                @if($gs->is_razorpay == 1)
-                                                    <option value="Razorpay">{{ $langg->razorpay }}</option>
-                                                @endif
-                                            </select>
+                                    <div class="checkout-information">
+                                        @foreach($payment_gateways as $gt)
+                                            <a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('gateway.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $gt->id]) }}" id="v-pills-tab{{ $gt->id }}-tab" data-toggle="pill" href="#v-pills-tab{{ $gt->id }}" role="tab" aria-controls="v-pills-tab{{ $gt->id }}" aria-selected="false">
+                                                    <div class="icon" style="position: absolute; left: 0px; margin-top: 1px;">
+                                                            <span class="radio"></span>
+                                                    </div>
+                                                    <p>
+                                                            {{ $gt->title }}
+
+                                                        @if($gt->subtitle != null)
+
+                                                        <small>
+                                                                {{ $gt->subtitle }}
+                                                        </small>
+
+                                                        @endif
+
+                                                    </p>
+                                            </a>
+                                        @endforeach
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="pay-area d-none" style="border: 1px solid rgba(0, 0, 0, 0.2); margin-left:-250px;">
+                                                <div class="tab-content" id="v-pills-tabContent">
+                                                    
+                                                    @foreach($payment_gateways as $gt)
+
+                                                        <div class="tab-pane fade" id="v-pills-tab{{ $gt->id }}" role="tabpanel" aria-labelledby="v-pills-tab{{ $gt->id }}-tab">
+
+                                                        </div>
+
+                                                    @endforeach		
+                                                </div>
+                                        </div>
+                                    </div>
 
                                     </div>
                                 </div>
@@ -322,11 +332,48 @@
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
 <script type="text/javascript">
+	$('a.payment:first').addClass('active');
+	$($('a.payment:first').attr('href')).load($('a.payment:first').data('href'));
 
-$('select').on('change', function() {
-    thisdata = $(this).attr('data-href');
-    alert( thisdata );
-});
+
+    var show = $('a.payment:first').data('show');
+    if(show != 'no') {
+        $('.pay-area').removeClass('d-none');
+    }
+    else {
+        $('.pay-area').addClass('d-none');
+    }
+    
+	$($('a.payment:first').attr('href')).addClass('active').addClass('show');
+
+
+    $('.payment').on('click',function(){
+		$('.pay-form').prop('id','');
+		$('.pay-form').prop('action',$(this).data('form'));
+
+		$('.pay-area #v-pills-tabContent .tab-pane.fade').not($(this).attr('href')).html('');
+        $('.pay-area').prop('aria-selected', false);
+
+        $(this).prop('aria-selected', true);
+
+
+		var show = $(this).data('show');
+		if(show != 'no') 
+        {
+			$('.pay-area').removeClass('d-none');
+		}
+		else 
+        {
+			$('.pay-area').addClass('d-none');
+		}
+
+		$($(this).attr('href')).load($(this).data('href'));
+	})
+</script>
+
+
+
+<script type="text/javascript">
 
     
         $(document).on('submit','#paystack-form',function(e){

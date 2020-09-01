@@ -606,24 +606,24 @@ input[type=checkbox]:checked + label:before {
   border: 1px solid <?php echo $color; ?>;
   }
 
-.checkout-area .checkout-process li a:hover{
+.checkout-area .payment-information .checkout-process li a:hover{
   background: <?php echo $color; ?>;
 
 }
-.checkout-area .checkout-process li a:hover::before{
+.checkout-area .payment-information .checkout-process li a:hover::before{
   border-left: 20px solid <?php echo $color; ?>;
 }
-.checkout-area .checkout-process li a.active{
+.checkout-area .payment-information .checkout-process li a.active{
   background: <?php echo $color; ?>;
 
 }
-.checkout-area .checkout-process li a.active::before{
+.checkout-area .payment-information .checkout-process li a.active::before{
   border-left: 20px solid <?php echo $color; ?>;
 }
-.checkout-area  .content-box .content .billing-info-area .info-list li p i{
+.checkout-area .payment-information  .content-box .content .billing-info-area .info-list li p i{
   color: <?php echo $color; ?>;
 }
-  .checkout-area  .content-box .content .payment-information .nav a span::after{
+  .checkout-area .payment-information  .content-box .content .payment-information .nav a span::after{
     background: <?php echo $color; ?>;
   }
       .hero-area .hero-area-slider .intro-carousel .intro-content .slider-content .layer-3 a {

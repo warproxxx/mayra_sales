@@ -110,18 +110,18 @@
 
 <div class="col-lg-12 pb-2">
 	
-	{!! $gateway->details !!}
+	{!! $gateway->details !!}<br/>
 
 </div>
 
 
 <div class="col-lg-6">
-	<label>{{ $langg->lang167 }}</label>
+	<label><b>{{ $langg->lang167 }}</b></label>
   <input class="form-control" name="txn_id4" type="text" placeholder="{{ $langg->lang167 }}"  />
   
-  or<br/><br/>
+  <br/>or<br/><br/>
 
-  <label>Screenshot</label>
+  <label><b>Screenshot</b></label>
   <input type="file" name="txn_image" type="text"  />
 </div>
 
