@@ -1,4 +1,4 @@
-Fix payment for premium. Fix subscription. I need to copy from there. Not do myself.
+Fix payment for premium. Admin Panel to approve payment. Admin can manually renew subscription.
 
 While creating account, mobille number, Location picture, Google Map Location, 
 Reported number for customers. Customer service gets notification. Remove cash on delivery for that customer.
@@ -6,8 +6,6 @@ Customer chooses delivery time/range
 Delivery charge relative to distance.
 Admin can delete/freeze accounts.
 "You may also like" in search
-Navigate in map while delivering.
-Sellers can see customer profile while delivering (profile pic etc)
 Delivery guy clicks deliver. Delivery team/customer get notifiaction.
 Invite facebook friends
 Ad.

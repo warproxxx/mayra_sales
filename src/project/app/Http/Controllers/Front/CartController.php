@@ -91,6 +91,19 @@ class CartController extends Controller
         return view('load.cart', compact('result')); 
     }
 
+    public function get_cart()
+    {
+        if (isset(Session::get('cart')->items))
+        {
+            $cart = Session::get('cart');
+            return response()->json(['status' => 'success', 'details' => $cart]);
+        }
+        else
+        {
+            return response()->json(['status' => 'failure', 'details' => ['Cart is empty']]);
+        }
+    }
+
    public function addtocart($id)
     {
         $cart = null;

@@ -83,9 +83,14 @@ Route::prefix('user')->group(function() {
             return $request->user();
         });
 
-        #buy product
+        //Wishlist
+        Route::get('/wishlists','User\WishlistController@wishlists_api');
+        Route::get('/wishlist/add/{id}','User\WishlistController@addwish');
+        Route::get('/wishlist/remove/{id}','User\WishlistController@removewish');
 
-
+        //Cart
+        Route::get('/carts/view','Front\CartController@get_cart');
+        Route::get('/addcart/{id}','Front\CartController@addcart');
     });
 
 });

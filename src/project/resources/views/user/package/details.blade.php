@@ -187,6 +187,17 @@
                                     <div class="col-lg-8">
 
                                     <div class="checkout-information">
+
+                                        <a class="nav-link payment" data-val="" data-show="yes" data-toggle="pill" role="tab" aria-selected="false">
+                                                <div class="icon" style="position: absolute; left: 0px; margin-top: 1px;">
+                                                        <span class="radio"></span>
+                                                </div>
+                                                <p>
+                                                    Manual Payment
+                                                </p>
+                                        </a>
+
+
                                         @foreach($payment_gateways as $gt)
                                             <a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('gateway.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $gt->id]) }}" id="v-pills-tab{{ $gt->id }}-tab" data-toggle="pill" href="#v-pills-tab{{ $gt->id }}" role="tab" aria-controls="v-pills-tab{{ $gt->id }}" aria-selected="false">
                                                     <div class="icon" style="position: absolute; left: 0px; margin-top: 1px;">

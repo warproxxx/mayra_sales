@@ -58,6 +58,45 @@ class WishlistController extends Controller
         return view('user.wishlist',compact('user','wishlists','sort'));
     }
 
+    public function wishlists_api(Request $request)
+    {
+        $sort = '';
+        $user = Auth::guard('web')->user();
+
+        // Search By Sort
+
+        if(!empty($request->sort))
+        {
+        $sort = $request->sort;
+        $wishes = Wishlist::where('user_id','=',$user->id)->pluck('product_id');
+        if($sort == "date_desc")
+        {
+        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->orderBy('id','desc')->paginate(8);
+        }
+        else if($sort == "date_asc")
+        {
+        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->paginate(8);
+        }
+        else if($sort == "price_asc")
+        {
+        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->orderBy('price','asc')->paginate(8);
+        }
+        else if($sort == "price_desc")
+        {
+        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->orderBy('price','desc')->paginate(8);
+        }
+        if($request->ajax())
+        {
+            return view('front.pagination.wishlist',compact('user','wishlists','sort'));
+        }
+        return view('user.wishlist',compact('user','wishlists','sort'));
+        }
+
+
+        $wishlists = Wishlist::where('user_id','=',$user->id)->paginate(8);
+        return response()->json(['status' => 'success', 'details' => $wishlists]);
+    }
+
     public function addwish($id)
     {
         $user = Auth::guard('web')->user();
