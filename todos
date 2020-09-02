@@ -56,4 +56,5 @@ DELETE FROM product_clicks;
 DELETE FROM user_subscriptions;
 DELETE FROM verifications;
 DELETE FROM users WHERE id!=0;
+DELETE FROM payment_gateways WHERE user_id!=0;
 DELETE FROM products;

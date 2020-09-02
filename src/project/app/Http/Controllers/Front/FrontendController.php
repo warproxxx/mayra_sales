@@ -200,7 +200,11 @@ class FrontendController extends Controller
 
     public function get_product_detail_api($id)
     {
-        $products = Product::where('id','=',$id)->get();
+        $products = Product::where('id','=',$id)
+                    ->join('users', 'products.user_id', '=', 'users.id')
+                    ->select('products.*','users.name','users.photo','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image')
+                    ->get();
+                    
         return response()->json(['status' => 'success', 'details' => $products]);
     }
 
