@@ -199,7 +199,7 @@
 
 
                                         @foreach($payment_gateways as $gt)
-                                            <a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('gateway.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $gt->id]) }}" id="v-pills-tab{{ $gt->id }}-tab" data-toggle="pill" href="#v-pills-tab{{ $gt->id }}" role="tab" aria-controls="v-pills-tab{{ $gt->id }}" aria-selected="false">
+                                            <a class="nav-link payment" data-val="" data-show="yes" data-form="{{route('user-vendor-request-submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'other','slug2' => $gt->id]) }}" id="v-pills-tab{{ $gt->id }}-tab" data-toggle="pill" href="#v-pills-tab{{ $gt->id }}" role="tab" aria-controls="v-pills-tab{{ $gt->id }}" aria-selected="false">
                                                     <div class="icon" style="position: absolute; left: 0px; margin-top: 1px;">
                                                             <span class="radio"></span>
                                                     </div>
@@ -560,8 +560,11 @@ if($('#ck').val() == '0') {
 
 <script type="text/javascript">
     
-$(document).on('submit','#subscribe-form',function(){
+$(document).on('submit','#subscribe-form',function()
+{
+    alert('clicked');
      $('#preloader').show();
+
 });
     
 </script>

@@ -129,7 +129,7 @@ class UserController extends Controller
                'shop_name.unique' => 'This shop name has already been taken.'
             ]);
 
-        
+        $input = $request->all();  
         #There should be pending subscription which admins will later approve.
         if ($request->hasFile('txn_image')) 
         {
@@ -137,7 +137,7 @@ class UserController extends Controller
             if ($request->file('txn_image')->isValid()) 
             {
                 $image_name = date('mdYHis') . uniqid() .$request->file('txn_image')->getClientOriginalName();
-                $order['txn_image'] = $image_name;
+                $input['txn_image'] = $image_name;
                 $path = 'assets/images/users';
                 $request->file('txn_image')->move($path,$image_name);
             }
@@ -150,11 +150,13 @@ class UserController extends Controller
         $subs = Subscription::findOrFail($request->subs_id);
         $settings = Generalsetting::findOrFail(1);
         $today = Carbon::now()->format('Y-m-d');
-        $input = $request->all();  
+        
         $user->is_vendor = 1;
         $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
         $user->mail_sent = 1;     
         $user->update($input);
+
+        
 
         // $sub = new UserSubscription;
         // $sub->user_id = $user->id;
@@ -187,10 +189,10 @@ class UserController extends Controller
         else
         {
             $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
-            mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
+            mail($user->email,'Your Vendor Account Activation Request','Vendor Account Activation Request submitted. It will work once your payment has been verified by admin.',$headers);
         }
 
-        return redirect()->route('user-dashboard')->with('success','Vendor Account Activated Successfully');
+        return redirect()->route('user-dashboard')->with('success','Vendor Account Activation Request submitted. It will work once your payment has been verified by admin');
 
     }
 

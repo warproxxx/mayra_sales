@@ -1,3 +1,5 @@
+Fix local so upload works
+USing that form redirects to another page.
 Fix payment for premium. Admin Panel to approve payment. Admin can manually renew subscription.
 
 While creating account, mobille number, Location picture, Google Map Location, 
