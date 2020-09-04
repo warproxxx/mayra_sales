@@ -83,7 +83,7 @@
                                 <br>
                                         @endif
 
-                                        <form id="subscribe-form" class="pay-form" action="{{route('user-vendor-request-submit')}}" method="POST">
+                                        <form id="subscribe-form" class="pay-form" action="{{route('user-vendor-request-submit')}}" method="POST" enctype="multipart/form-data">
 
                             @include('includes.form-success')
                             @include('includes.form-error')

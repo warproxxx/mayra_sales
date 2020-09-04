@@ -221,6 +221,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/verificatons', 'Admin\VerificationController@index')->name('admin-vr-index');
   Route::get('/verificatons/pendings', 'Admin\VerificationController@pending')->name('admin-vr-pending');
 
+
   Route::get('/verificatons/show', 'Admin\VerificationController@show')->name('admin-vr-show');
   Route::get('/verificatons/edit/{id}', 'Admin\VerificationController@edit')->name('admin-vr-edit');
   Route::post('/verificatons/edit/{id}', 'Admin\VerificationController@update')->name('admin-vr-update');
@@ -231,8 +232,13 @@ Route::prefix('admin')->group(function() {
 
 // Verification Section Ends
 
+  //Pending payments
+  Route::get('/payment_verificaton/pendings', 'Admin\VerificationController@pending_payment')->name('admin-subscription-payment');
+  Route::get('/payment_verificaton/datatables', 'Admin\VerificationController@payment_datatables')->name('admin-payments-datatables');
+  Route::get('/payment_verificaton/details/{id}', 'Admin\VerificationController@payment_details')->name('admin-payments-detail');
+  Route::get('/payment_verificaton/{id}/approve', 'Admin\VerificationController@approve')->name('admin-payments-approve');
+  Route::get('/payment_verificaton/{id}/reject', 'Admin\VerificationController@reject')->name('admin-payments-reject');
 
-  
   });
 
 

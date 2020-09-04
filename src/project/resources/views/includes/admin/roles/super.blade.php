@@ -92,6 +92,10 @@
     </li>
 
     <li>
+        <a href="{{ route('admin-subscription-payment') }}" class=" wave-effect"><i class="fas fa-percentage"></i>{{ __('Subscription Payments') }}</a>
+    </li>
+
+    <li>
         <a href="#vendor1" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
                 <i class="icofont-verification-check"></i>{{ __('Vendor Verifications') }}
         </a>

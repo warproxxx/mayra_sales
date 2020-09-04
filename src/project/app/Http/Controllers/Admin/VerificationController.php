@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Datatables;
 use App\Models\Verification;
+use App\Models\User;
+use App\Models\Subscription;
+use App\Models\UserSubscription;
 
 class VerificationController extends Controller
 {
@@ -53,6 +56,64 @@ class VerificationController extends Controller
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
+    public function payment_details($id)
+    {
+        $user = User::where('users.id','=',$id)
+                ->join('subscriptions', 'users.subs_id', '=', 'subscriptions.id')
+                ->select('users.*', 'subscriptions.title', 'subscriptions.days', 'subscriptions.currency', 'subscriptions.price') 
+                ->first();
+
+        return view('admin.verify.details',compact('user'));
+    }
+
+    public function payment_datatables()
+    {
+        $datas = User::where('is_vendor','=',3)->get();
+         
+         return Datatables::of($datas)
+                            ->addColumn('action', function(User $data) {
+                                return '<a href="' . route('admin-payments-detail',$data->id) . '" class="btn btn-primary product-btn"><i class="fa fa-eye"></i> Details </a>';
+                            }) 
+                            ->rawColumns(['email', 'shop_name', 'method', 'action'])
+                            ->toJson(); //--- Returning Json Data To Client Side
+    }
+
+    public function approve($id)
+    {
+
+        $user = User::where('id','=',$id)->first();
+        $user->is_vendor = 2;
+        $user->update();
+
+        $subs = Subscription::where('id','=',$user->subs_id)->first();
+
+        $sub = new UserSubscription;
+        $sub->user_id = $user->id;
+        $sub->subscription_id = $subs->id;
+        $sub->title = $subs->title;
+        $sub->currency = $subs->currency;
+        $sub->currency_code = $subs->currency_code;
+        $sub->price = $subs->price;
+        $sub->days = $subs->days;
+        $sub->allowed_products = $subs->allowed_products;
+        $sub->details = $subs->details;
+        $sub->method = 'Free';
+        $sub->status = 1;
+        $sub->save();
+
+        return redirect()->route('admin-subscription-payment');
+    }
+
+    public function reject($id)
+    {
+        $user = User::where('id','=',$id)->first();
+        $user->is_vendor = 0;
+        $user->update();
+        
+        return redirect()->route('admin-subscription-payment');
+    }
+
+
     public function index()
     {
         return view('admin.verify.index');
@@ -61,6 +122,11 @@ class VerificationController extends Controller
     public function pending()
     {
         return view('admin.verify.pending');
+    }
+
+    public function pending_payment()
+    {
+        return view('admin.verify.pending_payment');
     }
 
     public function show()

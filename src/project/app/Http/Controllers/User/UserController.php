@@ -151,26 +151,10 @@ class UserController extends Controller
         $settings = Generalsetting::findOrFail(1);
         $today = Carbon::now()->format('Y-m-d');
         
-        $user->is_vendor = 1;
+        $user->is_vendor = 3; #3 means unconfirmed
         $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
         $user->mail_sent = 1;     
         $user->update($input);
-
-        
-
-        // $sub = new UserSubscription;
-        // $sub->user_id = $user->id;
-        // $sub->subscription_id = $subs->id;
-        // $sub->title = $subs->title;
-        // $sub->currency = $subs->currency;
-        // $sub->currency_code = $subs->currency_code;
-        // $sub->price = $subs->price;
-        // $sub->days = $subs->days;
-        // $sub->allowed_products = $subs->allowed_products;
-        // $sub->details = $subs->details;
-        // $sub->method = 'Free';
-        // $sub->status = 1;
-        // $sub->save();
 
         if($settings->is_smtp == 1)
         {
