@@ -97,9 +97,60 @@ class VerificationController extends Controller
         $sub->days = $subs->days;
         $sub->allowed_products = $subs->allowed_products;
         $sub->details = $subs->details;
-        $sub->method = 'Free';
+        $sub->method = $user->method;
         $sub->status = 1;
         $sub->save();
+
+
+        //So the main thing to note is date.
+        #got this from old 
+        $today = Carbon::now()->format('Y-m-d');
+        $subs = Subscription::findOrFail($request->subs_id);
+        
+        $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+        $user->mail_sent = 1;     
+
+        $order = UserSubscription::where('user_id','=',$_POST['custom'])
+            ->orderBy('created_at','desc')->first();
+
+
+        $user = User::findOrFail($_POST['custom']);
+        $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
+        $subs = Subscription::findOrFail($order->subscription_id);
+        $settings = Generalsetting::findOrFail(1);
+
+
+        $today = Carbon::now()->format('Y-m-d');
+        $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+        $input = $request->all();
+        $user->is_vendor = 2;
+        if(!empty($package))
+        {
+            if($package->subscription_id == $request->subs_id)
+            {
+                $newday = strtotime($today);
+                $lastday = strtotime($user->date);
+                $secs = $lastday-$newday;
+                $days = $secs / 86400;
+                $total = $days+$subs->days;
+                $user->date = date('Y-m-d', strtotime($today.' + '.$total.' days'));
+            }
+            else
+            {
+                $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+            }
+        }
+        else
+        {
+            $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+        }
+        $user->mail_sent = 1;
+        $user->update($input);
+
+
+        $data['txnid'] = $_POST['txn_id'];
+        $data['status'] = 1;
+        $order->update($data);
 
         return redirect()->route('admin-subscription-payment');
     }

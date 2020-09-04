@@ -1,26 +1,35 @@
-Fix local so upload works
-USing that form redirects to another page.
-Fix payment for premium. Admin Panel to approve payment. Admin can manually renew subscription.
+Make renew work. ALso manually change subscription. Option in vendors to.
+Admin can delete/suspend accounts.
+Then Nofify admin 15 days, 10 days, and 1 day before expirity of vendor account
 
+
+
+Remove unnecessary from admin
 While creating account, mobille number, Location picture, Google Map Location, 
 Reported number for customers. Customer service gets notification. Remove cash on delivery for that customer.
 Customer chooses delivery time/range
 Delivery charge relative to distance.
-Admin can delete/freeze accounts.
-"You may also like" in search
 Delivery guy clicks deliver. Delivery team/customer get notifiaction.
 Invite facebook friends
 Ad.
 Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
-Nofify admin 15 days, 10 days, and 1 day before expirity of vendor account
 Display premium products randomly in home. 
 Write premium below premium products with premium logo.
 Analytics: how many people online, how many vendors, How many customers.  This month customer/vendors. How many % of ID online in last month. Total sales, per account sales.
 Data Backup
 Support reviews items before they are sold. Can edit. If not reviewed in 72 hours, product gets uploaded automatically.
 Locations.
-Don't so dispute so directly.
+Don't show dispute so directly.
 Google Analytics
+Add required data.
+
+There is a function in FrontendController called subcheck which send notifications 5 days before.
+In https://mayrasales.local/admin/general-settings/contents it is asked to add to cronjob.
+Renewal is done by looking at date.
+is_vendor = 1 -> Expired
+is_vendor = 2 -> Yes
+is_vendor = 3 -> Not Paid
+
 
 
 #1f224f to linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff)

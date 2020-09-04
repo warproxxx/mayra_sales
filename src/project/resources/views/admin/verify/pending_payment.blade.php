@@ -1,19 +1,18 @@
 @extends('layouts.admin') 
 
 @section('content')  
-					<input type="hidden" id="headerdata" value="{{ __("VERIFICATION") }}">
+					<input type="hidden" id="headerdata" value="Subscription Payment">
 					<div class="content-area">
 						<div class="mr-breadcrumb">
 							<div class="row">
 								<div class="col-lg-12">
-										<h4 class="heading">{{ __("Pending Verifications") }}</h4>
+										<h4 class="heading">{{ __("Subscription Payments") }}</h4>
 										<ul class="links">
 											<li>
 												<a href="{{ route('admin.dashboard') }}">{{ __("Dashboard") }} </a>
 											</li>
-											<li><a href="javascript:;">{{ __('Vendor Verifications') }}</a></li>
 											<li>
-												<a href="{{ route('admin-vr-index') }}">{{ __("Pending Verifications") }}</a>
+												<a href="{{ route('admin-subscription-payment') }}">{{ __("Subscription Payments") }}</a>
 											</li>
 										</ul>
 								</div>
@@ -34,7 +33,7 @@
 		                                                  <th>{{ __("Vendor Email") }}</th>
 		                                                  <th>{{ __("Shop Name") }}</th>
 		                                                  <th>{{ __("Payment Method") }}</th>
-		                                                  <th>{{ __("Options") }}</th>
+		                                                  <th>{{ __("Details") }}</th>
 														</tr>
 													</thead>
 												</table>

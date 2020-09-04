@@ -172,8 +172,15 @@
 
                                         <br>
 
-
+                                        <input type="hidden" name="subscription_type" value="new">
                                         @endif
+
+                                        @if($user->is_vendor == 2)
+                                            <input type="hidden" name="subscription_type" value="renew">
+                                        @endif
+
+
+
                                         <input type="hidden" name="subs_id" value="{{ $subs->id }}">
 
                                  @if($subs->price != 0)       

@@ -147,13 +147,10 @@ class UserController extends Controller
 
         $user = Auth::user();
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
-        $subs = Subscription::findOrFail($request->subs_id);
         $settings = Generalsetting::findOrFail(1);
-        $today = Carbon::now()->format('Y-m-d');
+        
         
         $user->is_vendor = 3; #3 means unconfirmed
-        $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
-        $user->mail_sent = 1;     
         $user->update($input);
 
         if($settings->is_smtp == 1)
