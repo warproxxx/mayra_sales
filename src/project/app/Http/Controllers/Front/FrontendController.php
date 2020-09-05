@@ -555,8 +555,27 @@ class FrontendController extends Controller
         }
 
          #work on suspension
-         $today = Carbon::now()->format('Y-m-d');
+        $today = strtotime(Carbon::now()->format('Y-m-d'));
+        foreach (DB::table('users')->where('suspend_till','!=',NULL)->get() as  $user) 
+        {
+            $ban_till = strtotime($user->suspend_till);
 
+            if ($ban_till > $today)
+            {
+                $user = User::where('id', '=', $user->id)->first();
+                $user->ban = 1;
+                $user->save();
+            }
+            else
+            {
+                if ($user->ban == 1)
+                {
+                    $user = User::where('id', '=', $user->id)->first();
+                    $user->ban = 0;
+                    $user->save();
+                }
+            }
+        }
             
         print("Done checking");
     }
