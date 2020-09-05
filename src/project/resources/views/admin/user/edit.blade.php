@@ -80,6 +80,17 @@
 													</div>
 												</div>
 
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+																<h4 class="heading">{{ __("Suspend till") }} </h4>
+														</div>
+													</div>
+													<div class="col-lg-7" style="white-space:nowrap;">
+														<div style="white-space:nowrap;"><input type="text" class="input-field" name="suspend_till" placeholder="{{ __("YYYY-MM-DD") }}" value="{{ $data->suspend_till }}"></div><div style="white-space:nowrap;"></div>
+													</div>
+												</div>
+
 
 												<div class="row">
 													<div class="col-lg-4">

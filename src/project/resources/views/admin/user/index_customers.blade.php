@@ -6,13 +6,13 @@
 						<div class="mr-breadcrumb">
 							<div class="row">
 								<div class="col-lg-12">
-										<h4 class="heading">{{ __("Users") }}</h4>
+										<h4 class="heading">{{ __("Customers") }}</h4>
 										<ul class="links">
 											<li>
 												<a href="{{ route('admin.dashboard') }}">{{ __("Dashboard") }} </a>
 											</li>
 											<li>
-												<a href="{{ route('admin-user-index') }}">{{ __("Users") }}</a>
+												<a href="{{ route('admin-user-index') }}">{{ __("Customers") }}</a>
 											</li>
 										</ul>
 								</div>
@@ -153,7 +153,7 @@
 			   ordering: false,
                processing: true,
                serverSide: true,
-               ajax: '{{ route('admin-user-datatables') }}',
+               ajax: '{{ route('admin-customers-datatables') }}',
                columns: [
                         { data: 'name', name: 'name' },
                         { data: 'email', name: 'email' },

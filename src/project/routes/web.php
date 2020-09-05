@@ -15,6 +15,8 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN LOGIN SECTION ENDS ------------
 
   //------------ ADMIN NOTIFICATION SECTION ------------
+  Route::get('/system_notifications', 'Admin\NotificationController@system_notifications')->name('system-notifications-show');
+  Route::get('/system_notification/{id}/read', 'Admin\NotificationController@mark_as_read')->name('system-mark-read');
 
   // User Notification
   Route::get('/user/notf/show', 'Admin\NotificationController@user_notf_show')->name('user-notf-show');
@@ -158,8 +160,13 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN USER SECTION ------------
 
   Route::group(['middleware'=>'permissions:customers'],function(){
+  
+  Route::get('/customers', 'Admin\UserController@index_customers')->name('admin-customer-index');
 
   Route::get('/users/datatables', 'Admin\UserController@datatables')->name('admin-user-datatables'); //JSON REQUEST
+  Route::get('/customers/datatables', 'Admin\UserController@datatables_customer')->name('admin-customers-datatables'); //JSON REQUEST
+
+
   Route::get('/users', 'Admin\UserController@index')->name('admin-user-index');
   Route::get('/users/edit/{id}', 'Admin\UserController@edit')->name('admin-user-edit');
   Route::post('/users/edit/{id}', 'Admin\UserController@update')->name('admin-user-update');
@@ -189,6 +196,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/vendors', 'Admin\VendorController@index')->name('admin-vendor-index');
 
   Route::get('/vendors/{id}/show', 'Admin\VendorController@show')->name('admin-vendor-show');
+
   Route::get('/vendors/secret/login/{id}', 'Admin\VendorController@secret')->name('admin-vendor-secret');
   Route::get('/vendor/edit/{id}', 'Admin\VendorController@edit')->name('admin-vendor-edit');
   Route::post('/vendor/edit/{id}', 'Admin\VendorController@update')->name('admin-vendor-update');

@@ -1,5 +1,10 @@
 @if(Auth::guard('admin')->user()->role_id != 0)
 
+<li>
+        <a href="{{ route('system-notifications-show') }}" class=" wave-effect"><i class="fas fa-bell"></i>{{ __('System Notifications') }}</a>
+</li>
+
+
 @if(Auth::guard('admin')->user()->sectionCheck('orders'))
 
 <li>
@@ -74,19 +79,23 @@
 
     <li>
         <a href="#menu3" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
-            <i class="icofont-user"></i>{{ __('Customers') }}
+            <i class="icofont-user"></i>{{ __('Users') }}
         </a>
         <ul class="collapse list-unstyled" id="menu3" data-parent="#accordion">
             <li>
-                <a href="{{ route('admin-user-index') }}"><span>{{ __('Customers List') }}</span></a>
+                <a href="{{ route('admin-user-index') }}"><span>{{ __('Users List') }}</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('admin-withdraw-index') }}"><span>{{ __('Withdraws') }}</span></a>
-            </li>
+            </li> -->
             <li>
-                <a href="{{ route('admin-user-image') }}"><span>{{ __('Customer Default Image') }}</span></a>
+                <a href="{{ route('admin-user-image') }}"><span>{{ __('Users Default Image') }}</span></a>
             </li>
         </ul>
+    </li>
+
+    <li>
+        <a href="{{ route('admin-customer-index') }}" class=" wave-effect"><i class="fas fa-credit-card "></i>{{ __('Subscription Payments') }}</a>
     </li>
 
 @endif
@@ -101,9 +110,9 @@
             <li>
                 <a href="{{ route('admin-vendor-index') }}"><span>{{ __('Vendors List') }}</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('admin-vendor-withdraw-index') }}"><span>{{ __('Withdraws') }}</span></a>
-            </li>
+            </li> -->
             <li>
                 <a href="{{ route('admin-vendor-subs') }}"><span>{{ __('Vendor Subscriptions') }}</span></a>
             </li>
@@ -115,7 +124,7 @@
     </li>
 
     <li>
-        <a href="{{ route('admin-subscription-payment') }}" class=" wave-effect"><i class="fas fa-percentage"></i>{{ __('Subscription Payments') }}</a>
+        <a href="{{ route('admin-subscription-payment') }}" class=" wave-effect"><i class="fas fa-credit-card"></i>{{ __('Subscription Payments') }}</a>
     </li>
 
     <li>

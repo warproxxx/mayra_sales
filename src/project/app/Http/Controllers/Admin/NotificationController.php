@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
+use App\Models\SystemNotification;
 use Log;
 
 class NotificationController extends Controller
@@ -25,6 +26,21 @@ class NotificationController extends Controller
         $data = Notification::where('user_id','!=',null);
         $data->delete();        
     } 
+
+    public function system_notifications()
+    {
+      $expiring_notifications = SystemNotification::where('is_read', '=', 0)->where('message_type', '=', 'expiring')->get();
+      return view('admin.notification.system', compact('expiring_notifications'));        
+    }
+
+    public function mark_as_read($id)
+    {
+        $notification = SystemNotification::where('id', '=', $id)->first();
+        $notification->is_read = 1;
+        $notification->update();
+
+        return redirect()->route('system-notifications-show');
+    }
 
     public function user_notf_show()
     {

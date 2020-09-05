@@ -12,6 +12,7 @@ use App\Models\Withdraw;
 use App\Models\Currency;
 use App\Models\UserSubscription;
 use App\Models\PaymentGateway;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use Auth;
@@ -118,7 +119,10 @@ class VendorController extends Controller
     public function edit($id)
     {
         $data = User::findOrFail($id);
-        return view('admin.vendor.edit',compact('data'));
+        $subscriptions = Subscription::all();
+
+    
+        return view('admin.vendor.edit',compact('data', 'subscriptions'));
     }
 
 
@@ -192,6 +196,7 @@ class VendorController extends Controller
     {
         $data = User::findOrFail($id);
         $gateways = PaymentGateway::where('user_id', $data->id)->get();
+
         return view('admin.vendor.show',compact('data', 'gateways'));
     }
     

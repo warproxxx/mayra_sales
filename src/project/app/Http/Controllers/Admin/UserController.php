@@ -37,10 +37,33 @@ class UserController extends Controller
                                 ->toJson(); //--- Returning Json Data To Client Side
         }
 
+        public function datatables_customer()
+        {
+             $datas = User::where('is_vendor', '=', '0')->get();
+             //--- Integrating This Collection Into Datatables
+             return Datatables::of($datas)
+                                ->addColumn('action', function(User $data) {
+                                    $class = $data->ban == 0 ? 'drop-success' : 'drop-danger';
+                                    $s = $data->ban == 1 ? 'selected' : '';
+                                    $ns = $data->ban == 0 ? 'selected' : '';
+                                    $ban = '<select class="process select droplinks '.$class.'">'.
+                '<option data-val="0" value="'. route('admin-user-ban',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>Block</option>'.
+                '<option data-val="1" value="'. route('admin-user-ban',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>UnBlock</option></select>';
+                                    return '<div class="action-list"><a href="' . route('admin-user-show',$data->id) . '" > <i class="fas fa-eye"></i> Details</a><a data-href="' . route('admin-user-edit',$data->id) . '" class="edit" data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>Edit</a><a href="javascript:;" class="send" data-email="'. $data->email .'" data-toggle="modal" data-target="#vendorform"><i class="fas fa-envelope"></i> Send</a>'.$ban.'<a href="javascript:;" data-href="' . route('admin-user-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
+                                }) 
+                                ->rawColumns(['action'])
+                                ->toJson(); //--- Returning Json Data To Client Side
+        }
+
         //*** GET Request
         public function index()
         {
             return view('admin.user.index');
+        }
+
+        public function index_customers()
+        {
+            return view('admin.user.index_customers');
         }
 
         //*** GET Request

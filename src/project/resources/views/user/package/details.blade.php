@@ -569,7 +569,6 @@ if($('#ck').val() == '0') {
     
 $(document).on('submit','#subscribe-form',function()
 {
-    alert('clicked');
      $('#preloader').show();
 
 });

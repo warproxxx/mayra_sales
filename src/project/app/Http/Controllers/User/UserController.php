@@ -150,7 +150,7 @@ class UserController extends Controller
         $settings = Generalsetting::findOrFail(1);
         
         
-        $user->is_vendor = 3; #3 means unconfirmed
+        $user->payment_request = 1;
         $user->update($input);
 
         if($settings->is_smtp == 1)

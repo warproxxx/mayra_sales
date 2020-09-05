@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Datatables;
@@ -9,6 +10,8 @@ use App\Models\Verification;
 use App\Models\User;
 use App\Models\Subscription;
 use App\Models\UserSubscription;
+use Log;
+
 
 class VerificationController extends Controller
 {
@@ -68,7 +71,7 @@ class VerificationController extends Controller
 
     public function payment_datatables()
     {
-        $datas = User::where('is_vendor','=',3)->get();
+        $datas = User::where('payment_request','=',1)->get();
          
          return Datatables::of($datas)
                             ->addColumn('action', function(User $data) {
@@ -80,12 +83,29 @@ class VerificationController extends Controller
 
     public function approve($id)
     {
-
+        $today = Carbon::now()->format('Y-m-d');
         $user = User::where('id','=',$id)->first();
-        $user->is_vendor = 2;
-        $user->update();
 
         $subs = Subscription::where('id','=',$user->subs_id)->first();
+        $newday = strtotime($today);
+        $lastday = strtotime($user->date);
+
+        if (is_null($user->date) || $lastday < $newday)
+        {
+            $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+            $user->is_vendor = 2;
+            $user->payment_request = 0;
+            $user->update();
+        }
+        else if ($lastday >= $newday)
+        {
+            $secs = $lastday-$newday;
+            $days = $secs / 86400;
+            $total = $days+$subs->days;
+            $user->date = date('Y-m-d', strtotime($today.' + '.$total.' days'));
+            $user->payment_request = 0;
+            $user->update();
+        }
 
         $sub = new UserSubscription;
         $sub->user_id = $user->id;
@@ -101,64 +121,13 @@ class VerificationController extends Controller
         $sub->status = 1;
         $sub->save();
 
-
-        //So the main thing to note is date.
-        #got this from old 
-        $today = Carbon::now()->format('Y-m-d');
-        $subs = Subscription::findOrFail($request->subs_id);
-        
-        $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
-        $user->mail_sent = 1;     
-
-        $order = UserSubscription::where('user_id','=',$_POST['custom'])
-            ->orderBy('created_at','desc')->first();
-
-
-        $user = User::findOrFail($_POST['custom']);
-        $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
-        $subs = Subscription::findOrFail($order->subscription_id);
-        $settings = Generalsetting::findOrFail(1);
-
-
-        $today = Carbon::now()->format('Y-m-d');
-        $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
-        $input = $request->all();
-        $user->is_vendor = 2;
-        if(!empty($package))
-        {
-            if($package->subscription_id == $request->subs_id)
-            {
-                $newday = strtotime($today);
-                $lastday = strtotime($user->date);
-                $secs = $lastday-$newday;
-                $days = $secs / 86400;
-                $total = $days+$subs->days;
-                $user->date = date('Y-m-d', strtotime($today.' + '.$total.' days'));
-            }
-            else
-            {
-                $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
-            }
-        }
-        else
-        {
-            $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
-        }
-        $user->mail_sent = 1;
-        $user->update($input);
-
-
-        $data['txnid'] = $_POST['txn_id'];
-        $data['status'] = 1;
-        $order->update($data);
-
         return redirect()->route('admin-subscription-payment');
     }
 
     public function reject($id)
     {
         $user = User::where('id','=',$id)->first();
-        $user->is_vendor = 0;
+        $user->payment_request = 0;
         $user->update();
         
         return redirect()->route('admin-subscription-payment');

@@ -15,6 +15,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Subscriber;
 use App\Models\User;
+use App\Models\SystemNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -500,18 +501,30 @@ class FrontendController extends Controller
 
 
     // Vendor Subscription Check
-    public function subcheck(){
+    public function subcheck()
+    {
         $settings = Generalsetting::findOrFail(1);
         $today = Carbon::now()->format('Y-m-d');
         $newday = strtotime($today);
-        foreach (DB::table('users')->where('is_vendor','=',2)->get() as  $user) {
-                $lastday = $user->date;
-                $secs = strtotime($lastday)-$newday;
-                $days = $secs / 86400;
-                if($days <= 5)
+        foreach (DB::table('users')->where('is_vendor','=',2)->get() as  $user) 
+        {
+            $lastday = $user->date;
+            $secs = strtotime($lastday)-$newday;
+            $days = $secs / 86400;
+            
+            if ($days == 5 || $days == 10 || $days == 15 || $days == 1)
+            {
+                $notification = new SystemNotification;
+                $notification->user_id = $user->id;
+                $notification->expiring_in = $days;
+                $notification->message_type = 'expiring';
+                $notification->save();
+            }
+
+            if($days <= 5)
+            {
+                if($user->mail_sent == 1)
                 {
-                  if($user->mail_sent == 1)
-                  {
                     if($settings->is_smtp == 1)
                     {
                         $data = [
@@ -528,17 +541,24 @@ class FrontendController extends Controller
                     }
                     else
                     {
-                    $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
-                    mail($user->email,'Your subscription plan duration will end after five days. Please renew your plan otherwise all of your products will be deactivated.Thank You.',$headers);
+                        $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
+                        mail($user->email,'Your subscription plan duration will end after five days. Please renew your plan otherwise all of your products will be deactivated.Thank You.',$headers);
                     }
+                    
                     DB::table('users')->where('id',$user->id)->update(['mail_sent' => 0]);
-                  }
-                }
-                if($today > $lastday)
-                {
-                    DB::table('users')->where('id',$user->id)->update(['is_vendor' => 1]);
                 }
             }
+            if($today > $lastday)
+            {
+                DB::table('users')->where('id',$user->id)->update(['is_vendor' => 1]);
+            }
+        }
+
+         #work on suspension
+         $today = Carbon::now()->format('Y-m-d');
+
+            
+        print("Done checking");
     }
     // Vendor Subscription Check Ends
 

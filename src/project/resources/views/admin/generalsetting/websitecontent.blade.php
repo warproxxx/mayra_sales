@@ -278,7 +278,6 @@
                                   <h4 class="heading">
                                       {{ __('Cronjob URL') }} *
                                   </h4>
-                                  <p class="sub-heading">{{ __('(Copy This URL and paste this to cron job.)') }} <a target="_blank" href="https://www.youtube.com/watch?v=Hw0fbM7E80Q">{{ __('Check Tutorial') }}</a> </p>
                                 </div>
                               </div>
                               <div class="col-lg-6">

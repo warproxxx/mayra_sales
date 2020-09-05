@@ -82,6 +82,38 @@
 													</div>
 												</div>
 
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+																<h4 class="heading">{{ __("Subscription Expirity") }} *</h4>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input type="text" class="input-field" name="date" placeholder="{{ __("Subscription Expirity") }}" required="" value="{{ $data->date }}">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+																<h4 class="heading">{{ __("Subscription") }} *</h4>
+														</div>
+													</div>
+													<div class="col-lg-7">
+
+														<select name="subs_id">
+														@foreach($subscriptions as $subscription)
+															@if($subscription->id == $data->subs_id)
+																<option value="{{ $subscription->id }}" selected>{{ $subscription->title }}</option>
+															@else
+																<option value="{{ $subscription->id }}">{{ $subscription->title }}</option>
+															@endif
+														@endforeach
+														</select>
+													</div>
+												</div>
+
+
 
 												<div class="row">
 													<div class="col-lg-4">

@@ -57,7 +57,12 @@
                                                     <tr>
                                                         <th class="45%" width="45%">Subscription Plan</th>
                                                         <td width="10%">:</td>
-                                                        <td class="45%" width="45%">{{$user->title}} for {{ $user->days }} days costing {{ $user->currency }} {{ $user->price }}</td>
+
+                                                        @if($user->subscription_type == "renew")
+                                                            <td class="45%" width="45%">Renew {{$user->title}} for {{ $user->days }} days for {{ $user->currency }} {{ $user->price }}</td>
+                                                        @else    
+                                                            <td class="45%" width="45%">{{$user->title}} for {{ $user->days }} days costing {{ $user->currency }} {{ $user->price }}</td>
+                                                        @endif
                                                     </tr>
                                         
                                                     
