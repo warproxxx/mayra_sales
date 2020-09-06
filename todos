@@ -1,27 +1,24 @@
-Make renew work. ALso manually change subscription. Option in vendors to.
-Admin can delete/suspend accounts.
-Then Nofify admin 15 days, 10 days, and 1 day before expirity of vendor account
+Whishlist, cart in api. Then push.
 
+Locations. Admin adds locations. Vendor adds location too. And show by locations.
 
+Reported number for customers. Remove to only cash on delivery for that customer after n reports.
+Support reviews items before they are sold. Can edit. If not reviewed in 72 hours, product gets uploaded automatically.
 
-Remove unnecessary from admin
-While creating account, mobille number, Location picture, Google Map Location, 
-Reported number for customers. Customer service gets notification. Remove cash on delivery for that customer.
+Write premium below premium products with premium logo.
+Don't show dispute so directly.
+
 Customer chooses delivery time/range
 Delivery charge relative to distance.
-Delivery guy clicks deliver. Delivery team/customer get notifiaction.
 Invite facebook friends
 Ad.
 Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
-Display premium products randomly in home. 
-Write premium below premium products with premium logo.
-Analytics: how many people online, how many vendors, How many customers.  This month customer/vendors. How many % of ID online in last month. Total sales, per account sales.
-Data Backup
-Support reviews items before they are sold. Can edit. If not reviewed in 72 hours, product gets uploaded automatically.
-Locations.
-Don't show dispute so directly.
+Analytics: how many people online, how many vendors, How many customers.  This month customer/vendors. How many % of ID online in last month. Total sales, per account sales..
 Google Analytics
 Add required data.
+Create account and try login as special admin user.
+Fix home layouts
+Email should work
 
 There is a function in FrontendController called subcheck which send notifications 5 days before.
 In https://mayrasales.local/admin/general-settings/contents it is asked to add to cronjob.

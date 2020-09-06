@@ -1,4 +1,4 @@
-@extends('layouts.front')
+@extends('layouts.front_old')
 
 @section('styles')
 
@@ -164,14 +164,30 @@
 												</div>
 												<div class="col-lg-6">
 													<input class="form-control" type="text" name="city"
-														placeholder="{{ $langg->lang158 }}" required=""
+														placeholder="{{ $langg->lang158 }}"
 														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->city : '' }}">
 												</div>
 												<div class="col-lg-6">
 													<input class="form-control" type="text" name="zip"
-														placeholder="{{ $langg->lang159 }}" required=""
+														placeholder="{{ $langg->lang159 }}
 														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : '' }}">
 												</div>
+												<div class="col-lg-3">
+													<input class="form-control" type="text" name="latitude"
+														placeholder="Latitude"
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->latitude : '' }}">
+												</div>
+												<div class="col-lg-3">
+													<input class="form-control" type="text" name="longitude"
+														placeholder="Longitude"
+														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->longitude : '' }}">
+												</div>
+												<div class="col-lg-6">
+                                                    <center><a class="mybtn1 lg"  onclick="getLocation()">Detect Location</a></center>
+													
+                                                </div>
+												<div class="col-lg-6" style="font-size:10px">*Click on Detect Location and allow permission so your location can be shown to vendor while making a delivery. You can leave it empty or update this later in your profile or while making a checkout.</div>
+
 											</div>
 										</div>
 										<div class="row {{ $digital == 1 ? 'd-none' : '' }}">
@@ -216,8 +232,28 @@
 													<input class="form-control ship_input" type="text" name="shipping_zip"
 														id="shippingPostal_code" placeholder="{{ $langg->lang159 }}">
 												</div>
+												
+											</div>
+
+											<div class="row">
+												<div class="col-lg-3">
+													<input class="form-control" type="text" name="shipping_latitude"
+														placeholder="Latitude">
+												</div>
+												<div class="col-lg-3">
+													<input class="form-control" type="text" name="shipping_longitude"
+														placeholder="Longitude">
+												</div>
+												<div class="col-lg-6">
+                                                    <center><a class="mybtn1 lg"  onclick="getLocation_shipping()">Detect Location</a></center>
+                                                </div>
 
 											</div>
+
+											<div class="row">
+												<div class="col-lg-6" style="font-size:10px">*Click on Detect Location and allow permission so your location can be shown to vendor while making a delivery. You can leave it empty or update this later in your profile or while making a checkout.</div>
+											</div>
+
 
 										</div>
 										<div class="order-note mt-3">
@@ -985,6 +1021,40 @@
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+
+    $("input[name='longitude']").val(position.coords.longitude);
+    $("input[name='latitude']").val(position.coords.latitude);
+
+}
+
+function getLocation_shipping() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition_shipping);
+  } else { 
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition_shipping(position) {
+
+    $("input[name='shipping_longitude']").val(position.coords.longitude);
+    $("input[name='shipping_latitude']").val(position.coords.latitude);
+
+}
+
+
+
+</script>
 
 <script type="text/javascript">
 	$('a.payment:first').addClass('active');

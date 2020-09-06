@@ -57,7 +57,7 @@
 @else
 
 	<!-- stylesheet -->
-	<link rel="stylesheet" href="{{asset('assets/front/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/front/css/style_old.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/front/css/custom.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/front/css/common.css')}}">
 	<!-- responsive -->

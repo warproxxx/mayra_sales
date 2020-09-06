@@ -141,9 +141,27 @@ class FrontendController extends Controller
         $top_small_banners = DB::table('banners')->where('type','=','TopSmall')->get();
         $ps = DB::table('pagesettings')->find(1);
         $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
+        
+        $today = Carbon::now()->format('Y-m-d');
 
-	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products'));
-	}
+
+        $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('users.date', '>=', $today)->select('products.*')->take(9)->get();
+
+	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products'));
+    }
+    
+    public function premium_products_api()
+    {
+        $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('users.date', '>=', $today)->select('products.*')->take(9)->get();
+        return response()->json(['status' => 'success', 'details' => $premium_products]);
+    }
+
+    public function featured_products_api()
+    {
+        $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
+        return response()->json(['status' => 'success', 'details' => $feature_products]);
+    }
+
 
     public function extraIndex()
     {

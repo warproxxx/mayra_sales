@@ -120,6 +120,17 @@
                     <i class="icofont-ui-password"></i>
                   </div>
 
+                  <div class="form-input">
+                      <input type="text" class="User Name" name="longitude" placeholder="Longitude" required="" style="width:33%">
+                      <i class="icofont-location-pin"></i>
+
+                      <input type="text" name="latitude" placeholder="Latitude" required="" style="width:33%; padding-left:10px;">
+                      <i class="icofont-location-pin"></i>
+
+                      <a style="font-size: 14px; font-weight: 600; width: 150px; height: 40px; text-align: center; line-height: 40px; border-radius: 50px; display: inline-block; color: #fff!important; background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);" onclick="getLocation()">Detect Location</a>
+                  </div>
+                  <div style="font-size:10px">*Click on Detect Location and allow permission so your location can be shown to vendor while making a delivery. You can leave it empty or update this later in your profile or while making a checkout.</div>
+
                   @if($gs->is_capcha == 1)
 
                   <ul class="captcha-area">
@@ -150,5 +161,22 @@
     </div>
   </div>
 </section>
+
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+
+    $("input[name='longitude']").val(position.coords.longitude);
+    $("input[name='latitude']").val(position.coords.latitude);
+
+}
+</script>
 
 @endsection

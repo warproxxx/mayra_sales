@@ -10,6 +10,7 @@
 		@endif
 	@endif
 
+
 	@if($ps->slider == 1)
 		<!-- Hero Area Start -->
 		<section class="hero-area">
@@ -84,6 +85,33 @@
 	{{-- Slider buttom banner End --}}
 
 	@endif
+
+
+	<section  class="trending">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 remove-padding">
+						<div class="section-top">
+							<h2 class="section-title">
+								Premium
+							</h2>
+							{{-- <a href="#" class="link">View All</a> --}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 remove-padding">
+						<div class="trending-item-slider">
+							@foreach($premium_products as $prod)
+								@include('includes.product.slider-product')
+							@endforeach
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
 
 	@if($ps->featured == 1)
 		<!-- Trending Item Area Start -->
