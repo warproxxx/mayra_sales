@@ -61,39 +61,8 @@ class WishlistController extends Controller
     public function wishlists_api(Request $request)
     {
         $sort = '';
-        $user = Auth::guard('web')->user();
-
-        // Search By Sort
-
-        if(!empty($request->sort))
-        {
-        $sort = $request->sort;
-        $wishes = Wishlist::where('user_id','=',$user->id)->pluck('product_id');
-        if($sort == "date_desc")
-        {
-        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->orderBy('id','desc')->paginate(8);
-        }
-        else if($sort == "date_asc")
-        {
-        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->paginate(8);
-        }
-        else if($sort == "price_asc")
-        {
-        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->orderBy('price','asc')->paginate(8);
-        }
-        else if($sort == "price_desc")
-        {
-        $wishlists = Product::where('status','=',1)->whereIn('id',$wishes)->orderBy('price','desc')->paginate(8);
-        }
-        if($request->ajax())
-        {
-            return view('front.pagination.wishlist',compact('user','wishlists','sort'));
-        }
-        return view('user.wishlist',compact('user','wishlists','sort'));
-        }
-
-
-        $wishlists = Wishlist::where('user_id','=',$user->id)->paginate(8);
+        $user = $request->user();
+        $wishlists = Wishlist::where('user_id','=',$user->id)->get();
         return response()->json(['status' => 'success', 'details' => $wishlists]);
     }
 
@@ -115,6 +84,27 @@ class WishlistController extends Controller
         return response()->json($data);
     }
 
+    public function addwish_api(Request $request, $id)
+    {
+        $user = $request->user();
+        $data[0] = 0;
+        $ck = Wishlist::where('user_id','=',$user->id)->where('product_id','=',$id)->get()->count();
+        if($ck > 0)
+        {
+            return response()->json(['status' => 'failure', 'details' => "Already in wishlist"]);
+        }
+        $wish = new Wishlist();
+        $wish->user_id = $user->id;
+        $wish->product_id = $id;
+        $wish->save();
+        $data[0] = 1;
+        $data[1] = count($user->wishlists);
+        return response()->json(['status' => 'success', 'details' => "Added to wishlist"]);
+    }
+
+
+
+
     public function removewish($id)
     {
         $user = Auth::guard('web')->user();
@@ -123,6 +113,14 @@ class WishlistController extends Controller
         $data[0] = 1;
         $data[1] = count($user->wishlists);
         return response()->json($data);
+    }
+
+    public function removewish_api(Request $request, $id)
+    {
+        $user = $request->user();
+        $prod_id = $id;
+        $wish = Wishlist::where('product_id', '=', $prod_id)->delete();
+        return response()->json(['status' => 'success', 'details' => "Removed from wishlist"]);
     }
 
 }

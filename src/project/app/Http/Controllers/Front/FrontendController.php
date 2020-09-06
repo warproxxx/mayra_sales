@@ -152,6 +152,7 @@ class FrontendController extends Controller
     
     public function premium_products_api()
     {
+        $today = Carbon::now()->format('Y-m-d');
         $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('users.date', '>=', $today)->select('products.*')->take(9)->get();
         return response()->json(['status' => 'success', 'details' => $premium_products]);
     }

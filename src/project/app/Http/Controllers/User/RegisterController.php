@@ -141,7 +141,8 @@ class RegisterController extends Controller
         //--- Validation Section Ends
 
 	        $user = new User;
-	        $input = $request->all();        
+			$input = $request->all();        
+			$input['api_token'] = Str::random(60);
 	        $input['password'] = bcrypt($request['password']);
 	        $token = md5(time().$request->name.$request->email);
 	        $input['verification_link'] = $token;

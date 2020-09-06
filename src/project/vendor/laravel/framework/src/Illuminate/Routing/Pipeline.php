@@ -29,7 +29,6 @@ class Pipeline extends BasePipeline
             try {
                 return $destination($passable);
             } catch (Exception $e) {
-                return $this->handleException($passable, $e);
             } catch (Throwable $e) {
                 return $this->handleException($passable, new FatalThrowableError($e));
             }

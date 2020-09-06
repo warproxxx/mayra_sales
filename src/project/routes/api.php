@@ -33,7 +33,6 @@ Route::get('/products', 'Front\FrontendController@get_products_api');
 Route::get('/product/{id}', 'Front\FrontendController@get_product_detail_api');
 
 
-#cart, wishlist
 
 
 
@@ -90,8 +89,8 @@ Route::prefix('user')->group(function() {
 
         //Wishlist
         Route::get('/wishlists','User\WishlistController@wishlists_api');
-        Route::get('/wishlist/add/{id}','User\WishlistController@addwish');
-        Route::get('/wishlist/remove/{id}','User\WishlistController@removewish');
+        Route::get('/wishlist/add/{id}','User\WishlistController@addwish_api');
+        Route::get('/wishlist/remove/{id}','User\WishlistController@removewish_api');
 
         //Cart
         Route::get('/carts/view','Front\CartController@get_cart');
