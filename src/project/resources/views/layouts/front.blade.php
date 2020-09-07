@@ -121,14 +121,28 @@
 							<div class="list">
 								<ul>
 
-
-									@if($gs->is_language == 1)
+									
+									@if($gs->is_location == 1)
 									<li>
 										<div class="language-selector">
 											<i class="fas fa-globe-americas"></i>
 											<select name="language" class="language selectors nice">
 										@foreach(DB::table('languages')->get() as $language)
 											<option value="{{route('front.language',$language->id)}}" {{ Session::has('language') ? ( Session::get('language') == $language->id ? 'selected' : '' ) : (DB::table('languages')->where('is_default','=',1)->first()->id == $language->id ? 'selected' : '') }} >{{$language->language}}</option>
+										@endforeach
+											</select>
+										</div>
+									</li>
+									@endif
+
+
+									@if($gs->is_language == 1)
+									<li>
+										<div class="language-selector">
+											<i class="fas fa-map-marker"></i>
+											<select name="language" class="language selectors nice">
+										@foreach(DB::table('locations')->get() as $location)
+											<option value="{{route('front.location',$location->id)}}" {{ Session::has('location') ? ( Session::get('location') == $location->id ? 'selected' : '' ) : (DB::table('locations')->where('is_default','=',1)->first()->id == $location->id ? 'selected' : '') }} >{{$location->location}}</option>
 										@endforeach
 											</select>
 										</div>

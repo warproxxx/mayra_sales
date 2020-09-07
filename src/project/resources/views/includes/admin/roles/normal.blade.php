@@ -53,6 +53,10 @@
         </ul>
     </li>
 
+    <li>
+        <a href="{{ route('admin-loc-index') }}" class=" wave-effect"><i class="fas fa-map-marker"></i>{{ __('Locations') }}</a>
+    </li>
+
 @endif
 
 

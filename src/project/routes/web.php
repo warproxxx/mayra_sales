@@ -480,7 +480,6 @@ Route::prefix('admin')->group(function() {
   Route::get('/general-settings/popup', 'Admin\GeneralSettingController@popup')->name('admin-gs-popup');
   Route::get('/general-settings/maintenance', 'Admin\GeneralSettingController@maintain')->name('admin-gs-maintenance');
   //------------ ADMIN PICKUP LOACTION ------------
-
   Route::get('/pickup/datatables', 'Admin\PickupController@datatables')->name('admin-pick-datatables'); //JSON REQUEST
   Route::get('/pickup', 'Admin\PickupController@index')->name('admin-pick-index');
   Route::get('/pickup/create', 'Admin\PickupController@create')->name('admin-pick-create');
@@ -488,8 +487,20 @@ Route::prefix('admin')->group(function() {
   Route::get('/pickup/edit/{id}', 'Admin\PickupController@edit')->name('admin-pick-edit');
   Route::post('/pickup/edit/{id}', 'Admin\PickupController@update')->name('admin-pick-update');
   Route::get('/pickup/delete/{id}', 'Admin\PickupController@destroy')->name('admin-pick-delete');
+  //------------ ADMIN PICKUP LOACTION ENDS ------------
+
+  //------------ ADMIN LOACTION ------------
+
+  Route::get('/location/datatables', 'Admin\LocationController@datatables')->name('admin-loc-datatables'); //JSON REQUEST
+  Route::get('/location', 'Admin\LocationController@index')->name('admin-loc-index');
+  Route::get('/location/create', 'Admin\LocationController@create')->name('admin-loc-create');
+  Route::post('/location/create', 'Admin\LocationController@store')->name('admin-loc-store');
+  Route::get('/location/edit/{id}', 'Admin\LocationController@edit')->name('admin-loc-edit');
+  Route::post('/location/edit/{id}', 'Admin\LocationController@update')->name('admin-loc-update');
+  Route::get('/location/delete/{id}', 'Admin\LocationController@destroy')->name('admin-loc-delete');
 
   //------------ ADMIN PICKUP LOACTION ENDS ------------
+
 
   //------------ ADMIN SHIPPING ------------
 
@@ -1226,6 +1237,9 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   Route::get('/social', 'Vendor\VendorController@social')->name('vendor-social-index');
   Route::post('/social/update', 'Vendor\VendorController@socialupdate')->name('vendor-social-update');
 
+  Route::get('/location', 'Vendor\VendorController@location')->name('vendor-location-index');
+  Route::post('/location/update', 'Vendor\VendorController@locationupdate')->name('vendor-location-update');
+
   Route::get('/withdraw/datatables', 'Vendor\WithdrawController@datatables')->name('vendor-wt-datatables');
   Route::get('/withdraw', 'Vendor\WithdrawController@index')->name('vendor-wt-index');
   Route::get('/withdraw/create', 'Vendor\WithdrawController@create')->name('vendor-wt-create');
@@ -1267,6 +1281,7 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   Route::get('/extras', 'Front\FrontendController@extraIndex')->name('front.extraIndex');
   Route::get('/currency/{id}', 'Front\FrontendController@currency')->name('front.currency');
   Route::get('/language/{id}', 'Front\FrontendController@language')->name('front.language');
+  Route::get('/location/{id}', 'Front\FrontendController@location')->name('front.location');
 
   // BLOG SECTION
   Route::get('/blog','Front\FrontendController@blog')->name('front.blog');

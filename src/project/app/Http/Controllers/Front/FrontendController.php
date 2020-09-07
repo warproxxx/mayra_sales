@@ -256,6 +256,13 @@ class FrontendController extends Controller
         return redirect()->back();
     }
 
+    public function location($id)
+    {
+        $this->code_image();
+        Session::put('location', $id);
+        return redirect()->back();
+    }
+
 // LANGUAGE SECTION ENDS
 
 

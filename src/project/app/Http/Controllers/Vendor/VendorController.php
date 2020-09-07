@@ -14,6 +14,7 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
+use Log;
 
 class VendorController extends Controller
 {
@@ -107,6 +108,23 @@ class VendorController extends Controller
 
     }
 
+    public function locationupdate(Request $request)
+    {
+        //--- Logic Section
+        $input = $request->all(); 
+        Log::info($input);
+        $data = Auth::user();   
+        
+        $data->update($input);
+
+        //--- Logic Section Ends
+        //--- Redirect Section        
+        $msg = 'Data Updated Successfully.';
+        return response()->json($msg);      
+        //--- Redirect Section Ends                
+
+    }
+
     //*** GET Request
     public function profile()
     {
@@ -137,6 +155,13 @@ class VendorController extends Controller
     {
         $data = Auth::user();  
         return view('vendor.social',compact('data'));
+    }
+
+    //*** GET Request
+    public function location()
+    {
+        $data = Auth::user();  
+        return view('vendor.location',compact('data'));
     }
 
     //*** GET Request

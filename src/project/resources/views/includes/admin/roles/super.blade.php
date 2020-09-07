@@ -167,6 +167,10 @@
     </li>
 
     <li>
+        <a href="{{ route('admin-loc-index') }}" class=" wave-effect"><i class="fas fa-map-marker"></i>{{ __('Locations') }}</a>
+    </li>
+
+    <li>
         <a href="{{ route('admin-coupon-index') }}" class=" wave-effect"><i class="fas fa-percentage"></i>{{ __('Set Coupons') }}</a>
     </li>
     <li>

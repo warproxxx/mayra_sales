@@ -62,10 +62,11 @@
 									</div>
 								</a>
 							</div>
-
+								
 							<div class="right-eliment">
 								<ul class="list">
-
+								
+									
 									<li class="bell-area">
 										<a id="notf_order" class="dropdown-toggle-1" href="javascript:;">
 											<i class="icofont-cart"></i>
@@ -201,6 +202,11 @@
                                     <li>
                                     	<a href="{{ route('vendor-social-index') }}"><span>{{ $langg->lang456 }}</span></a>
                                     </li>
+									<li>
+                                    	<a href="{{ route('vendor-location-index') }}"><span>Location</span></a>
+                                    </li>
+
+
 								</ul>
 							</li>
 
