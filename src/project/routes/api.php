@@ -33,9 +33,14 @@ Route::get('/products', 'Front\FrontendController@get_products_api');
 Route::get('/product/{id}', 'Front\FrontendController@get_product_detail_api');
 
 
+#Cart
+Route::get('/cart', 'Front\CartController@get_cart');
+Route::get('/cart/add/{id}', 'Front\CartController@addcart');
+Route::get('/cart/addbyone', 'Front\CartController@addbyone');
+Route::get('/cart/reducebyone', 'Front\CartController@reducebyone');
+Route::get('/cart/remove/{id}', 'Front\CartController@removecart');
 
-
-
+#also add by 1 and reduce by 1
 
 // ************************************ PUBLIC SECTION ENDS**********************************************
 
@@ -91,10 +96,6 @@ Route::prefix('user')->group(function() {
         Route::get('/wishlists','User\WishlistController@wishlists_api');
         Route::get('/wishlist/add/{id}','User\WishlistController@addwish_api');
         Route::get('/wishlist/remove/{id}','User\WishlistController@removewish_api');
-
-        //Cart
-        Route::get('/carts/view','Front\CartController@get_cart');
-        Route::get('/addcart/{id}','Front\CartController@addcart');
     });
 
 });

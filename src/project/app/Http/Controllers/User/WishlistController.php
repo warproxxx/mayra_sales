@@ -66,6 +66,7 @@ class WishlistController extends Controller
         return response()->json(['status' => 'success', 'details' => $wishlists]);
     }
 
+
     public function addwish($id)
     {
         $user = Auth::guard('web')->user();

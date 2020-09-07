@@ -16,6 +16,10 @@ use Log;
 
 class RegisterController extends Controller
 {
+	public function test()
+	{
+		
+	}	
 
 	public function api_register(Request $request)
     {

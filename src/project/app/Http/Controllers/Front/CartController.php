@@ -498,12 +498,13 @@ class CartController extends Controller
         {
             $curr = Currency::where('is_default','=',1)->first();
         }
+        
         $id = $_GET['id'];
         $itemid = $_GET['itemid'];
         $size_qty = $_GET['size_qty'];
         $size_price = $_GET['size_price'];
         $prod = Product::where('id','=',$id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
-
+        
         if($prod->user_id != 0){
         $gs = Generalsetting::findOrFail(1);
         $prc = $prod->price + $gs->fixed_commission + ($prod->price/100) * $gs->percentage_commission ;
@@ -725,6 +726,7 @@ class CartController extends Controller
 
     public function removecart($id)
     {
+        
         $gs = Generalsetting::findOrFail(1);
         if (Session::has('currency')) 
         {
@@ -737,6 +739,7 @@ class CartController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->removeItem($id);
+        
         if (count($cart->items) > 0) {
             Session::put('cart', $cart);
                 $data[0] = $cart->totalPrice;
@@ -770,8 +773,9 @@ class CartController extends Controller
 
             $data = 0;
             return response()->json($data); 
-        }          
-    } 
+        }
+        
+    }
 
     public function coupon()
     {
