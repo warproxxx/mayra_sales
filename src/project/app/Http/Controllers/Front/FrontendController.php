@@ -140,12 +140,30 @@ class FrontendController extends Controller
         $sliders = DB::table('sliders')->get();
         $top_small_banners = DB::table('banners')->where('type','=','TopSmall')->get();
         $ps = DB::table('pagesettings')->find(1);
-        $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
+        
         
         $today = Carbon::now()->format('Y-m-d');
 
+        $location_id = 0;
+        if (Session::has('location'))
+        {
+            $location_id = Session::get('location');
+        }
 
         $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('users.date', '>=', $today)->select('products.*')->take(9)->get();
+        $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
+
+        if ($location_id != 0)
+        {
+
+            
+            $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('users.date', '>=', $today)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->select('products.*')->take(9)->get();
+            $feature_products =  Product::where('featured','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take(8)->get();
+        }
 
 	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products'));
     }
@@ -216,7 +234,7 @@ class FrontendController extends Controller
     {
         $products = DB::table('products')
                     ->join('users', 'products.user_id', '=', 'users.id')
-                    ->select('products.*','users.name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image')
+                    ->select('products.*','users.name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
                     ->get();
         
         return response()->json(['status' => 'success', 'details' => $products]);
@@ -226,7 +244,7 @@ class FrontendController extends Controller
     {
         $products = Product::where('products.id','=',$id)
                     ->join('users', 'products.user_id', '=', 'users.id')
-                    ->select('products.*','users.name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image')
+                    ->select('products.*','users.name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
                     ->get();
 
         return response()->json(['status' => 'success', 'details' => $products]);
