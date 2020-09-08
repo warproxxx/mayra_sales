@@ -102,6 +102,10 @@ class CheckoutController extends Controller
                 $products = $cart->items;
                     
                 // Shipping Method
+                $user = Auth::user();
+                $vendor = User::where('id', '=', $vendor_id)->first();
+
+                $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
 
                 if($gs->multiple_shipping == 1)
                 {                        
@@ -115,20 +119,27 @@ class CheckoutController extends Controller
 
                         $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->get();
                         if(count($shipping_data) == 0){
-                            $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                            $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                         }
                         else{
-                            $vendor_shipping_id = $users[0];
+                            $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->first();
                         }
                     }
                     else {
-                        $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                        $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                     }
 
                 }
                 else{
-                $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                 }
+
+                if ($distance > $shipping_data->threshold)
+                {
+                    $shipping_data->price = $shipping_data->long_price;
+                }
+
+
 
                 // Packaging
 
@@ -186,6 +197,12 @@ class CheckoutController extends Controller
                 $total = Session::get('coupon_total');  
                 $total = $total + round(0 * $curr->value, 2); 
                 }
+        
+        if ($total > $shipping_data->free_threshold)
+        {
+            $shipping_data->price = 0;
+        }
+
         return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);             
         }
         else
@@ -212,7 +229,7 @@ class CheckoutController extends Controller
                 // Shipping Method
 
                 if($gs->multiple_shipping == 1)
-                {
+                {                        
                     $user = null;
                     foreach ($cart->items as $prod) {
                             $user[] = $prod['item']['user_id'];
@@ -220,22 +237,22 @@ class CheckoutController extends Controller
                     $users = array_unique($user);
                     if(count($users) == 1)
                     {
-                        $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->get();
 
+                        $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->get();
                         if(count($shipping_data) == 0){
-                            $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                            $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                         }
                         else{
-                            $vendor_shipping_id = $users[0];
-                        }                        
+                            $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->first();
+                        }
                     }
                     else {
-                        $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                        $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                     }
 
                 }
                 else{
-                $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                 }
 
                 // Packaging
@@ -301,10 +318,22 @@ class CheckoutController extends Controller
                         if(!Auth::guard('web')->check())
                         {
                 $ck = 1;
+
+                if ($total > $shipping_data->free_threshold)
+                {
+                    $shipping_data->price = 0;
+                }
+
         return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);  
                         }
                     }
                 }
+
+                if ($total > $shipping_data->free_threshold)
+                {
+                    $shipping_data->price = 0;
+                }
+
         return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);                 
                }
 
@@ -320,7 +349,7 @@ class CheckoutController extends Controller
                 // Shipping Method
 
                 if($gs->multiple_shipping == 1)
-                {
+                {                        
                     $user = null;
                     foreach ($cart->items as $prod) {
                             $user[] = $prod['item']['user_id'];
@@ -328,22 +357,22 @@ class CheckoutController extends Controller
                     $users = array_unique($user);
                     if(count($users) == 1)
                     {
-                        $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->get();
 
+                        $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->get();
                         if(count($shipping_data) == 0){
-                            $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                            $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                         }
                         else{
-                            $vendor_shipping_id = $users[0];
-                        }  
+                            $shipping_data  = DB::table('shippings')->where('user_id','=',$users[0])->first();
+                        }
                     }
                     else {
-                        $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                        $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                     }
 
                 }
                 else{
-                $shipping_data  = DB::table('shippings')->where('user_id','=',0)->get();
+                $shipping_data  = DB::table('shippings')->where('user_id','=',0)->first();
                 }
 
                 // Packaging
@@ -393,6 +422,12 @@ class CheckoutController extends Controller
                 $total = $total + round(0 * $curr->value, 2); 
                 }
                 $ck = 1;
+
+                if ($total > $shipping_data->free_threshold)
+                {
+                    $shipping_data->price = 0;
+                }
+                
         return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);                 
                     }
         }

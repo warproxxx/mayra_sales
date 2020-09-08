@@ -787,21 +787,19 @@
 						<div class="packeging-area">
 								<h4 class="title">{{ $langg->lang765 }}</h4>
 
-							@foreach($shipping_data as $data)
 						
 								<div class="radio-design">
-										<input type="radio" class="shipping" id="free-shepping{{ $data->id }}" name="shipping" value="{{ round($data->price * $curr->value,2) }}" {{ ($loop->first) ? 'checked' : '' }}> 
+										<input type="radio" class="shipping" id="free-shepping{{ $shipping_data->id }}" name="shipping" value="{{ round($shipping_data->price * $curr->value,2) }}" checked> 
 										<span class="checkmark"></span>
-										<label for="free-shepping{{ $data->id }}"> 
-												{{ $data->title }}
-												@if($data->price != 0)
-												+ {{ $curr->sign }}{{ round($data->price * $curr->value,2) }}
+										<label for="free-shepping{{ $shipping_data->id }}"> 
+												{{ $shipping_data->title }}
+												@if($shipping_data->price != 0)
+												+ {{ $curr->sign }}{{ round($shipping_data->price * $curr->value,2) }}
 												@endif
-												<small>{{ $data->subtitle }}</small>
+												<small>{{ $shipping_data->subtitle }}</small>
 										</label>
 								</div>
 
-							@endforeach		
 
 						</div>
 						{{-- Shipping Method Area End --}}
