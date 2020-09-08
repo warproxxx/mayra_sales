@@ -1,20 +1,25 @@
+On checkout if vendor has added show his first.  Else show admin's first.
+Calculate and show. If not found show 50.
+Show Delivery charge relative to distance or defualt
+Customer chooses delivery time/range
+
+
+Ad.
+Analytics: how many people online, how many vendors, How many customers.  This month customer/vendors. How many % of ID online in last month. Total sales, per account sales..
+
+
 Reported number for customers. Remove to only cash on delivery for that customer after n reports.
 Support reviews items before they are sold. Can edit. If not reviewed in 72 hours, product gets uploaded automatically.
 Write premium below premium products with premium logo.
 Don't show dispute so directly.
-Customer chooses delivery time/range
-Delivery charge relative to distance.
-
 Invite facebook friends
-Ad.
 Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
-Analytics: how many people online, how many vendors, How many customers.  This month customer/vendors. How many % of ID online in last month. Total sales, per account sales..
 Google Analytics
 Add required data.
 Create account and try login as special admin user.
-Fix home layouts
 Email should work
 Add crontab job.
+login gmail bug
 
 Later:
 Show by location in other pages?

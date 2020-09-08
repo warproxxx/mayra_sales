@@ -25,29 +25,70 @@
                           </div>
                         </div>
 
-                        <div class="row">
+                        <<div class="row">
                           <div class="col-lg-4">
                             <div class="left-area">
-                                <h4 class="heading">{{ $langg->lang737 }} *</h4>
-                                <p class="sub-heading">{{ $langg->lang517 }}</p>
+                                <h4 class="heading">{{ __('Subtitle') }} *</h4>
+                                <p class="sub-heading">{{ __('(In Any Language)') }}</p>
                             </div>
                           </div>
                           <div class="col-lg-7">
-                            <input type="text" class="input-field" name="subtitle" placeholder="{{ $langg->lang737 }}" required="" value="">
+                            <input type="text" class="input-field" name="subtitle" placeholder="{{ __('Subtitle') }}" value="">
                           </div>
                         </div>
 
                         <div class="row">
                           <div class="col-lg-4">
                             <div class="left-area">
-                                <h4 class="heading">{{ $langg->lang738 }} *</h4>
-                                <p class="sub-heading">({{ $langg->lang665 }} {{ $sign->name }})</p>
+                                <h4 class="heading">{{ __('Short Distance Price') }} *</h4>
+                                <p class="sub-heading">({{ __('In') }} {{ $sign->name }})</p>
                             </div>
                           </div>
+
                           <div class="col-lg-7">
-                            <input type="number" class="input-field" name="price" placeholder="{{ $langg->lang738 }}" required="" value="" min="0" step="0.1">
+                            <input type="number" class="input-field" name="price" placeholder="{{ __('Short Distance Price') }}" required="" value="" min="0" step="0.1">
                           </div>
                         </div>
+
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="left-area">
+                                <h4 class="heading">{{ __('Long Distance Price') }} *</h4>
+                                <p class="sub-heading">({{ __('In') }} {{ $sign->name }})</p>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-7">
+                            <input type="number" class="input-field" name="long_price" placeholder="{{ __('Long Distance Price') }}" required="" value="" min="0" step="0.1">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="left-area">
+                                <h4 class="heading">{{ __('Short Long Threshold') }} *</h4>
+                                <p class="sub-heading">({{ __('In KM') }})</p>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-7">
+                            <input type="number" class="input-field" name="threshold" placeholder="{{ __('Short Long Threshold') }}" required="" value="" min="0" step="0.1">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="left-area">
+                                <h4 class="heading">{{ __('Free Shipping Threshold') }} *</h4>
+                                <p class="sub-heading">({{ __('In') }} {{ $sign->name }})</p>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-7">
+                            <input type="number" class="input-field" name="free_threshold" placeholder="{{ __('Free Shipping Threshold') }}" required="" value="" min="0" step="0.1">
+                          </div>
+                        </div>
+
 
                         <div class="row">
                           <div class="col-lg-4">

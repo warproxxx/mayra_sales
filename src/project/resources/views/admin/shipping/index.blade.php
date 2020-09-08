@@ -46,11 +46,13 @@
                     <div class="table-responsiv">
                         <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                           <thead>
-                            <tr>
-                                        
-                                          <th>{{ __('Title') }}</th>
-                                          <th>{{ __('Price') }}</th>
-                                          <th>{{ __('Options') }}</th>
+                            <tr>       
+                                    <th>{{ $langg->lang722 }}</th>
+                                    <th>{{ __('Short Distance Price') }}</th>
+                                    <th>{{ __('Long Distance Price') }}</th>
+                                    <th>{{ __('Short Long Threshold') }}</th>
+                                    <th>{{ __('Free threshold') }}</th>
+                                    <th>{{ $langg->lang724 }}</th>
                             </tr>
                           </thead>
                         </table>
@@ -136,8 +138,11 @@
                serverSide: true,
                ajax: '{{ route('admin-shipping-datatables') }}',
                columns: [
-                  { data: 'title', name: 'title' },
+                { data: 'title', name: 'title' },
                   { data: 'price', name: 'price' },
+                  { data: 'long_price', name: 'long_price' },
+                  { data: 'threshold', name: 'threshold' },
+                  { data: 'free_threshold', name: 'free_threshold' },
                   { data: 'action', searchable: false, orderable: false }
 
                      ],

@@ -28,6 +28,21 @@ class ShippingController extends Controller
                                 $price = $sign->sign.$data->price;
                                 return  $price;
                             })
+                            ->editColumn('long_price', function(Shipping $data) {
+                                $sign = Currency::where('is_default','=',1)->first();
+                                $long_price = $sign->sign.$data->long_price;
+                                return  $long_price;
+                            })
+                            ->editColumn('threshold', function(Shipping $data) {
+                                $sign = Currency::where('is_default','=',1)->first();
+                                $threshold = $data->threshold . ' KM';
+                                return  $threshold;
+                            })
+                            ->editColumn('free_threshold', function(Shipping $data) {
+                                $sign = Currency::where('is_default','=',1)->first();
+                                $free_threshold = $sign->sign.$data->free_threshold;
+                                return  $free_threshold;
+                            })
                             ->addColumn('action', function(Shipping $data) {
                                 return '<div class="action-list"><a data-href="' . route('admin-shipping-edit',$data->id) . '" class="edit" data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>Edit</a><a href="javascript:;" data-href="' . route('admin-shipping-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
                             }) 
