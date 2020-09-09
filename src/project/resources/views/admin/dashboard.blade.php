@@ -209,6 +209,45 @@
 
     <div class="row row-cards-one">
 
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="card">
+                <h5 class="card-header">{{ __('Statistics') }}</h5>
+                <div class="card-body">
+
+                    <div class="my-table-responsiv">
+                        <table class="table table-hover dt-responsive" cellspacing="0" width="100%">
+                            <tr>
+                                <th>Total Users Online:</th>
+                                <td>{{ $online_users_count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Users Online in last month:</th>
+                                <td>{{ $online_last_month_count }}</td>
+                            </tr>
+                            <tr>
+                                <th>Percentage of users online in last month:</th>
+                                <td>{{ $per_online }} %</td>
+                            </tr>
+                            <tr>
+                                <th>Total Sales:</th>
+                                <td>Rs. {{ $total_sales }}</td>
+                            </tr>
+                            <tr>
+                                <th>Average Sales per account:</th>
+                                <td>Rs. {{ $per_account_sales }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row row-cards-one">
+
         <div class="col-md-6 col-lg-6 col-xl-6">
             <div class="card">
                 <h5 class="card-header">{{ __('Recent Order(s)') }}</h5>

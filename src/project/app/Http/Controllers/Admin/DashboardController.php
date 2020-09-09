@@ -14,6 +14,7 @@ use App\Models\Blog;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Counter;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -56,8 +57,29 @@ class DashboardController extends Controller
             }
         }
 
+        
+        $online_users = DB::table('sessions')->where('user_id','!=',NULL)->where('last_activity','>',time() - 15 * 60)->get();
+        $online_users_count = count($online_users);
 
-        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users','vendors','customers','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers'));
+        $online_last_month = DB::table('sessions')->where('user_id','!=',NULL)->where('last_activity','>',time() - 30 * 24 * 60 * 60)->get();
+        $online_last_month_count = count($online_last_month);
+        $total_users = $users->count();
+
+        $per_online = round(($online_last_month_count/$total_users) * 100,2);
+
+        $total_sales = Order::sum('pay_amount');
+        $vendor_accounts = count($vendors);
+
+        if ($vendor_accounts > 0)
+        {
+            $per_account_sales = $total_sales/$vendor_accounts;
+        }
+        else
+        {
+            $per_account_sales = 0;
+        }
+
+        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users','vendors','customers','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers','online_users_count','total_users','online_last_month_count','per_online','total_sales','per_account_sales'));
     }
 
     public function profile()

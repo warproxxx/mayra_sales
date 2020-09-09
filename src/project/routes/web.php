@@ -3,7 +3,7 @@
 // ************************************ ADMIN SECTION **********************************************
 
 Route::get('/clear-cache', function() {
-  $exitCode = Artisan::call('session:table');
+  $exitCode = Artisan::call('config:cache');
   echo('cleared');
 });
 
