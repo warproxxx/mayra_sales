@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Session;
 use Validator;
 use Log;
+use Carbon\Carbon;
 
 function haversineGreatCircleDistance(
     $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371)
@@ -203,7 +204,9 @@ class CheckoutController extends Controller
             $shipping_data->price = 0;
         }
 
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);             
+        $today = Carbon::now()->format('Y-m-d');
+
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'today' => $today]);             
         }
         else
         {
@@ -324,7 +327,8 @@ class CheckoutController extends Controller
                     $shipping_data->price = 0;
                 }
 
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);  
+                $today = Carbon::now()->format('Y-m-d');
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'today' => $today]);  
                         }
                     }
                 }
@@ -333,8 +337,9 @@ class CheckoutController extends Controller
                 {
                     $shipping_data->price = 0;
                 }
-
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);                 
+            
+                $today = Carbon::now()->format('Y-m-d');
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'today' => $today]);                 
                }
 
 // If guest checkout is Deactivated then display pop up form with proper error message
@@ -428,7 +433,8 @@ class CheckoutController extends Controller
                     $shipping_data->price = 0;
                 }
                 
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);                 
+                $today = Carbon::now()->format('Y-m-d');
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id, 'today' => $today]);                 
                     }
         }
 
@@ -544,6 +550,8 @@ class CheckoutController extends Controller
         $order['currency_value'] = $curr->value;
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
         $order['vendor_packing_id'] = $request->vendor_packing_id;
+        $order['delivery_range_start'] = $request->delivery_range_start;
+        $order['delivery_range_end'] = $request->delivery_range_end;
 
             if (Session::has('affilate')) 
             {
@@ -556,6 +564,7 @@ class CheckoutController extends Controller
                 $order['affilate_charge'] = $sub;
             }
         $order->save();
+
 
         $track = new OrderTrack;
         $track->title = 'Pending';
@@ -856,7 +865,9 @@ $validator = Validator::make($input, $rules, $messages);
         $order['currency_sign'] = $curr->sign;
         $order['currency_value'] = $curr->value;
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
-        $order['vendor_packing_id'] = $request->vendor_packing_id;     
+        $order['vendor_packing_id'] = $request->vendor_packing_id;  
+        $order['delivery_range_start'] = $request->delivery_range_start;
+        $order['delivery_range_end'] = $request->delivery_range_end;
         
         if ($request->hasFile('txn_image')) 
         {

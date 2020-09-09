@@ -314,6 +314,26 @@
 @if(Auth::guard('admin')->user()->sectionCheck('home_page_settings'))
 
     <li>
+        <a href="#advertisement" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+            <i class="fas fa-ad"></i>{{ __('Advertisements') }}
+        </a>
+        <ul class="collapse list-unstyled" id="advertisement" data-parent="#accordion">
+            <!-- <li>
+                <a href="{{ route('admin-ps-best-seller') }}"><span>{{ __('Right Side Banner1') }}</span></a>
+            </li>
+            <li>
+                <a href="{{ route('admin-ps-big-save') }}"><span>{{ __('Right Side Banner2') }}</span></a>
+            </li>
+            <li>
+                <a href="{{ route('admin-sb-bottom') }}"><span>{{ __('Bottom Small Banners') }}</span></a>
+            </li> -->
+            <li>
+                <a href="{{ route('admin-sb-index') }}"><span>{{ __('Banner') }}</span></a>
+            </li>
+        </ul>
+    </li>
+
+    <li>
         <a href="#homepage" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
             <i class="fas fa-edit"></i>{{ __('Home Page Settings') }}
         </a>
@@ -324,31 +344,17 @@
             <li>
                 <a href="{{ route('admin-service-index') }}"><span>{{ __('Services') }}</span></a>
             </li>
-            <li>
-                <a href="{{ route('admin-ps-best-seller') }}"><span>{{ __('Right Side Banner1') }}</span></a>
-            </li>
-            <li>
-                <a href="{{ route('admin-ps-big-save') }}"><span>{{ __('Right Side Banner2') }}</span></a>
-            </li>
-            <li>
-                <a href="{{ route('admin-sb-index') }}"><span>{{ __('Top Small Banners') }}</span></a>
-            </li>
+            
 
-            <li>
+            <!-- <li>
                 <a href="{{ route('admin-sb-large') }}"><span>{{ __('Large Banners') }}</span></a>
-            </li>
-            <li>
-                <a href="{{ route('admin-sb-bottom') }}"><span>{{ __('Bottom Small Banners') }}</span></a>
-            </li>
-
+            </li> -->
             <li>
                 <a href="{{ route('admin-review-index') }}"><span>{{ __('Reviews') }}</span></a>
             </li>
             <li>
                 <a href="{{ route('admin-partner-index') }}"><span>{{ __('Partners') }}</span></a>
             </li>
-
-            
             <li>
                 <a href="{{ route('admin-ps-customize') }}"><span>{{ __('Home Page Customization') }}</span></a>
             </li>

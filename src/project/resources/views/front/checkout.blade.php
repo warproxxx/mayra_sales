@@ -172,6 +172,7 @@
 														placeholder="{{ $langg->lang159 }}
 														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : '' }}">
 												</div>
+
 												<div class="col-lg-3">
 													<input class="form-control" type="text" name="latitude"
 														placeholder="Latitude"
@@ -187,6 +188,7 @@
 													
                                                 </div>
 												<div class="col-lg-6" style="font-size:10px">*Click on Detect Location and allow permission so your location can be shown to vendor while making a delivery. You can leave it empty or update this later in your profile or while making a checkout.</div>
+												<div class="col-lg-6"></div>
 
 											</div>
 										</div>
@@ -565,10 +567,16 @@
 
 @endforeach
 
+
+
+
+
 @endif
 
 														</div>
 													</div>
+
+
 													<div class="col-lg-12">
 													  <div class="pay-area d-none">
 														<div class="tab-content" id="v-pills-tabContent">
@@ -622,6 +630,31 @@
 													</div>
 												</div>
 											</div>
+
+											<div class="payment-information">
+												<h4 class="title">
+													Delivery Time
+												</h4>
+													<div class="row">
+														<div class="col-lg-12">
+															When do you want the product delivered? Enter a range
+														</div>
+
+														<div class="col-lg-3">
+															<br/>
+															<input class="form-control" type="date" name="delivery_range_start" min="{{ $today }}" placeholder="From" value="">
+														</div>
+
+														<div class="col-lg-1">
+															<br/><center>to</center>
+														</div>
+
+														<div class="col-lg-3">
+															<br/>
+															<input class="form-control" type="date" name="delivery_range_end" min="{{ $today }}" placeholder="To" value="">
+														</div>
+													</div>
+											</div>
 											
 										<div class="row">
 												<div class="col-lg-12 mt-3">
@@ -634,6 +667,8 @@
 												</div>
 											</div>
 									</div>
+									
+									
 								</div>
 							</div>
 						</div>

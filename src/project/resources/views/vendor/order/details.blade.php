@@ -85,6 +85,12 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                     <td width="10%">:</td>
                                                     <td width="45%">{{$order->method}}</td>
                                                 </tr>
+
+                                                <tr>
+                                                    <th width="45%">Delivery time</th>
+                                                    <td width="10%">:</td>
+                                                    <td width="45%">{{$order->delivery_range_start }} to {{$order->delivery_range_end }}</td>
+                                                </tr>
                 
                                                 @if($order->method != "Cash On Delivery")
                                                 @if($order->method=="Stripe")
