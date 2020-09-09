@@ -36,7 +36,7 @@
                 <a href="{{ route('admin-prod-index') }}"><span>{{ __('All Products') }}</span></a>
             </li>
             <li>
-                <a href="{{ route('admin-prod-deactive') }}"><span>{{ __('Deactivated Product') }}</span></a>
+                <a href="{{ route('admin-prod-pending') }}"><span>{{ __('Pending Product') }}</span></a>
             </li>
             <li>
                 <a href="{{ route('admin-prod-catalog-index') }}"><span>{{ __('Product Catalogs') }}</span></a>

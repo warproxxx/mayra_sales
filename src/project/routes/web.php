@@ -109,6 +109,9 @@ Route::prefix('admin')->group(function() {
   Route::get('/products/deactive/datatables', 'Admin\ProductController@deactivedatatables')->name('admin-prod-deactive-datatables'); //JSON REQUEST
   Route::get('/products/deactive', 'Admin\ProductController@deactive')->name('admin-prod-deactive');
 
+  Route::get('/products/deactive/datatables', 'Admin\ProductController@pendingdatatables')->name('admin-prod-pending-datatables'); //JSON REQUEST
+  Route::get('/products/deactive', 'Admin\ProductController@pending')->name('admin-prod-pending');
+
 
   Route::get('/products/catalogs/datatables', 'Admin\ProductController@catalogdatatables')->name('admin-prod-catalog-datatables'); //JSON REQUEST
   Route::get('/products/catalogs/', 'Admin\ProductController@catalogs')->name('admin-prod-catalog-index');
