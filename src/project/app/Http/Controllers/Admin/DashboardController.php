@@ -36,6 +36,9 @@ class DashboardController extends Controller
             $sales .=  "'".Order::where('status','=','completed')->whereDate('created_at', '=', date("Y-m-d", strtotime('-'. $i .' days')))->count()."',";
         }
         $users = User::all();
+        $vendors = User::where('is_vendor', '=', 2)->get();
+        $customers = User::where('is_vendor', '!=', 2)->get();
+
         $products = Product::all();
         $blogs = Blog::all();
         $pproducts = Product::orderBy('id','desc')->take(5)->get();
@@ -54,7 +57,7 @@ class DashboardController extends Controller
         }
 
 
-        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers'));
+        return view('admin.dashboard',compact('pending','activation_notify','processing','completed','products','users','vendors','customers','blogs','days','sales','pproducts','rorders','poproducts','rusers','referrals','browsers'));
     }
 
     public function profile()

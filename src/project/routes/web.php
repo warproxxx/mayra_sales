@@ -2,6 +2,12 @@
 
 // ************************************ ADMIN SECTION **********************************************
 
+Route::get('/clear-cache', function() {
+  $exitCode = Artisan::call('session:table');
+  echo('cleared');
+});
+
+
 Route::prefix('admin')->group(function() {
 
   //------------ ADMIN LOGIN SECTION ------------

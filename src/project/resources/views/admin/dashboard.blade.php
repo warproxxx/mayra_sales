@@ -85,7 +85,7 @@
         <div class="col-md-12 col-lg-6 col-xl-4">
             <div class="mycard bg5">
                 <div class="left">
-                    <h5 class="title">{{ __('Total Customers!') }}</h5>
+                    <h5 class="title">{{ __('Total Users!') }}</h5>
                     <span class="number">{{count($users)}}</span>
                     <a href="{{route('admin-user-index')}}" class="link">{{ __('View All') }}</a>
                 </div>
@@ -120,7 +120,7 @@
                     <p>{{ App\Models\User::where( 'created_at', '>', Carbon\Carbon::now()->subDays(30))->get()->count()  }}</p>
                 </div>
                 <div class="c-info-box-content">
-                    <h6 class="title">{{ __('New Customers') }}</h6>
+                    <h6 class="title">{{ __('New Users') }}</h6>
                     <p class="text">{{ __('Last 30 Days') }}</p>
                 </div>
             </div>
@@ -131,7 +131,54 @@
                     <p>{{ App\Models\User::count() }}</p>
                 </div>
                 <div class="c-info-box-content">
+                    <h6 class="title">{{ __('Total Users') }}</h6>
+                    <p class="text">{{ __('All Time') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card c-info-box-area">
+                <div class="c-info-box box1">
+                    <p>{{ App\Models\User::where( 'created_at', '>', Carbon\Carbon::now()->subDays(30))->where('is_vendor', '!=', 2)->get()->count()  }}</p>
+                </div>
+                <div class="c-info-box-content">
+                    <h6 class="title">{{ __('New Customers') }}</h6>
+                    <p class="text">{{ __('Last 30 Days') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card c-info-box-area">
+                <div class="c-info-box box2">
+                    <p>{{ App\Models\User::where('is_vendor', '!=', 2)->count() }}</p>
+                </div>
+                <div class="c-info-box-content">
                     <h6 class="title">{{ __('Total Customers') }}</h6>
+                    <p class="text">{{ __('All Time') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cards-one">
+        <div class="col-md-6 col-xl-3">
+            <div class="card c-info-box-area">
+                <div class="c-info-box box1">
+                    <p>{{ App\Models\User::where( 'created_at', '>', Carbon\Carbon::now()->subDays(30))->where('is_vendor', '=', 2)->get()->count()  }}</p>
+                </div>
+                <div class="c-info-box-content">
+                    <h6 class="title">{{ __('New Vendors') }}</h6>
+                    <p class="text">{{ __('Last 30 Days') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card c-info-box-area">
+                <div class="c-info-box box2">
+                    <p>{{ App\Models\User::where('is_vendor', '=', 2)->count() }}</p>
+                </div>
+                <div class="c-info-box-content">
+                    <h6 class="title">{{ __('Total Vendors') }}</h6>
                     <p class="text">{{ __('All Time') }}</p>
                 </div>
             </div>
