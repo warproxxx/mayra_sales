@@ -12,6 +12,8 @@ use App\Models\UserNotification;
 use App\Models\VendorNotification;
 use App\Models\Order;
 use App\Models\VendorOrder;
+use App\Models\SystemNotification;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -92,6 +94,24 @@ class OrderController extends Controller
         $order = Order::where('order_number','=',$slug)->first();
         $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
         return view('vendor.order.print',compact('user','order','cart'));
+    }
+
+    public function report($slug)
+    {
+       $order = Order::where('order_number','=',$slug)->orWhere('id', '=', $slug)->first();
+       $user = User::where('id', '=', $order->user_id)->first();
+       $user->reported_times = $user->reported_times + 1;
+       $order->reported = 1;
+
+
+       $notification = new SystemNotification;
+       $notification->user_id = $user->id;
+       $notification->message_type = 'report';
+       $notification->save();
+       $order->update();
+       $user->update();
+
+       return redirect()->route('vendor-order-show', $slug);
     }
 
     public function status($slug,$status)

@@ -87,7 +87,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7" style="white-space:nowrap;">
-														<div style="white-space:nowrap;"><input type="text" class="input-field" name="suspend_till" placeholder="{{ __("YYYY-MM-DD") }}" value="{{ $data->suspend_till }}"></div><div style="white-space:nowrap;"></div>
+														<div style="white-space:nowrap;"><input type="date" class="input-field" name="suspend_till" value="{{ $data->suspend_till }}"></div><div style="white-space:nowrap;"></div>
 													</div>
 												</div>
 

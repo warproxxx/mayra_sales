@@ -1,14 +1,13 @@
-Reported number for customers. Remove to only cash on delivery for that customer after n reports.
-
+Make facebook login work globally.
 Write premium below premium products with premium logo.
+login gmail bug
+Invite facebook friends.
+
 Don't show dispute so directly.
-Invite facebook friends. Make facebook login work globally.
 Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
 Google Analytics
 Email should work
 Add crontab job.
-login gmail bug
-
 Add required data.
 Create account and try login as special admin user.
 
@@ -47,7 +46,7 @@ DELETE FROM vendor_notifications;
 DELETE FROM vendor_orders;
 DELETE FROM wishlists;
 
-More serious:
+/*More serious:*/
 DELETE FROM blogs;
 DELETE FROM counters;
 DELETE FROM coupons;

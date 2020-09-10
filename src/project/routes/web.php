@@ -560,6 +560,7 @@ Route::prefix('admin')->group(function() {
   //  Capcha Section
 
   Route::get('/general-settings/capcha/{status}', 'Admin\GeneralSettingController@iscapcha')->name('admin-gs-iscapcha');
+ 
 
 
   //------------ ADMIN GENERAL SETTINGS JSON SECTION ENDS------------
@@ -832,6 +833,10 @@ Route::prefix('admin')->group(function() {
   Route::get('/seotools/keywords', 'Admin\SeoToolController@keywords')->name('admin-seotool-keywords');
   Route::post('/seotools/keywords/update', 'Admin\SeoToolController@keywordsupdate')->name('admin-seotool-keywords-update');
   Route::get('/products/popular/{id}','Admin\SeoToolController@popular')->name('admin-prod-popular');
+
+
+  Route::get('/gs/limit_at', 'Admin\GeneralSettingController@analytics')->name('admin-general-limit');
+  Route::post('/gs/limit_at/update', 'Admin\GeneralSettingController@analyticsupdate')->name('admin-general-limit-update');
 
   });
 
@@ -1116,6 +1121,8 @@ Route::prefix('vendor')->group(function() {
   Route::get('/order/{id}/invoice', 'Vendor\OrderController@invoice')->name('vendor-order-invoice');
   Route::get('/order/{id}/print', 'Vendor\OrderController@printpage')->name('vendor-order-print');
   Route::get('/order/{id1}/status/{status}', 'Vendor\OrderController@status')->name('vendor-order-status');
+  Route::get('/order/{id1}/report', 'Vendor\OrderController@report')->name('vendor-order-report');
+
   Route::get('/order/{id1}/payment/{status}', 'Vendor\OrderController@payment')->name('vendor-order-payment');
   
 

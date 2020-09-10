@@ -29,8 +29,10 @@ class NotificationController extends Controller
 
     public function system_notifications()
     {
-      $expiring_notifications = SystemNotification::where('is_read', '=', 0)->where('message_type', '=', 'expiring')->get();
-      return view('admin.notification.system', compact('expiring_notifications'));        
+        $expiring_notifications = SystemNotification::where('is_read', '=', 0)->where('message_type', '=', 'expiring')->get();
+        $reported_notifications = SystemNotification::where('is_read', '=', 0)->where('message_type', '=', 'report')->get();
+
+        return view('admin.notification.system', compact('expiring_notifications','reported_notifications'));        
     }
 
     public function mark_as_read($id)

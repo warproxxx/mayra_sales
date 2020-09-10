@@ -20,6 +20,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="product-area">
                             <div class="row">
 
@@ -56,6 +57,53 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="product-area">
+                            <div class="row">
+
+                                
+                                <div class="col-lg-12">
+
+        
+                                    <div class="mr-table allproduct">
+                                        @include('includes.admin.form-success') 
+
+                                        <h5 class="heading">Reports</h2><br/>
+
+                                       
+                                        
+
+                                        <div class="table-responsiv" style="width:80%; padding-left: 20%">
+                                        <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
+                                                <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="50%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{{ __('User') }}</th>
+                                                            <th>{{ __('Total Reported') }}</th>
+                                                            <th>{{ __('Action') }}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($reported_notifications as $notification)
+                                                        <tr>
+                                                            <td><a href="{{ route('admin-user-show',$notification->user_id) }}">{{ $notification->user_id }}</a></td>
+                                                            <td>{{ App\Models\User::where('id', '=', $notification->user_id)->first()->reported_times  }} Times</td>
+                                                            <td><a href="{{ route('admin-user-show',$notification->user_id) }}" class="btn btn-primary product-btn"><i class="fa fa-eye"></i> User Details </a>
+                                                                <a href="{{ route('system-mark-read',$notification->id) }}" class="btn btn-primary product-btn"><i class="fa fa-eye"></i> Mark as Read </a></td>
+
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    
+                                                </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
                     </div>
 
 @endsection

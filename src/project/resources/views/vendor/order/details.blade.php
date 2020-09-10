@@ -156,6 +156,16 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                         <div class="footer-area">
                                             <a href="{{ route('vendor-order-invoice',$order->order_number) }}" class="mybtn1"><i class="fas fa-eye"></i> {{ $langg->lang555 }}</a>
                                             &nbsp;&nbsp;<a href="{{route('vendor-message-show',$conversation_id) }}" class="mybtn1"><i class="fas fa-envelope"></i>Send Message</a>
+                                            
+                                            
+                                            <div style="float: right; margin-left:auto; margin-right:0;">
+
+                                                @if($order->reported == 0)
+                                                    <a href="{{route('vendor-order-report',$order->order_number) }}"><i class="fas fa-gavel fa-2x"></i></a>
+                                                @else
+                                                    <font size=1>User Reported</font>
+                                                @endif
+                                            </div>
                                         </div>
 
                                     </div>

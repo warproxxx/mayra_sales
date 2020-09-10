@@ -421,6 +421,8 @@
 														@endif
 														@if($gs->cod_check == 1)
 														 @if($digital == 0)
+
+														 	@if($dont_show == 0)
 															<a class="nav-link payment" data-val="" data-show="no" data-form="{{route('cash.submit')}}" data-href="{{ route('front.load.payment',['slug1' => 'cod','slug2' => 0]) }}" id="v-pills-tab3-tab" data-toggle="pill" href="#v-pills-tab3" role="tab" aria-controls="v-pills-tab3" aria-selected="false">
 																	<div class="icon">
 																			<span class="radio"></span>
@@ -438,6 +440,7 @@
 
 																	</p>
 															</a>
+															@endif
 														 @endif
 														@endif
 														@if($gs->is_instamojo == 1)

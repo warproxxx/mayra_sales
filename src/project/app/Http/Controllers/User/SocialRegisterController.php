@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Support\Str;
 use App\Models\Notification;
 use App\Models\SocialProvider;
 use App\Models\Socialsetting;

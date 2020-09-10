@@ -265,6 +265,9 @@
         </a>
         <ul class="collapse list-unstyled" id="general" data-parent="#accordion">
             <li>
+                <a href="{{ route('admin-general-limit') }}"><span>{{ __('Report Limit') }}</span></a>
+            </li>
+            <li>
                 <a href="{{ route('admin-gs-logo') }}"><span>{{ __('Logo') }}</span></a>
             </li>
             <li>

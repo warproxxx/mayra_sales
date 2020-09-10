@@ -75,6 +75,11 @@ table#example2 {
                                                                 <td>{{$data->address}}</td>
                                                             </tr>
 
+                                                            <tr>
+                                                                <th>{{ __("Report") }}</th>
+                                                                <td>{{$data->reported_times}} times</td>
+                                                            </tr>
+
                                                         </table>
                                                         </div>
                                                     </div>

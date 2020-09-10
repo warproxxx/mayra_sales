@@ -9,6 +9,8 @@ use App\Models\Currency;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use App\Models\Seotool;
+
 
 class GeneralSettingController extends Controller
 {
@@ -41,6 +43,20 @@ class GeneralSettingController extends Controller
             file_get_contents(app()->environmentFilePath())
         ));
     }
+
+    public function analytics()
+    {
+        $data = Generalsetting::findOrFail(1);
+        return view('admin.generalsetting.limit',compact('data'));
+    }
+
+    public function analyticsupdate(Request $request)
+    {
+        $tool = Generalsetting::findOrFail(1);
+        $tool->update($request->all());
+        $msg = 'Data Updated Successfully.';
+        return response()->json($msg);  
+    }  
 
     // Genereal Settings All post requests will be done in this method
     public function generalupdate(Request $request)
