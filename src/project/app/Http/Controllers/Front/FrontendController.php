@@ -620,6 +620,17 @@ class FrontendController extends Controller
                 }
             }
         }
+
+        $three_days_ago = date('Y-m-d', strtotime("-3 days"));
+
+        foreach (DB::table('products')->where('status','=',2)->where('updated_at', '<', $three_days_ago)->get() as  $product) 
+        {
+            $product = Products::where('id', '=', $product->id)->first();
+            $product->status = 1;
+            $product->save();
+        }
+
+
             
         print("Done checking");
     }
