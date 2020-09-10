@@ -13,6 +13,7 @@ use App\Models\ProductClick;
 use App\Models\Rating;
 use App\Models\Reply;
 use App\Models\Report;
+use App\Models\User;
 use App\Models\Subcategory;
 use Auth;
 use Carbon\Carbon;
@@ -246,7 +247,9 @@ class CatalogController extends Controller
         {
             $vendors = Product::where('status','=',1)->where('user_id','=',0)->take(8)->get();
         }
-        return view('front.product',compact('productt','curr','vendors'));
+
+        $vendor = User::where('id', '=', $productt->user_id)->first();
+        return view('front.product',compact('productt','curr','vendors','vendor'));
 
     }
 

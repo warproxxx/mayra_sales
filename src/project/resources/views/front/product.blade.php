@@ -20,7 +20,7 @@
               href="{{ route('front.childcat',['slug1' => $productt->category->slug, 'slug2' => $productt->subcategory->slug, 'slug3' => $productt->childcategory->slug]) }}">{{$productt->childcategory->name}}</a>
           </li>
           @endif
-          <li><a href="{{ route('front.product', $productt->slug) }}">{{ $productt->name }}</a>
+          <li><a href="{{ route('front.product', $productt->slug) }}">{{ $productt->name }}</a> 
 
         </ul>
       </div>
@@ -66,7 +66,11 @@
             <div class="col-lg-7">
               <div class="right-area">
                 <div class="product-info">
-                  <h4 class="product-name">{{ $productt->name }}</h4>
+                  <h4 class="product-name">{{ $productt->name }} 
+                      @if($vendor->subs_id = 6)
+                        <a  class="sell-btn" style="background:white; border: 1px solid orange; color:orange; font-size:15px;">Premium</a> 
+                      @endif
+                  </h4>
                   <div class="info-meta-1">
                     <ul>
 

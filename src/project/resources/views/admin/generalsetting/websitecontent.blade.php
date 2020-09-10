@@ -46,6 +46,45 @@
                           </div>
                         </div>
 
+                        <div class="row justify-content-center">
+                          <div class="col-lg-3">
+                            <div class="left-area">
+                                <h4 class="heading">{{ __('Social Share Title') }} *
+                                  </h4>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="text" class="input-field" placeholder="{{ __('Social Share Title') }}" name="og_title" value="{{ $gs->og_title }}" required="">
+                          </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                          <div class="col-lg-3">
+                            <div class="left-area">
+                                <h4 class="heading">{{ __('Social Share Image') }} *
+                                  </h4>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="text" class="input-field" placeholder="{{ __('Social Share Image') }}" name="og_image" value="{{ $gs->og_image }}" required="">
+                          </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                              <div class="col-lg-3">
+                                <div class="left-area">
+                                  <h4 class="heading">
+                                      {{ __('Social Share Description') }} *
+                                  </h4>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="tawk-area">
+                                    <textarea  name="og_description">{{$gs->og_description}}</textarea>
+                                  </div>
+                              </div>
+                        </div>
+
 
                         <div class="row justify-content-center">
                           <div class="col-lg-3">

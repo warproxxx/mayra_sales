@@ -435,6 +435,8 @@ nav .menu li.dropdown.open > a,
  <!-- background: #fff; -->
 color: <?php echo $color; ?>;
 }
+
+
 .sub-categori .left-area .service-center .body-area .list li i {
   color: <?php echo $color; ?>; 
 }
@@ -772,3 +774,4 @@ input[type=checkbox]:checked + label:before {
         background: <?php echo $color; ?>;
 
         }
+

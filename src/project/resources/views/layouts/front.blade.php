@@ -22,7 +22,10 @@
 	    <meta property="og:image" content="{{asset('assets/images/'.$productt->photo)}}" />
 	    <meta name="author" content="Mayra">
     	<title>{{substr($productt->name, 0,11)."-"}}{{$gs->title}}</title>
-    @else
+	@else
+		<meta property="og:title" content="{{$gs->og_title}}" />
+	    <meta property="og:description" content="{{$gs->og_description}}" />
+	    <meta property="og:image" content="{{$gs->og_image}}" />
 	    <meta name="keywords" content="{{ $seo->meta_keys }}">
 	    <meta name="author" content="Mayra">
 		<title>{{$gs->title}}</title>
@@ -76,6 +79,8 @@
 </head>
 
 <body>
+
+
 
 @if($gs->is_loader == 1)
 	<div class="preloader" id="preloader" style="background: url({{asset('assets/images/'.$gs->loader)}}) no-repeat scroll center center #FFF;"></div>
@@ -555,9 +560,10 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="footer-widget recent-post-widget">
 						<h4 class="title">
-							{{ $langg->lang24 }}
+							<!-- {{ $langg->lang24 }} -->
+							Share on Facebook
 						</h4>
-						<ul class="post-list">
+						<!-- <ul class="post-list">
 							@foreach (App\Models\Blog::orderBy('created_at', 'desc')->limit(3)->get() as $blog)
 							<li>
 								<div class="post">
@@ -577,7 +583,19 @@
 								</div>
 							  </li>
 							@endforeach
-						</ul>
+						</ul> -->
+
+						<div class="icon-container2 d-flex">
+								<div class="smd"> 
+									<a href="https://www.facebook.com/sharer/sharer.php?u=mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-facebook fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
+									</a>
+								</div>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="smd"> 
+									<a href="http://www.facebook.com/dialog/send?app_id=3295714593783056&link=https://mayrasales.com&redirect_uri=https://www.mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-facebook-messenger fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
+									</a>
+								</div>
+						</div>
 					</div>
 				</div>
 			</div>

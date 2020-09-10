@@ -51,6 +51,11 @@
 												</div>
 												<h4 class="price">{{ $prod->showPrice() }} <del><small>{{ $prod->showPreviousPrice() }}</small></del></h4>
 														<h5 class="name">{{ $prod->showName() }}</h5>
+
+														@if(App\Models\User::where('id', '=', $prod->user_id)->first()->subs_id  = 6)
+															<h5 class="name sell-btn" style="background:white; border: 1px solid orange; color:orange; font-size:15px;">Premium</h5>
+														@endif
+														
 														<div class="item-cart-area">
 															@if($prod->product_type == "affiliate")
 																<span class="add-to-cart-btn affilate-btn"

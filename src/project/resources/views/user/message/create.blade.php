@@ -12,7 +12,21 @@
 							<div class="header-area">
                             <div style="display: flex;">
                             <div style="flex-grow: 1;">
+                                
 								<h4 class="title">
+
+                                    @if($conv->is_dispute == 0)
+                                    <a href="{{ route('user-message-dispute',$conv->id) }}" class="accordion-toggle wave-effect waves-effect waves-button" data-toggle="collapse" aria-expanded="false">
+									<i class="fa fa-gavel"></i>
+                                    @else
+                                    <a href="{{ route('user-message-dispute',$conv->id) }}" class="accordion-toggle wave-effect waves-effect waves-button" data-toggle="collapse" aria-expanded="false">
+									<i class="fa fa-gavel"></i>
+                                    @endif 
+
+                                    
+                                </a>
+                                
+
 									{{ $conv->subject }}
                             
                             <a  class="mybtn1" href="{{ route('user-orders') }}"> <i class="fas fa-arrow-left"></i> {{ $langg->lang373 }}</a></div>
@@ -22,11 +36,7 @@
                                         <a class="mybtn2" href="{{ route('user-message-close',$conv->id) }}">Confirm Received</a>
                                     @endif 
 
-                                    @if($conv->is_dispute == 0)
-                                    <a class="mybtn2" href="{{ route('user-message-dispute',$conv->id) }}">Open Dispute</a>
-                                    @else
-                                    <a class="mybtn2" href="{{ route('user-message-dispute',$conv->id) }}">Close Dispute</a>
-                                    @endif 
+                                    
                                     
                                    
                                     
