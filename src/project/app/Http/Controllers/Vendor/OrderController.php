@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\VendorOrder;
 use App\Models\SystemNotification;
 use App\Models\User;
+use Log;
 
 class OrderController extends Controller
 {
@@ -35,26 +36,34 @@ class OrderController extends Controller
 
     public function show($slug)
     {
-        $user = Auth::user();
-
-        if (strlen($slug) < 5)
+        try 
         {
-            $conversation =  Conversation::where('id', '=', $slug)->first();
-            $conversation_id = $conversation->id;
 
-            $order = Order::where('order_number','=',$conversation->subject)->first();
+            $user = Auth::user();
+
+            if (strlen($slug) < 5)
+            {
+                $conversation =  Conversation::where('id', '=', $slug)->first();
+                $conversation_id = $conversation->id;
+
+                $order = Order::where('order_number','=',$conversation->subject)->first();
+            }
+            else
+            {
+                $order = Order::where('order_number','=',$slug)->first();
+
+                $conversation =  Conversation::where('subject', '=', $slug)->first();
+                $conversation_id = $conversation->id;
+            }
+            
+            $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+
+            return view('vendor.order.details',compact('user','order','cart','conversation_id'));
+        } 
+        catch (\Exception $e) {
+
+            return $e->getMessage();
         }
-        else
-        {
-            $order = Order::where('order_number','=',$slug)->first();
-
-            $conversation =  Conversation::where('subject', '=', $slug)->first();
-            $conversation_id = $conversation->id;
-        }
-        
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
-
-        return view('vendor.order.details',compact('user','order','cart','conversation_id'));
     }
 
     public function message($id)

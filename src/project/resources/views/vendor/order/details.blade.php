@@ -70,8 +70,8 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
 
 @endphp
 
-
-                                                    <td width="45%">{{$order->currency_sign}}{{ round($price * $order->currency_value , 2) }}</td>
+<!-- round($price * $order->currency_value , 2) -->
+                                                    <td width="45%">{{$order->currency_sign}} {{$order->pay_amount}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th width="45%">{{ $langg->lang554 }}</th>
@@ -304,7 +304,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                             
                                         </td>
                                     </tr>
-                                    @endif
+                                @endif
 
 
                                                 </tbody>

@@ -1,3 +1,7 @@
+Fix the bugs. LOgin etc. Everything smooth.
+Use Cloudflare.
+For sessions use different if still slow.
+
 Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
 
 Later:
@@ -50,3 +54,9 @@ DELETE FROM verifications;
 DELETE FROM users WHERE id!=0;
 DELETE FROM payment_gateways WHERE user_id!=0;
 DELETE FROM products;
+DELETE FROM system_notifications;
+
+Shoppy:
+https://shoppy.gg/@ShivbhaktRAVAN
+https://shoppy.gg/product/cGPV7uG
+https://shoppy.gg/product/BM205QC

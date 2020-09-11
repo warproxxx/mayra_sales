@@ -13,6 +13,7 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Socialite;
+use Log;
 
 class SocialRegisterController extends Controller
 {
@@ -47,37 +48,54 @@ class SocialRegisterController extends Controller
         }
         //check if we have logged provider
         $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
-        if(!$socialProvider)
-        {
+        try{
+            if(!$socialProvider)
+            {
 
-            //create a new user and provider
-            $user = new User;
-            $user->email = $socialUser->email;
-            $user->name = $socialUser->name;
-            $user->photo = $socialUser->avatar_original;
-            $user->email_verified = 'Yes';
-            $user->is_provider = 1;
-            $user->affilate_code = $socialUser->name.$socialUser->email;
-            $user->affilate_code = md5($user->affilate_code);
-            $user->api_token = Str::random(60);
-            $user->save();
+                //create a new user and provider
+                $user = new User;
 
-            $user->socialProviders()->create(
-                ['provider_id' => $socialUser->getId(), 'provider' => $provider]
-            );
-            $notification = new Notification;
-            $notification->user_id = $user->id;
-            $notification->save();
+                if (is_null($socialUser->email))
+                {
+                    $user->email = $socialUser->id . "@facebook.com";
+                }
+                else
+                {
+                    $user->email = $socialUser->email;
+                }
+                
+                $user->name = $socialUser->name;
+                $user->photo = $socialUser->avatar_original;
+                $user->email_verified = 'Yes';
+                $user->is_provider = 1;
+                $user->affilate_code = $socialUser->name.$socialUser->email;
+                $user->affilate_code = md5($user->affilate_code);
+                $user->api_token = Str::random(60);
+                $user->save();
 
+                $user->socialProviders()->create(
+                    ['provider_id' => $socialUser->getId(), 'provider' => $provider]
+                );
+                $notification = new Notification;
+                $notification->user_id = $user->id;
+                $notification->save();
+
+            }
+            else
+            {
+
+                $user = $socialProvider->user;
+            }
+
+        
+            Auth::guard('web')->login($user); 
+            return redirect()->route('user-dashboard');
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
         }
-        else
-        {
-
-            $user = $socialProvider->user;
-        }
-
-        Auth::guard('web')->login($user); 
-        return redirect()->route('user-dashboard');
+        
+        
 
     }
 }
