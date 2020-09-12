@@ -36,7 +36,8 @@ class MessageController extends Controller
     {
             $user = Auth::guard('web')->user();
             $conv = Conversation::findOrfail($id);
-            return view('user.message.create',compact('user','conv'));                 
+            $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $id)->get();
+            return view('user.message.create',compact('user','conv','other_covs'));                 
     }
 
     public function messagedelete($id)

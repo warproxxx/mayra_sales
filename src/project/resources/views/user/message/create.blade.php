@@ -47,6 +47,20 @@
 								</h4>
 							</div>
 
+                            @if(is_null($other_covs))
+
+                            @else
+                                <b>Other Coversations:</b><br/>
+
+                                <ul>
+                                @foreach($other_covs as $past)
+                                    <li><a href="{{ route('user-message',$past->id) }}" target="_blank">{{$past->created_at}}</li></a>
+                                @endforeach
+                                </ul><br/>
+
+
+                            @endif
+
 
 <div class="support-ticket-wrapper ">
                 <div class="panel panel-primary">
