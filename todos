@@ -1,5 +1,6 @@
-Fix the bugs. LOgin etc. Everything smooth.
-Use Cloudflare.
+Datbase create user and all.
+
+Use Cloudflare. Move server.
 For sessions use different if still slow.
 
 Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
@@ -60,3 +61,7 @@ Shoppy:
 https://shoppy.gg/@ShivbhaktRAVAN
 https://shoppy.gg/product/cGPV7uG
 https://shoppy.gg/product/BM205QC
+
+CREATE USER 'mayra_user'@'localhost' IDENTIFIED BY '@dminP@ssword';
+GRANT ALL ON mayra.* TO 'mayra_user'@'localhost';
+FLUSH PRIVILEGES;
