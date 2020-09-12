@@ -66,7 +66,8 @@ class VerificationController extends Controller
                 ->select('users.*', 'subscriptions.title', 'subscriptions.days', 'subscriptions.currency', 'subscriptions.price') 
                 ->first();
 
-        return view('admin.verify.details',compact('user'));
+        
+                return view('admin.verify.details',compact('user'));
     }
 
     public function payment_datatables()
@@ -83,45 +84,56 @@ class VerificationController extends Controller
 
     public function approve($id)
     {
-        $today = Carbon::now()->format('Y-m-d');
-        $user = User::where('id','=',$id)->first();
-
-        $subs = Subscription::where('id','=',$user->subs_id)->first();
-        $newday = strtotime($today);
-        $lastday = strtotime($user->date);
-
-        if (is_null($user->date) || $lastday < $newday)
+        try 
         {
-            $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
-            $user->is_vendor = 2;
-            $user->payment_request = 0;
-            $user->update();
-        }
-        else if ($lastday >= $newday)
+            $today = Carbon::now()->format('Y-m-d');
+            $user = User::where('id','=',$id)->first();
+
+            $subs = Subscription::where('id','=',$user->subs_id)->first();
+            $newday = strtotime($today);
+            $lastday = strtotime($user->date);
+
+            if (is_null($user->date) || $lastday < $newday)
+            {
+                $user->date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
+                $user->is_vendor = 2;
+                $user->payment_request = 0;
+                $user->update();
+            }
+            else if ($lastday >= $newday)
+            {
+                $secs = $lastday-$newday;
+                $days = $secs / 86400;
+                $total = $days+$subs->days;
+                $user->date = date('Y-m-d', strtotime($today.' + '.$total.' days'));
+                $user->payment_request = 0;
+                $user->update();
+            }
+
+
+            $sub = new UserSubscription;
+            $sub->user_id = $user->id;
+            $sub->subscription_id = $subs->id;
+            $sub->title = $subs->title;
+            $sub->currency = $subs->currency;
+            $sub->currency_code = $subs->currency_code;
+            $sub->price = $subs->price;
+            $sub->days = $subs->days;
+            $sub->allowed_products = $subs->allowed_products;
+            $sub->details = $subs->details;
+            $sub->method = $user->method;
+            $sub->status = 1;
+            $sub->save();
+
+
+
+            return redirect()->route('admin-subscription-payment');
+        } 
+        catch (\Exception $e) 
         {
-            $secs = $lastday-$newday;
-            $days = $secs / 86400;
-            $total = $days+$subs->days;
-            $user->date = date('Y-m-d', strtotime($today.' + '.$total.' days'));
-            $user->payment_request = 0;
-            $user->update();
+
+            return $e->getMessage();
         }
-
-        $sub = new UserSubscription;
-        $sub->user_id = $user->id;
-        $sub->subscription_id = $subs->id;
-        $sub->title = $subs->title;
-        $sub->currency = $subs->currency;
-        $sub->currency_code = $subs->currency_code;
-        $sub->price = $subs->price;
-        $sub->days = $subs->days;
-        $sub->allowed_products = $subs->allowed_products;
-        $sub->details = $subs->details;
-        $sub->method = $user->method;
-        $sub->status = 1;
-        $sub->save();
-
-        return redirect()->route('admin-subscription-payment');
     }
 
     public function reject($id)

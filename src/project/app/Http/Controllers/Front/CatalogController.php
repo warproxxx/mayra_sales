@@ -22,6 +22,7 @@ use Illuminate\Support\Collection;
 use Session;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use Log;
 
 
 class CatalogController extends Controller
@@ -67,8 +68,8 @@ class CatalogController extends Controller
         $childcat = Childcategory::where('slug', $slug2)->firstOrFail();
         $data['childcat'] = $childcat;
       }
-
-      $prods = Product::when($cat, function ($query, $cat) {
+      try {
+      $prods = Product::join('users', 'products.user_id', '=', 'users.id')->leftJoin('ratings', 'ratings.user_id', '=', 'users.id')->select('products.*', 'users.subs_id', 'users.latitude', 'ratings.rating')->when($cat, function ($query, $cat) {
                                       return $query->where('category_id', $cat->id);
                                   })
                                   ->when($subcat, function ($query, $subcat) {
@@ -78,7 +79,7 @@ class CatalogController extends Controller
                                       return $query->where('childcategory_id', $childcat->id);
                                   })
                                   ->when($search, function ($query, $search) {
-                                      return $query->whereRaw('MATCH (name) AGAINST (? IN BOOLEAN MODE)' , array($search));
+                                      return $query->whereRaw('MATCH (products.name) AGAINST (? IN BOOLEAN MODE)' , array($search));
                                   })
                                   ->when($minprice, function($query, $minprice) {
                                     return $query->where('price', '>=', $minprice);
@@ -87,7 +88,16 @@ class CatalogController extends Controller
                                     return $query->where('price', '<=', $maxprice);
                                   })
                                    ->when($sort, function ($query, $sort) {
-                                      if ($sort=='date_desc') {
+                                      if ($sort=='premium') {
+                                        return $query->orderBy('subs_id', 'DESC');
+                                      }
+                                      elseif ($sort=='nearby') {
+                                        return $query->orderBy('latitude', 'DESC');
+                                      }
+                                      elseif ($sort=='approval') {
+                                        return $query->orderBy('rating', 'DESC');
+                                      }
+                                      elseif ($sort=='date_desc') {
                                         return $query->orderBy('id', 'DESC');
                                       }
                                       elseif($sort=='date_asc') {
@@ -167,8 +177,12 @@ class CatalogController extends Controller
                                           });
 
 
-                                  $prods = $prods->where('status', 1)->get();
+                                  $prods = $prods->where('products.status', 1)->get();
+                                  
       $prods = (new Collection(Product::filterProducts($prods)))->paginate(12);
+
+      
+      
 
       $data['prods'] = $prods;
 
@@ -179,6 +193,10 @@ class CatalogController extends Controller
         return view('includes.product.filtered-products', $data);
       }
       return view('front.category', $data);
+    } catch (\Exception $e) {
+
+          return $e->getMessage();
+      }
     }
 
 

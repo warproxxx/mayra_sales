@@ -33,6 +33,7 @@
             </ul>
          </div>
       </div>
+      
    </div>
 </div>
 <!-- Breadcrumb Area End -->
@@ -51,13 +52,53 @@
                  </div>
                  <div id="ajaxLoader" class="ajax-loader" style="background: url({{asset('assets/images/'.$gs->loader)}}) no-repeat scroll center center rgba(0,0,0,.6);"></div>
                </div>
-
             </div>
          </div>
       </div>
+
+      @if (isset($prods))
+        @if (count($prods) > 0)
+
+        <div class="trending">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 remove-padding">
+                <div class="section-top">
+                  <h2 class="section-title">
+                    {{ $langg->lang216 }}
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 remove-padding">
+                <div class="trending-item-slider">
+
+
+        @foreach( App\Models\Product::where( 'category_id', '=', $prods[0]->category->id)->where('id','!=',$prods[0]->id)->get() as $prod)
+        @include('includes.product.slider-product')
+        @endforeach
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+          
+        @else
+        
+        @endif
+      @endif
    </div>
+
+   
 </section>
 <!-- SubCategori Area End -->
+
+
+
 @endsection
 
 

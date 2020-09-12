@@ -22,7 +22,7 @@
           <div class="tab-pane fade show active" id="nav-log" role="tabpanel" aria-labelledby="nav-log-tab">
             <div class="login-area">
               <div class="header-area">
-                <h4 class="title">{{ $langg->lang172 }}</h4>
+                <h4 class="title">LOGIN</h4>
               </div>
               <div class="login-form signin-form">
                 @include('includes.admin.form-login')

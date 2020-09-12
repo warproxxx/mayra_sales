@@ -1,9 +1,20 @@
-Datbase create user and all.
+Download the app in top right.
+*Website ko bottom end maah App download ko lagi QR Code ani feri download the app vane button hos. Side maah play store ko logo pani hos.
 
-Use Cloudflare. Move server.
-For sessions use different if still slow.
+Make money with us vanne option hos. For example – 
+Make money with Mayra Sales
+>Sell on Mayra Sales
+> Advertise your Products & Business
+>Start Branch office in your City
+Yo options haru click gare paxi auta hamro advertisement type page open hunxa. Ani tala hamro contact information hunxa.
 
-Sort by Cheapest/nearby/most expensive/Appxroval rate/ Premium in search
+Multiple Category for same product.
+
+Vendor Rules.
+
+English and Nepali Language
+
+
 
 Later:
 Show by location in other pages?
@@ -56,6 +67,7 @@ DELETE FROM users WHERE id!=0;
 DELETE FROM payment_gateways WHERE user_id!=0;
 DELETE FROM products;
 DELETE FROM system_notifications;
+DELETE FROM social_providers;
 
 Shoppy:
 https://shoppy.gg/@ShivbhaktRAVAN
