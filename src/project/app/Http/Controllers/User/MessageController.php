@@ -15,6 +15,7 @@ use App\Models\Notification;
 use App\Models\UserNotification;
 use App\Models\VendorNotification;
 use App\Models\User;
+use Log;
 
 
 class MessageController extends Controller
@@ -180,8 +181,26 @@ class MessageController extends Controller
 
     public function postmessage(Request $request)
     {
+        #copy image upload and fix redirect
         $msg = new Message();
-        $input = $request->all();  
+        $input = $request->except(['file']);
+
+        if ($request->hasFile('file')) 
+        {
+            Log::info('has file');
+            if ($request->file('file')->isValid()) 
+            {
+                Log::info('has valid');
+                $image_name = date('mdYHis') . uniqid() .$request->file('file')->getClientOriginalName();
+                $input['file'] = $image_name;
+                $path = 'assets/images/users';
+                $request->file('file')->move($path,$image_name);
+            }
+        }
+
+        Log::info($input);
+
+
         $msg->fill($input)->save();
         //--- Redirect Section     
         $msg = 'Message Sent!';
@@ -193,8 +212,6 @@ class MessageController extends Controller
         $notification->conversation_id = $conv->id;
         $notification->user_id = $conv->recieved_user;
         $notification->save();
-
-        #send admin notification if disputed
         
         if ($conv->is_dispute == 1)
         {
@@ -205,7 +222,16 @@ class MessageController extends Controller
             $notification->save();
         }
 
-        return response()->json($msg);      
+        if($request->ajax()){
+            return response()->json($msg);   
+        }
+        else
+        {
+            return redirect()->back();
+        }
+
+
+           
     }
 
     public function adminmessages()

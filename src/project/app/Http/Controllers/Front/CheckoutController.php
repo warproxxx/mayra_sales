@@ -890,14 +890,6 @@ $validator = Validator::make($input, $rules, $messages);
                 $path = 'assets/images/users';
                 $request->file('txn_image')->move($path,$image_name);
 
-
-                // $image = file_get_contents($request->file('txn_image'));
-                // $image = base64_decode($image);
-                // Log::info($image);
-                // $image_name = time().str_random(8).'.png';
-                // $path = 'assets/images/users/'.$image_name;
-                // file_put_contents($path, $image);
-                #find upload code in product upload
             }
         }
 

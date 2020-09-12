@@ -60,6 +60,7 @@
                                 <div class="col-lg-12">
                                     <div class="reply-area">
                                         <div class="left">
+                                            
                                             @if($message->conversation->sent->is_provider == 1 )
                                             <img class="img-circle" src="{{ $message->conversation->sent->photo != null ? $message->conversation->sent->photo : asset('assets/images/noimage.png') }}" alt="">
                                             @else 
@@ -68,7 +69,11 @@
                                             <p class="ticket-date">{{ $message->conversation->sent->name }}</p>
                                         </div>
                                         <div class="right">
-                                            <p>{{ $message->message }}</p>
+                                            @if (is_null($message->file))
+                                                <p>{{ $message->message }}</p>
+                                            @else
+                                                <p><a href="/assets/images/users/{{ $message->file }}" target="_blank">{{ $message->file }}</a></p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -87,11 +92,14 @@
                                             <p>{{ $message->message }}</p>
                                         </div>
                                         <div class="right">
-                                            @if($message->conversation->recieved->is_provider == 1 )
-                                            <img class="img-circle" src="{{ $message->conversation->recieved->photo != null ? $message->conversation->recieved->photo : asset('assets/images/noimage.png') }}" alt="">
-                                            @else 
-                                            <img class="img-circle" src="{{ $message->conversation->recieved->photo != null ? asset('assets/images/users/'.$message->conversation->recieved->photo) : asset('assets/images/noimage.png') }}" alt="">
-                                            @endif
+
+                                        @if($message->conversation->recieved->is_provider == 1 )
+                                        <img class="img-circle" src="{{ $message->conversation->recieved->photo != null ? $message->conversation->recieved->photo : asset('assets/images/noimage.png') }}" alt="">
+                                        @else 
+                                        <img class="img-circle" src="{{ $message->conversation->recieved->photo != null ? asset('assets/images/users/'.$message->conversation->recieved->photo) : asset('assets/images/noimage.png') }}" alt="">
+                                        @endif
+
+
                                             <p class="ticket-date">{{$message->conversation->recieved->name}}</p>
                                         </div>
                                     </div>
@@ -107,7 +115,7 @@
 
                     </div>
                     <div class="panel-footer">
-                        <form id="messageform" data-href="{{ route('user-vendor-message-load',$conv->id) }}" action="{{route('user-message-post')}}" method="POST">
+                        <form id="messageform" data-href="{{ route('user-vendor-message-load',$conv->id) }}" action="{{route('user-message-post')}}" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-group">
                                               <input type="hidden" name="conversation_id" value="{{$conv->id}}">
@@ -120,6 +128,9 @@
                               @endif
                              
                         </div>
+
+                        <input type="file" name="file" onchange="form.submit()"/><br/><br/>
+
                                 <textarea class="form-control" name="message" id="wrong-invoice" rows="5" style="resize: vertical;" required="" placeholder="{{ $langg->lang374 }}"></textarea>
                             </div>
                             <br/>

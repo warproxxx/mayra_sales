@@ -1,17 +1,11 @@
-Download the app in top right.
-*Website ko bottom end maah App download ko lagi QR Code ani feri download the app vane button hos. Side maah play store ko logo pani hos.
+Show old messages
+Add file in message.
 
-Make money with us vanne option hos. For example – 
-Make money with Mayra Sales
->Sell on Mayra Sales
-> Advertise your Products & Business
->Start Branch office in your City
-Yo options haru click gare paxi auta hamro advertisement type page open hunxa. Ani tala hamro contact information hunxa.
+Download the app in top right. NO APP YET SO.
+Website ko bottom end maah App download ko lagi QR Code ani feri download the app vane button hos. Side maah play store ko logo pani hos. NO APP YET
 
 Multiple Category for same product.
-
 Vendor Rules.
-
 English and Nepali Language
 
 
@@ -68,7 +62,7 @@ DELETE FROM payment_gateways WHERE user_id!=0;
 DELETE FROM products;
 DELETE FROM system_notifications;
 DELETE FROM social_providers;
-
+DELETE FROM banners;
 Shoppy:
 https://shoppy.gg/@ShivbhaktRAVAN
 https://shoppy.gg/product/cGPV7uG
