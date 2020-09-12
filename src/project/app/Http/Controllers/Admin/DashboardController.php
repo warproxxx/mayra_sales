@@ -50,12 +50,6 @@ class DashboardController extends Controller
         $browsers = Counter::where('type','browser')->orderBy('total_count','desc')->take(5)->get();
 
         $activation_notify = "";
-        if (file_exists(public_path().'/rooted.txt')){
-            $rooted = file_get_contents(public_path().'/rooted.txt');
-            if ($rooted < date('Y-m-d', strtotime("+10 days"))){
-                $activation_notify = "<i class='icofont-warning-alt icofont-4x'></i><br>Please activate your system.<br> If you do not activate your system now, it will be inactive on ".$rooted."!!<br><a href='".url('/admin/activation')."' class='btn btn-success'>Activate Now</a>";
-            }
-        }
 
         
         $online_users = DB::table('sessions')->where('user_id','!=',NULL)->where('last_activity','>',time() - 15 * 60)->get();
