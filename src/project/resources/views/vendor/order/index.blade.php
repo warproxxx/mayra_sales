@@ -42,13 +42,21 @@
 
 
                                               <tbody>
+
                                                 @foreach($orders as $orderr) 
+                                                
                                                 @php 
+                                                $message = "";
+                                                foreach($orderr as $order)
+                                                {
+                                                    $message = $message  . "  &lt;a href='"     . route('vendor-message-show',$order->conversation_id) . "' target='_blank''&gt;Message &lt;/a&gt;<br/>";
+                                                }                                                    
+                                                
+
                                                 $qty = $orderr->sum('qty');
                                                 $price = $orderr->sum('price');                                       
                                                 @endphp
                     @foreach($orderr as $order)
-
 
 @php 
 
@@ -64,7 +72,7 @@
                                                     <td> <a href="{{route('vendor-order-show',$order->order_number)}}">{{ $order->order->order_number}}</a></td>
                                           <td>{{$qty}}</td>
                                       <td>{{$order->order->currency_sign}}{{round($price * $order->order->currency_value, 2)}}</td>
-                                      <td><a href="{{route('vendor-message-show',$order->conversation_id)}}" target="_blank">Message</td>
+                                      <td>{!! html_entity_decode($message) !!}</td>
                                       <td>{{$order->order->method}}</td>
                                       <td>
 

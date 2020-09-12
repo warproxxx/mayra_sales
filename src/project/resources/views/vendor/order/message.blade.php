@@ -39,9 +39,11 @@
                                             @endif
                                             <p class="ticket-date">{{ $message->conversation->sent->name }}</p>
                                         </div>
-                                        <div class="right">
-                                            <p>{{ $message->message }}</p>
-                                        </div>
+                                        @if (is_null($message->file))
+                                                <p>{{ $message->message }}</p>
+                                            @else
+                                                <p><a href="/assets/images/users/{{ $message->file }}" target="_blank">{{ $message->file }}</a></p>
+                                            @endif
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +81,7 @@
 
                     </div>
                     <div class="panel-footer">
-                        <form id="messageform" data-href="{{ route('user-vendor-message-load',$conv->id) }}" action="{{route('vendor-message-post')}}" method="POST">
+                        <form id="messageform" data-href="{{ route('user-vendor-message-load',$conv->id) }}" action="{{route('vendor-message-post')}}" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-group">
                                               <input type="hidden" name="conversation_id" value="{{$conv->id}}">
@@ -90,7 +92,7 @@
                                   <input type="hidden" name="reciever" value="{{$conv->sent->id}}">
                                   <input type="hidden" name="recieved_user" value="{{$conv->recieved->id}}">
                               @endif
-
+                              <input type="file" name="file" onchange="form.submit()"/><br/><br/>
                                 <textarea class="form-control" name="message" id="wrong-invoice" rows="5" style="resize: vertical;" required="" placeholder="{{ $langg->lang374 }}"></textarea>
                             </div>
                             <div class="form-group">

@@ -202,29 +202,57 @@ class OrderController extends Controller
 
     public function postmessage(Request $request)
     {
+        #copy image upload and fix redirect
         $msg = new Message();
-        $input = $request->all();  
+        $input = $request->except(['file']);
+
+        if ($request->hasFile('file')) 
+        {
+            Log::info('has file');
+            if ($request->file('file')->isValid()) 
+            {
+                Log::info('has valid');
+                $image_name = date('mdYHis') . uniqid() .$request->file('file')->getClientOriginalName();
+                $input['file'] = $image_name;
+                $path = 'assets/images/users';
+                $request->file('file')->move($path,$image_name);
+            }
+        }
+
+        Log::info($input);
+
+
         $msg->fill($input)->save();
         //--- Redirect Section     
         $msg = 'Message Sent!';
 
-        $notification = new UserNotification();
-        $notification->conversation_id =  $request->conversation_id;
-        $notification->user_id = $request->reciever;
-        $notification->save();
 
-
-        #send admin notification if disputed
         $conv = Conversation::where('id','=',$request->conversation_id)->first();
+
+        $notification = new VendorNotification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+        
         if ($conv->is_dispute == 1)
         {
             $notification = new Notification;
             $notification->conversation_id = $request->conversation_id;
             // $notification->admin_id = 1;
+            $notification->type = "admin";
             $notification->save();
         }
 
-        return response()->json($msg);      
+        if($request->ajax()){
+            return response()->json($msg);   
+        }
+        else
+        {
+            return redirect()->back();
+        }
+
+
+           
     }
 
 
