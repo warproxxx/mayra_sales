@@ -188,10 +188,8 @@ class MessageController extends Controller
 
         if ($request->hasFile('file')) 
         {
-            Log::info('has file');
             if ($request->file('file')->isValid()) 
             {
-                Log::info('has valid');
                 $image_name = date('mdYHis') . uniqid() .$request->file('file')->getClientOriginalName();
                 $input['file'] = $image_name;
                 $path = 'assets/images/users';
@@ -199,7 +197,6 @@ class MessageController extends Controller
             }
         }
 
-        Log::info($input);
 
 
         $msg->fill($input)->save();

@@ -72,8 +72,9 @@ class OrderController extends Controller
         $conv = Conversation::findOrfail($id);
         $order = Order::where('order_number','=',$conv->subject)
                  ->first();
+        $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $id)->get();
 
-        return view('vendor.order.message',compact('user','conv', 'order'));
+        return view('vendor.order.message',compact('user','conv', 'order','other_covs'));
     }
 
     public function license(Request $request, $slug)
@@ -208,10 +209,8 @@ class OrderController extends Controller
 
         if ($request->hasFile('file')) 
         {
-            Log::info('has file');
             if ($request->file('file')->isValid()) 
             {
-                Log::info('has valid');
                 $image_name = date('mdYHis') . uniqid() .$request->file('file')->getClientOriginalName();
                 $input['file'] = $image_name;
                 $path = 'assets/images/users';
@@ -219,7 +218,6 @@ class OrderController extends Controller
             }
         }
 
-        Log::info($input);
 
 
         $msg->fill($input)->save();

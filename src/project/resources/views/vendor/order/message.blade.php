@@ -20,6 +20,20 @@
 							</div>
 
 
+                            @if(is_null($other_covs))
+
+@else
+    <b>Other Coversations:</b><br/>
+
+    <ul>
+    @foreach($other_covs as $past)
+        <li><a href="{{ route('vendor-message-show',$past->id) }}" target="_blank">{{$past->created_at}}</li></a>
+    @endforeach
+    </ul><br/>
+
+
+@endif
+
 <div class="support-ticket-wrapper ">
                 <div class="panel panel-primary">
                       <div class="gocover" style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>                  
