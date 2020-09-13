@@ -96,7 +96,7 @@ class CartController extends Controller
         if (isset(Session::get('cart')->items))
         {
             $cart = Session::get('cart');
-            return response()->json(['status' => 'success', 'details' => $cart]);
+            return response()->json(['status' => 'success', 'details' => $cart->items]);
         }
         else
         {
