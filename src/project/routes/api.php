@@ -34,11 +34,14 @@ Route::get('/product/{id}', 'Front\FrontendController@get_product_detail_api');
 
 
 #Cart
-Route::get('/cart', 'Front\CartController@get_cart');
-Route::get('/cart/add/{id}', 'Front\CartController@addcart');
-Route::get('/cart/addbyone', 'Front\CartController@addbyone');
-Route::get('/cart/reducebyone', 'Front\CartController@reducebyone');
-Route::get('/cart/remove/{id}', 'Front\CartController@removecart');
+Route::group(['middleware'=>'web'],function(){
+    Route::get('/cart', 'Front\CartController@get_cart');
+    Route::get('/cart/add/{id}', 'Front\CartController@addcart');
+    Route::get('/cart/addbyone', 'Front\CartController@addbyone');
+    Route::get('/cart/reducebyone', 'Front\CartController@reducebyone');
+    Route::get('/cart/remove/{id}', 'Front\CartController@removecart');
+});
+
 
 #also add by 1 and reduce by 1
 
