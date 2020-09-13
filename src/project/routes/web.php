@@ -1445,7 +1445,11 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
   // CRONJOB ENDS
 
   // PAGE SECTION
+  Route::get('/page/terms','Front\FrontendController@tos')->name('front.tos');
+  Route::get('/page/privacy','Front\FrontendController@privacy')->name('front.privacy');
+
   Route::get('/{slug}','Front\FrontendController@page')->name('front.page');
+  
   // PAGE SECTION ENDS
 
 // ************************************ FRONT SECTION ENDS**********************************************

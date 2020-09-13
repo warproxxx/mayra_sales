@@ -446,6 +446,9 @@
 							@if($gs->is_faq == 1)
 							<li><a href="{{ route('front.faq') }}">{{ $langg->lang19 }}</a></li>
 							@endif
+
+							
+
 							@foreach(DB::table('pages')->where('header','=',1)->get() as $data)
 								<li><a href="{{ route('front.page',$data->slug) }}">{{ $data->title }}</a></li>
 							@endforeach
@@ -541,7 +544,12 @@
 								</a>
 							</li>
 
+							<li><a href="{{ route('front.tos') }}"><i class="fas fa-angle-double-right"></i>Terms and Service</a></li>
+							<li><a href="{{ route('front.privacy') }}"><i class="fas fa-angle-double-right"></i>Privacy Policy</a></li>
+
+
 							@foreach(DB::table('pages')->where('footer','=',1)->get() as $data)
+							
 							<li>
 								<a href="{{ route('front.page',$data->slug) }}">
 									<i class="fas fa-angle-double-right"></i>{{ $data->title }}

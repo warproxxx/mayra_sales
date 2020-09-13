@@ -1,21 +1,10 @@
-Add privacy policy. Fix that orders page.
+Add privacy policy. 
+Fix that orders page. Multiple order.
+Error on manual payment vendor request
 
-Not on admin currently. Is fine i think.
-
-Download the app in top right. NO APP YET SO.
-Website ko bottom end maah App download ko lagi QR Code ani feri download the app vane button hos. Side maah play store ko logo pani hos. NO APP YET
-
-Multiple Category for same product.
-Vendor Rules.
-English and Nepali Language
-
-
-
-Later:
-Show by location in other pages?
+Add crontab job.
 Email should work
 Google Analytics
-Add crontab job.
 
 There is a function in FrontendController called subcheck which send notifications 5 days before.
 In https://mayrasales.local/admin/general-settings/contents it is asked to add to cronjob.

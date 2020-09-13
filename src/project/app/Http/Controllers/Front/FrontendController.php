@@ -434,6 +434,19 @@ class FrontendController extends Controller
 
         return view('front.page',compact('page'));
     }
+
+    public function tos()
+    {
+        // echo('tos');
+        return view('front.tos');
+    }
+    public function privacy()
+    {
+        // echo('tos');
+        return view('front.privacy');
+    }
+
+
 // -------------------------------- PAGE SECTION ENDS----------------------------------------
 
 
