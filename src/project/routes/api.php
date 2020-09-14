@@ -34,13 +34,13 @@ Route::get('/product/{id}', 'Front\FrontendController@get_product_detail_api');
 
 
 #Cart
-Route::group(['middleware'=>'web'],function(){
-    Route::get('/cart', 'Front\CartController@get_cart');
-    Route::get('/cart/add/{id}', 'Front\CartController@addcart');
-    Route::get('/cart/addbyone', 'Front\CartController@addbyone');
-    Route::get('/cart/reducebyone', 'Front\CartController@reducebyone');
-    Route::get('/cart/remove/{id}', 'Front\CartController@removecart');
-});
+// Route::group(['middleware'=>'web'],function(){
+//     Route::get('/cart', 'Front\CartController@get_cart');
+//     Route::get('/cart/add/{id}', 'Front\CartController@addcart');
+//     Route::get('/cart/addbyone', 'Front\CartController@addbyone');
+//     Route::get('/cart/reducebyone', 'Front\CartController@reducebyone');
+//     Route::get('/cart/remove/{id}', 'Front\CartController@removecart');
+// });
 
 
 #also add by 1 and reduce by 1
@@ -99,6 +99,13 @@ Route::prefix('user')->group(function() {
         Route::get('/wishlists','User\WishlistController@wishlists_api');
         Route::get('/wishlist/add/{id}','User\WishlistController@addwish_api');
         Route::get('/wishlist/remove/{id}','User\WishlistController@removewish_api');
+
+        //Cart
+        Route::get('/cart','User\WishlistController@cart_api');
+        Route::get('/cart/add','User\WishlistController@addcart_api');
+        Route::get('/cart/remove','User\WishlistController@removecart_api');
+        Route::get('/cart/modifyqty', 'User\WishlistController@modifyqty_api');
+
     });
 
 });

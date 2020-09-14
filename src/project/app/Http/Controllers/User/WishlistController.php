@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use App\Models\Product;
+use App\Models\ApiCart;
 use Auth;
 
 class WishlistController extends Controller
@@ -71,6 +72,19 @@ class WishlistController extends Controller
         }
     }
 
+    public function cart_api(Request $request)
+    {
+        $sort = '';
+        $user = $request->user();
+        try {
+            $carts = ApiCart::where('api_carts.user_id','=',$user->id)->leftJoin('products', 'api_carts.product_id', '=', 'products.id')->get();
+            return response()->json(['status' => 'success', 'details' => $carts]);
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
+        }
+    }
+
 
     public function addwish($id)
     {
@@ -105,7 +119,27 @@ class WishlistController extends Controller
         $wish->save();
         $data[0] = 1;
         $data[1] = count($user->wishlists);
-        return response()->json(['status' => 'success', 'details' => "Added to wishlist"]);
+        return response()->json(['status' => 'success', 'details' => "Added to wishlist",]);
+    }
+
+    public function addcart_api(Request $request)
+    {
+        try{
+        $user = $request->user();
+        $required = $request->except(['api_token']);
+        $required['user_id'] = $user->id;
+        
+        $apiCart = new ApiCart;
+        $apiCart->fill($required);
+        $apiCart->save();
+
+
+        return response()->json(['status' => 'success', 'details' => "Added to cart", 'id'=>$apiCart->id]);
+
+
+        }  catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
+        }
     }
 
 
@@ -119,6 +153,38 @@ class WishlistController extends Controller
         $data[0] = 1;
         $data[1] = count($user->wishlists);
         return response()->json($data);
+    }
+
+    public function removecart_api(Request $request)
+    {
+        try{
+            $user = $request->user();
+            $required = $request->except(['api_token']);
+            $required['user_id'] = $user->id;
+            
+            $apiCart = ApiCart::where('product_id', '=',$required['product_id'])->where('size', '=',$required['size'])->where('color', '=',$required['size'])->where('user_id', '=',$required['user_id'])->first();
+    
+            return response()->json(['status' => 'success', 'details' => "Remove from cart"]);
+    
+    
+            }  catch (\Exception $e) {
+                return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
+        }
+    }
+
+    public function modifyqty_api(Request $request)
+    {
+        try{
+        $user = $request->user();
+        $required = $request->except(['api_token']);
+        $required['user_id'] = $user->id;
+
+        $apiCart = ApiCart::where('product_id', '=',$required['product_id'])->where('size', '=',$required['size'])->where('color', '=',$required['size'])->where('user_id', '=',$required['user_id'])->update(['qty' => $required['qty']]);
+        return response()->json(['status' => 'success', 'details' => "Updated quantity"]);
+
+        }  catch (\Exception $e) {
+        return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
+        }
     }
 
     public function removewish_api(Request $request, $id)
