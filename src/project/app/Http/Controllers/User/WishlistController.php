@@ -63,7 +63,7 @@ class WishlistController extends Controller
         $sort = '';
         $user = $request->user();
         try {
-            $wishlists = Wishlist::where('wishlists.user_id','=',$user->id)->join('products', 'wishlists.product_id', '=', 'products.id')->get();
+            $wishlists = Wishlist::where('wishlists.user_id','=',$user->id)->leftJoin('products', 'wishlists.product_id', '=', 'products.id')->get();
             return response()->json(['status' => 'success', 'details' => $wishlists]);
         } catch (\Exception $e) {
 
