@@ -57,6 +57,8 @@ Route::prefix('admin')->group(function() {
             return $request->user();
         });
 
+        
+
         Route::post('make_vendor',  'Admin\LoginController@make_vendor');
 
         #category
@@ -94,6 +96,8 @@ Route::prefix('user')->group(function() {
         Route::get('details',  function (Request $request) {
             return $request->user();
         });
+
+        Route::get('/modify','User\WishlistController@modify_api');
 
         //Wishlist
         Route::get('/wishlists','User\WishlistController@wishlists_api');

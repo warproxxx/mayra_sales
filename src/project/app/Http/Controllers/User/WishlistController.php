@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use App\Models\Product;
 use App\Models\ApiCart;
+use App\Models\User;
 use Auth;
 
 class WishlistController extends Controller
@@ -70,6 +71,14 @@ class WishlistController extends Controller
 
             return $e->getMessage();
         }
+    }
+
+    public function modify_api(Request $request)
+    {
+        $user = $request->user();
+        $required = $request->except(['api_token']);
+        $apiCart = User::where('id', '=',$user->id)->update($required);
+        return response()->json(['status' => 'success', 'details' => "User Updated"]);
     }
 
     public function cart_api(Request $request)
