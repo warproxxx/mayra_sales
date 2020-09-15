@@ -76,9 +76,30 @@ class WishlistController extends Controller
     public function modify_api(Request $request)
     {
         $user = $request->user();
+
+        try {
+
+        if($request->photo) 
+        {      
+
+            $image = base64_decode($request->photo);
+            $image_name = time().str_random(8).'.png';
+            $path = 'assets/images/users/'.$image_name;
+            file_put_contents($path, $image);
+                        
+            $request['photo'] = $image_name;
+        } 
+
+            
         $required = $request->except(['api_token']);
+
+        
         $apiCart = User::where('id', '=',$user->id)->update($required);
         return response()->json(['status' => 'success', 'details' => "User Updated"]);
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
+        }
     }
 
     public function cart_api(Request $request)
