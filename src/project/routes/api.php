@@ -110,6 +110,8 @@ Route::prefix('user')->group(function() {
         Route::get('/cart/remove','User\WishlistController@removecart_api');
         Route::get('/cart/modifyqty', 'User\WishlistController@modifyqty_api');
 
+        Route::get('/checkout','Front\CheckoutController@checkout_api');
+
     });
 
 });

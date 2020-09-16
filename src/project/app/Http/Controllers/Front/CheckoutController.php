@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\VendorOrder;
 use App\Models\VendorNotification;
+use App\Models\ApiCart;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -450,7 +451,6 @@ class CheckoutController extends Controller
         }
 
     }
-
 
     public function cashondelivery(Request $request)
     {
@@ -1103,6 +1103,66 @@ $validator = Validator::make($input, $rules, $messages);
         }
         session(['captcha_string' => $word]);
         imagepng($image, $actual_path."assets/images/capcha_code.png");
+    }
+
+    public function checkout_api(Request $request)
+    {
+        try{
+            $gs = Generalsetting::findOrFail(1);
+            $dp = 1;
+            $vendor_shipping_id = 0;
+            $vendor_packing_id = 0;
+            $curr = Currency::where('is_default','=',1)->first();
+            $user = $request->user();
+
+
+            $cart = ApiCart::where('user_id', '=', $user->id)->first();
+            $vendor_id = Product::where('id', '=', $cart->product_id)->first()->user_id;
+
+            $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
+            
+            // Shipping Method
+            $user = Auth::user();
+            
+            $cash_on_delivery = 1;
+            if ($user->reported_times > $gs->cash_only_limit)
+            {
+                $cash_on_delivery = 0;
+            }
+
+            $vendor = User::where('id', '=', $vendor_id)->first();
+
+            $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
+
+            $shipping_data  = DB::table('shippings')->first();
+
+            if(count($gateways) == 0)
+            {
+                $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', 0]])->get();
+            }
+
+            $total = 0;
+
+
+            $cart = ApiCart::where('user_id', '=', $user->id)->get();
+            foreach ($cart as $item) 
+            {
+                $total = $total + ($item->qty * $item->price); #removed coupon
+            }
+
+
+            $shipping_price = 0;
+        
+            if ($total > $shipping_data->free_threshold)
+            {
+                $shipping_price = 0;
+            }
+
+            return response()->json(['status' => 'success', 'payment_methods' => $gateways, 'shipping_price'=>$shipping_price, 'total_without_shipping'=>$total, 'cash_on_delivery'=>$cash_on_delivery]);
+        }  catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
+        }
+        
     }
 
 }
