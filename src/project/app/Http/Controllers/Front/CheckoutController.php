@@ -1151,7 +1151,12 @@ $validator = Validator::make($input, $rules, $messages);
             }
 
 
-            $shipping_price = 0;
+            $shipping_price = $shipping_data->price;
+
+            if ($distance > $shipping_data->threshold)
+            {
+                $shipping_price = $shipping_data->long_price;
+            }
         
             if ($total > $shipping_data->free_threshold)
             {
