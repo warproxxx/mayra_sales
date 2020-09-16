@@ -192,7 +192,7 @@ class WishlistController extends Controller
             $required = $request->except(['api_token']);
             $required['user_id'] = $user->id;
             
-            $apiCart = ApiCart::where('product_id', '=',$required['product_id'])->where('size', '=',$required['size'])->where('color', '=',$required['size'])->where('user_id', '=',$required['user_id'])->first();
+            $apiCart = ApiCart::where('product_id', '=',$required['product_id'])->where('size', '=',$required['size'])->where('color', '=',$required['size'])->where('user_id', '=',$required['user_id'])->delete();
     
             return response()->json(['status' => 'success', 'details' => "Remove from cart"]);
     
