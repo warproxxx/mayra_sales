@@ -123,11 +123,12 @@ class UserController extends Controller
 
     public function vendorrequestsub(Request $request)
     {
-        $this->validate($request, [
-            'shop_name'   => 'unique:users',
-           ],[ 
-               'shop_name.unique' => 'This shop name has already been taken.'
-            ]);
+        try{
+        // $this->validate($request, [
+        //     'shop_name'   => 'unique:users',
+        //    ],[ 
+        //        'shop_name.unique' => 'This shop name has already been taken.'
+        //     ]);
 
         $input = $request->all();  
         #There should be pending subscription which admins will later approve.
@@ -152,6 +153,7 @@ class UserController extends Controller
         
         $user->payment_request = 1;
         $user->update($input);
+        
 
         if($settings->is_smtp == 1)
         {
@@ -174,7 +176,13 @@ class UserController extends Controller
         }
 
         return redirect()->route('user-dashboard')->with('success','Vendor Account Activation Request submitted. It will work once your payment has been verified by admin');
+        } catch (\Exception $e) {
+            echo($e->getMessage());
+            echo("The exception was created on line: " . $e->getLine());
 
+            
+        }
+    
     }
 
 

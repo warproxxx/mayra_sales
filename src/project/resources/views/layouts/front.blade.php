@@ -471,81 +471,87 @@
 
 	<!-- Footer Area Start -->
 	<footer class="footer" id="footer">
-		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-lg-4">
-					<div class="footer-info-area">
+				<div class="col-md-6 col-lg-2">
+				<div class="footer-widget info-link-widget">
 						<div class="footer-logo">
 							<a href="{{ route('front.index') }}" class="logo-link">
 								<img src="{{asset('assets/images/'.$gs->footer_logo)}}" alt="">
 							</a>
 						</div>
-						<div class="text">
-							<p>
-									{!! $gs->footer !!}
-							</p>
+						<br/>
+							<ul class="link-list">
+								<li>
+									<a href="{{ route('front.index') }}">
+										<i class="fas fa-angle-double-right"></i>{{ $langg->lang22 }}
+									</a>
+								</li>
+
+								<li><a href="{{ route('front.tos') }}"><i class="fas fa-angle-double-right"></i>Terms and Service</a></li>
+								<li><a href="{{ route('front.privacy') }}"><i class="fas fa-angle-double-right"></i>Privacy Policy</a></li>
+								<li>
+									<a href="{{ route('front.contact') }}">
+										<i class="fas fa-angle-double-right"></i>{{ $langg->lang23 }}
+									</a>
+								</li>
+
+							</ul>
+
+					
+						<br/>
+						<div class="fotter-social-links">
+							<ul>
+
+										@if(App\Models\Socialsetting::find(1)->f_status == 1)
+										<li>
+											<a href="{{ App\Models\Socialsetting::find(1)->facebook }}" class="facebook" target="_blank">
+												<i class="fab fa-facebook-f"></i>
+											</a>
+										</li>
+										@endif
+
+										@if(App\Models\Socialsetting::find(1)->g_status == 1)
+										<li>
+											<a href="{{ App\Models\Socialsetting::find(1)->gplus }}" class="google-plus" target="_blank">
+												<i class="fab fa-google-plus-g"></i>
+											</a>
+										</li>
+										@endif
+
+										@if(App\Models\Socialsetting::find(1)->t_status == 1)
+										<li>
+											<a href="{{ App\Models\Socialsetting::find(1)->twitter }}" class="twitter" target="_blank">
+												<i class="fab fa-twitter"></i>
+											</a>
+										</li>
+										@endif
+
+										@if(App\Models\Socialsetting::find(1)->l_status == 1)
+										<li>
+											<a href="{{ App\Models\Socialsetting::find(1)->linkedin }}" class="linkedin" target="_blank">
+												<i class="fab fa-linkedin-in"></i>
+											</a>
+										</li>
+										@endif
+
+										@if(App\Models\Socialsetting::find(1)->d_status == 1)
+										<li>
+											<a href="{{ App\Models\Socialsetting::find(1)->dribble }}" class="dribbble" target="_blank">
+												<i class="fab fa-dribbble"></i>
+											</a>
+										</li>
+										@endif
+
+							</ul>
 						</div>
-					</div>
-					<div class="fotter-social-links">
-						<ul>
-
-                               	     @if(App\Models\Socialsetting::find(1)->f_status == 1)
-                                      <li>
-                                        <a href="{{ App\Models\Socialsetting::find(1)->facebook }}" class="facebook" target="_blank">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                      </li>
-                                      @endif
-
-                                      @if(App\Models\Socialsetting::find(1)->g_status == 1)
-                                      <li>
-                                        <a href="{{ App\Models\Socialsetting::find(1)->gplus }}" class="google-plus" target="_blank">
-                                            <i class="fab fa-google-plus-g"></i>
-                                        </a>
-                                      </li>
-                                      @endif
-
-                                      @if(App\Models\Socialsetting::find(1)->t_status == 1)
-                                      <li>
-                                        <a href="{{ App\Models\Socialsetting::find(1)->twitter }}" class="twitter" target="_blank">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                      </li>
-                                      @endif
-
-                                      @if(App\Models\Socialsetting::find(1)->l_status == 1)
-                                      <li>
-                                        <a href="{{ App\Models\Socialsetting::find(1)->linkedin }}" class="linkedin" target="_blank">
-                                            <i class="fab fa-linkedin-in"></i>
-                                        </a>
-                                      </li>
-                                      @endif
-
-                                      @if(App\Models\Socialsetting::find(1)->d_status == 1)
-                                      <li>
-                                        <a href="{{ App\Models\Socialsetting::find(1)->dribble }}" class="dribbble" target="_blank">
-                                            <i class="fab fa-dribbble"></i>
-                                        </a>
-                                      </li>
-                                      @endif
-
-						</ul>
-					</div>
 				</div>
-				<div class="col-md-6 col-lg-4">
+				</div>
+				<div class="col-md-6 col-lg-3">
 					<div class="footer-widget info-link-widget">
 						<h4 class="title">
 								{{ $langg->lang21 }}
 						</h4>
 						<ul class="link-list">
-							<li>
-								<a href="{{ route('front.index') }}">
-									<i class="fas fa-angle-double-right"></i>{{ $langg->lang22 }}
-								</a>
-							</li>
-
-							<li><a href="{{ route('front.tos') }}"><i class="fas fa-angle-double-right"></i>Terms and Service</a></li>
-							<li><a href="{{ route('front.privacy') }}"><i class="fas fa-angle-double-right"></i>Privacy Policy</a></li>
 
 
 							@foreach(DB::table('pages')->where('footer','=',1)->get() as $data)
@@ -557,41 +563,18 @@
 							</li>
 							@endforeach
 
-							<li>
-								<a href="{{ route('front.contact') }}">
-									<i class="fas fa-angle-double-right"></i>{{ $langg->lang23 }}
-								</a>
-							</li>
+							
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-6 col-lg-4">
+
+
+				<div class="col-md-6 col-lg-2">
 					<div class="footer-widget recent-post-widget">
 						<h4 class="title">
-							<!-- {{ $langg->lang24 }} -->
 							Share on Facebook
 						</h4>
-						<!-- <ul class="post-list">
-							@foreach (App\Models\Blog::orderBy('created_at', 'desc')->limit(3)->get() as $blog)
-							<li>
-								<div class="post">
-								  <div class="post-img">
-									<img style="width: 73px; height: 59px;" src="{{ asset('assets/images/blogs/'.$blog->photo) }}" alt="">
-								  </div>
-								  <div class="post-details">
-									<a href="{{ route('front.blogshow',$blog->id) }}">
-										<h4 class="post-title">
-											{{strlen($blog->title) > 45 ? substr($blog->title,0,45)." .." : $blog->title}}
-										</h4>
-									</a>
-									<p class="date">
-										{{ date('M d - Y',(strtotime($blog->created_at))) }}
-									</p>
-								  </div>
-								</div>
-							  </li>
-							@endforeach
-						</ul> -->
+
 
 						<div class="icon-container2 d-flex">
 								<div class="smd"> 
@@ -606,9 +589,39 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 
+				<div class="col-md-6 col-lg-2">
+					<div class="footer-widget recent-post-widget">
+						<h4 class="title">
+							Get the App
+						</h4>
+
+
+						<div class="icon-container2 d-flex">
+									<div class="smd"> 
+										<img class="icon-logo-QR-footer" src="/assets/images/android_qr.png" alt="" height=75>
+									</div>
+									
+									<div style="float:left">
+											<div style="margin-left:10px;">
+												<img src="/assets/images/android-logo.png" alt="" height=50>
+											</div>
+
+											
+									</div>
+
+								</div>
+								<br/>
+								
+								<div class="smd" style="margin-left:10px;">
+									<a href="//play.google.com"><img src="/assets/images/google-play-badge.png" height=50></a>
+								</div>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
 		<div class="copy-bg">
 			<div class="container">
 				<div class="row">

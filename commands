@@ -1,0 +1,1 @@
+00 00 * * * curl --request GET 'https://mayrasales.com/vendor/subscription/check'
