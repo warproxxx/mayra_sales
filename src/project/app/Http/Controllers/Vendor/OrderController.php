@@ -25,13 +25,19 @@ class OrderController extends Controller
 
     public function index()
     {
+        try{
         $user = Auth::user();
-        $orders = VendorOrder::where('user_id','=',$user->id)
+        $orders = VendorOrder::where('vendor_orders.user_id','=',$user->id)
         ->leftJoin('conversations', 'vendor_orders.order_number', '=', 'conversations.subject')
-        ->select('vendor_orders.id','vendor_orders.user_id', 'vendor_orders.order_id', 'vendor_orders.qty', 'vendor_orders.price', 'vendor_orders.order_number', 'vendor_orders.status', 'conversations.id AS conversation_id')
-        ->orderBy('vendor_orders.id','desc')->get()->groupBy('vendor_orders.order_number');
+        ->leftJoin('orders', 'vendor_orders.order_number', '=', 'orders.order_number')
+        ->select('vendor_orders.id','vendor_orders.user_id', 'vendor_orders.order_id', 'vendor_orders.qty', 'vendor_orders.price', 'vendor_orders.order_number', 'vendor_orders.status', 'conversations.id AS conversation_id', 'orders.pay_amount', 'orders.method')
+        ->orderBy('vendor_orders.id','desc')->get();
 
         return view('vendor.order.index',compact('user','orders'));
+        } catch (\Exception $e) {
+
+            return $e->getMessage();
+        }
     }
 
     public function show($slug)
