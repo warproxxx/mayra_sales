@@ -27,7 +27,7 @@
                                 </a>
                                 
 
-									{{ $conv->subject }}
+									<a href="{{route('user-order', $id)}}">{{ $conv->subject }}</a>
                             
                             <a  class="mybtn1" href="{{ route('user-orders') }}"> <i class="fas fa-arrow-left"></i> {{ $langg->lang373 }}</a></div>
                                 <div>
@@ -46,7 +46,7 @@
 
 								</h4>
 							</div>
-
+                            
                             @if(is_null($other_covs))
 
                             @else
@@ -66,7 +66,7 @@
                 <div class="panel panel-primary">
                       <div class="gocover" style="background: url({{ asset('assets/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>                  
                     <div class="panel-body" id="messages">
-                      @foreach($conv->messages as $message)
+                      @foreach($conv->messages as $indexKey => $message)
                         @if($message->sent_user != null)
 
                         <div class="single-reply-area admin">
@@ -103,7 +103,11 @@
                                 <div class="col-lg-12">
                                     <div class="reply-area">
                                         <div class="left">
-                                            <p>{{ $message->message }}</p>
+                                            @if ($indexKey == 0)
+                                            <a href="{{route('user-order', $id)}}" target="_blank">Order Details is available here</a>
+                                            @else
+                                            <p>{{ $message->message }}<br/><br/><br/></p>
+                                            @endif
                                         </div>
                                         <div class="right">
 
