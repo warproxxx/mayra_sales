@@ -42,9 +42,9 @@
                 </div>
 
                 <div class="row">
-                  <label class="control-label col-sm-3" for="gplus">{{ __('Google Plus') }} *</label>
+                  <label class="control-label col-sm-3" for="gplus">{{ __('Youtube') }} *</label>
                   <div class="col-sm-6">
-                    <input class="form-control" name="gplus" id="gplus" placeholder="{{ __('http://google.com/') }}" required="" type="text" value="{{$data->gplus}}">
+                    <input class="form-control" name="gplus" id="gplus" placeholder="{{ __('http://youtube.com/') }}" required="" type="text" value="{{$data->gplus}}">
                   </div>
                   <div class="col-sm-3">
                     <label class="switch">
@@ -82,9 +82,9 @@
 
 
                 <div class="row">
-                  <label class="control-label col-sm-3" for="dribble">{{ __('Dribble') }} *</label>
+                  <label class="control-label col-sm-3" for="dribble">{{ __('Instagram') }} *</label>
                   <div class="col-sm-6">
-                    <input class="form-control" name="dribble" id="dribble" placeholder="{{ __('https://dribbble.com/') }}" required="" type="text" value="{{$data->dribble}}">
+                    <input class="form-control" name="dribble" id="dribble" placeholder="{{ __('https://instagram.com/') }}" required="" type="text" value="{{$data->dribble}}">
                   </div>
                   <div class="col-sm-3">
                     <label class="switch">
