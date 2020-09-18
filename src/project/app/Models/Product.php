@@ -208,6 +208,22 @@ class Product extends Model
         }
     }
 
+    public function showOff() {
+        $previous_price = $this->previous_price;
+        $new_price = $this->price;
+
+        if(!$previous_price)
+        {
+            return '';
+        }
+        else
+        {
+            $discount = intval((($previous_price - $new_price)/$new_price) * 100);
+            return "(" .$discount . "% off)";
+        } 
+        
+    }
+
     public function showPreviousPrice() {
         $gs = Generalsetting::findOrFail(1);
         $price = $this->previous_price;
