@@ -472,14 +472,13 @@
 	<!-- Footer Area Start -->
 	<footer class="footer" id="footer">
 			<div class="row">
-				<div class="col-md-6 col-lg-2">
+				<div class="col-md-6 col-lg-3">
 				<div class="footer-widget info-link-widget">
-						<div class="footer-logo">
+						<div class="footer-logo" style="margin-top:-10px; margin-bottom:20px;">
 							<a href="{{ route('front.index') }}" class="logo-link">
 								<img src="{{asset('assets/images/'.$gs->footer_logo)}}" alt="">
 							</a>
 						</div>
-						<br/>
 							<ul class="link-list">
 								<li>
 									<a href="{{ route('front.index') }}">
@@ -499,35 +498,35 @@
 
 					
 						<br/>
-						<div class="fotter-social-links">
+						<div class="">
 							<ul>
 
 										@if(App\Models\Socialsetting::find(1)->f_status == 1)
-										<li>
+										<li style="display:inline;">
 											<a href="{{ App\Models\Socialsetting::find(1)->facebook }}" class="facebook" target="_blank">
-												<i class="fab fa-facebook-f"></i>
+												<img src="/assets/images/facebook.png" style="height:38px;">
 											</a>
 										</li>
 										@endif
 
 										@if(App\Models\Socialsetting::find(1)->g_status == 1)
-										<li>
+										<li style="display:inline; margin-left:10px;">
 											<a href="{{ App\Models\Socialsetting::find(1)->gplus }}" class="google-plus" target="_blank">
-												<i class="fab fa-google-plus-g"></i>
+											<img src="/assets/images/youtube.png" style="height:38px;">
 											</a>
 										</li>
 										@endif
 
 										@if(App\Models\Socialsetting::find(1)->t_status == 1)
-										<li>
+										<li style="display:inline; margin-left:10px;">
 											<a href="{{ App\Models\Socialsetting::find(1)->twitter }}" class="twitter" target="_blank">
-												<i class="fab fa-twitter"></i>
+											<img src="/assets/images/twitter.png" style="height:38px;">
 											</a>
 										</li>
 										@endif
 
 										@if(App\Models\Socialsetting::find(1)->l_status == 1)
-										<li>
+										<li style="display:inline; margin-left:10px;">
 											<a href="{{ App\Models\Socialsetting::find(1)->linkedin }}" class="linkedin" target="_blank">
 												<i class="fab fa-linkedin-in"></i>
 											</a>
@@ -535,9 +534,9 @@
 										@endif
 
 										@if(App\Models\Socialsetting::find(1)->d_status == 1)
-										<li>
+										<li style="display:inline; margin-left:10px;">
 											<a href="{{ App\Models\Socialsetting::find(1)->dribble }}" class="dribbble" target="_blank">
-												<i class="fab fa-dribbble"></i>
+											<img src="/assets/images/instagram.png" style="height:38px;">
 											</a>
 										</li>
 										@endif
@@ -569,10 +568,10 @@
 				</div>
 
 
-				<div class="col-md-6 col-lg-2">
+				<div class="col-md-6 col-lg-3">
 					<div class="footer-widget recent-post-widget">
 						<h4 class="title">
-							Share on Facebook
+							Share the App
 						</h4>
 
 
@@ -590,7 +589,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-6 col-lg-2">
+				<div class="col-md-6 col-lg-3">
 					<div class="footer-widget recent-post-widget">
 						<h4 class="title">
 							Get the App

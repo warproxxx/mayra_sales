@@ -1,5 +1,20 @@
-Email should work
-Google Analytics
+Share the App on instagram and whatsapp
+
+Put download the app in the left side
+
+Error video about blinking
+
+Terms and Policy vendor terms is small. From us in first sentecnce
+
+
+
+Show in admin panel city wise.
+
+Notifications
+
+Show changed delivery status.
+
+Show how much percentage discount it was.
 
 There is a function in FrontendController called subcheck which send notifications 5 days before.
 In https://mayrasales.local/admin/general-settings/contents it is asked to add to cronjob.
@@ -48,13 +63,10 @@ DELETE FROM products;
 DELETE FROM system_notifications;
 DELETE FROM social_providers;
 DELETE FROM banners;
-DELETE FROM admins WHERE id!=1
-
-Shoppy:
-https://shoppy.gg/@ShivbhaktRAVAN
-https://shoppy.gg/product/cGPV7uG
-https://shoppy.gg/product/BM205QC
+DELETE FROM admins WHERE id!
 
 CREATE USER 'mayra_user'@'localhost' IDENTIFIED BY '@dminP@ssword';
 GRANT ALL ON mayra.* TO 'mayra_user'@'localhost';
 FLUSH PRIVILEGES;
+
+@daily mysqldump -u root -pX --all-databases > /home/ubuntu/database/database_$( date +"%Y_%m_%d" ).sql
