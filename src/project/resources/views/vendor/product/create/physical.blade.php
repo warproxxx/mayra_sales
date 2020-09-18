@@ -601,6 +601,8 @@
 					<div class="top-area">
 						<div class="row">
 							<div class="col-sm-6 text-right">
+
+								
 								<div class="upload-img-btn">
 											<label for="image-upload" id="prod_gallery"><i class="icofont-upload-alt"></i>{{ $langg->lang620 }}</label>
 								</div>

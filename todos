@@ -1,9 +1,4 @@
-
-Terms and Policy vendor terms is small. From us in first sentecnce
-
-
-Error video about blinking
-
+roduct edit in mobile
 
 
 
@@ -14,6 +9,9 @@ Notifications
 Show changed delivery status.
 
 Show how much percentage discount it was.
+
+
+
 
 There is a function in FrontendController called subcheck which send notifications 5 days before.
 In https://mayrasales.local/admin/general-settings/contents it is asked to add to cronjob.
