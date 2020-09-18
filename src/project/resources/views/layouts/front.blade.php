@@ -585,6 +585,12 @@
 									<a href="http://www.facebook.com/dialog/send?app_id=3295714593783056&link=https://mayrasales.com&redirect_uri=https://www.mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-facebook-messenger fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
 									</a>
 								</div>
+
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="smd"> 
+									<a href="https://wa.me/?text=I am using mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-whatsapp fa-2x" style="color: #4FCE5D;background-color: #eceff5;"></i>
+									</a>
+								</div>
 						</div>
 					</div>
 				</div>

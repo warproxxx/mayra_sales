@@ -36,15 +36,13 @@
             </h4>
             <p>
 
-<h5 align="left">
     <a name="_30j0zll"></a>
     Welcome to MayraSales by Mayara Technology Private Limited. Please read
     carefully the terms and conditions set out on this page.
-</h5>
-<h1 align="left">
+<h3 align="left">
     <br/>
 </h1>
-<h1 align="left">
+<h3 align="left">
     AGREEMENT TO TERMS
 </h1>
 <p>
@@ -105,7 +103,7 @@
     are a minor, you must have your parent or guardian read and agree to these
     Terms of Use prior to you using the Site.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_3znysh7"></a>
     INTELLECTUAL PROPERTY RIGHTS
 </h1>
@@ -135,7 +133,7 @@
     your personal, non-commercial use. We reserve all rights not expressly
     granted to you in and to the Site, the Content and the Marks.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_2et92p0"></a>
     USER REPRESENTATIONS
 </h1>
@@ -174,7 +172,7 @@
     refuse any and all current or future use of the Site (or any portion
     thereof).
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_tyjcwt"></a>
     USER REGISTRATION
 </h1>
@@ -185,7 +183,7 @@
     you select if we determine, in our sole discretion, that such username is
     inappropriate, obscene, or otherwise objectionable.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_3dy6vkm"></a>
     PRODUCTS
 </h1>
@@ -202,7 +200,7 @@
     items will be in stock. We reserve the right to discontinue any products at
     any time for any reason. Prices for all products are subject to change.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_1t3h5sf"></a>
     PURCHASES AND PAYMENT
 </h1>
@@ -273,7 +271,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     case of fraud by vendor; if proved; customer can take legal action against
     the vendor.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_4d34og8"></a>
     [RETURN/REFUNDS] POLICY
 </h1>
@@ -284,7 +282,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     here. In case of unsolved issues from vendor you may contact our customer
     care and support for possible solutions and advice.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_2s8eyo1"></a>
     PROHIBITED ACTIVITIES
 </h1>
@@ -466,7 +464,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
         </p>
     </li>
 </ol>
-<h1 align="left">
+<h3 align="left">
     <a name="_17dp8vu"></a>
     USER GENERATED CONTRIBUTIONS
 </h1>
@@ -591,7 +589,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     your rights to use the Site and possible prosecution as permitted by the
     law.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_3rdcrjn"></a>
     CONTRIBUTION LICENSE
 </h1>
@@ -640,7 +638,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     reason, without notice. We have no obligation to monitor your
     Contributions.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_26in1rg"></a>
     GUIDELINES FOR REVIEWS
 </h1>
@@ -693,15 +691,15 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     translate, transmit by any means, display, perform, and/or distribute all
     content relating to reviews.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_lnxbz9"></a>
     MOBILE APPLICATION LICENSE
 </h1>
-<h2 align="left">
+<h4 align="left">
     <a name="_35nkun2"></a>
     <br/>
 </h2>
-<h2 align="left">
+<h4 align="left">
     <a name="_1ksv4uv"></a>
     Use License
 </h2>
@@ -756,7 +754,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     or distribution of any applications, accessories, or devices for use with
     the application.
 </p>
-<h2 align="left">
+<h4 align="left">
     <a name="_44sinio"></a>
     Apple and Android Devices
 </h2>
@@ -802,7 +800,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     the terms and conditions in this mobile application license contained in
     these Terms of Use against you as a third-party beneficiary thereof.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_2jxsxqh"></a>
     SOCIAL MEDIA
 </h1>
@@ -867,7 +865,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     Third-Party Account, except the username and profile picture that become
     associated with your account.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_z337ya"></a>
     SUBMISSIONS
 </h1>
@@ -887,7 +885,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     against us for any alleged or actual infringement or misappropriation of
     any proprietary right in your Submissions.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_3j2qqm3"></a>
     THIRD-PARTY WEBSITES AND CONTENT
 </h1>
@@ -932,7 +930,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     to you relating to or resulting in any way from any Third-Party Content or
     any contact with Third-Party Websites.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_1y810tw"></a>
     ADVERTISERS
 </h1>
@@ -954,7 +952,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     We simply provide the space to place such advertisements, and we have no
     other relationship with advertisers.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_4i7ojhp"></a>
     SITE MANAGEMENT
 </h1>
@@ -983,7 +981,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     (5) otherwise manage the Site in a manner designed to protect our rights
     and property and to facilitate the proper functioning of the Site.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_2xcytpi"></a>
     PRIVACY POLICY
 </h1>
@@ -994,11 +992,11 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     Policy, which is incorporated into these Terms of Use. Please be advised
     the Site is hosted in the Nepal.
 </p>
-<h2 align="left">
+<h4 align="left">
     <a name="_2bn6wsx"></a>
     <em> </em>
 </h2>
-<h1 align="left">
+<h3 align="left">
     <a name="_qsh70q"></a>
     COPYRIGHT INFRINGEMENTS
 </h1>
@@ -1016,7 +1014,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     not sure that material located on or linked to by the Site infringes your
     copyright, you should consider first contacting an attorney.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_3as4poj"></a>
     TERM AND TERMINATION
 </h1>
@@ -1043,7 +1041,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     to take appropriate legal action, including without limitation pursuing
     civil, criminal, and injunctive redress.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_1pxezwc"></a>
     MODIFICATIONS AND INTERRUPTIONS
 </h1>
@@ -1073,7 +1071,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     be construed to obligate us to maintain and support the Site or to supply
     any corrections, updates, or releases in connection therewith.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_49x2ik5"></a>
     GOVERNING LAW
 </h1>
@@ -1082,7 +1080,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     with the laws of Nepal. You agree, as we do, to submit to the exclusive
     jurisdiction of District Court of Sunsari.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_2p2csry"></a>
     DISPUTE RESOLUTION
 </h1>
@@ -1091,7 +1089,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     get resolved with the mentioned strategies, this Site has the final right
     in resolution the way we see fit.
 </p>
-<h2 align="left">
+<h4 align="left">
     <a name="_147n2zr"></a>
     Option 1: Informal Negotiations
 </h2>
@@ -1105,7 +1103,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     arbitration. Such informal negotiations commence upon receiving written
     notice from one Party to the other Party.
 </p>
-<h2 align="left">
+<h4 align="left">
     <a name="_3o7alnk"></a>
     <a name="_23ckvvd"></a>
     Option 2: Arbitration
@@ -1129,7 +1127,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     related in any way to the Site or Services be commenced more than 1 month
     after the cause of action arose.
 </p>
-<h2 align="left">
+<h4 align="left">
     <a name="_ihv636"></a>
     Option 2/Option 3: Restrictions
 </h2>
@@ -1142,7 +1140,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     authority for any Dispute to be brought in a purported representative
     capacity on behalf of the general public or any other persons.
 </p>
-<h2 align="left">
+<h4 align="left">
     <a name="_32hioqz"></a>
     Option 2/Option 3: Exceptions to [Informal Negotiations and] Arbitration
 </h2>
@@ -1162,7 +1160,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     for jurisdiction above, and the Parties agree to submit to the personal
     jurisdiction of that court.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_1hmsyys"></a>
     CORRECTIONS
 </h1>
@@ -1173,7 +1171,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     inaccuracies, or omissions and to change or update the information on the
     Site at any time, without prior notice.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_41mghml"></a>
     DISCLAIMER
 </h1>
@@ -1206,7 +1204,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     ENVIRONMENT, YOU SHOULD USE YOUR BEST JUDGMENT AND EXERCISE CAUTION WHERE
     APPROPRIATE.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_2grqrue"></a>
     LIMITATIONS OF LIABILITY
 </h1>
@@ -1217,7 +1215,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SITE,
     EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_vx1227"></a>
     INDEMNIFICATION
 </h1>
@@ -1241,7 +1239,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     any such claim, action, or proceeding which is subject to this
     indemnification upon becoming aware of it.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_3fwokq0"></a>
     USER DATA
 </h1>
@@ -1257,7 +1255,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     of any such data, and you hereby waive any right of action against us
     arising from any such loss or corruption of such data.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_1v1yuxt"></a>
     ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES
 </h1>
@@ -1278,7 +1276,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     records, or to payments or the granting of credits by any means other than
     electronic means.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_4f1mdlm"></a>
     <a name="_2u6wntf"></a>
     MISCELLANEOUS
@@ -1310,7 +1308,7 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     may have based on the electronic form of these Terms of Use and the lack of
     signing by the parties hereto to execute these Terms of Use.
 </p>
-<h1 align="left">
+<h3 align="left">
     <a name="_19c6y18"></a>
     CONTACT US
 </h1>
