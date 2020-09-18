@@ -45,7 +45,9 @@
 													<thead>
 														<tr>
 		                                                  <th>{{ __("Store Name") }}</th>
-		                                                  <th>{{ __("Vendor Email") }}</th>
+														  <th>{{ __("Vendor Email") }}</th>
+														  <th>{{ __("Vendor Address") }}</th>
+														  <th>{{ __("Shop Address") }}</th>
 		                                                  <th>{{ __("Shop Number") }}</th>
 		                                                  <th>{{ __("Status") }}</th>
 		                                                  <th>{{ __("Options") }}</th>
@@ -240,6 +242,8 @@
                columns: [
                         { data: 'shop_name', name: 'shop_name' },
                         { data: 'email', name: 'email' },
+						{ data: 'address', name: 'address' },
+						{ data: 'shop_address', name: 'shop_address' },
                         { data: 'shop_number', name: 'shop_number' },
                         { data: 'status', searchable: false, orderable: false},
             			{ data: 'action', searchable: false, orderable: false }
