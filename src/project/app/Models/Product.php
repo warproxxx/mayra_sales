@@ -218,7 +218,7 @@ class Product extends Model
         }
         else
         {
-            $discount = intval((($previous_price - $new_price)/$new_price) * 100);
+            $discount = intval((($previous_price - $new_price)/$previous_price) * 100);
             return "(" .$discount . "% off)";
         } 
         
