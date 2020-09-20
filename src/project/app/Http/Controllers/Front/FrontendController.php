@@ -210,6 +210,47 @@ class FrontendController extends Controller
         $categories = Category::all();
         return response()->json(['status' => 'success', 'details' => $categories]);
     }
+    public function get_categories_with_sub_api()
+    {
+
+
+
+        try {
+            
+            $all_data = array();
+            $categories = Category::all();
+
+            foreach($categories as $category)
+            {
+                $cur_array = $category->toArray();
+
+                if(count($category->subs) > 0)
+                {
+                    $cur_array['subcategories'] = $category->subs->toArray();
+                    foreach($category->subs as $subcat)
+                    {
+                        if(count($subcat->childs) > 0)
+                        {
+                            $cur_array['childcategories'] = $subcat->childs->toArray();
+                        }
+                        
+                    }
+                }
+
+                $all_data[] = $cur_array;
+            }
+
+            return $all_data;
+            
+          } 
+          catch (\Exception $e) 
+          {
+      
+                return $e->getMessage();
+            }
+          
+  
+    }
 
     public function get_subcategories_api()
     {

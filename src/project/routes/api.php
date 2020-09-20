@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 #get categories
 
 Route::get('/categories', 'Front\FrontendController@get_categories_api');
+Route::get('/categories_with_sub', 'Front\FrontendController@get_categories_with_sub_api');
 Route::get('/subcategories', 'Front\FrontendController@get_subcategories_api');
 Route::get('/childcategories', 'Front\FrontendController@get_childcategories_api');
 
