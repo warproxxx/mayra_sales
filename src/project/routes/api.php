@@ -24,6 +24,8 @@ Route::get('/categories_with_sub', 'Front\FrontendController@get_categories_with
 Route::get('/subcategories', 'Front\FrontendController@get_subcategories_api');
 Route::get('/childcategories', 'Front\FrontendController@get_childcategories_api');
 Route::get('/advertisement', 'Front\FrontendController@get_banner');
+Route::get('/slider', 'Front\FrontendController@get_slider');
+
 
 Route::get('/category/{id}', 'Front\FrontendController@get_product_by_category_api'); #8
 

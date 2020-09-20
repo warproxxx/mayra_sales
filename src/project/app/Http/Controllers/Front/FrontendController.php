@@ -14,6 +14,7 @@ use App\Models\Generalsetting;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Banner;
+use App\Models\Slider;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Models\SystemNotification;
@@ -258,6 +259,16 @@ class FrontendController extends Controller
 
 
         $banner = Banner::where('type', '=', 'TopSmall')->first();
+        return $banner;
+          
+  
+    }
+
+    public function get_slider()
+    {
+
+
+        $banner = Slider::all();
         return $banner;
           
   
