@@ -35,6 +35,9 @@ Route::get('/featured_products', 'Front\FrontendController@featured_products_api
 
 Route::get('/products', 'Front\FrontendController@get_products_api');
 Route::get('/product/{id}', 'Front\FrontendController@get_product_detail_api');
+Route::get('/product_cat_sub', 'Front\FrontendController@get_product_by_category_sub_cat_api');
+Route::get('/product_cat_sub_child', 'Front\FrontendController@get_product_by_category_sub_cat_child_api');
+
 
 
 #Cart

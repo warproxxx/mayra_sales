@@ -293,6 +293,38 @@ class FrontendController extends Controller
         return response()->json(['status' => 'success', 'details' => $products]);
     }
 
+    public function get_product_by_category_sub_cat_api(Request $request)
+    {
+     $parms = $request->all();   
+        try {
+        $products = Product::where('category_id','=',$parms['id'])->where('subcategory_id','=',$parms['sub_id'])->get();
+        return response()->json(['status' => 'success', 'details' => $products]);
+    } 
+    catch (\Exception $e) 
+    {
+
+          return $e->getMessage();
+      }
+
+        
+    }
+
+    public function get_product_by_category_sub_cat_child_api(Request $request)
+    {
+     $parms = $request->all();   
+        try {
+        $products = Product::where('category_id','=',$parms['id'])->where('subcategory_id','=',$parms['sub_id'])->where('childcategory_id','=',$parms['child_id'])->get();
+        return response()->json(['status' => 'success', 'details' => $products]);
+    } 
+    catch (\Exception $e) 
+    {
+
+          return $e->getMessage();
+      }
+
+        
+    }
+
     public function get_products_api()
     {
         $products = DB::table('products')
