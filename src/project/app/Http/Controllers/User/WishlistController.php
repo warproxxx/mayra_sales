@@ -88,11 +88,16 @@ class WishlistController extends Controller
             file_put_contents($path, $image);
                         
             $request['photo'] = $image_name;
-        } 
+        }
+
+        
 
             
         $required = $request->except(['api_token']);
-
+        if (isset($required['password']))
+        {
+            $required['password'] = bcrypt($required['password']);
+        }
         
         $apiCart = User::where('id', '=',$user->id)->update($required);
         return response()->json(['status' => 'success', 'details' => "User Updated"]);
