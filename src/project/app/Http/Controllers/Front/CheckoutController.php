@@ -1222,6 +1222,43 @@ $validator = Validator::make($input, $rules, $messages);
            
     }
 
+    public function swap_dispute($id)
+    {
+        $conv = Conversation::findOrfail($id);
+        $user = Auth::user();
+        $new_disp = 1 - $conv->is_dispute;
+        Conversation::where('id', $id)->update(array('is_dispute' => $new_disp));
+
+        $message = "Buyer has closed a dispute";
+        $dispute_type = "dispute_close";
+        if ($new_disp == 1)
+        {
+            $message = "Buyer has opened a dispute. Admins will now handle this case";
+            $dispute_type = "dispute_open";
+        }
+
+        $msg = new Message();
+        $msg->conversation_id = $conv->id;
+        $msg->message = $message;
+        $msg->sent_user = 0;
+        $msg->save();
+        
+        $notification = new VendorNotification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+
+        $notification = new Notification;
+        $notification->conversation_id = $conv->id;
+        // $notification->admin_id = 1;
+        $notification->type = $dispute_type;
+        $notification->save();
+
+        $conv = Conversation::findOrfail($id);
+
+        return response()->json(['status' => 'success', 'dispute_type' => $dispute_type]);                    
+    }
+
     public function user_orders(Request $request)
     {
         $user = $request->user();
