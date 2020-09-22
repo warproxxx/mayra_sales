@@ -1259,6 +1259,32 @@ $validator = Validator::make($input, $rules, $messages);
         return response()->json(['status' => 'success', 'dispute_type' => $dispute_type]);                    
     }
 
+    public function swap_open($id)
+    {
+        $conv = Conversation::findOrfail($id);
+        $user = Auth::guard('web')->user();
+        $new_closed = 1 - $conv->closed;
+        Conversation::where('id', $id)->update(array('closed' => $new_closed));
+
+        $conv = Conversation::findOrfail($id);
+
+        $notification = new VendorNotification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+
+        if ($new_closed == 1)
+        {
+            $msg = new Message();
+            $msg->conversation_id = $conv->id;
+            $msg->message = "Buyer has confirmed receiving an item";
+            $msg->sent_user = 0;
+            $msg->save();
+        }
+
+        return response()->json(['status' => 'success', 'new_received_status' => $new_closed]);                   
+    }
+
     public function user_orders(Request $request)
     {
         $user = $request->user();

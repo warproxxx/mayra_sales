@@ -106,11 +106,14 @@ class MessageController extends Controller
         $notification->user_id = $conv->recieved_user;
         $notification->save();
 
-        $msg = new Message();
-        $msg->conversation_id = $conv->id;
-        $msg->message = "Buyer has confirmed receiving an item";
-        $msg->sent_user = 0;
-        $msg->save();
+        if ($new_closed == 1)
+        {
+            $msg = new Message();
+            $msg->conversation_id = $conv->id;
+            $msg->message = "Buyer has confirmed receiving an item";
+            $msg->sent_user = 0;
+            $msg->save();
+        }
 
         return view('user.message.create',compact('user','conv', 'order'));                   
     }
