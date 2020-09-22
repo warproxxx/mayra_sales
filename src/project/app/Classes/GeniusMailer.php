@@ -61,18 +61,18 @@ class GeniusMailer
                 $message->from($objDemo->from,$objDemo->title);
                 $message->to($objDemo->to);
                 $message->subject($objDemo->subject);
-        $order = Order::findOrFail($id);
-        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
-        $fileName = public_path('assets/prints/').str_random(4).time().'.pdf';
-        $pdf = PDF::loadView('print.order', compact('order', 'cart'))->save($fileName);
-                $message->attach($fileName);
+        // $order = Order::findOrFail($id);
+        // $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+        // $fileName = public_path('assets/prints/').str_random(4).time().'.pdf';
+        // $pdf = PDF::loadView('print.order', compact('order', 'cart'))->save($fileName);
+        //         $message->attach($fileName);
 
 
             });
 
         }
         catch (\Exception $e){
-            //die("Not Sent!");
+            echo($e->getMessage());
         }
 
         $files = glob('assets/prints/*'); //get all file names
