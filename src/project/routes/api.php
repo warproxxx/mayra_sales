@@ -123,7 +123,7 @@ Route::prefix('user')->group(function() {
         Route::get('/user_orders','Front\CheckoutController@user_orders');
         Route::get('/order_message','Front\CheckoutController@message_api');
         Route::get('/postmessage','Front\CheckoutController@postmessage');
-
+        Route::get('/swap_dispute/{id}','Front\CheckoutController@swap_dispute');
     });
 
 });
