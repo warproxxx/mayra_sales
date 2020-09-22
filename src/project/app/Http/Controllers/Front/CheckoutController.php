@@ -1587,6 +1587,8 @@ $validator = Validator::make($input, $rules, $messages);
             // mail($to,$subject,$msg,$headers);
             // }
 
+            ApiCart::where('user_id', '=', $user->id)->delete();
+
 
             return response()->json(['status' => 'success', 'id' => $order->id, 'order_number' => $order_number]);
 
