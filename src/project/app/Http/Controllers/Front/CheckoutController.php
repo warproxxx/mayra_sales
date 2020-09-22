@@ -1175,12 +1175,12 @@ $validator = Validator::make($input, $rules, $messages);
         $user = Auth::user();
         $conv = Conversation::where('subject', '=', $request->order_number)->first();
         $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $conv->id)->get();
-        return response()->json(['status' => 'success', 'conv' => $conv, 'other_convs'=> $other_covs]);          
+        return response()->json(['status' => 'success', 'conv' => $conv, 'messages' => $conv->messages, 'other_convs'=> $other_covs]);          
     }
 
     public function postmessage(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::user(); 
         $msg = new Message();
         $input = $request->except(['file']);
         $input['sent_user'] = $user->id;
