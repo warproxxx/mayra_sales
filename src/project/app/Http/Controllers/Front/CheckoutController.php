@@ -1170,10 +1170,62 @@ $validator = Validator::make($input, $rules, $messages);
         
     }
 
+    public function message_api(Request $request)
+    {
+        $user = Auth::user();
+        $conv = Conversation::where('subject', '=', $request->order_number)->first();
+        $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $conv->id)->get();
+        return response()->json(['status' => 'success', 'conv' => $conv, 'other_convs'=> $other_covs]);          
+    }
+
+    public function postmessage(Request $request)
+    {
+        $user = Auth::user();
+        $msg = new Message();
+        $input = $request->except(['file']);
+        $input['sent_user'] = $user->id;
+
+        if($request->file) 
+        {      
+
+            $image = base64_decode($request->file);
+            $image_name = time().str_random(8).'.png';
+            $path = 'assets/images/users/'.$image_name;
+            file_put_contents($path, $image);
+                        
+            $input['file'] = $image_name;
+        }
+
+        $msg->fill($input)->save();
+        //--- Redirect Section     
+        $msg = 'Message Sent!';
+
+        $conv = Conversation::where('id','=',$request->conversation_id)->first();
+
+        $notification = new VendorNotification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+        
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $request->conversation_id;
+            // $notification->admin_id = 1;
+            $notification->type = "admin";
+            $notification->save();
+        }
+
+        return response()->json(['status' => 'success', 'details' => $msg]);
+
+
+           
+    }
+
     public function user_orders(Request $request)
     {
         $user = $request->user();
-        $user_orders = Order::where('user_id', '=', $user->id);
+        $user_orders = Order::where('user_id', '=', $user->id)->get();
         return response()->json(['status' => 'success', 'details' => $user_orders]);
     }
 

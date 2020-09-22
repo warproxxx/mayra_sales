@@ -40,6 +40,8 @@ class MessageController extends Controller
             return view('user.message.create',compact('user','conv','other_covs','id'));                 
     }
 
+    
+
     public function messagedelete($id)
     {
             $conv = Conversation::findOrfail($id);
