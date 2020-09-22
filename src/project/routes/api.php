@@ -120,6 +120,8 @@ Route::prefix('user')->group(function() {
         Route::get('/checkout','Front\CheckoutController@checkout_api');
         Route::get('/gateway','Front\CheckoutController@order_api');
 
+        Route::get('/user_orders','Front\CheckoutController@user_orders');
+
     });
 
 });
