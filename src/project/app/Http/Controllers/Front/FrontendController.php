@@ -256,10 +256,14 @@ class FrontendController extends Controller
 
     public function get_banner()
     {
-
-
-        $banner = Banner::where('type', '=', 'TopSmall')->all();
+        try{
+        $banner = Banner::where('type', '=', 'TopSmall')->get();
         return $banner;
+        }catch (\Exception $e) 
+        {
+    
+              return $e->getMessage();
+          }
           
   
     }
