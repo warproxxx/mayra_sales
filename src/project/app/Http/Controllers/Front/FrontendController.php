@@ -258,7 +258,7 @@ class FrontendController extends Controller
     {
 
 
-        $banner = Banner::where('type', '=', 'TopSmall')->first();
+        $banner = Banner::where('type', '=', 'TopSmall')->all();
         return $banner;
           
   
