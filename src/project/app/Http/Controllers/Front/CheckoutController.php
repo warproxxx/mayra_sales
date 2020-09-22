@@ -1170,6 +1170,13 @@ $validator = Validator::make($input, $rules, $messages);
         
     }
 
+    public function user_orders(Request $request)
+    {
+        $user = $request->user();
+        $user_orders = Order::where('user_id', '=', $user->id);
+        return response()->json(['status' => 'success', 'details' => $user_orders]);
+    }
+
     public function order_api(Request $request)
     {
 
@@ -1241,7 +1248,7 @@ $validator = Validator::make($input, $rules, $messages);
             $order = new Order;
             $item_name = $settings->title." Order";
             $item_number = str_random(4).time();
-            $order['user_id'] = $request->user_id;
+            $order['user_id'] = $user->id;
             $order['cart'] = utf8_encode(bzcompress(serialize($cart), 9));
             $order['totalQty'] = $request->totalQty;
             $order['pay_amount'] = round($request->total / $curr->value, 2);
