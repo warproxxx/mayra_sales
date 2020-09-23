@@ -1291,6 +1291,31 @@ $validator = Validator::make($input, $rules, $messages);
     {
         $user = $request->user();
         $user_orders = Order::where('user_id', '=', $user->id)->get();
+
+        $all_data = array();
+
+        foreach($user_orders as $order)
+        {
+            $curr_data = $order;
+            $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+            $my_cart = array();
+
+            foreach($cart->items as $item)
+            {
+                $current = array();
+                $current['qty'] = ($item['qty']);
+                $current['color'] = ($item['color']);
+                $current['price'] = ($item['price']);
+                $current['size'] = ($item['size']);
+                $current['product_id'] = ($item['item']->id);
+                $current['vendor_id'] = ($item['item']->user_id);
+                $my_cart[] = $current;
+            }
+
+            $order['cart'] = $my_cart;
+        }
+
+        
         return response()->json(['status' => 'success', 'details' => $user_orders]);
     }
 
