@@ -164,13 +164,19 @@ class WishlistController extends Controller
         $required = $request->except(['api_token']);
         $required['user_id'] = $user->id;
 
-        $currentCart = ApiCart::where('user_id', '=', $user->id)->get();
-        $prev_prod = Product::where('id', '=', $currentCart[0]->product_id)->first();
-        $curr_prod = Product::where('id', '=', $request->product_id)->first();
-
-        if ($prev_prod->user_id != $curr_prod->user_id)
+        try
         {
-            return response()->json(['status' => 'failure', 'details' => "Different vendor"]);
+
+            $currentCart = ApiCart::where('user_id', '=', $user->id)->get();
+            $prev_prod = Product::where('id', '=', $currentCart[0]->product_id)->first();
+            $curr_prod = Product::where('id', '=', $request->product_id)->first();
+
+            if ($prev_prod->user_id != $curr_prod->user_id)
+            {
+                return response()->json(['status' => 'failure', 'details' => "Different vendor"]);
+            }
+        }  catch (\Exception $e) {
+            
         }
         
         
