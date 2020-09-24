@@ -1307,8 +1307,8 @@ $validator = Validator::make($input, $rules, $messages);
                 $current['color'] = ($item['color']);
                 $current['price'] = ($item['price']);
                 $current['size'] = ($item['size']);
-                $current['product_id'] = ($item['item']->id);
-                $current['vendor_id'] = ($item['item']->user_id);
+                $current['product_details'] = Product::where('id', '=', $item['item']->id)->first();
+                $current['vendor_details'] = User::where('id', '=', $item['item']->user_id)->first();
                 $my_cart[] = $current;
             }
 
