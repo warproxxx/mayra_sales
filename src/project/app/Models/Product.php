@@ -219,6 +219,11 @@ class Product extends Model
         else
         {
             $discount = intval((($previous_price - $new_price)/$previous_price) * 100);
+
+            if ($discount < 0)
+            {
+                return '';
+            }
             return "(" .$discount . "% off)";
         } 
         
@@ -230,6 +235,12 @@ class Product extends Model
         if(!$price){
             return '';
         }
+
+        if ($this->previous_price < $this->price)
+        {
+            return '';
+        }
+
         if($this->user_id != 0){
         $price = $this->previous_price + $gs->fixed_commission + ($this->previous_price/100) * $gs->percentage_commission ;
         }
