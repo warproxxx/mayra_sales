@@ -86,29 +86,30 @@
 
 	@endif
 
-	<section class="phone-and-accessories categori-item">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 remove-padding">
-					<div class="section-top">
-						<h2 class="section-title">
+	<section class="categori-item electronics-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 remove-padding">
+						<div class="section-top">
+							<h2 class="section-title">
 							Premium
-						</h2>
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row">
+
+							@foreach($premium_products as $prod)
+								@include('includes.product.top-product')
+							@endforeach
+
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="row">
-						@foreach($premium_products as $prod)
-							@include('includes.product.slider-product')
-						@endforeach
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Phone and Accessories Area start-->
+		</section>
 
 
 	@if($ps->featured == 1)
