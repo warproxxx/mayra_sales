@@ -16,6 +16,7 @@ use App\Models\UserSubscription;
 use App\Models\FavoriteSeller;
 use App\Models\PaymentGateway;
 use Log;
+use Session;
 
 class UserController extends Controller
 {
@@ -108,6 +109,7 @@ class UserController extends Controller
 
     public function vendorrequest($id)
     {
+
         $subs = Subscription::findOrFail($id);
         $gs = Generalsetting::findOrfail(1);
         $user = Auth::user();
@@ -123,14 +125,27 @@ class UserController extends Controller
 
     public function vendorrequestsub(Request $request)
     {
+        
         try{
-        // $this->validate($request, [
-        //     'shop_name'   => 'unique:users',
-        //    ],[ 
-        //        'shop_name.unique' => 'This shop name has already been taken.'
-        //     ]);
+
+        
 
         $input = $request->all();  
+
+
+        $rules =
+        [
+            'shop_name'   => 'unique:users',
+        ];
+
+
+        $validator = Validator::make(Input::all(), $rules);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->with('message', 'This shop name already exist');  
+        }
+            
+            
         #There should be pending subscription which admins will later approve.
         if ($request->hasFile('txn_image')) 
         {
