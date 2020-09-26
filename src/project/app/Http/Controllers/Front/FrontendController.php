@@ -343,7 +343,7 @@ class FrontendController extends Controller
     {
         $products = Product::where('products.id','=',$id)
                     ->join('users', 'products.user_id', '=', 'users.id')
-                    ->select('products.*','users.name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
+                    ->select('products.*','users.name AS vendor_name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
                     ->get();
 
         return response()->json(['status' => 'success', 'details' => $products]);
