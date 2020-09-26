@@ -169,6 +169,16 @@ class FrontendController extends Controller
 
 	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products'));
     }
+
+    public function api_search($slug)
+    {
+        if(strlen($slug) > 1){
+            $search = ' '.$slug;
+            $prods = Product::where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $slug . '%')->where('status','=',1)->get();
+            return response()->json(['status' => 'success', 'details' => $prods]);
+        }
+        return response()->json(['status' => 'failure', 'details' => "empty"]);
+    }
     
     public function premium_products_api()
     {
@@ -333,7 +343,7 @@ class FrontendController extends Controller
     {
         $products = DB::table('products')
                     ->join('users', 'products.user_id', '=', 'users.id')
-                    ->select('products.*','users.name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
+                    ->select('products.*','users.name AS vendor_name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
                     ->get();
         
         return response()->json(['status' => 'success', 'details' => $products]);
