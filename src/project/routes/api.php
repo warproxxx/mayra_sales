@@ -105,7 +105,7 @@ Route::prefix('user')->group(function() {
             return $request->user();
         });
 
-        Route::get('/modify','User\WishlistController@modify_api');
+        Route::post('/modify','User\WishlistController@modify_api');
 
         //Wishlist
         Route::get('/wishlists','User\WishlistController@wishlists_api');
