@@ -78,9 +78,8 @@ class WishlistController extends Controller
 
         $user = $request->user();
         
-
+        print_r($request->all());
         try {
-        
         $required = $request->except(['api_token', 'photo']);
 
         if ($request->hasFile('photo')) 
@@ -102,7 +101,7 @@ class WishlistController extends Controller
         }
         
         $apiCart = User::where('id', '=',$user->id)->update($required);
-        return response()->json(['status' => 'success', 'details' => "User Updated"]);
+        return response()->json(['status' => 'success', 'details' => "User Updated", "print" => $request->all()]);
 
         } catch (\Exception $e) {
 
