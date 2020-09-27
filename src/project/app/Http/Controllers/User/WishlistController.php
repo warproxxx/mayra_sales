@@ -80,6 +80,7 @@ class WishlistController extends Controller
         
         try {
         $required = $request->except(['api_token', 'photo']);
+        
 
         if (isset($request->all()['photo']))
         {
