@@ -78,20 +78,19 @@ class WishlistController extends Controller
 
         $user = $request->user();
         
-        print_r($request->all());
         try {
         $required = $request->except(['api_token', 'photo']);
 
-        if ($request->hasFile('photo')) 
+        if (isset($request->all()['photo']))
         {
-            if ($request->file('photo')->isValid()) 
-            {
-                $image_name = date('mdYHis') . uniqid() .$request->file('photo')->getClientOriginalName();
-                $path = 'assets/images/users';
-                $request->file('photo')->move($path,$image_name);
-                $required['photo'] = $image_name;
+            $image = $request->all()['photo'];
+            $image = substr($image, strpos($image, ",")+1);
 
-            }
+            $decoded = base64_decode($image);
+            $image_name = 'user_' .time().str_random(8).'.png';
+            $path = 'assets/images/users/'.$image_name;
+            file_put_contents($path, $decoded);
+            $required['photo'] = $image_name;
         }
         
 
@@ -101,7 +100,7 @@ class WishlistController extends Controller
         }
         
         $apiCart = User::where('id', '=',$user->id)->update($required);
-        return response()->json(['status' => 'success', 'details' => "User Updated", "print" => $request->all()]);
+        return response()->json(['status' => 'success', 'details' => "User Updated"]);
 
         } catch (\Exception $e) {
 
