@@ -80,6 +80,7 @@ class WishlistController extends Controller
         
         try {
         $required = $request->except(['api_token', 'photo']);
+        $response = ['status' => 'success', 'details' => "User Updated"];
         
 
         if (isset($request->all()['photo']))
@@ -92,6 +93,7 @@ class WishlistController extends Controller
             $path = 'assets/images/users/'.$image_name;
             file_put_contents($path, $decoded);
             $required['photo'] = $image_name;
+            $response = ['status' => 'success', 'details' => "User Updated", 'image' => $image_name];
         }
         
 
@@ -101,7 +103,7 @@ class WishlistController extends Controller
         }
         
         $apiCart = User::where('id', '=',$user->id)->update($required);
-        return response()->json(['status' => 'success', 'details' => "User Updated"]);
+        return response()->json($response);
 
         } catch (\Exception $e) {
 
