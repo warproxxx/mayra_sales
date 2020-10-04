@@ -115,7 +115,7 @@
             <div class="product-price">
               <p class="title">{{ $langg->lang87 }} :</p>
                     <p class="price"><span id="sizeprice">{{ $productt->showPrice() }}</span>
-                      <small><del>{{ $productt->showPreviousPrice() }}</del> {{ $productt->showOff() }}</small></p>
+                      <small><del>{{ $productt->showPreviousPrice() }}</del><font color="indigo"> {{ $productt->showOff() }}</font></small></p>
                       @if($productt->youtube != null)
                       <a href="{{ $productt->youtube }}" class="video-play-btn mfp-iframe">
                         <i class="fas fa-play"></i>

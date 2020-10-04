@@ -235,9 +235,10 @@ We accept the following forms of payment:    <u>Online banking, third party digi
     to limit or prohibit orders that, in our sole judgment, appear to be placed
     by dealers, resellers, or distributors.
 </p>
-<p>
-    <strong>VENDOR TERMS </strong>
-</p>
+<h3 align="left">
+    <a name="_2s8eyo1"></a>
+    VENDOR TERMS
+</h1>
 <p>
     Vendor can sell their products through this ‘Site’ that is MayraSales after
     getting authority us. Vendors must follow all the terms and conditions of

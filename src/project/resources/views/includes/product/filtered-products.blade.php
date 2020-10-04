@@ -48,7 +48,7 @@
                                 <div class="full-stars" style="width:{{App\Models\Rating::ratings($prod->id)}}%"></div>
                             </div>
 												</div>
-												<h4 class="price">{{ $prod->setCurrency() }} <del><small>{{ $prod->showPreviousPrice() }} {{ $prod->showOff() }}</small></del></h4>
+												<h4 class="price">{{ $prod->setCurrency() }} <del><small>{{ $prod->showPreviousPrice() }}<font color="indigo"> {{ $prod->showOff() }}</font></small></del></h4>
 														<h5 class="name">{{ $prod->showName() }}</h5>
 														@if(App\Models\User::where('id', '=', $prod->user_id)->first()->subs_id  = 6)
 															<h5 class="name sell-btn" style="background:white; border: 1px solid orange; color:orange; font-size:15px;">Premium</h5>

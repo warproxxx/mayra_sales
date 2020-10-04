@@ -326,11 +326,12 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                         <thead>
                                                             <tr>
                                 <tr>
-                                    <th>{{ $langg->lang567 }}</th>
-                                    <th>{{ $langg->lang568 }}</th>
-                                    <th>{{ $langg->lang569 }}</th>
+                                    <!-- <th>{{ $langg->lang567 }}</th>
+                                    <th>{{ $langg->lang568 }}</th> -->
                                     <th>{{ $langg->lang570 }}</th>
+                                    <th>Photo</th>
                                     <th>{{ $langg->lang539 }}</th>
+                                    <th>{{ $langg->lang569 }}</th>
                                     <th>{{ $langg->lang574 }}</th>
                                 </tr>
                                                             </tr>
@@ -342,7 +343,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                     @if($product['item']['user_id'] == $user->id)
                                     <tr>
                                         
-                                            <td><input type="hidden" value="{{$key}}">{{ $product['item']['id'] }}</td>
+                                            <!-- <td><input type="hidden" value="{{$key}}">{{ $product['item']['id'] }}</td>
 
                                             <td>
                                                 @if($product['item']['user_id'] != 0)
@@ -356,38 +357,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                 @endif
                                                 @endif
 
-                                            </td>
-                                            <td>
-                                                @if($product['item']['user_id'] != 0)
-                                                @php
-                                                $user = App\Models\VendorOrder::where('order_id','=',$order->id)->where('user_id','=',$product['item']['user_id'])->first();
-                                                @endphp
-
-                                                    @if($order->dp == 1 && $order->payment_status == 'Completed')
-
-                                                   <span class="badge badge-success">{{ $langg->lang542 }}</span>
-
-                                                    @else
-
-                                                        @if($user->status == 'pending')
-                                                        <span class="badge badge-warning">{{ucwords($user->status)}}</span>
-                                                        @elseif($user->status == 'processing')
-                                                        <span class="badge badge-info">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'on delivery')
-                                                        <span class="badge badge-primary">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'completed')
-                                                        <span class="badge badge-success">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'declined')
-                                                        <span class="badge badge-danger">{{ucwords($user->status)}}</span>
-                                                       @endif
-
-                                                    @endif
-
-                                            @endif
-                                            </td>
-
-
-
+                                            </td> -->
                                             <td>
                                                 <input type="hidden" value="{{ $product['license'] }}">
 
@@ -407,6 +377,10 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                               <a href="javascript:;" data-toggle="modal" data-target="#confirm-delete" class="btn btn-info product-btn" id="license" style="padding: 5px 12px;"><i class="fa fa-eye"></i> View License</a>
                                                 @endif
 
+                                            </td>
+                                            <td>
+                                            <img src="/assets/images/products/{{$product['item']['photo']}}"></img>
+                                            
                                             </td>
                                             <td>
                                                 @if($product['size'])
@@ -439,6 +413,41 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                     @endif
 
                                             </td>
+
+
+                                            <td>
+                                                @if($product['item']['user_id'] != 0)
+                                                @php
+                                                $user = App\Models\VendorOrder::where('order_id','=',$order->id)->where('user_id','=',$product['item']['user_id'])->first();
+                                                @endphp
+
+                                                    @if($order->dp == 1 && $order->payment_status == 'Completed')
+
+                                                   <span class="badge badge-success">{{ $langg->lang542 }}</span>
+
+                                                    @else
+
+                                                        @if($user->status == 'pending')
+                                                        <span class="badge badge-warning">{{ucwords($user->status)}}</span>
+                                                        @elseif($user->status == 'processing')
+                                                        <span class="badge badge-info">{{ucwords($user->status)}}</span>
+                                                       @elseif($user->status == 'on delivery')
+                                                        <span class="badge badge-primary">{{ucwords($user->status)}}</span>
+                                                       @elseif($user->status == 'completed')
+                                                        <span class="badge badge-success">{{ucwords($user->status)}}</span>
+                                                       @elseif($user->status == 'declined')
+                                                        <span class="badge badge-danger">{{ucwords($user->status)}}</span>
+                                                       @endif
+
+                                                    @endif
+
+                                            @endif
+                                            </td>
+
+
+
+                                            
+                                            
 
                                             <td>{{$order->currency_sign}}{{ round($product['price'] * $order->currency_value , 2) }}</td>
 
