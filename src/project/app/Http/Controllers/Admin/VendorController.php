@@ -185,7 +185,13 @@ class VendorController extends Controller
          //--- Validation Section Ends
 
         $user = User::findOrFail($id);
-        $data = $request->all();
+        $data = $request->except(['password']);
+        if ($request['password'] != "")
+        {
+            
+            $data['password'] = bcrypt($request['password']);
+        }
+
         $user->update($data);
         $msg = 'Vendor Information Updated Successfully.';
         return response()->json($msg);   

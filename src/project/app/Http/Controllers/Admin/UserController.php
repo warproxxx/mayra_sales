@@ -111,7 +111,14 @@ class UserController extends Controller
             //--- Validation Section Ends
 
             $user = User::findOrFail($id);
-            $data = $request->all();
+            $data = $request->except(['password']);
+
+            if ($request['password'] != "")
+            {
+                
+                $data['password'] = bcrypt($request['password']);
+            }
+
             if ($file = $request->file('photo'))
             {
                 $name = time().$file->getClientOriginalName();
