@@ -299,7 +299,8 @@ class ProductController extends Controller
     //*** GET Request
     public function index()
     {
-        return view('admin.product.index');
+        $datas = Product::where('product_type','=','normal')->orderBy('id','desc')->get();
+        return view('admin.product.index', compact('datas'));
     }
 
     //*** GET Request
@@ -310,7 +311,8 @@ class ProductController extends Controller
 
     public function pending()
     {
-        return view('admin.product.pending');
+        $datas = Product::where('status','=',2)->orderBy('id','desc')->get();
+        return view('admin.product.pending', compact('datas'));
     }
 
     //*** GET Request
