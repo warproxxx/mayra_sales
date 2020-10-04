@@ -737,7 +737,7 @@ if (!Product::where('sku',$line[0])->exists()){
         $data = Product::findOrFail($id);
         $sign = Currency::where('is_default','=',1)->first();
         $input = $request->all();
-
+        $input['status'] = 2;
             //Check Types
             if($request->type_check == 1)
             {
