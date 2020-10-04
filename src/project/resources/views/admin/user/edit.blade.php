@@ -54,7 +54,18 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input type="email" class="input-field" name="email" placeholder="{{ __("Email Address") }}" value="{{ $data->email }}" disabled="">
+														<input type="email" class="input-field" name="email" placeholder="{{ __("Email Address") }}" value="{{ $data->email }}">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="left-area">
+																<h4 class="heading">{{ __("Password") }}</h4>
+														</div>
+													</div>
+													<div class="col-lg-7">
+														<input type="password" class="input-field" name="password">
 													</div>
 												</div>
 
