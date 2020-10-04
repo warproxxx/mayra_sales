@@ -177,7 +177,7 @@ class CatalogController extends Controller
                                           });
 
 
-                                  $prods = $prods->where('products.status', 1)->get();
+                                  $prods = $prods->where('products.status', 1)->get()->shuffle();
                                   
       $prods = (new Collection(Product::filterProducts($prods)))->paginate(12);
 
