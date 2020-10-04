@@ -1,6 +1,7 @@
 @extends('layouts.admin') 
 
 @section('content')  
+
 					<input type="hidden" id="headerdata" value="{{ __("PRODUCT") }}">
 					<div class="content-area">
 						<div class="mr-breadcrumb">
@@ -39,6 +40,84 @@
 									                        <th>{{ __("Options") }}</th>
 														</tr>
 													</thead>
+													<tbody>
+													@foreach($datas as $data)
+													<tr>
+														<td>
+														@php
+														$name = mb_strlen(strip_tags($data->name),'utf-8') > 50 ? mb_substr(strip_tags($data->name),0,50,'utf-8').'...' : strip_tags($data->name);
+														$id = '<small>ID: <a href="'.route('front.product', $data->slug).'" target="_blank">'.sprintf("%'.08d",$data->id).'</a></small>';
+														$id2 = '<small class="ml-2"> VENDOR: <a href="'.route('admin-vendor-show',$data->user_id).'" target="_blank">'.$data->user->shop_name.'</a></small>';
+														$id3 = $data->type == 'Physical' ?'<small class="ml-2"> SKU: <a href="'.route('front.product', $data->slug).'" target="_blank">'.$data->sku.'</a>' : '';
+
+														echo $name.'<br>'.$id.$id3.$id2;
+														@endphp
+														
+														
+														</td>
+														<td>
+														@php
+														$stck = (string)$data->stock;
+														if($stck == "0")
+														echo "Out Of Stock";
+														elseif($stck == null)
+														echo "Unlimited";
+														else
+														echo $data->stock;
+														@endphp
+														</td>
+														<td>Rs. {{$data->price}}</td>
+														<td>
+														@php
+
+														if ($data->status == 0)
+														{
+															$class = 'drop-danger';
+															$s = '';
+															$ns = 'selected';
+															$pe = '';
+															$re = '';
+														}
+														else if ($data->status == 1)
+														{
+															$class = 'drop-success';
+															$s = 'selected';
+															$ns = '';
+															$pe = '';
+															$re = '';
+														}
+														else if ($data->status == 2)
+														{
+															$class = 'drop-danger';
+															$s = '';
+															$ns = '';
+															$pe = 'selected';
+															$re = '';
+														}
+														else if ($data->status == 3)
+														{
+															$class = 'drop-danger';
+															$s = '';
+															$ns = '';
+															$pe = '';
+															$re = 'selected';
+														}
+
+                                						echo '<div class="action-list"><select class="process select droplinks '.$class.'"><option data-val="1" value="'. route('admin-prod-status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>Activated</option><option data-val="0" value="'. route('admin-prod-status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>Deactivated</option><option data-val="2" value="'. route('admin-prod-status',['id1' => $data->id, 'id2' => 2]).'" '.$pe.'>Pending</option><option data-val="3" value="'. route('admin-prod-status',['id1' => $data->id, 'id2' => 3]).'" '.$re.'>Rejected</option></select></div>';
+
+
+
+														@endphp
+														
+														</td>
+														<td>
+														@php
+														echo '<div class="godropdown"><button class="go-dropdown-toggle"> Actions<i class="fas fa-chevron-down"></i></button><div class="action-list"><a href="' . route('admin-prod-edit',$data->id) . '"> <i class="fas fa-edit"></i> Edit</a><a href="javascript" class="set-gallery" data-toggle="modal" data-target="#setgallery"><input type="hidden" value="'.$data->id.'"><i class="fas fa-eye"></i> View Gallery</a><a data-href="' . route('admin-prod-feature',$data->id) . '" class="feature" data-toggle="modal" data-target="#modal2"> <i class="fas fa-star"></i> Highlight</a><a href="javascript:;" data-href="' . route('admin-prod-catalog',['id1' => $data->id, 'id2' => 0]) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i> Remove Catalog</a></div></div>';
+														@endphp
+														</td>
+													</tr>
+													@endforeach
+													</tbody>
 												</table>
 										</div>
 									</div>
@@ -200,29 +279,12 @@
     <script type="text/javascript">
 
 		var table = $('#geniustable').DataTable({
-			   ordering: false,
-               processing: true,
-               serverSide: true,
-               ajax: '{{ route('admin-prod-datatables') }}',
-               columns: [
-                        { data: 'name', name: 'name' },
-                        { data: 'stock', name: 'stock' },
-                        { data: 'price', name: 'price' },
-                        { data: 'status', searchable: false, orderable: false},
-            			{ data: 'action', searchable: false, orderable: false }
-
-                     ],
-                language : {
-                	processing: '<img src="{{asset('assets/images/'.$gs->admin_loader)}}">'
-                },
-				drawCallback : function( settings ) {
-	    				$('.select').niceSelect();	
-				}
+			   
             });
 
       	$(function() {
         $(".btn-area").append('<div class="col-sm-4 table-contents">'+
-        	'<a class="add-btn" href="{{route('admin-prod-types')}}">'+
+        	'<a class="add-btn" href="{{route('admin-prod-physical-create')}}">'+
           '<i class="fas fa-plus"></i> <span class="remove-mobile">{{ __("Add New Product") }}<span>'+
           '</a>'+
           '</div>');
