@@ -1167,7 +1167,7 @@ $validator = Validator::make($input, $rules, $messages);
 
             return response()->json(['status' => 'success', 'payment_methods' => $gateways, 'shipping_price'=>$shipping_price, 'total_without_shipping'=>$total, 'cash_on_delivery'=>$cash_on_delivery]);
         }  catch (\Exception $e) {
-            return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
+            return response()->json(['status' => 'failure', 'details' => $e->getMessage(), 'line_number' =>$e->getLine()]);
         }
         
     }
