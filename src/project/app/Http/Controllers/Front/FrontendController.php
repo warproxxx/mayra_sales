@@ -17,6 +17,7 @@ use App\Models\Banner;
 use App\Models\Slider;
 use App\Models\Subscriber;
 use App\Models\User;
+use App\Models\Gallery;
 use App\Models\SystemNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -354,9 +355,13 @@ class FrontendController extends Controller
         $products = Product::where('products.id','=',$id)
                     ->join('users', 'products.user_id', '=', 'users.id')
                     ->select('products.*','users.name AS vendor_name','users.photo','users.phone','users.shop_name','users.owner_name','users.shop_number','users.shop_address','users.reg_number','users.shop_message','users.shop_details','users.shop_image', 'users.shop_location')
-                    ->get();
+                    ->first();
 
-        return response()->json(['status' => 'success', 'details' => $products]);
+                    $gallery = Gallery::where('product_id','=',$id)->get();
+
+        return response()->json(['status' => 'success', 'details' => $products, 'gallery' => $gallery]);
+        
+
     }
 
     // public function get_subcategories_api($slug)
