@@ -27,7 +27,11 @@ function enablekey()
         var link = $(this).attr('data-href');
             $.get( link, function(data) {
               }).done(function(data) {
-                  table.ajax.reload();
+                  try {
+              table.ajax.reload();
+            }
+            catch(err) {
+            }
                   $('.alert-danger').hide();
                   $('.alert-success').show();
                   $('.alert-success p').html(data);
@@ -264,7 +268,11 @@ function enablekey()
       $(document).on('change','.data-droplinks',function (e) {
           $('#confirm-delete1').modal('show');
           $('#confirm-delete1').find('.btn-ok').attr('href', $(this).val());
-          table.ajax.reload();
+          try {
+              table.ajax.reload();
+            }
+            catch(err) {
+            }
           var data = $(this).children("option:selected").html();
           if(data == 'Pending') {
             $('#t-txt').addClass('d-none');
@@ -280,7 +288,11 @@ function enablekey()
       $(document).on('change','.vendor-droplinks',function (e) {
           $('#confirm-delete1').modal('show');
           $('#confirm-delete1').find('.btn-ok').attr('href', $(this).val());
-          table.ajax.reload();
+          try {
+              table.ajax.reload();
+            }
+            catch(err) {
+            }
         });
 
     $(document).on('change','.order-droplinks',function (e) {
@@ -499,7 +511,11 @@ if(admin_loader == 1)
           }
           else
           {
-            table.ajax.reload();
+            try {
+              table.ajax.reload();
+            }
+            catch(err) {
+            }
             $('.alert-success').show();
             $('.alert-success p').html(data);
         if(admin_loader == 1)
@@ -539,7 +555,11 @@ if(admin_loader == 1)
          success:function(data)
          {
               $('#catalog-modal').modal('toggle');
-              table.ajax.reload();
+              try {
+                table.ajax.reload();
+              }
+              catch(err) {
+              }
               $('.alert-danger').hide();
               $('.alert-success').show();
               $('.alert-success p').html(data);
@@ -576,7 +596,11 @@ if(admin_loader == 1)
          success:function(data)
          {
               $('#confirm-delete').modal('toggle');
+              try {
               table.ajax.reload();
+            }
+            catch(err) {
+            }
               $('.alert-danger').hide();
               $('.alert-success').show();
               $('.alert-success p').html(data);
@@ -606,7 +630,11 @@ if(admin_loader == 1)
          success:function(data)
          {
               $('#confirm-delete1').modal('toggle');
+              try {
               table.ajax.reload();
+            }
+            catch(err) {
+            }
               $('.alert-danger').hide();
               $('.alert-success').show();
               $('.alert-success p').html(data[0]);

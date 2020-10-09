@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 use Image;
 use DB;
+use Log;
 
 class ProductController extends Controller
 {
@@ -1169,47 +1170,47 @@ if (!Product::where('sku',$line[0])->exists()){
     public function featuresubmit(Request $request, $id)
     {
         //-- Logic Section
-            $data = Product::findOrFail($id);
-            $input = $request->all();
-            if($request->featured == "")
-            {
-                $input['featured'] = 0;
-            }
-            if($request->hot == "")
-            {
-                $input['hot'] = 0;
-            }
-            if($request->best == "")
-            {
-                $input['best'] = 0;
-            }
-            if($request->top == "")
-            {
-                $input['top'] = 0;
-            }
-            if($request->latest == "")
-            {
-                $input['latest'] = 0;
-            }
-            if($request->big == "")
-            {
-                $input['big'] = 0;
-            }
-            if($request->trending == "")
-            {
-                $input['trending'] = 0;
-            }
-            if($request->sale == "")
-            {
-                $input['sale'] = 0;
-            }
-            if($request->is_discount == "")
-            {
-                $input['is_discount'] = 0;
-                $input['discount_date'] = null;
-            }
+        $data = Product::findOrFail($id);
+        $input = $request->all();
+        if($request->featured == "")
+        {
+            $input['featured'] = 0;
+        }
+        if($request->hot == "")
+        {
+            $input['hot'] = 0;
+        }
+        if($request->best == "")
+        {
+            $input['best'] = 0;
+        }
+        if($request->top == "")
+        {
+            $input['top'] = 0;
+        }
+        if($request->latest == "")
+        {
+            $input['latest'] = 0;
+        }
+        if($request->big == "")
+        {
+            $input['big'] = 0;
+        }
+        if($request->trending == "")
+        {
+            $input['trending'] = 0;
+        }
+        if($request->sale == "")
+        {
+            $input['sale'] = 0;
+        }
+        if($request->is_discount == "")
+        {
+            $input['is_discount'] = 0;
+            $input['discount_date'] = null;
+        }
 
-            $data->update($input);
+        $data->update($input);
         //-- Logic Section Ends
 
         //--- Redirect Section
