@@ -153,8 +153,8 @@ class FrontendController extends Controller
             $location_id = Session::get('location');
         }
 
-        $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('products.status', '=', 1)->where('users.date', '>=', $today)->select('products.*')->take(100)->get();
-        $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(100)->get();
+        $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('products.status', '=', 1)->where('users.date', '>=', $today)->select('products.*')->take(50)->get();
+        $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(50)->get();
 
         if ($location_id != 0)
         {
@@ -162,10 +162,10 @@ class FrontendController extends Controller
             
             $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('products.status', '=', 1)->where('users.date', '>=', $today)
                                 ->whereIn('users.shop_location', [0, $location_id])
-                                ->select('products.*')->take(100)->get();
+                                ->select('products.*')->take(50)->get();
             $feature_products =  Product::where('featured','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
                                 ->whereIn('users.shop_location', [0, $location_id])
-                                ->orderBy('id','desc')->select('products.*')->take(100)->get();
+                                ->orderBy('id','desc')->select('products.*')->take(50)->get();
         }
 
 	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products'));
