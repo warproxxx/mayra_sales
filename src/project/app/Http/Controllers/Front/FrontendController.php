@@ -165,7 +165,7 @@ class FrontendController extends Controller
                                 ->select('products.*')->take(25)->get();
             $feature_products =  Product::where('featured','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
                                 ->whereIn('users.shop_location', [0, $location_id])
-                                ->orderBy('id','desc')->select('products.*')->take(8)->get();
+                                ->orderBy('id','desc')->select('products.*')->get();
         }
 
 	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products'));
