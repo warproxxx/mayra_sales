@@ -114,7 +114,8 @@ class CheckoutController extends Controller
 
                 $vendor = User::where('id', '=', $vendor_id)->first();
 
-                $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
+                // $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
+                $distance = 1;
 
                 if($gs->multiple_shipping == 1)
                 {                        
@@ -1133,8 +1134,9 @@ $validator = Validator::make($input, $rules, $messages);
             }
 
             $vendor = User::where('id', '=', $vendor_id)->first();
-
-            $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
+            
+            $distance = 1;
+            // $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
 
             $shipping_data  = DB::table('shippings')->first();
 

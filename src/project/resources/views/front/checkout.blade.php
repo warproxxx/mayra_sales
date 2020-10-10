@@ -173,23 +173,6 @@
 														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : '' }}">
 												</div>
 
-												<div class="col-lg-3">
-													<input class="form-control" type="text" name="latitude"
-														placeholder="Latitude"
-														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->latitude : '' }}">
-												</div>
-												<div class="col-lg-3">
-													<input class="form-control" type="text" name="longitude"
-														placeholder="Longitude"
-														value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->longitude : '' }}">
-												</div>
-												<div class="col-lg-6">
-                                                    <center><a class="mybtn1 lg"  onclick="getLocation()">Detect Location</a></center>
-													
-                                                </div>
-												<div class="col-lg-6" style="font-size:10px">*Click on Detect Location and allow permission so your location can be shown to vendor while making a delivery. You can leave it empty or update this later in your profile or while making a checkout.</div>
-												<div class="col-lg-6"></div>
-
 											</div>
 										</div>
 										<div class="row {{ $digital == 1 ? 'd-none' : '' }}">
