@@ -21,6 +21,9 @@ use Illuminate\Http\Request;
 
 Route::get('/categories', 'Front\FrontendController@get_categories_api');
 Route::get('/categories_with_sub', 'Front\FrontendController@get_categories_with_sub_api');
+Route::get('/vendors_with_products', 'Front\FrontendController@get_products_with_vendors');
+
+
 Route::get('/subcategories', 'Front\FrontendController@get_subcategories_api');
 Route::get('/childcategories', 'Front\FrontendController@get_childcategories_api');
 Route::get('/advertisement', 'Front\FrontendController@get_banner');

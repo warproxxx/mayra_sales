@@ -215,19 +215,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                             <th width="10%">:</th>
                                                             <td width="45%">{{$order->customer_zip}}</td>
                                                         </tr>
-                                                        @if(isset($order->customer_longitude))
-                                                        <tr>
-                                                            <th width="45%">Map</th>
-                                                            <th width="10%">:</th>
-                                                            <td width="45%">
-                                                            
-                                                            <iframe src = "https://maps.google.com/maps?q={{ $order->customer_latitude }},{{$order->customer_longitude}}&hl=es;z=14&amp;output=embed"></iframe>
-                                                            <div style="font-size: 10px">*Note that the location received from PC is frequently inaccurate. Verify with customer. Android is usually accurate.</div>
-                                                                    
-                                                                
-                                                            </td>
-                                                        </tr>
-                                                        @endif
+
 
                                                        
                                                 </tbody>
@@ -292,19 +280,6 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                 @endif
 
 
-                                @if(isset($order->shipping_longitude))
-                                    <tr>
-                                        <th width="45%">Map</th>
-                                        <th width="10%">:</th>
-                                        <td width="45%">
-                                        
-                                        <iframe src = "https://maps.google.com/maps?q={{ $order->shipping_latitude }},{{$order->shipping_longitude}}&hl=es;z=14&amp;output=embed"></iframe>
-                                            <div style="font-size: 10px">*Note that the location received from PC is frequently inaccurate. Verify with customer. Android is usually accurate.</div>
-                                                
-                                            
-                                        </td>
-                                    </tr>
-                                @endif
 
 
                                                 </tbody>
