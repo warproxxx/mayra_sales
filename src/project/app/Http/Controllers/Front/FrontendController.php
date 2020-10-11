@@ -265,6 +265,37 @@ class FrontendController extends Controller
   
     }
 
+    public function get_products_with_vendors()
+    {
+        try {
+
+            $all_data = array();
+            $vendors = User::where('is_vendor', '=', 2)->get();
+            
+            foreach($vendors as $vendor)
+            {
+                $cur_array = $vendor->toArray();
+                $products = Product::where('user_id','=',$vendor->id)->get()->toArray();
+
+                if (count($products) > 0)
+                {
+                    $cur_array['products'] = $products;
+                    $all_data[] = $cur_array;
+                }
+                
+            }
+
+            return $all_data;
+        
+        } 
+        catch (\Exception $e) 
+        {
+    
+            return $e->getMessage();
+        }
+
+    }
+
     public function get_banner()
     {
         try{
