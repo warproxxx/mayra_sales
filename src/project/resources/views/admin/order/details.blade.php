@@ -239,13 +239,7 @@
                                         <div class="table-responsive-sm">
                                             <table class="table">
                                                 <tbody>
-                            @if($order->shipping == "pickup")
-                        <tr>
-                                    <th width="45%"><strong>{{ __('Pickup Location') }}:</strong></th>
-                                    <th width="10%">:</th>
-                                    <td width="45%">{{$order->pickup_location}}</td>
-                                </tr>
-                            @else
+
                                 <tr>
                                     <th width="45%"><strong>{{ __('Name') }}:</strong></th>
                                     <th width="10%">:</th>
@@ -343,17 +337,7 @@
                                                     <span class="badge badge-success">{{ __('Completed') }}</span>
 
                                                     @else
-                                                        @if($user->status == 'pending')
-                                                        <span class="badge badge-warning">{{ucwords($user->status)}}</span>
-                                                        @elseif($user->status == 'processing')
-                                                        <span class="badge badge-info">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'on delivery')
-                                                        <span class="badge badge-primary">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'completed')
-                                                        <span class="badge badge-success">{{ucwords($user->status)}}</span>
-                                                       @elseif($user->status == 'declined')
-                                                        <span class="badge badge-danger">{{ucwords($user->status)}}</span>
-                                                       @endif
+
                                                     @endif
 
                                             @endif
