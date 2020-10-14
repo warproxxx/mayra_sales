@@ -146,19 +146,23 @@
 		<!-- Banner Area One Start -->
 		<section class="banner-section">
 			<div class="container">
-				@foreach($top_small_banners->chunk(2) as $chunk)
-					<div class="row">
-						@foreach($chunk as $img)
-							<div class="col-lg-6 remove-padding">
-								<div class="left">
-									<a class="banner-effect" href="{{ $img->link }}" target="_blank">
-										<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="">
-									</a>
-								</div>
-							</div>
+				<div class="slideshow-container">
+					@foreach($top_small_banners as $img)
+						<div class="mySlides fade">
+							<a class="banner-effect" href="{{ $img->link }}" target="_blank">
+								<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="" style="width:100%; height:250px;">
+							</a>
+						</div>
+					@endforeach
+
+					<div style="text-align:center">
+						@foreach($top_small_banners as $img)
+							<span class="dot"></span> 
 						@endforeach
+
 					</div>
-				@endforeach
+
+				</div>
 			</div>
 		</section>
 		<!-- Banner Area One Start -->
@@ -188,6 +192,28 @@
 	
 	<script>
 		lazyload();
+	</script>
+
+	<script>
+		var slideIndex = 0;
+		showSlides();
+
+		function showSlides() {
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		var dots = document.getElementsByClassName("dot");
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";  
+		}
+		slideIndex++;
+		if (slideIndex > slides.length) {slideIndex = 1}    
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+		}
+		slides[slideIndex-1].style.display = "block";  
+		dots[slideIndex-1].className += " active";
+		setTimeout(showSlides, 2000); // Change image every 2 seconds
+		}
 	</script>
 
 @endsection
