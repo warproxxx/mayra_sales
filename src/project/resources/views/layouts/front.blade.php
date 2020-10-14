@@ -1168,6 +1168,7 @@
 	<script src="{{asset('assets/front/js/main.js')}}"></script>
 	<!-- custom -->
 	<script src="{{asset('assets/front/js/custom.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
     {!! $seo->google_analytics !!}
 
