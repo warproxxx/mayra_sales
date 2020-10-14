@@ -40,7 +40,7 @@
 															</li>
 														</ul>
 													</div>
-												<img class="img-fluid lazyload" data-src="{{ $prod->photo ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="">
+												<img class="lazyload" data-src="{{ $prod->photo ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="" width="200" height="200">
 											</div>
 											<div class="info">
 												<div class="stars">
