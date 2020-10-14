@@ -213,7 +213,7 @@
 
 	<script>
 		var demoSlider_2 = Sliderman.slider({container: 'SliderName_2', width: 800, height: 200, effects: 'fade', display: {autoplay: 3000}});
-		var demoSlider_3 = Sliderman.slider({container: 'SliderName_3', width: 800, height: 200, effects: {name: 'myEffect31', top: true, move: true, duration: 400}, display: {autoplay: 2000}});
+		var demoSlider_3 = Sliderman.slider({container: 'SliderName_3', width: 800, height: 200, effects: 'fade', display: {autoplay: 2000}});
 	</script>
 
 @endsection
