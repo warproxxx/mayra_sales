@@ -38,8 +38,11 @@
 	<link rel="stylesheet" href="{{asset('assets/front/css/plugin.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/front/css/animate.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/front/css/toastr.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/front/css/toastr.css')}}">
-	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+	<link rel="stylesheet" href="{{asset('assets/front/css/sliderman.css')}}">
+
+	
+
+	
 
 	<!-- jQuery Ui Css-->
 	<link rel="stylesheet" href="{{asset('assets/front/jquery-ui/jquery-ui.min.css')}}">
@@ -1220,7 +1223,9 @@
 	<script src="{{asset('assets/front/js/main.js')}}"></script>
 	<!-- custom -->
 	<script src="{{asset('assets/front/js/custom.js')}}"></script>
-	
+
+	<script src="{{asset('assets/front/js/sliderman.1.3.8.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
     {!! $seo->google_analytics !!}
 
