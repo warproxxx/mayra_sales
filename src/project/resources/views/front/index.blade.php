@@ -114,6 +114,28 @@
 		<!-- Tranding Item Area End -->
 	@endif
 
+	@if($ps->small_banner == 1)
+
+		<!-- Banner Area One Start -->
+		<center>
+		<section class="banner-section">
+			<div class="container">
+				<div id="SliderName_3">
+					@foreach($top_small_banners as $img)
+							<a class="banner-effect" href="{{ $img->link }}" target="_blank">
+								<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="">
+							</a>
+					@endforeach
+
+					<div id="SliderNameNavigation_3"></div> 
+
+				</div>
+			</div>
+		</section>
+		</center>
+		<!-- Banner Area One Start -->
+	@endif
+
 	<section  class="trending">
 			<div class="container">
 				<div class="row">
@@ -190,7 +212,8 @@
 	</script>
 
 	<script>
-		var demoSlider_3 = Sliderman.slider({container: 'SliderName_2', width: 800, height: 200, effects: {name: 'myEffect31', top: true, move: true, duration: 400}, display: {autoplay: 3000}});
+		var demoSlider_2 = Sliderman.slider({container: 'SliderName_2', width: 800, height: 200, effects: {name: 'myEffect31', top: true, move: true, duration: 400}, display: {autoplay: 3000}});
+		var demoSlider_3 = Sliderman.slider({container: 'SliderName_3', width: 800, height: 200, effects: {name: 'myEffect31', top: true, move: true, duration: 400}, display: {autoplay: 3000}});
 	</script>
 
 @endsection
