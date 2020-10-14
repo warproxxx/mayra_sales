@@ -216,5 +216,15 @@
 		var demoSlider_3 = Sliderman.slider({container: 'SliderName_3', width: 800, height: 200, effects: 'fade', display: {autoplay: 2000}});
 	</script>
 
+	<script>
+
+$(document).ready(function(){
+    setInterval(function(){ 
+		$('.owl-next').trigger('click');
+	}, 3000);
+});
+
+	</script>
+
 @endsection
 
