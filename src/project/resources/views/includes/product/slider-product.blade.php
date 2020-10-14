@@ -161,7 +161,3 @@
 										</a>
 
 								@endif
-
-								<script>
-									lazyload();
-								</script>
