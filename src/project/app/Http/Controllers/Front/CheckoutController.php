@@ -1366,10 +1366,13 @@ $validator = Validator::make($input, $rules, $messages);
 
                 if (isset($api->color))
                     $color = $api->color;
-
-                $prod = Product::where('id','=',$api->product_id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
                 
-                $cart->add($prod, $prod->id, $size, $color, '', '');
+                if ($api->product_id != null)
+                {
+                    $prod = Product::where('id','=',$api->product_id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
+                    $cart->add($prod, $prod->id, $size, $color, '', '');
+                }
+                
             }
 
             //just copy paste from gateway now
@@ -1378,18 +1381,12 @@ $validator = Validator::make($input, $rules, $messages);
                 
 
 
-            // $vendor_id = 0;
+            $vendor_id = 0;
 
             foreach ($cart->items as $prod) 
             {
-                print_r($prod);
-                print_r($prod['item']);
-                // if ($prod['item']['id'] != null)
-                // {
-                //     $vendor_id = $prod['item']['user_id'];
-                //     break;
-                // }
-                
+                $vendor_id = $prod['item']['user_id'];
+                break;
             }
 
             foreach($cart->items as $key => $prod)
