@@ -130,6 +130,11 @@ Route::prefix('user')->group(function() {
         Route::get('/postmessage','Front\CheckoutController@postmessage');
         Route::get('/swap_dispute/{id}','Front\CheckoutController@swap_dispute');
         Route::get('/swap_open/{id}','Front\CheckoutController@swap_open');
+
+        Route::get('/notf/show/{id}', 'User\NotificationController@order_notf_show');
+        Route::get('/notf/count/{id}','User\NotificationController@order_notf_count');
+        Route::get('/notf/clear/{id}','User\NotificationController@order_notf_clear');
+
     });
 
 });
