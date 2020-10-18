@@ -1120,7 +1120,18 @@ $validator = Validator::make($input, $rules, $messages);
 
 
             $cart = ApiCart::where('user_id', '=', $user->id)->first();
-            $vendor_id = Product::where('id', '=', $cart->product_id)->first()->user_id;
+
+            $prods = Product::where('id', '=', $cart->product_id)->get();
+
+            foreach($prods as $prod)
+            {
+                if ($prod->id != null)
+                {
+                    $vendor_id = $prod->user_id;
+                    break;
+                }
+            }
+           
 
             $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
             
