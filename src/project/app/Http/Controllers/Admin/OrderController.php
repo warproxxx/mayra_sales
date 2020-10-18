@@ -266,18 +266,18 @@ class OrderController extends Controller
 
     public function status($slug,$status)
     {
-        $mainorder = VendorOrder::where('order_number','=',$slug)->first();
-        if ($mainorder->status == "completed"){
-            return redirect()->back()->with('success','This Order is Already Completed');
-        }else{
+        try
+        {
+            $order = VendorOrder::where('order_number','=',$slug)->update(['status' => $status]);
+        }
+        catch (Exception $e)
+        {
 
-        $order = VendorOrder::where('order_number','=',$slug)->update(['status' => $status]);
+        }
+
         $on_user = Order::where('order_number','=',$slug)->update(['status' => $status]);
-
         $order = Order::where('order_number','=',$slug)->first();
-
         return redirect()->route('admin-order-show',$order->id)->with('success','Order Updated');
-     }
     }
 
     public function payment($slug,$status)

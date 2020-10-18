@@ -298,7 +298,7 @@
                                 <tr>
                                     <th width="10%">{{ __('Product ID#') }}</th>
                                     <th>{{ __('Shop Name') }}</th>
-                                    <th>{{ __('Vendor Status') }}</th>
+                                    <th>{{ __('Photo') }}</th>
                                     <th>{{ __('Product Title') }}</th>
                                     <th width="20%">{{ __('Details') }}</th>
                                     <th width="10%">{{ __('Total Price') }}</th>
@@ -327,20 +327,7 @@
 
                                             </td>
                                             <td>
-                                                @if($product['item']['user_id'] != 0)
-                                                @php
-                                                $user = App\Models\VendorOrder::where('order_id','=',$order->id)->where('user_id','=',$product['item']['user_id'])->first();
-                                                @endphp
-
-                                                    @if($order->dp == 1 && $order->payment_status == 'Completed')
-
-                                                    <span class="badge badge-success">{{ __('Completed') }}</span>
-
-                                                    @else
-
-                                                    @endif
-
-                                            @endif
+                                                <img src="/assets/images/products/{{ $product['item']['photo'] }}">
                                             </td>
 
 

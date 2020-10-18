@@ -132,13 +132,19 @@ class OrderController extends Controller
 
     public function status($slug,$status)
     {
-        $mainorder = VendorOrder::where('order_number','=',$slug)->first();
-        if ($mainorder->status == "completed"){
-            return redirect()->back()->with('success','This Order is Already Completed');
-        }else{
+
 
         $user = Auth::user();
-        $order = VendorOrder::where('order_number','=',$slug)->where('user_id','=',$user->id)->update(['status' => $status]);
+        
+        try
+        {
+            $order = VendorOrder::where('order_number','=',$slug)->where('user_id','=',$user->id)->update(['status' => $status]);
+        }
+        catch (Exception $e)
+        {
+
+        }
+
         $on_user = Order::where('order_number','=',$slug)->update(['status' => $status]);
 
         $order = Order::where('order_number','=',$slug)->first();
@@ -167,7 +173,7 @@ class OrderController extends Controller
         }
 
         return redirect()->route('vendor-order-show',$order->order_number);
-     }
+     
     }
 
     public function payment($slug,$status)
