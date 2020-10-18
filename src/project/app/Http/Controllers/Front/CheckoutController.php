@@ -1387,6 +1387,7 @@ $validator = Validator::make($input, $rules, $messages);
 
             foreach ($cart->items as $prod) 
             {
+                print_r($prod);
                 $vendor_id = $prod['item']['user_id'];
                 break;
             }
