@@ -1122,6 +1122,7 @@ $validator = Validator::make($input, $rules, $messages);
             $cart = ApiCart::where('user_id', '=', $user->id)->first();
 
             $prods = Product::where('id', '=', $cart->product_id)->get();
+            $vendor_id = -1;
 
             foreach($prods as $prod)
             {
@@ -1131,54 +1132,61 @@ $validator = Validator::make($input, $rules, $messages);
                     break;
                 }
             }
-           
 
-            $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
+            if ($vendor_id != -1)
+            {
+                $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
             
-            // Shipping Method
-            $user = Auth::user();
+                // Shipping Method
+                $user = Auth::user();
+                
+                $cash_on_delivery = 1;
+                if ($user->reported_times > $gs->cash_only_limit)
+                {
+                    $cash_on_delivery = 0;
+                }
+
+                $vendor = User::where('id', '=', $vendor_id)->first();
+                
+                $distance = 1;
+                // $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
+
+                $shipping_data  = DB::table('shippings')->first();
+
+                if(count($gateways) == 0)
+                {
+                    $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', 0]])->get();
+                }
+
+                $total = 0;
+
+
+                $cart = ApiCart::where('user_id', '=', $user->id)->get();
+                foreach ($cart as $item) 
+                {
+                    $total = $total + ($item->qty * $item->price); #removed coupon
+                }
+
+
+                $shipping_price = $shipping_data->price;
+
+                if ($distance > $shipping_data->threshold)
+                {
+                    $shipping_price = $shipping_data->long_price;
+                }
             
-            $cash_on_delivery = 1;
-            if ($user->reported_times > $gs->cash_only_limit)
-            {
-                $cash_on_delivery = 0;
-            }
+                if ($total > $shipping_data->free_threshold)
+                {
+                    $shipping_price = 0;
+                }
 
-            $vendor = User::where('id', '=', $vendor_id)->first();
+                return response()->json(['status' => 'success', 'payment_methods' => $gateways, 'shipping_price'=>$shipping_price, 'total_without_shipping'=>$total, 'cash_on_delivery'=>$cash_on_delivery]);
+            }
+            else
+            {
+                return response()->json(['status' => 'failure', 'details' => "Vendor not found"]);
+            }
             
-            $distance = 1;
-            // $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
-
-            $shipping_data  = DB::table('shippings')->first();
-
-            if(count($gateways) == 0)
-            {
-                $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', 0]])->get();
-            }
-
-            $total = 0;
-
-
-            $cart = ApiCart::where('user_id', '=', $user->id)->get();
-            foreach ($cart as $item) 
-            {
-                $total = $total + ($item->qty * $item->price); #removed coupon
-            }
-
-
-            $shipping_price = $shipping_data->price;
-
-            if ($distance > $shipping_data->threshold)
-            {
-                $shipping_price = $shipping_data->long_price;
-            }
-        
-            if ($total > $shipping_data->free_threshold)
-            {
-                $shipping_price = 0;
-            }
-
-            return response()->json(['status' => 'success', 'payment_methods' => $gateways, 'shipping_price'=>$shipping_price, 'total_without_shipping'=>$total, 'cash_on_delivery'=>$cash_on_delivery]);
         }  catch (\Exception $e) {
             return response()->json(['status' => 'failure', 'details' => $e->getMessage(), 'line_number' =>$e->getLine()]);
         }
