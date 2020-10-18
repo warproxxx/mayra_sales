@@ -1,4 +1,7 @@
-Then automove and display more products.
+Test Quantity.
+Test Checkout seems to be stopping before VendorOrder.
+Show order pic.
+
 
 is_vendor = 1 -> Expired
 is_vendor = 2 -> Yes
