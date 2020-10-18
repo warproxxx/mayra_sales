@@ -1370,7 +1370,9 @@ $validator = Validator::make($input, $rules, $messages);
                         $color = $api->color;
                 
                     $prod = Product::where('id','=',$api->product_id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
-                    $cart->add($prod, $prod->id, $size, $color, '', '');
+                    if (is_object($prod)) {
+                     $cart->add($prod, $prod->id, $size, $color, '', '');
+                    }
                 }
                 
             }
