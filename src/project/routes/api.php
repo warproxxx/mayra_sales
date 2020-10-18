@@ -134,6 +134,7 @@ Route::prefix('user')->group(function() {
         Route::get('/notf/show/{id}', 'User\NotificationController@order_notf_show');
         Route::get('/notf/count/{id}','User\NotificationController@order_notf_count');
         Route::get('/notf/clear/{id}','User\NotificationController@order_notf_clear');
+        Route::get('/notf/single/{id}','User\NotificationController@single_notf_clear');
 
     });
 

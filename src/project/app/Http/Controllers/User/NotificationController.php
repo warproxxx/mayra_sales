@@ -27,6 +27,12 @@ class NotificationController extends Controller
         $data->delete();        
     } 
 
+    public function single_notf_clear($id)
+    {
+        $data = UserNotification::where('id','=',$id);
+        $data->delete();        
+    } 
+
     public function order_notf_show($id)
     {
         $datas = UserNotification::where('user_id','=',$id)->get();
