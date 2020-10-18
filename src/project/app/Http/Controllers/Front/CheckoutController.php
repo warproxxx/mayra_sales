@@ -1358,17 +1358,17 @@ $validator = Validator::make($input, $rules, $messages);
 
             foreach($api_cart as $api)
             {
-                $color = null;
-                $size = null;
-
-                if (isset($api->size))
-                    $size = $api->size;
-
-                if (isset($api->color))
-                    $color = $api->color;
-                
                 if ($api->product_id != null)
                 {
+                    $color = null;
+                    $size = null;
+
+                    if (isset($api->size))
+                        $size = $api->size;
+
+                    if (isset($api->color))
+                        $color = $api->color;
+                
                     $prod = Product::where('id','=',$api->product_id)->first(['id','user_id','slug','name','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes']);
                     $cart->add($prod, $prod->id, $size, $color, '', '');
                 }
@@ -1648,7 +1648,7 @@ $validator = Validator::make($input, $rules, $messages);
             return response()->json(['status' => 'success', 'id' => $order->id, 'order_number' => $order_number]);
 
         }  catch (\Exception $e) {
-            return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
+            return response()->json(['status' => 'failure', 'details' => $e->getMessage(), 'line_number' =>$e->getLine()]);
         }
 
     }
