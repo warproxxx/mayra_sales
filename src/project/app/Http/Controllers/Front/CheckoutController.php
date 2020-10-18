@@ -1119,9 +1119,8 @@ $validator = Validator::make($input, $rules, $messages);
             $user = $request->user();
 
 
-            $cart = ApiCart::where('user_id', '=', $user->id)->first();
+            $prods = ApiCart::where('user_id', '=', $user->id)->get();
 
-            $prods = Product::where('id', '=', $cart->product_id)->get();
             $vendor_id = -1;
 
             foreach($prods as $prod)
