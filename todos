@@ -1,5 +1,7 @@
-When item set and buy now clicked, not modifying.
 When multiple ordererd, multiple gets created.
+
+
+When item set and buy now clicked, not modifying.
 Test Checkout seems to be stopping before VendorOrder. 
 
 
@@ -11,9 +13,7 @@ Contact Us ko contact details update garnu parne
 
 Get the app Ra QR Code 
 
-Related products no image on search.
-
-Image Not loading after completed loading.
+Image Not loading after completed loading in home page.
 
 is_vendor = 1 -> Expired
 is_vendor = 2 -> Yes
