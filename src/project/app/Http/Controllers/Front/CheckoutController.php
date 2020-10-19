@@ -669,8 +669,7 @@ class CheckoutController extends Controller
 
         foreach($cart->items as $prod)
         {
-            if($prod['item']['user_id'] != 0)
-            {
+
                 $vorder =  new VendorOrder;
                 $vorder->order_id = $order->id;
                 $vorder->user_id = $prod['item']['user_id'];
@@ -679,7 +678,7 @@ class CheckoutController extends Controller
                 $vorder->price = $prod['price'];
                 $vorder->order_number = $order->order_number;             
                 $vorder->save();
-            }
+            
 
         }
 
@@ -993,8 +992,7 @@ $validator = Validator::make($input, $rules, $messages);
 
         foreach($cart->items as $prod)
         {
-            if($prod['item']['user_id'] != 0)
-            {
+
                 $vorder =  new VendorOrder;
                 $vorder->order_id = $order->id;
                 $vorder->user_id = $prod['item']['user_id'];
@@ -1003,7 +1001,7 @@ $validator = Validator::make($input, $rules, $messages);
                 $vorder->price = $prod['price'];
                 $vorder->order_number = $order->order_number;             
                 $vorder->save();
-            }
+            
 
         }
 
@@ -1571,8 +1569,7 @@ $validator = Validator::make($input, $rules, $messages);
 
             foreach($cart->items as $prod)
             {
-                if($prod['item']['user_id'] != 0)
-                {
+
                     $vorder =  new VendorOrder;
                     $vorder->order_id = $order->id;
                     $vorder->user_id = $prod['item']['user_id'];
@@ -1581,7 +1578,7 @@ $validator = Validator::make($input, $rules, $messages);
                     $vorder->price = $prod['price'];
                     $vorder->order_number = $order->order_number;             
                     $vorder->save();
-                }
+                
 
             }
 
