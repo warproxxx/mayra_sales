@@ -118,6 +118,20 @@ class FrontendController extends Controller
         return $os_platform;
     }
 
+    //*** GET Request
+    public function load_category($id)
+    {
+        $cat = Category::findOrFail($id);
+        return view('load.subcategory',compact('cat'));
+    }
+
+     //*** GET Request
+     public function load_subcategory($id)
+     {
+         $subcat = Subcategory::findOrFail($id);
+         return view('load.childcategory',compact('subcat'));
+     }
+
 
 // -------------------------------- HOME PAGE SECTION ----------------------------------------
 
