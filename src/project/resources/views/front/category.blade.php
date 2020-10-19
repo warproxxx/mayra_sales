@@ -258,6 +258,8 @@
 
 </script>
 
-
+<script>
+		lazyload();
+	</script>
 
 @endsection
