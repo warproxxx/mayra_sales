@@ -324,7 +324,7 @@ Route::prefix('admin')->group(function() {
   Route::post('/subcategory/edit/{id}', 'Admin\SubCategoryController@update')->name('admin-subcat-update');
   Route::get('/subcategory/delete/{id}', 'Admin\SubCategoryController@destroy')->name('admin-subcat-delete');
   Route::get('/subcategory/status/{id1}/{id2}', 'Admin\SubCategoryController@status')->name('admin-subcat-status');
-  Route::get('/load/subcategories/{id}/', 'Admin\SubCategoryController@load')->name('admin-subcat-load'); //JSON REQUEST
+  // Route::get('/load/subcategories/{id}/', 'Admin\SubCategoryController@load')->name('admin-subcat-load'); //JSON REQUEST
 
   // SUBCATEGORY SECTION ENDS------------
 
@@ -338,7 +338,8 @@ Route::prefix('admin')->group(function() {
   Route::post('/childcategory/edit/{id}', 'Admin\ChildCategoryController@update')->name('admin-childcat-update');
   Route::get('/childcategory/delete/{id}', 'Admin\ChildCategoryController@destroy')->name('admin-childcat-delete');
   Route::get('/childcategory/status/{id1}/{id2}', 'Admin\ChildCategoryController@status')->name('admin-childcat-status');
-  Route::get('/load/childcategories/{id}/', 'Admin\ChildCategoryController@load')->name('admin-childcat-load'); //JSON REQUEST
+  // Route::get('/load/childcategories/{id}/', 'Admin\ChildCategoryController@load')->name('admin-childcat-load'); //JSON REQUEST
+
 
   // CHILDCATEGORY SECTION ENDS------------
 
@@ -1293,6 +1294,8 @@ Route::get('/package/delete/{id}', 'Vendor\PackageController@destroy')->name('ve
 
 // ************************************ FRONT SECTION **********************************************
 
+  Route::get('/load/childcategories/{id}/', 'Front\FrontendController@load_subcategory')->name('admin-childcat-load'); //JSON REQUEST
+  Route::get('/load/subcategories/{id}/', 'Front\FrontendController@load_category')->name('admin-subcat-load'); //JSON REQUEST
   Route::get('/', 'Front\FrontendController@index')->name('front.index');
   Route::get('/extras', 'Front\FrontendController@extraIndex')->name('front.extraIndex');
   Route::get('/currency/{id}', 'Front\FrontendController@currency')->name('front.currency');
