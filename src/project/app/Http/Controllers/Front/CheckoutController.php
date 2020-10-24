@@ -1200,10 +1200,14 @@ $validator = Validator::make($input, $rules, $messages);
 
     public function message_api_by_id(Request $request)
     {
-        $user = Auth::user();
-        $conv = Conversation::where('id', '=', $request->id)->first();
-        $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $conv->id)->get();
-        return response()->json(['status' => 'success', 'conv' => $conv, 'messages' => $conv->messages, 'other_convs'=> $other_covs]);          
+        try{
+            $user = Auth::user();
+            $conv = Conversation::where('id', '=', $request->id)->first();
+            $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $conv->id)->get();
+            return response()->json(['status' => 'success', 'conv' => $conv, 'messages' => $conv->messages, 'other_convs'=> $other_covs]);  
+        }  catch (\Exception $e) {
+            return response()->json(['status' => 'failure', 'details' => $e->getMessage(), 'line_number' =>$e->getLine()]);
+        }        
     }
 
     public function postmessage(Request $request)
