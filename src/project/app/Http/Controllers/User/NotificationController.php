@@ -44,4 +44,25 @@ class NotificationController extends Controller
         }       
         return view('user.notification.order',compact('datas'));           
     } 
+
+    public function order_notf_show_api($id)
+    {
+        try{
+            $datas = UserNotification::where('user_id','=',$id)->get();
+            if($datas->count() > 0){
+            foreach($datas as $data){
+                $data->is_read = 1;
+                $data->update();
+            }
+            }
+                   
+            return response()->json($datas);  
+            
+        
+        } 
+        catch (\Exception $e) 
+        {
+            echo($e);
+        }     
+    } 
 }
