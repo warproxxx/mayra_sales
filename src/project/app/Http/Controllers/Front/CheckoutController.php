@@ -1198,6 +1198,14 @@ $validator = Validator::make($input, $rules, $messages);
         return response()->json(['status' => 'success', 'conv' => $conv, 'messages' => $conv->messages, 'other_convs'=> $other_covs]);          
     }
 
+    public function message_api_by_id(Request $request)
+    {
+        $user = Auth::user();
+        $conv = Conversation::where('id', '=', $request->order_number)->first();
+        $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $conv->id)->get();
+        return response()->json(['status' => 'success', 'conv' => $conv, 'messages' => $conv->messages, 'other_convs'=> $other_covs]);          
+    }
+
     public function postmessage(Request $request)
     {
         $user = Auth::user(); 
