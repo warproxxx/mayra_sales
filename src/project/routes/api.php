@@ -127,6 +127,7 @@ Route::prefix('user')->group(function() {
         //Order
         Route::get('/user_orders','Front\CheckoutController@user_orders');
         Route::get('/order_message','Front\CheckoutController@message_api');
+        Route::get('/order_message_by_id','Front\CheckoutController@message_api_by_id');
         Route::get('/postmessage','Front\CheckoutController@postmessage');
         Route::get('/swap_dispute/{id}','Front\CheckoutController@swap_dispute');
         Route::get('/swap_open/{id}','Front\CheckoutController@swap_open');
