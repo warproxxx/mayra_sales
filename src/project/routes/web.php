@@ -996,6 +996,7 @@ Route::prefix('user')->group(function() {
 Route::get('/notf/show/{id}', 'User\NotificationController@order_notf_show')->name('user-order-notf-show');
 Route::get('/notf/count/{id}','User\NotificationController@order_notf_count')->name('user-order-notf-count');
 Route::get('/notf/clear/{id}','User\NotificationController@order_notf_clear')->name('user-order-notf-clear');
+
 //------------ USER NOTIFICATION SECTION ENDS ------------
 
 

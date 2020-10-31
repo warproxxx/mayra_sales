@@ -136,7 +136,10 @@ Route::prefix('user')->group(function() {
         Route::get('/notf/count/{id}','User\NotificationController@order_notf_count');
         Route::get('/notf/clear/{id}','User\NotificationController@order_notf_clear');
         Route::get('/notf/single/{id}','User\NotificationController@single_notf_clear');
+        
 
+        Route::post('/save-token', 'User\NotificationController@saveToken')->name('save-token');
+        Route::post('/send-notification', 'User\NotificationController@sendNotification')->name('send.notification');
     });
 
 });
