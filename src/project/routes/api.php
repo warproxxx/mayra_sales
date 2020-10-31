@@ -138,8 +138,8 @@ Route::prefix('user')->group(function() {
         Route::get('/notf/single/{id}','User\NotificationController@single_notf_clear');
         
 
-        Route::post('/save-token', 'User\NotificationController@saveToken')->name('save-token');
-        Route::post('/send-notification', 'User\NotificationController@sendNotification')->name('send.notification');
+        Route::get('/save-token', 'User\NotificationController@saveToken')->name('save-token');
+        Route::get('/send-notification', 'User\NotificationController@sendNotification')->name('send.notification');
     });
 
 });
