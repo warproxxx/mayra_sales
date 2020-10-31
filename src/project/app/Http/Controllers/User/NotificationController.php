@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserNotification;
 use App\Models\Notification;
+use Auth;
 
 class NotificationController extends Controller
 {
@@ -68,8 +69,17 @@ class NotificationController extends Controller
 
     public function saveToken(Request $request)
     {
-        Auth::user()->update(['device_token'=>$request->token]);
-        return response()->json(['token saved successfully.']);
+        try{
+            $user = Auth::user();
+            $user->device_token = $request->token;
+            $user->save();
+
+            return response()->json(['status' => 'success', 'details' => "Token updated"]);
+        } 
+        catch (\Exception $e) 
+        {
+            echo($e);
+        }    
     }
 
   
