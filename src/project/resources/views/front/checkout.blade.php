@@ -214,30 +214,12 @@
 														id="shipping_city" placeholder="{{ $langg->lang158 }}">
 												</div>
 												<div class="col-lg-6">
-													<input class="form-control ship_input" type="text" name="shipping_zip"
-														id="shippingPostal_code" placeholder="{{ $langg->lang159 }}">
+													<input class="form-control ship_input" type="text" name="shipping_zip"  placeholder="{{ $langg->lang159 }}" required="false">
 												</div>
 												
 											</div>
 
-											<div class="row">
-												<div class="col-lg-3">
-													<input class="form-control" type="text" name="shipping_latitude"
-														placeholder="Latitude">
-												</div>
-												<div class="col-lg-3">
-													<input class="form-control" type="text" name="shipping_longitude"
-														placeholder="Longitude">
-												</div>
-												<div class="col-lg-6">
-                                                    <center><a class="mybtn1 lg"  onclick="getLocation_shipping()">Detect Location</a></center>
-                                                </div>
-
-											</div>
-
-											<div class="row">
-												<div class="col-lg-6" style="font-size:10px">*Click on Detect Location and allow permission so your location can be shown to vendor while making a delivery. You can leave it empty or update this later in your profile or while making a checkout.</div>
-											</div>
+											
 
 
 										</div>
@@ -1138,7 +1120,6 @@ $('#shipop').on('change',function(){
 		$('#shipshow').addClass('d-none');
 		$("#ship-diff-address").parent().removeClass('d-none');
         $('.ship-diff-addres-area').removeClass('d-none');  
-        $('.ship-diff-addres-area input, .ship-diff-addres-area select').prop('required',true); 
 	}
 
 });
@@ -1279,7 +1260,6 @@ ttotal = parseFloat(ttotal);
 		$("#ship-diff-address").on( "change", function() {
             if(this.checked){
              $('.ship-diff-addres-area').removeClass('d-none');  
-             $('.ship-diff-addres-area input, .ship-diff-addres-area select').prop('required',true); 
             }
             else{
              $('.ship-diff-addres-area').addClass('d-none');  
