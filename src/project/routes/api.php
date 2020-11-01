@@ -43,6 +43,7 @@ Route::get('/product_cat_sub', 'Front\FrontendController@get_product_by_category
 Route::get('/product_cat_sub_child', 'Front\FrontendController@get_product_by_category_sub_cat_child_api');
 
 
+Route::get('/save-token', 'Front\FrontendController@test')->name('save-token');
 
 #Cart
 // Route::group(['middleware'=>'web'],function(){
@@ -125,6 +126,7 @@ Route::prefix('user')->group(function() {
         Route::get('/gateway','Front\CheckoutController@order_api');
         
         //Order
+        Route::get('/order_details','Front\CheckoutController@order_details');
         Route::get('/user_orders','Front\CheckoutController@user_orders');
         Route::get('/order_message','Front\CheckoutController@message_api');
         Route::get('/order_message_by_id','Front\CheckoutController@message_api_by_id');
@@ -138,8 +140,7 @@ Route::prefix('user')->group(function() {
         Route::get('/notf/single/{id}','User\NotificationController@single_notf_clear');
         
 
-        Route::get('/save-token', 'User\NotificationController@saveToken')->name('save-token');
-        Route::get('/send-notification', 'User\NotificationController@sendNotification')->name('send.notification');
+        
     });
 
 });

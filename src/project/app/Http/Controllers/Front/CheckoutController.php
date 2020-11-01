@@ -1317,6 +1317,12 @@ $validator = Validator::make($input, $rules, $messages);
         return response()->json(['status' => 'success', 'new_received_status' => $new_closed]);                   
     }
 
+    public function order_details(Request $request)
+    {
+        $user_orders = Order::where('id', '=', $request->id)->get();
+        return $user_orders;
+    }
+
     public function user_orders(Request $request)
     {
         $user = $request->user();
