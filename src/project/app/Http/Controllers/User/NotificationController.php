@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserNotification;
 use App\Models\Notification;
+use App\Models\User;
 use Auth;
+use App\Classes\FirebaseNotify;
+
 
 class NotificationController extends Controller
 {
@@ -82,55 +85,6 @@ class NotificationController extends Controller
         }    
     }
 
-  
-
-    /**
-
-     * Write code on Method
-
-     *
-
-     * @return response()
-
-     */
-
-    public function sendNotification(Request $request)
-    {
-
-        $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
-        $SERVER_API_KEY = 'AAAAAGUwyZc:APA91bF7_JJYb4GQZtjyM0meXoYnddOkMUOENVsHo49TunX1YCYGlx7JCS7B8CiTYZPV_ycfNJqdg8cnEJxQ0KBsI2mIgUqu8Xri_h0Sp2lKsfG6Cd1B7-xqMzA8H_H96UZqxhuMgP32';
-
-        $data = [
-
-            "registration_ids" => $firebaseToken,
-            "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,  
-            ]
-        ];
-
-        $dataString = json_encode($data);
     
-        $headers = [
-            'Authorization: key=' . $SERVER_API_KEY,
-            'Content-Type: application/json',
-        ];
-
-
-        $ch = curl_init();
-      
-
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-
-        $response = curl_exec($ch);
-
-        dd($response);
-
-    }
 
 }

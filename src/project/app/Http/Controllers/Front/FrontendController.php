@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 use Markury\MarkuryPost;
+use App\Classes\FirebaseNotify;
+
 
 class FrontendController extends Controller
 {
@@ -130,6 +132,14 @@ class FrontendController extends Controller
      {
          $subcat = Subcategory::findOrFail($id);
          return view('load.childcategory',compact('subcat'));
+     }
+
+     public function test()
+     {
+
+        $firebase = new FirebaseNotify();
+        $firebase->sendNotification("Title", "Body", "25", 12);
+
      }
 
 
