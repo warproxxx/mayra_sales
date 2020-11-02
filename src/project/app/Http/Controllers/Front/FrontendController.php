@@ -138,8 +138,8 @@ class FrontendController extends Controller
      {
 
         $firebase = new FirebaseNotify();
-        $firebase->sendNotification("Title", "Body", "25", 12);
-
+        $response = $firebase->sendNotification("Title", "Body", "25", 12);
+        dd($response);
      }
 
 
