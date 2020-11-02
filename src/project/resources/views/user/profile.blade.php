@@ -88,9 +88,6 @@
                                             </div>
                                             <div class="row">
                                                     <div class="col-lg-6">
-                                                            <input name="zip" type="text" class="input-field"
-                                                                placeholder="{{ $langg->lang269 }}" value="{{ $user->zip }}">
-                                                        </div>
     
                                                 <div class="col-lg-6">
                                                     <textarea class="input-field" name="address" required=""
@@ -99,20 +96,7 @@
     
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <input name="longitude" type="text" class="input-field"
-                                                        placeholder="Longitude"
-                                                        value="{{ $user->longitude }}">
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input name="latitude" type="text" class="input-field"
-                                                        placeholder="Latitude" value="{{ $user->latitude }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <center><a class="mybtn1 lg"  onclick="getLocation()">Detect Location</a></center>
-                                                </div>
-                                            </div>
+                                            
     
                                             <div class="form-links">
                                                 <button class="submit-btn" type="submit">{{ $langg->lang271 }}</button>
