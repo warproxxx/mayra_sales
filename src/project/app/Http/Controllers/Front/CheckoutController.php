@@ -1319,8 +1319,31 @@ $validator = Validator::make($input, $rules, $messages);
 
     public function order_details(Request $request)
     {
-        $user_orders = Order::where('id', '=', $request->id)->get();
-        return $user_orders;
+        $order = Order::where('id', '=', $request->id)->first();
+        $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+
+
+        $my_cart = array();
+
+        foreach($cart->items as $item)
+        {
+            $current = array();
+            $current['qty'] = ($item['qty']);
+            $current['color'] = ($item['color']);
+            $current['price'] = ($item['price']);
+            $current['size'] = ($item['size']);
+            try
+            {
+                $current['product_details'] = Product::where('id', '=', $item['item']->id)->first();
+                $current['vendor_details'] = User::where('id', '=', $item['item']->user_id)->first();
+            }  catch (\Exception $e) {
+                
+            }
+
+            $my_cart[] = $current;
+        }
+        $order['cart'] = $my_cart;
+        return $order;
     }
 
     public function user_orders(Request $request)
