@@ -120,7 +120,13 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                 </tr> 
 
                                                 @endif
-
+                                                @if(!empty($order->order_note))
+                                                    <tr>
+                                                        <th width="45%">{{ $langg->lang801 }}</th>
+                                                        <th width="10%">:</th>
+                                                        <td width="45%">{{$order->order_note}}</td>
+                                                    </tr>
+                                                @endif
 
                                                     <th width="45%">{{ $langg->lang798 }}</th>
                                                     <th width="10%"><span style="font-weight:normal">:</span></th>
@@ -131,11 +137,7 @@ $price = number_format($order->vendororders()->where('user_id','=',$user->id)->s
                                                         <option value="{{ route('vendor-order-payment',['slug' => $order->order_number, 'status' => 'Completed']) }}" {{  $order->payment_status == "Completed" ? 'selected' : ''  }}>Completed</option>
                                                     </select>
 
-                                                @if(!empty($order->order_note))
-                                                    <th width="45%">{{ $langg->lang801 }}</th>
-                                                    <th width="10%">:</th>
-                                                    <td width="45%">{{$order->order_note}}</td>
-                                                @endif
+                                                
                                                 
                                 <tr>
                                     <th width="45%">Order Status</th>

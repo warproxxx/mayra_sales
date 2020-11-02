@@ -101,6 +101,14 @@
                                                 
                                                 @endif
 
+                                                @if(!empty($order->order_note))
+                                                    <tr>
+                                                        <th width="45%">{{ __('Order Note') }}</th>
+                                                        <th width="10%">:</th>
+                                                        <td width="45%">{{$order->order_note}}</td>
+                                                    </tr>
+                                                @endif
+
 
                                                     <th width="45%">{{ __('Payment Status') }}</th>
                                                     <th width="10%">:</th>
@@ -112,11 +120,7 @@
                                                     </select>
                                                     </td>
 
-                                                @if(!empty($order->order_note))
-                                                    <th width="45%">{{ __('Order Note') }}</th>
-                                                    <th width="10%">:</th>
-                                                    <td width="45%">{{$order->order_note}}</td>
-                                                @endif
+                                               
 
                                                 <tr>
                                     <th width="45%">Order Status</th>
