@@ -17,6 +17,8 @@ use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Notification;
 use App\Models\VendorNotification;
+use App\Classes\FirebaseNotify;
+
 
 use Auth;
 use Log;
@@ -111,6 +113,11 @@ class MessageController extends Controller
         $notification->ticket_id = $request->conversation_id;
         $notification->user_id = $conv->user_id;
         $notification->save();
+        
+        $order = Order::where('order_number','=',$conv->order_number)->first();
+
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $conv->user_id);
 
         return response()->json($msg);      
         //--- Redirect Section Ends    
@@ -162,6 +169,11 @@ class MessageController extends Controller
         $notification->user_id = $conv->sent_user;
         $notification->save();
 
+        $order = Order::where('order_number','=',$conv->order_number)->first();
+
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $conv->user_id);
+
         $notification = new VendorNotification();
         $notification->conversation_id = $conv->id;
         $notification->user_id = $conv->recieved_user;
@@ -207,6 +219,11 @@ class MessageController extends Controller
         $notification->conversation_id = $input['conversation_id'];
         $notification->user_id = $conv->sent_user;
         $notification->save();
+
+        $order = Order::where('order_number','=',$conv->order_number)->first();
+
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $conv->user_id);
 
         $notification = new VendorNotification();
         $notification->conversation_id = $input['conversation_id'];

@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\VendorOrder;
 use App\Models\SystemNotification;
 use App\Models\User;
+use App\Classes\FirebaseNotify;
 use Log;
 
 class OrderController extends Controller
@@ -164,6 +165,9 @@ class OrderController extends Controller
         $notification->user_id = $order->user_id;
         $notification->save();
 
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $order->user_id);
+
         if ($conv->is_dispute == 1)
         {
             $notification = new Notification;
@@ -200,6 +204,9 @@ class OrderController extends Controller
         $notification->conversation_id =  $conv->id;
         $notification->user_id = $order->user_id;
         $notification->save();
+
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $order->user_id);
 
         if ($conv->is_dispute == 1)
         {
