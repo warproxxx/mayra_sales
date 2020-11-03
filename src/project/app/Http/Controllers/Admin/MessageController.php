@@ -113,11 +113,15 @@ class MessageController extends Controller
         $notification->ticket_id = $request->conversation_id;
         $notification->user_id = $conv->user_id;
         $notification->save();
-        
+        try{
         $order = Order::where('order_number','=',$conv->order_number)->first();
 
         $firebase = new FirebaseNotify();
         $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $conv->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
 
         return response()->json($msg);      
         //--- Redirect Section Ends    
@@ -169,10 +173,16 @@ class MessageController extends Controller
         $notification->user_id = $conv->sent_user;
         $notification->save();
 
+        try{
         $order = Order::where('order_number','=',$conv->order_number)->first();
 
+        
         $firebase = new FirebaseNotify();
         $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $conv->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
 
         $notification = new VendorNotification();
         $notification->conversation_id = $conv->id;
@@ -220,10 +230,16 @@ class MessageController extends Controller
         $notification->user_id = $conv->sent_user;
         $notification->save();
 
+        try{
         $order = Order::where('order_number','=',$conv->order_number)->first();
 
+        
         $firebase = new FirebaseNotify();
         $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $conv->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
 
         $notification = new VendorNotification();
         $notification->conversation_id = $input['conversation_id'];

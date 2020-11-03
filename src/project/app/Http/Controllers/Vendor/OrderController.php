@@ -165,8 +165,14 @@ class OrderController extends Controller
         $notification->user_id = $order->user_id;
         $notification->save();
 
+        try{
+
         $firebase = new FirebaseNotify();
         $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $order->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
 
         if ($conv->is_dispute == 1)
         {
@@ -205,8 +211,13 @@ class OrderController extends Controller
         $notification->user_id = $order->user_id;
         $notification->save();
 
+        try{
         $firebase = new FirebaseNotify();
         $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $order->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
 
         if ($conv->is_dispute == 1)
         {
