@@ -200,6 +200,7 @@ class FrontendController extends Controller
     public function api_search($slug)
     {
         if(strlen($slug) > 1){
+            $slug = strtolower($slug);
             $search = ' '.$slug;
             $prods = Product::where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $slug . '%')->where('status','=',1)->get();
             return response()->json(['status' => 'success', 'details' => $prods]);
