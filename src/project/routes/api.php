@@ -155,7 +155,7 @@ Route::prefix('vendor')->group(function() {
     #this is enough because we send user or vendor while logging in. Frontend dosen't sends unnecessary request.
     Route::group(['middleware'=>'auth:api'],function(){
         //------------ VENDOR PRODUCT SECTION ------------
-        Route::post('/products/store', 'Vendor\ProductController@store');
+        Route::post('/products/store', 'Vendor\ProductController@api_store');
         Route::post('/products/edit/{id}', 'Vendor\ProductController@update');
         Route::get('/products/delete/{id}', 'Vendor\ProductController@destroy');
         //------------ VENDOR PRODUCT SECTION ENDS------------
