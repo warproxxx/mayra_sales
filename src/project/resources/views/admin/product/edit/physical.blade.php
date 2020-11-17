@@ -402,8 +402,8 @@
 			Image Size: 
 			@php
 			try{
-				$image_info = filesize('assets/images/products/'.$data->photo); 
-				echo($image_info);
+				$image_info = filesize('assets/images/products/'.$data->photo) / 1024; 
+				echo(round($image_info));
 			}
 			catch(Exception $e) {
               echo 'Message: ' .$e->getMessage();
