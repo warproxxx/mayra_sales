@@ -401,8 +401,8 @@
 			</a>
 			Image Size: 
 			@php
-				$image_info = filesize(asset('assets/images/products/'.$data->photo)); 
-				print_r($image_info);
+				$image_info = getimagesize(asset('assets/images/products/'.$data->photo)); 
+				echo($image_info);
 			@endphp
 
 
