@@ -300,8 +300,7 @@
                       </li>
 
                       <li class="addtocart">
-                        <a href="{{ route('product.cart.quickadd',$productt->id) }}"><i
-                            class="icofont-cart"></i>{{ $langg->lang251 }}</a>
+                      <a href="javascript:;" id="buynow"><i class="icofont-cart"></i>{{ $langg->lang251 }}</a>
                       </li>
                       @endif
 

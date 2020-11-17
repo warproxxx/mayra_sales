@@ -1170,6 +1170,58 @@ $(document).on('click','#comment-area .remove',function(){
 
     });
 
+    $(document).on("click", "#buynow" , function(){
+      var qty = $('.qttotal').html();
+      var pid = $(this).parent().parent().parent().parent().find("#product_id").val();
+
+  if($('.product-attr').length > 0)
+  {
+    values = $(".product-attr:checked").map(function() {
+    return $(this).val();
+  }).get();
+
+  keys = $(".product-attr:checked").map(function() {
+    return $(this).data('key');
+  }).get();
+
+  prices = $(".product-attr:checked").map(function() {
+    return $(this).data('price');
+  }).get();
+
+
+
+  }
+
+
+
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open( "GET", "/emptycart", false ); // false for synchronous request
+  xmlHttp.send( null );
+
+
+
+
+    $.ajax({
+      type: "GET",
+      url:mainurl+"/addnumcart",
+      data:{id:pid,qty:qty,size:sizes,color:colors,size_qty:size_qty,size_price:size_price,size_key:size_key,keys:keys,values:values,prices:prices},
+      success:function(data){
+
+        if(data == 0) {
+            toastr.error(langg.out_stock);
+          }
+        else if (data == -1)
+        {
+          toastr.error("Cart can only consist of same seller's item");
+        }
+        else {
+          window.location.replace("/checkout");
+          }
+         }
+      });
+
+});
+
 
 // Adding Muliple Quantity Ends
 

@@ -46,6 +46,14 @@ class ProductController extends Controller
 
     }
 
+    public function get_products_api()
+    {
+        $user = Auth::user();
+        $datas = $user->products()->where('product_type','normal')->orderBy('id','desc')->get();
+
+        return response()->json(['status' => 'success', 'details' => $datas]);
+    }
+
     //*** JSON Request
     public function datatables()
     {
@@ -383,6 +391,173 @@ if (!Product::where('sku',$line[0])->exists()){
         return($query);
     }
 
+    public function api_edit(Request $request, $id)
+    {
+        $user = Auth::user();
+        $data = Product::findOrFail($id);
+
+        $sign = Currency::where('is_default','=',1)->first();
+        $input = $request->all();
+
+        // Check File
+        if ($file = $request->file('file'))
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move('assets/files',$name);
+            $input['file'] = $name;
+        }
+
+
+            $image = $request->all()['photo'];
+            $image = substr($image, strpos($image, ",")+1);
+            $decoded = base64_decode($image);
+            
+            $image_name = time().str_random(8).'.png';
+            $path = 'assets/images/products/'.$image_name;
+            file_put_contents($path, $decoded);
+            $input['photo'] = $image_name;
+
+            // Set Thumbnail
+            $img = Image::make(public_path().'/assets/images/products/'.$prod->photo)->resize(285, 285);
+            $thumbnail = time().str_random(8).'.jpg';
+            $img->save(public_path().'/assets/images/thumbnails/'.$thumbnail);
+            $prod->thumbnail  = $thumbnail;
+            $prod->update();
+
+            // Add To Gallery If any
+            $lastid = $data->id;
+            
+            if ($request->gallery)
+            {
+                $image = $request->all()['gallery'];
+                $files = explode(",", $image);
+                
+                foreach ($files as $image)
+                {
+                    $gallery = new Gallery;
+                    $decoded = base64_decode($image);
+                    $image_name = time().str_random(8).'.png';
+                    file_put_contents(public_path().'/assets/images/galleries/'.$image_name, $decoded);
+
+                    $gallery['photo'] = $image_name;
+                    $gallery['product_id'] = $lastid;
+                    $gallery->save();
+                    
+                }
+            }
+            
+
+
+                    //--- Validation Section
+                    $rules = ['sku'      => 'min:8|unique:products'];
+
+                    $validator = Validator::make(Input::all(), $rules);
+
+                    if ($validator->fails()) {
+                        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+                    }
+                    //--- Validation Section Ends
+
+        
+            // Check Condition
+            if ($request->product_condition_check == ""){
+                $input['product_condition'] = 0;
+            }
+
+         
+
+            // Conert Price According to Currency
+             $input['price'] = ($input['price'] / $sign->value);
+             $input['previous_price'] = ($input['previous_price'] / $sign->value);
+              $input['user_id'] = Auth::user()->id;
+              
+
+           // store filtering attributes for physical product
+           $attrArr = [];
+           if (!empty($request->category_id)) {
+             $catAttrs = Attribute::where('attributable_id', $request->category_id)->where('attributable_type', 'App\Models\Category')->get();
+             if (!empty($catAttrs)) {
+               foreach ($catAttrs as $key => $catAttr) {
+                 $in_name = $catAttr->input_name;
+                 if ($request->has("$in_name")) {
+                   $attrArr["$in_name"]["values"] = $request["$in_name"];
+                   $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
+                   if ($catAttr->details_status) {
+                     $attrArr["$in_name"]["details_status"] = 1;
+                   } else {
+                     $attrArr["$in_name"]["details_status"] = 0;
+                   }
+                 }
+               }
+             }
+           }
+           
+
+           
+
+           if (!empty($request->subcategory_id)) {
+             $subAttrs = Attribute::where('attributable_id', $request->subcategory_id)->where('attributable_type', 'App\Models\Subcategory')->get();
+             if (!empty($subAttrs)) {
+               foreach ($subAttrs as $key => $subAttr) {
+                 $in_name = $subAttr->input_name;
+                 if ($request->has("$in_name")) {
+                   $attrArr["$in_name"]["values"] = $request["$in_name"];
+                   $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
+                   if ($subAttr->details_status) {
+                     $attrArr["$in_name"]["details_status"] = 1;
+                   } else {
+                     $attrArr["$in_name"]["details_status"] = 0;
+                   }
+                 }
+               }
+             }
+           }
+           if (!empty($request->childcategory_id)) {
+             $childAttrs = Attribute::where('attributable_id', $request->childcategory_id)->where('attributable_type', 'App\Models\Childcategory')->get();
+             if (!empty($childAttrs)) {
+               foreach ($childAttrs as $key => $childAttr) {
+                 $in_name = $childAttr->input_name;
+                 if ($request->has("$in_name")) {
+                   $attrArr["$in_name"]["values"] = $request["$in_name"];
+                   $attrArr["$in_name"]["prices"] = $request["$in_name"."_price"];
+                   if ($childAttr->details_status) {
+                     $attrArr["$in_name"]["details_status"] = 1;
+                   } else {
+                     $attrArr["$in_name"]["details_status"] = 0;
+                   }
+                 }
+               }
+             }
+           }
+
+           
+
+
+           
+           if (empty($attrArr)) {
+             $input['attributes'] = NULL;
+           } else {
+             $jsonAttr = json_encode($attrArr);
+             $input['attributes'] = $jsonAttr;
+           }
+
+           
+
+
+           $input['status'] = 2;
+           unset($input['api_token']);
+           unset($input['gallery']);
+
+
+          
+           $data->update($input);
+            
+            return response()->json(['status' => 'success', 'id' => $lastid]);
+
+        //--- Redirect Section Ends
+
+    }
+
     public function api_store(Request $request)
     {
         $user = Auth::user();
@@ -566,7 +741,7 @@ if (!Product::where('sku',$line[0])->exists()){
         //logic Section Ends
 
         return response()->json(['status' => 'success', 'id' => $lastid]);
-        
+
         //--- Redirect Section Ends
         }
         else

@@ -158,6 +158,10 @@ Route::prefix('vendor')->group(function() {
         Route::post('/products/store', 'Vendor\ProductController@api_store');
         Route::post('/products/edit/{id}', 'Vendor\ProductController@update');
         Route::get('/products/delete/{id}', 'Vendor\ProductController@destroy');
+
+        Route::get('/products', 'Vendor\ProductController@get_products_api');
+        //edit product
+        
         //------------ VENDOR PRODUCT SECTION ENDS------------
 
     });
