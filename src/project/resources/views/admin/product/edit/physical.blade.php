@@ -403,7 +403,7 @@
 			@php
 			try{
 				$image_info = filesize('assets/images/products/'.$data->photo) / 1024; 
-				echo($image_info);
+				echo(round($image_info));
 			}
 			catch(Exception $e) {
               echo 'Message: ' .$e->getMessage();
