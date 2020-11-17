@@ -399,6 +399,12 @@
 			<a href="javascript:;" id="crop-image" class="d-inline-block mybtn1">
 				<i class="icofont-upload-alt"></i> {{ __('Upload Image Here') }}
 			</a>
+			Image Size: 
+			@php
+				$image_info = getimagesize(asset('assets/images/products/'.$data->photo)); 
+				print_r($image_info);
+			@endphp
+
 
 
 							                        </div>
