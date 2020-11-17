@@ -104,7 +104,13 @@ class CartController extends Controller
         }
     }
 
-   public function addtocart($id)
+    public function emptycart()
+    {
+        $cart = null;
+        Session::put('cart',$cart);
+    }
+
+   public function addtocart($id, $amt)
     {
         $cart = null;
         Session::put('cart',$cart);
