@@ -401,9 +401,10 @@
 			</a>
 			Image Size: 
 			@php
-				$image_info = getimagesize(asset('assets/images/products/'.$data->photo)); 
+				$image_info = filesize('/assets/images/products/'.$data->photo); 
 				echo($image_info);
 			@endphp
+			 KB
 
 
 
