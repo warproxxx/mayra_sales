@@ -401,8 +401,13 @@
 			</a>
 			Image Size: 
 			@php
-				$image_info = filesize('/assets/images/products/'.$data->photo); 
+			try{
+				$image_info = filesize('assets/images/products/'.$data->photo); 
 				echo($image_info);
+			}
+			catch(Exception $e) {
+              echo 'Message: ' .$e->getMessage();
+			}
 			@endphp
 			 KB
 
