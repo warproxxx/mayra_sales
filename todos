@@ -1,21 +1,23 @@
-All orders page loads slow
-Vendor lae edit Garda each time page Reload garnu pareko xa. Vendor Status Activated Deactivated button use gare paxi automatically page 1 maah lagi dinxa
- Bro hamile image size herna Milne banae dinu na when reviwing
+API:
+modify product
+get orders
+change Status
+send message
 
-Photos
+Manual:
+Bro hamile image size herna Milne banae dinu na when reviwing
 
+Done:
 When item set and buy now clicked, not modifying.
-@Daniel Sapkota
- Bro Vendor pati Pending Orders aayi raheko xaina
- Admin panel batah order aako dekhinxa Vendor maah dekhiyena
 
 
-
-
+HTML:
+For low resolution PC, image upload dosen't work in vendor.
+Featured product slide. Image Not loading after completed loading in home page.
+Search item disappear in mobile
 Get the app Ra QR Code 
-How to add in homepage.
 
-Image Not loading after completed loading in home page.
+
 
 is_vendor = 1 -> Expired
 is_vendor = 2 -> Yes

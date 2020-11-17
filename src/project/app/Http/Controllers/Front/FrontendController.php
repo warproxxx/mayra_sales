@@ -202,7 +202,7 @@ class FrontendController extends Controller
         if(strlen($slug) > 1){
             $slug = strtolower($slug);
             $search = ' '.$slug;
-            $prods = Product::where('name', 'like', '%' . $search . '%')->orWhere('name', 'like', $slug . '%')->where('status','=',1)->get();
+            $prods =  DB::select("select * from products where LOWER(products.name) like '%". $slug ."%' and products.status=1");
             return response()->json(['status' => 'success', 'details' => $prods]);
         }
         return response()->json(['status' => 'failure', 'details' => "empty"]);
