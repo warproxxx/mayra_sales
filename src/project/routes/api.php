@@ -162,6 +162,13 @@ Route::prefix('vendor')->group(function() {
         Route::get('/products', 'Vendor\ProductController@get_products_api');
         //edit product
         
+        Route::get('/orders', 'Vendor\OrderController@get_orders_api');
+        Route::get('/order/{id1}/status/{status}', 'Vendor\OrderController@status_api');
+        Route::get('/order/{id1}/payment/{status}', 'Vendor\OrderController@payment_api');
+        Route::get('/order/{id}/message', 'Vendor\OrderController@message_api');
+        Route::get('/message/vendor_post', 'Vendor\OrderController@postmessage_api');
+
+
         //------------ VENDOR PRODUCT SECTION ENDS------------
 
     });

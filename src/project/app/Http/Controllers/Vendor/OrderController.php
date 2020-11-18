@@ -41,6 +41,18 @@ class OrderController extends Controller
         }
     }
 
+    public function get_orders_api()
+    {
+        $user = Auth::user();
+        $orders = VendorOrder::where('vendor_orders.user_id','=',$user->id)
+        ->leftJoin('conversations', 'vendor_orders.order_number', '=', 'conversations.subject')
+        ->leftJoin('orders', 'vendor_orders.order_number', '=', 'orders.order_number')
+        ->select('vendor_orders.id','vendor_orders.user_id', 'vendor_orders.order_id', 'vendor_orders.qty', 'vendor_orders.price', 'vendor_orders.order_number', 'vendor_orders.status', 'conversations.id AS conversation_id', 'orders.pay_amount', 'orders.method')
+        ->orderBy('vendor_orders.id','desc')->get();
+
+        return response()->json(['status' => 'success', 'details' => $orders]);
+    }
+
     public function show($slug)
     {
         try 
@@ -82,6 +94,19 @@ class OrderController extends Controller
         $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $id)->get();
 
         return view('vendor.order.message',compact('user','conv', 'order','other_covs'));
+    }
+
+    public function message_api($id)
+    {
+        $user = Auth::user();
+        $conv = Conversation::findOrfail($id);
+        $order = Order::where('order_number','=',$conv->subject)
+                 ->first();
+        $other_covs = Conversation::where('sent_user', '=', $conv->sent_user)->where('recieved_user', '=', $conv->recieved_user)->where('id', '!=', $id)->get();
+        $conv->messages;
+
+        return response()->json(['status' => 'success', 'order' => $order,  'conv' => $conv, 'other_convs' => $other_covs ]);  
+
     }
 
     public function license(Request $request, $slug)
@@ -186,6 +211,60 @@ class OrderController extends Controller
      
     }
 
+    public function status_api($slug,$status)
+    {
+
+        $user = Auth::user();
+        
+        try
+        {
+            $order = VendorOrder::where('order_number','=',$slug)->where('user_id','=',$user->id)->update(['status' => $status]);
+        }
+        catch (Exception $e)
+        {
+
+        }
+
+        $on_user = Order::where('order_number','=',$slug)->update(['status' => $status]);
+        $order = Order::where('order_number','=',$slug)->first();
+        $conv = Conversation::where('subject','=',$slug)->first();
+
+        $msg = new Message();
+        $msg->conversation_id = $conv->id;
+        $msg->message = "The status of this order has been changed to " . $status;
+        $msg->sent_user = $user->id;
+        $msg->save();
+        
+        $order = Order::where('order_number','=',$slug)->first();
+
+        $notification = new UserNotification();
+        $notification->conversation_id =  $conv->id;
+        $notification->user_id = $order->user_id;
+        $notification->save();
+
+        try{
+
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $order->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
+
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $conv->id;
+            // $notification->admin_id = 1;
+            $notification->save();
+        }
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        return response()->json(['status' => 'success', 'details' => $order]);     
+    }
+
+
     public function payment($slug,$status)
     {
         $mainorder = VendorOrder::where('order_number','=',$slug)->first();
@@ -231,6 +310,55 @@ class OrderController extends Controller
         return redirect()->route('vendor-order-show',$order->order_number);
     }
 
+    public function payment_api($slug,$status)
+    {
+        $mainorder = VendorOrder::where('order_number','=',$slug)->first();
+
+
+        $user = Auth::user();
+        $on_user = Order::where('order_number','=',$slug)->update(['payment_status' => $status]);
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        $conv = Conversation::where('subject','=',$slug)->first();
+
+        $msg = new Message();
+        $msg->conversation_id = $conv->id;
+        $msg->message = "The payment status of this order has been changed to " . $status;
+        $msg->sent_user = $user->id;
+        $msg->save();
+        
+        $order = Order::where('order_number','=',$slug)->first();
+
+        $notification = new UserNotification();
+        $notification->conversation_id =  $conv->id;
+        $notification->user_id = $order->user_id;
+        $notification->save();
+
+        try{
+        $firebase = new FirebaseNotify();
+        $response = $firebase->sendNotification("New Notification", "You have a new message", $order->id, $order->user_id);
+    } catch (\Exception $e) {
+
+        return $e->getMessage();
+    }
+
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $conv->id;
+            // $notification->admin_id = 1;
+            $notification->save();
+        }
+
+
+        $order = Order::where('order_number','=',$slug)->first();
+
+        return response()->json(['status' => 'success', 'details' => $order]);    
+
+    }
+
+    
     public function postmessage(Request $request)
     {
         #copy image upload and fix redirect
@@ -278,6 +406,55 @@ class OrderController extends Controller
         {
             return redirect()->back();
         }
+
+
+           
+    }
+
+    public function postmessage_api(Request $request)
+    {
+        #copy image upload and fix redirect
+        $msg = new Message();
+        $input = $request->except(['file']);
+        $user = Auth::user();
+
+        $input['sent_user'] = $user->id;
+
+        if ($request->hasFile('file')) 
+        {
+            if ($request->file('file')->isValid()) 
+            {
+                $image_name = date('mdYHis') . uniqid() .$request->file('file')->getClientOriginalName();
+                $input['file'] = $image_name;
+                $path = 'assets/images/users';
+                $request->file('file')->move($path,$image_name);
+            }
+        }
+
+
+
+        $msg->fill($input)->save();
+        //--- Redirect Section     
+        $msg = 'Message Sent!';
+
+
+        $conv = Conversation::where('id','=',$request->conversation_id)->first();
+
+        $notification = new VendorNotification();
+        $notification->conversation_id = $conv->id;
+        $notification->user_id = $conv->recieved_user;
+        $notification->save();
+        
+        if ($conv->is_dispute == 1)
+        {
+            $notification = new Notification;
+            $notification->conversation_id = $request->conversation_id;
+            // $notification->admin_id = 1;
+            $notification->type = "admin";
+            $notification->save();
+        }
+
+        return response()->json(['status' => 'success', 'messages' => $conv->messages]);
 
 
            
