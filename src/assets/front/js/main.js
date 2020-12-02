@@ -423,10 +423,10 @@ $(document).on('click', function(e)
     var container = $(".autocomplete-items");
 
     // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-      $(".autocomplete").hide();
-    }
+    // if (!container.is(e.target) && container.has(e.target).length === 0) 
+    // {
+    //   $(".autocomplete").hide();
+    // }
 });
 
 if(w <= 991 )
