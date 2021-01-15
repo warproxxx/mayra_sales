@@ -221,6 +221,12 @@ class FrontendController extends Controller
         return response()->json(['status' => 'success', 'details' => $feature_products]);
     }
 
+    public function get_special_product($type)
+    {
+        $feature_products =  Product::where($type,'=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
+        return response()->json(['status' => 'success', 'details' => $feature_products]);
+    }
+
 
     public function extraIndex()
     {
