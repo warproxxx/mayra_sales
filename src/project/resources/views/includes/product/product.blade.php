@@ -42,10 +42,10 @@
 											</div>
 											<div class="info">
 												<div class="stars">
-                            <div class="ratings">
-                                <div class="empty-stars"></div>
-                                <div class="full-stars" style="width:{{App\Models\Rating::ratings($prod->id)}}%"></div>
-                            </div>
+						                            <div class="ratings">
+						                                <div class="empty-stars"></div>
+						                                <div class="full-stars" style="width:{{App\Models\Rating::ratings($prod->id)}}%"></div>
+						                            </div>
 												</div>
 												<h4 class="price">{{ $prod->setCurrency() }} <del><small>{{ $prod->showPreviousPrice() }}</small></del></h4>
 														<h5 class="name">{{ $prod->showName() }}</h5>

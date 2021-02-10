@@ -28,6 +28,8 @@ use Markury\MarkuryPost;
 use App\Classes\FirebaseNotify;
 
 
+use Illuminate\Support\Facades\Http;
+
 class FrontendController extends Controller
 {
     public function __construct()
@@ -164,6 +166,9 @@ class FrontendController extends Controller
 
          }
 
+
+
+
         $sliders = DB::table('sliders')->get();
         $top_small_banners = DB::table('banners')->where('type','=','TopSmall')->get();
         $ps = DB::table('pagesettings')->find(1);
@@ -180,7 +185,28 @@ class FrontendController extends Controller
         $products_count = 200;
 
         $premium_products = Product::orderBy(DB::raw('RAND()'))->join('users', 'users.id', '=', 'products.user_id')->where('users.subs_id', '=', 6)->where('products.status', '=', 1)->where('users.date', '>=', $today)->select('products.*')->take($products_count)->get();
+        
         $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+        $bigsave_products =  Product::where('big','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+        $hot_products =  Product::where('hot','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+        $latest_products =  Product::where('latest','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+        $trending_products =  Product::where('trending','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+       
+        $sale_products =  Product::where('sale','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+        $bestsale_products =  Product::where('best','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+        $flashdeal_products =  Product::where('top','=',1)->where('status','=',1)->orderBy('id','desc')->take($products_count)->get();
+
+
+
+
+
+
 
         if ($location_id != 0)
         {
@@ -192,9 +218,37 @@ class FrontendController extends Controller
             $feature_products =  Product::where('featured','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
                                 ->whereIn('users.shop_location', [0, $location_id])
                                 ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+           $bigsave_products =  Product::where('big','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+            $hot_products =  Product::where('hot','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+            $latest_products =  Product::where('latest','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+            $trending_products =  Product::where('trending','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+            $sale_products =  Product::where('sale','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+            $bestsale_products =  Product::where('best','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
+
+            $flashdeal_products =  Product::where('top','=',1)->join('users', 'users.id', '=', 'products.user_id')->where('products.status','=',1)
+                                ->whereIn('users.shop_location', [0, $location_id])
+                                ->orderBy('id','desc')->select('products.*')->take($products_count)->get();
         }
 
-	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products'));
+	    return view('front.index',compact('ps','sliders','top_small_banners','feature_products','premium_products', 'bigsave_products', 'hot_products', 'latest_products', 'trending_products', 'sale_products', 'flashdeal_products', 'bigsave_products', 'bestsale_products'));
     }
 
     public function api_search($slug)
@@ -218,12 +272,6 @@ class FrontendController extends Controller
     public function featured_products_api()
     {
         $feature_products =  Product::where('featured','=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
-        return response()->json(['status' => 'success', 'details' => $feature_products]);
-    }
-
-    public function get_special_product($type)
-    {
-        $feature_products =  Product::where($type,'=',1)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
         return response()->json(['status' => 'success', 'details' => $feature_products]);
     }
 

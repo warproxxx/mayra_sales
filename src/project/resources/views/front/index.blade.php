@@ -60,11 +60,11 @@
 
 	{{-- Slider buttom Category Start --}}
 	<section class="slider-buttom-category d-none d-md-block">
-		<div class="container-fluid">
-			<div class="row">
-				@foreach($categories->where('is_featured','=',1) as $cat)
-					<div class="col-xl-2 col-lg-3 col-md-4 sc-common-padding">
-						<a href="{{ route('front.category',$cat->slug) }}" class="single-category">
+		<div class="container">
+			<div class="row category-list" style="">
+				@foreach($categories->where('is_featured','=',1) as $cat)<!-- 
+					<div class="category-list-item" style="margin:10px 15px; width: 320px; padding:0px; border: 1px solid #222">
+						<a href="{{ route('front.category',$cat->slug) }}" class="single-category" style="border: none">
 							<div class="left">
 								<h5 class="title">
 									{{ $cat->name }}
@@ -74,10 +74,67 @@
 								</p>
 							</div>
 							<div class="right">
-								<img src="{{asset('assets/images/categories/'.$cat->image) }}" alt="">
+								<img style="width:25px" src="{{asset('assets/images/categories/'.$cat->image) }}" alt="">
 							</div>
 						</a>
-					</div>
+					</div> -->
+					<style>
+						.category-list{
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: center;
+							/*align-items: stretch;*/
+						}
+						.category-list-item{
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							width: 230px;
+							border: 1px solid #aaa;
+							padding:12px;
+							margin: 4px 12px;
+						}
+						.category-list-item:hover {
+							border: 1px solid ;
+						  border-image-slice: 1;
+							border-image-source: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
+						  cursor: pointer;	
+						  box-shadow: 2.5px 2.5px 5px 1px #aaa
+						}
+
+						.category-list .details .name{
+							font-weight: bold;
+							font-size: 0.85em;
+							height: 38px;
+							display: flex;
+							align-items: center;
+						}
+						.category-list .details .item-count{
+							font-size: 0.65em;
+							color:#333;
+						}
+						.category-list .img{
+							margin-left: 12px;
+						}
+						.category-list img{
+							width:42px;
+						}
+					</style>
+					<a href="{{ route('front.category',$cat->slug) }}">
+						<div class="category-list-item">
+							<div class="details">
+								<div class="name">
+										{{ $cat->name }}
+								</div>
+								<div class="item-count">
+									{{ count($cat->products) }} {{ $langg->lang4 }}
+								</div>
+							</div>
+							<div class="img">
+								<img src="{{asset('assets/images/categories/'.$cat->image) }}" alt="category image not found">
+							</div>
+						</div>
+					</a>
 				@endforeach
 			</div>
 		</div>
@@ -86,7 +143,25 @@
 
 	@endif
 
-	@if($ps->featured == 1)
+
+		<style>
+			.ads{
+				display: flex; 
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+			.ads .ad{
+				width: 49%;
+				min-width: 400px;
+				margin: 20px auto;
+				background-color: #ccc;
+			}
+			.ads .ad img{
+				width: 100%;
+			}
+		</style>
+
+		@if(count($feature_products)>0)		
 		<!-- Trending Item Area Start -->
 		<section  class="trending">
 			<div class="container">
@@ -101,95 +176,233 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12 remove-padding">
-						<div class="trending-item-slider">
-							@foreach($feature_products as $prod)
-								@include('includes.product.slider-product')
-							@endforeach
-						</div>
+							<div class="trending-item-slider">
+								@foreach($feature_products as $prod)
+									@include('includes.product.slider-product')
+								@endforeach
+							</div
 					</div>
 
 				</div>
 			</div>
 		</section>
 		<!-- Tranding Item Area End -->
-	@endif
+		<!-- Ads -->
+		<div class="container remove-padding">
+			<div class="ads">
+				<div class="ad left">
+					<img src="{{asset('assets/images/banners/1600053152104320674_2572119316359706_6563804097001371169_o.jpg')}}" alt="Your ad here">
+				</div>
 
-	@if($ps->small_banner == 1)
-
-		<!-- Banner Area One Start -->
-		<center>
-		<section class="banner-section">
-			<div class="container">
-				<div id="SliderName_3">
-					@foreach($top_small_banners as $img)
-							<a class="banner-effect" href="{{ $img->link }}" target="_blank">
-								<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="">
-							</a>
-					@endforeach
-
-					<div id="SliderNameNavigation_3"></div> 
-
+				<div class="ad right">
+					<img src="{{asset('assets/images/banners/1602406594ujjwal baraili ad copy-min-min.jpg')}}" alt="Your ad here">
 				</div>
 			</div>
-		</section>
-		</center>
-		<!-- Banner Area One Start -->
-	@endif
-
-	<section  class="trending">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 remove-padding">
-						<div class="section-top">
-							<h2 class="section-title">
-								Premium
-							</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12 remove-padding">
-						<div class="trending-item-slider">
-							@foreach($premium_products as $prod)
-								@include('includes.product.slider-product')
-							@endforeach
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</section>
-
-
-	
-
-	@if($ps->small_banner == 1)
-
-		<!-- Banner Area One Start -->
-		<center>
-		<section class="banner-section">
-			<div class="container">
-				<div id="SliderName_2">
-					@foreach($top_small_banners as $img)
-							<a class="banner-effect" href="{{ $img->link }}" target="_blank">
-								<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="">
-							</a>
-					@endforeach
-
-					<div id="SliderNameNavigation_2"></div> 
-
-				</div>
-			</div>
-		</section>
-		</center>
-		<!-- Banner Area One Start -->
-	@endif
-
-	<section id="extraData">
-		<div class="text-center">
-			<img src="{{asset('assets/images/'.$gs->loader)}}">
 		</div>
-	</section>
+		@endif	
+
+
+		<!-- Premium Section Start -->
+			<!-- Current Code copied from feature -->
+				<section  class="trending">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 remove-padding">
+								<div class="section-top">
+									<h2 class="section-title">
+										Premium
+									</h2>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 remove-padding">
+								<div class="trending-item-slider">
+									@foreach($premium_products as $prod)
+										@include('includes.product.slider-product')
+									@endforeach
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+				<div class="container remove-padding">
+					<div class="ads">
+						<div class="ad left">
+							<img src="{{asset('assets/images/banners/1600053152104320674_2572119316359706_6563804097001371169_o.jpg')}}" alt="Your ad here">
+						</div>
+
+						<div class="ad right">
+							<img src="{{asset('assets/images/banners/1602406594ujjwal baraili ad copy-min-min.jpg')}}" alt="Your ad here">
+						</div>
+					</div>
+				</div>
+
+		<!-- Previum Section End  -->
+
+
+		<!-- Flash sale Section Start -->
+
+		<style>
+			.product-flash-section{
+				display: flex;
+				justify-content: space-between;
+			}
+			.product-flash-section .left{
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+			}
+			
+			.product-flash-section .ad{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 270px;
+				width: 250px;
+				margin: 13px;
+			}
+			.product-flash-section .ad img{
+				/*width: 100%;*/
+				height: 100%;
+				object-fit: contain;
+			}
+			@media screen and (max-width: 1200px) {
+				.product-flash-section .right {
+					display: flex;
+					flex-wrap: wrap;
+					margin: auto;
+				}
+			 	.product-flash-section .left{
+					width: 100%;
+					align-items: center;
+					justify-content: center;
+				}
+				.product-flash-section{
+					flex-wrap: wrap;
+				}
+				.product-flash-section .right .ad{
+				margin: 12px 10px;
+				background-color: #eee;
+			}
+		  	}
+			@media screen and (max-width: 560px) {
+			 	.product-flash-section .left{
+					width: 100%;
+					align-items: center;
+					justify-content: center;
+				}
+				.product-flash-section .right .ad{
+					display: none;
+				}
+		  	}
+
+		</style>
+
+				<section  class="trending">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 remove-padding">
+								<div class="section-top">
+									<h2 class="section-title">
+										Big Save
+									</h2>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="product-flash-section">
+									<div class="left">
+
+									@foreach($bigsave_products as $prod)
+											@include('includes.product.slider-product')
+											@if($loop->index>=2 && (($loop->index+1)%3)==0)
+											<div class="ad">
+												<img src="{{asset('assets/images/ad.jpg')}}">
+											</div>
+											@endif
+									@endforeach
+
+									</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+				<section  class="trending">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 remove-padding">
+								<div class="section-top">
+									<h2 class="section-title">
+										Best Seller
+									</h2>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="product-flash-section">
+								<div class="left">
+
+									@foreach($bestsale_products as $prod)
+											@include('includes.product.slider-product')
+											@if($loop->index>=2 && (($loop->index+1)%3)==0)
+											<div class="ad">
+												<img src="{{asset('assets/images/ad.jpg')}}">
+											</div>
+											@endif
+									@endforeach
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section  class="trending">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 remove-padding">
+								<div class="section-top">
+									<h2 class="section-title">
+										Flash Deal
+									</h2>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="product-flash-section">
+								<div class="left">
+
+									@foreach($flashdeal_products as $prod)
+											@include('includes.product.slider-product')
+											@if($loop->index>=2 && (($loop->index+1)%3)==0)
+											<div class="ad">
+												<img src="{{asset('assets/images/ad.jpg')}}">
+											</div>
+											@endif
+									@endforeach
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+		<!-- Flash Sale Section End -->
+
+
+
+		<!-- Hot products sale section start -->
+			@include('includes.hot-product-sale')
+		<!-- Hot products sale section end -->
+	<!-- New Sections Added end -->
+
+
+
+
 
 
 @endsection

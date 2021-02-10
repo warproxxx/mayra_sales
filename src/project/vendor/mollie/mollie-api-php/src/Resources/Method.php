@@ -58,6 +58,13 @@ class Method extends BaseResource
     public $pricing;
 
     /**
+     * The activation status the method is in.
+     *
+     * @var string
+     */
+    public $status;
+
+    /**
      * @var \stdClass
      */
     public $_links;
@@ -71,8 +78,8 @@ class Method extends BaseResource
     {
         return ResourceFactory::createBaseResourceCollection(
             $this->client,
-            $this->issuers,
-            Issuer::class
+            Issuer::class,
+            $this->issuers
         );
     }
 
@@ -85,8 +92,8 @@ class Method extends BaseResource
     {
         return ResourceFactory::createBaseResourceCollection(
             $this->client,
-            $this->pricing,
-            MethodPrice::class
+            MethodPrice::class,
+            $this->pricing
         );
     }
 }

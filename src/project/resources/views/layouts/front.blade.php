@@ -94,13 +94,13 @@
 
 	/* The dots/bullets/indicators */
 	.dot {
-	height: 15px;
-	width: 15px;
-	margin: 0 2px;
-	background-color: #bbb;
-	border-radius: 50%;
-	display: inline-block;
-	transition: background-color 0.6s ease;
+		height: 15px;
+		width: 15px;
+		margin: 0 2px;
+		background-color: #bbb;
+		border-radius: 50%;
+		display: inline-block;
+		transition: background-color 0.6s ease;
 	}
 
 	.slideshow-container .active {
@@ -130,7 +130,126 @@
 	.text {font-size: 11px}
 	}
 	</style>
+	
+	<style>
 
+		.hero-area .hero-area-slider .intro-carousel .intro-content .slider-content .layer-3 a{
+			background: #fff;
+		}
+		.hero-area .hero-area-slider .intro-carousel .intro-content .slider-content .layer-3 a span{
+			color: #222;
+		}
+
+		.hero-area .hero-area-slider .intro-carousel .intro-content .slider-content .layer-3 a:hover{
+			background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
+		}
+		.hero-area .hero-area-slider .intro-carousel .intro-content .slider-content .layer-3 a:hover span{
+			color: #fff;
+		}
+		.submit-btn, .mybtn1{
+			outline: none;
+			border: none;
+		}
+		.submit-btn:hover{
+			background: red;
+		}
+		.trending-item-slider.owl-carousel .owl-stage-outer {
+		    max-height: 340px;
+		}
+		.item{
+			border-radius: 12px;
+			padding-bottom: 12px;
+			position: relative;
+			padding-top: 20px;
+		}
+		.item .info{
+		}
+		.item .item-img img{
+			width: 160px;
+			min-height: 160px;
+			margin: auto;
+			margin-bottom: 20px;
+		}
+		.trending-item-slider .owl-item, .product-flash-section .item{
+			width: 260px !important;
+			margin:12px;
+			border-radius: 10px;
+			border: 1px solid #ddd;
+			box-shadow: 2px 2px 5px 3px #ddd;
+		}
+		.trending-item-slider .owl-item:hover, .product-flash-section .item:hover{
+			box-shadow: 2px 2px 5px 3.5px #ddd;
+			border: 1px solid pink;
+		}
+		.item:hover .info {
+    		top: -65px;
+    	}
+		.item .info .price{
+			font-size: 14px;
+			line-height: 14px;
+			align-items: center;
+			padding-top: 12px
+		}
+		.item .info .name{
+			/*line-height: 12px;*/
+			margin-bottom: 0px;
+			padding: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #222;
+		}
+		.item .premium-btn{
+			background-color: orange;
+			color: #fff;
+			padding: 4px;
+		}
+
+		.categories_title {
+			background: none;
+		}
+		.categories_title h2,.categories_title i{
+			color: black;
+		}
+		.item .premium-tag{
+			position: absolute;
+			right: 5px;
+			font-size: 80%;
+			font-weight: bolder;
+			background: linear-gradient(to right, #ff85b2, #f885c2, #ed87d2, #de8ae1, #ca8fef, #ae9cfa, #90a7ff, #74b0ff, #54bfff, #2ecdff, #00d9ff, #00e5ff);
+			z-index: +5;
+			color: #fff;
+			border-radius: 100%;
+			height: 40px;
+			width: 40px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			transform: scale(0.8);
+		}
+		.item .premium-tag img{
+			width:23px;
+			margin: auto;
+		}
+		.product-details-page #product-details-tab .top-menu-area {
+		    background: #ddd;
+		    width: 100%;
+		    display: block;
+		    text-align: left; 
+		    border: 0px solid #0000;
+		}
+		.product-details-page #product-details-tab.ui-widget.ui-widget-content {
+		    background: #eee;
+		     border: 1px solid #f0f0f0; 
+		}
+		.item .add-to-cart-btn{
+			font-weight: normal;
+			font-size: 12px;
+			padding: 7px;
+			width: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -175,7 +294,7 @@
 	<section class="top-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12 remove-padding">
+				<div class="col-lg-12" style="">
 					<div class="content">
 						<div class="left-content">
 							<div class="list">
@@ -304,7 +423,7 @@
 	<section class="logo-header">
 		<div class="container">
 			<div class="row ">
-				<div class="col-lg-2 col-sm-6 col-5 remove-padding">
+				<div class="col-lg-2 col-sm-6 col-5" style="display: flex; align-items: center;">
 					<div class="logo">
 						<a href="{{ route('front.index') }}">
 							<img src="{{asset('assets/images/'.$gs->logo)}}" alt="">
@@ -314,7 +433,7 @@
 				<div class="col-lg-8 col-sm-12 remove-padding order-last order-sm-2 order-md-2">
 					<div class="search-box-wrapper">
 						<div class="search-box">
-							<div class="categori-container" id="catSelectForm">
+							<div class="categori-container" id="catSelectForm" style="padding-right: 14px;">
 								<select name="category" id="category_select" class="categoris">
 									<option value="">{{ $langg->lang1 }}</option>
 									@foreach($categories as $data)
@@ -406,11 +525,11 @@
 	<div class="mainmenu-area mainmenu-bb">
 		<div class="container">
 			<div class="row align-items-center mainmenu-area-innner">
-				<div class="col-lg-3 col-md-6 categorimenu-wrapper remove-padding">
+				<div class="col-lg-3 col-md-6 categorimenu-wrapper" style="">
 					<!--categorie menu start-->
 					<div class="categories_menu">
 						<div class="categories_title">
-							<h2 class="categori_toggle"><i class="fa fa-bars"></i>  {{ $langg->lang14 }} <i class="fa fa-angle-down arrow-down"></i></h2>
+							<h2 class="categori_toggle"><i class="fa fa-bars"></i>  {{ $langg->lang14 }} <i class="fa fa-angle-down arrow-down" style="color: #000"></i></h2>
 						</div>
 						<div class="categories_menu_inner">
 							<ul>
@@ -523,179 +642,167 @@
 	<!--Main-Menu Area End-->
 
 @yield('content')
+	<style>
+		#footer.footer{
+			background: #242424;
+			padding: 60px 40px;
+		}
+		#footer ul{
+			padding: 0;
+		}
+		
+		#footer ul li a, #footer a i{
+			transition: none;
+			text-align: center;
+		}
+		 #footer ul li a i:hover, #footer .social .smd a i:hover{
+		 	transform: scale(1.15);
+		 	transition: transform 0.3s
+		 }
+		 #footer h4.title{
+		 	font-size: 1.2em;
+		 	text-transform: capitalize;
+		 	font-weight: 400;
+		 	color: #ffd700;
+		 	text-transform: uppercase;
+		 }
+		 #footer .social li i, #footer .social .smd a i{
+		 	border-radius: 100%;
+		 	line-height: 25px;
+		 	text-align: center;
+		 	padding: 5px;
+		 	height: 35px;
+		 	width: 35px;
+		 	color: #fff;
+		 }
+		 #footer .footer-col-3{
+		 		 }
+		 #footer .subscribe-section{
+		 	margin-top: 26px;
+		 }
+		 #footer .getAppImg{
+		 	margin: auto;
+		 	display: flex;
+		 	align-items: center;
+		 }
+		 #footer .getAppImg img{
+		 	/*width: 80%;*/
+		 }
+		 #footer input[type="email"] {
+		    background: none;
+		    border: 2px solid #3c3c3c;
+		    padding: 8px;
+		    width: 50%;
+		    color: gold;
+		}
+
+		#footer input[type="email"]:focus{
+		    border: 2px solid gold;
+		}
+		#footer input[type="submit"] {
+		    padding: 9px 15px;
+		    background: #3c3c3c;
+		    border: none;
+		    text-transform: uppercase;
+		    font-weight: bolder;
+		    color: gold;
+		}
+		#footer input[type="submit"]:hover{
+			color: #333;
+			background: gold;
+		}
+		#footer .info-link-widget {
+		     padding-left: 0px; 
+		}
+		footer .copyright {
+			background: #111;
+			color: #fff;
+			padding: 20px;
+			text-align: center;
+		}
+	</style>
 
 	<!-- Footer Area Start -->
-	<footer class="footer" id="footer">
+	<footer>
+		<div class="footer" id="footer">
 			<div class="row">
-				<div class="col-md-6 col-lg-3">
-				<div class="footer-widget info-link-widget">
-						<div class="footer-logo" style="margin-top:-10px; margin-bottom:20px;">
-							<a href="{{ route('front.index') }}" class="logo-link">
-								<img src="{{asset('assets/images/'.$gs->footer_logo)}}" alt="">
-							</a>
-						</div>
-							<ul class="link-list">
-								<li>
-									<a href="{{ route('front.index') }}">
-										<i class="fas fa-angle-double-right"></i>{{ $langg->lang22 }}
-									</a>
-								</li>
-
-								<li><a href="{{ route('front.tos') }}"><i class="fas fa-angle-double-right"></i>Terms and Service</a></li>
-								<li><a href="{{ route('front.privacy') }}"><i class="fas fa-angle-double-right"></i>Privacy Policy</a></li>
-								<li>
-									<a href="{{ route('front.contact') }}">
-										<i class="fas fa-angle-double-right"></i>{{ $langg->lang23 }}
-									</a>
-								</li>
-
-							</ul>
-
-					
-						<br/>
-						<div class="">
-							<ul>
-
-										@if(App\Models\Socialsetting::find(1)->f_status == 1)
-										<li style="display:inline;">
-											<a href="{{ App\Models\Socialsetting::find(1)->facebook }}" class="facebook" target="_blank">
-												<img src="/assets/images/facebook.png" style="height:38px;">
-											</a>
-										</li>
-										@endif
-
-										@if(App\Models\Socialsetting::find(1)->g_status == 1)
-										<li style="display:inline; margin-left:10px;">
-											<a href="{{ App\Models\Socialsetting::find(1)->gplus }}" class="google-plus" target="_blank">
-											<img src="/assets/images/youtube.png" style="height:38px;">
-											</a>
-										</li>
-										@endif
-
-										@if(App\Models\Socialsetting::find(1)->t_status == 1)
-										<li style="display:inline; margin-left:10px;">
-											<a href="{{ App\Models\Socialsetting::find(1)->twitter }}" class="twitter" target="_blank">
-											<img src="/assets/images/twitter.png" style="height:38px;">
-											</a>
-										</li>
-										@endif
-
-										@if(App\Models\Socialsetting::find(1)->l_status == 1)
-										<li style="display:inline; margin-left:10px;">
-											<a href="{{ App\Models\Socialsetting::find(1)->linkedin }}" class="linkedin" target="_blank">
-												<i class="fab fa-linkedin-in"></i>
-											</a>
-										</li>
-										@endif
-
-										@if(App\Models\Socialsetting::find(1)->d_status == 1)
-										<li style="display:inline; margin-left:10px;">
-											<a href="{{ App\Models\Socialsetting::find(1)->dribble }}" class="dribbble" target="_blank">
-											<img src="/assets/images/instagram.png" style="height:38px;">
-											</a>
-										</li>
-										@endif
-
-							</ul>
-						</div>
-				</div>
-				</div>
-				<div class="col-md-6 col-lg-3">
+				<div class="col-sm-6 col-lg-3">
 					<div class="footer-widget info-link-widget">
-						<h4 class="title">
-								{{ $langg->lang21 }}
-						</h4>
+						<h4 class="title">Other Links</h4>
 						<ul class="link-list">
-
-
-							@foreach(DB::table('pages')->where('footer','=',1)->get() as $data)
-							
-							<li>
-								<a href="{{ route('front.page',$data->slug) }}">
-									<i class="fas fa-angle-double-right"></i>{{ $data->title }}
-								</a>
-							</li>
-							@endforeach
-
-							
+						<li><a href="{{ route('front.index') }}"><i class="fas fa-angle-double-right"></i>{{ $langg->lang22 }}</a></li>
+							<li><a href="{{ route('front.tos') }}"><i class="fas fa-angle-double-right"></i>Terms and Service</a></li>
+							<li><a href="{{ route('front.privacy') }}"><i class="fas fa-angle-double-right"></i>Privacy Policy</a></li>
+							<li><a href="{{ route('front.contact') }}"><i class="fas fa-angle-double-right"></i>{{ $langg->lang23 }}</a></li>
 						</ul>
 					</div>
 				</div>
-
-
-				<div class="col-md-6 col-lg-3">
-					<div class="footer-widget recent-post-widget">
-						<h4 class="title">
-							Share the App
-						</h4>
-
-
-						<div class="icon-container2 d-flex">
-								<div class="smd"> 
-									<a href="https://www.facebook.com/sharer/sharer.php?u=mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-facebook fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
-									</a>
-								</div>
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								<div class="smd"> 
-									<a href="http://www.facebook.com/dialog/send?app_id=3295714593783056&link=https://mayrasales.com&redirect_uri=https://www.mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-facebook-messenger fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
-									</a>
-								</div>
-
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								<div class="smd"> 
-									<a href="https://wa.me/?text=I am using mayrasales.com" class="facebook" target="_blank"><i class="img-thumbnail fab fa-whatsapp fa-2x" style="color: #4FCE5D;background-color: #eceff5;"></i>
-									</a>
-								</div>
-						</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="footer-widget info-link-widget">
+						<h4 class="title">{{ $langg->lang21 }}</h4>
+						<ul class="link-list">
+							@foreach(DB::table('pages')->where('footer','=',1)->get() as $data)
+								<li><a href="{{ route('front.page',$data->slug) }}"><i class="fas fa-angle-double-right"></i>{{ $data->title }}</a></li>
+							@endforeach
+						</ul>
 					</div>
 				</div>
+				<div class="col-sm-12 col-lg-6 footer-col-3">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-4">
+									<ul>
+										<div class="footer-widget recent-post-widget" style="">
+										<h4 class="title">Get Connected</h4>
+										<div class="icon-container2 social d-flex" style="">
+												<div class="smd"> 
+													<a href="https://www.facebook.com/sharer/sharer.php?u=mayrasales.com" class="facebook" target="_blank"><i class="fab fa-facebook fa-2x" style="background-color: #3b5998; font-size: 18px"></i>
+													</a>
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;
+												<div class="smd"> 
+													<a href="http://www.facebook.com/dialog/send?app_id=3295714593783056&link=https://mayrasales.com&redirect_uri=https://www.mayrasales.com" class="facebook" target="_blank"><i class="fab fa-facebook-messenger fa-2x" style="background-color: #00B2FF;font-size: 18px"></i>
+													</a>
+												</div>
 
-				<div class="col-md-6 col-lg-3">
-					<div class="footer-widget recent-post-widget">
-						<h4 class="title">
-							Get the App
-						</h4>
-
-
-						<div class="icon-container2 d-flex">
-									<div class="smd"> 
-										<img class="icon-logo-QR-footer" src="/assets/images/android_qr.png" alt="" height=75>
+												&nbsp;&nbsp;&nbsp;&nbsp;
+												<div class="smd"> 
+													<a href="https://wa.me/?text=I am using mayrasales.com" class="facebook" target="_blank"><i class="fab fa-whatsapp fa-2x" style="background-color: #25D366;font-size: 18px"></i>
+													</a>
+												</div>
+										</div>
 									</div>
-									
-									<div style="float:left">
-											<div style="margin-left:10px;">
-												<img src="/assets/images/android-logo.png" alt="" height=50>
-											</div>
-
-											
-									</div>
-
+									</ul>
 								</div>
-								<br/>
-								
-								<div class="smd" style="margin-left:10px;">
-									<a href="//play.google.com"><img src="/assets/images/google-play-badge.png" height=50></a>
+								<div class="col-sm-6 getAppImg">
+									<a href="https://play.google.com/store/apps/details?id=com.mayaratechnology.mayrasales">
+										<img src="{{asset('assets/images/getTheApp.png')}}">
+									</a>
 								</div>
-						</div>
-					</div>
-				</div>
-
-				
-			</div>
-		<div class="copy-bg">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-							<div class="content">
-								<div class="content">
-									<p>{!! $gs->copyright !!}</p>
+								<div class="col-sm-2">
+									<img class="qr-code" src="{{asset('assets/images/qr-code.png')}}" style="max-width: 80px;">
+								</div>	
 							</div>
-						</div>
+					</div>
+					<div class="col-sm-12 subscribe-section">
+						<h4 class="title">Subscribe to know offers</h4>
+						<form>
+							<input type="email" name="email" placeholder="johndoe@gmail.com">
+							<input type="submit" value="submit">
+							
+						</form>
+
+					</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="copyright">
+			{!! $gs->copyright !!}	
+		</div>
 	</footer>
+
 	<!-- Footer Area End -->
 
 	<!-- Back to Top Start -->

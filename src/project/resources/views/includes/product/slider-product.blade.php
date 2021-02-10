@@ -3,8 +3,12 @@
 
                                 {{-- check  If This vendor status is active --}}
                                 @if($prod->user->is_vendor == 2)
-
+                                		
 										<a href="{{ route('front.product', $prod->slug) }}" class="item">
+
+											<!-- <div class="premium-tag">
+												 <img src="{{asset('assets/images/premium.png')}}">
+											</div> -->
 											<div class="item-img">
 												@if(!empty($prod->features))
 													<div class="sell-area">
@@ -43,18 +47,10 @@
 												<img class="lazyload" data-src="{{ $prod->photo ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="" width="200" height="200">
 											</div>
 											<div class="info">
-												<div class="stars">
-                                                  <div class="ratings">
-                                                      <div class="empty-stars"></div>
-                                                      <div class="full-stars" style="width:{{App\Models\Rating::ratings($prod->id)}}%"></div>
-                                                  </div>
-												</div>
-												<h4 class="price">{{ $prod->showPrice() }} <font color="indigo">{{ $prod->showOff() }}</font> <del><small>{{ $prod->showPreviousPrice() }}</small></del></h4>
+												<h4 class="price">{{ $prod->showPrice() }} <small><del>{{ $prod->showPreviousPrice() }} </del><font color="indigo">{{ $prod->showOff() }}</font> </small></h4>
 														<h5 class="name">{{ $prod->showName() }}</h5>
 
-														@if(App\Models\User::where('id', '=', $prod->user_id)->first()->subs_id  = 6)
-															<h5 class="name sell-btn" style="background:white; border: 1px solid orange; color:orange; font-size:15px;">Premium</h5>
-														@endif
+														
 														
 														<div class="item-cart-area">
 															@if($prod->product_type == "affiliate")
@@ -69,11 +65,11 @@
 																</span>													
 																@else
 																<span class="add-to-cart add-to-cart-btn" data-href="{{ route('product.cart.add',$prod->id) }}">
-																	<i class="icofont-cart"></i> {{ $langg->lang56 }}
+																	<i class="fas fa-shopping-cart"></i>{{ $langg->lang56 }}
 																</span>
 																<span class="add-to-cart-quick add-to-cart-btn"
 																	data-href="{{ route('product.cart.quickadd',$prod->id) }}">
-																	<i class="icofont-cart"></i> {{ $langg->lang251 }}
+																	<i class="fas fa-shopping-bag"></i> {{ $langg->lang251 }}
 																</span>
 																@endif
 															@endif
@@ -124,7 +120,7 @@
 															</li>
 														</ul>
 													</div>
-												<img class="img-fluid" src="{{ $prod->photo ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="">
+												<img class="img-fluid" data-src="{{ $prod->photo ? asset('assets/images/thumbnails/'.$prod->thumbnail):asset('assets/images/noimage.png') }}" alt="">
 											</div>
 											<div class="info">
 												<div class="stars">
@@ -148,11 +144,11 @@
 																</span>													
 																@else
 																<span class="add-to-cart add-to-cart-btn" data-href="{{ route('product.cart.add',$prod->id) }}">
-																	<i class="icofont-cart"></i> {{ $langg->lang56 }}
+																	<i class="fas fa-shopping-cart"></i>{{ $langg->lang56 }}
 																</span>
 																<span class="add-to-cart-quick add-to-cart-btn"
 																	data-href="{{ route('product.cart.quickadd',$prod->id) }}">
-																	<i class="icofont-cart"></i> {{ $langg->lang251 }}
+																	<i class="fas fa-shopping-bag"></i> {{ $langg->lang251 }}
 																</span>
 																@endif
 															@endif

@@ -41,7 +41,6 @@ class Shipment extends BaseResource
      */
     public $lines;
 
-
     /**
      * An object containing tracking details for the shipment, if available.
      * @var \stdClass|null
@@ -71,7 +70,7 @@ class Shipment extends BaseResource
      */
     public function hasTrackingUrl()
     {
-        return $this->hasTracking() && !empty($this->tracking->url);
+        return $this->hasTracking() && ! empty($this->tracking->url);
     }
 
     /**
@@ -81,9 +80,10 @@ class Shipment extends BaseResource
      */
     public function getTrackingUrl()
     {
-        if (!$this->hasTrackingUrl()) {
+        if (! $this->hasTrackingUrl()) {
             return null;
         }
+
         return $this->tracking->url;
     }
 
@@ -94,7 +94,11 @@ class Shipment extends BaseResource
      */
     public function lines()
     {
-        return ResourceFactory::createBaseResourceCollection($this->client, $this->lines, OrderLine::class);
+        return ResourceFactory::createBaseResourceCollection(
+            $this->client,
+            OrderLine::class,
+            $this->lines
+        );
     }
 
     /**
@@ -116,7 +120,7 @@ class Shipment extends BaseResource
      */
     public function update()
     {
-        if (!isset($this->_links->self->href)) {
+        if (! isset($this->_links->self->href)) {
             return $this;
         }
 

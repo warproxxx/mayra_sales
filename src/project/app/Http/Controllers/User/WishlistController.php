@@ -10,27 +10,6 @@ use App\Models\ApiCart;
 use App\Models\User;
 use Auth;
 
-use App\Classes\GeniusMailer;
-use App\Models\Cart;
-use App\Models\Conversation;
-use App\Models\Coupon;
-use App\Models\Currency;
-use App\Models\Generalsetting;
-use App\Models\Message;
-use App\Models\Notification;
-use App\Models\Order;
-use App\Models\OrderTrack;
-use App\Models\PaymentGateway;
-use App\Models\Pickup;
-use App\Models\UserNotification;
-use App\Models\VendorOrder;
-use App\Models\VendorNotification;
-use DB;
-use Session;
-use Validator;
-use Log;
-use Carbon\Carbon;
-
 class WishlistController extends Controller
 {
     public function __construct()
@@ -215,94 +194,6 @@ class WishlistController extends Controller
 
         }  catch (\Exception $e) {
             return response()->json(['status' => 'failure', 'details' => $e->getMessage()]);
-        }
-    }
-
-    
-
-
-    public function buynow_api(Request $request)
-    {
-        $this->addcart_api($request);
-
-        try{
-            $gs = Generalsetting::findOrFail(1);
-            $dp = 1;
-            $vendor_shipping_id = 0;
-            $vendor_packing_id = 0;
-            $curr = Currency::where('is_default','=',1)->first();
-            $user = $request->user();
-
-
-            $prods = ApiCart::where('user_id', '=', $user->id)->get();
-
-            $vendor_id = -1;
-
-            foreach($prods as $prod)
-            {
-                if ($prod->id != null)
-                {
-                    $vendor_id = $prod->user_id;
-                    break;
-                }
-            }
-
-            if ($vendor_id != -1)
-            {
-                $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', $vendor_id]])->get();
-            
-                // Shipping Method
-                $user = Auth::user();
-                
-                $cash_on_delivery = 1;
-                if ($user->reported_times > $gs->cash_only_limit)
-                {
-                    $cash_on_delivery = 0;
-                }
-
-                $vendor = User::where('id', '=', $vendor_id)->first();
-                
-                $distance = 1;
-                // $distance = haversineGreatCircleDistance($vendor->latitude, $vendor->longitude, $user->latitude, $user->longitude);
-
-                $shipping_data  = DB::table('shippings')->first();
-
-                if(count($gateways) == 0)
-                {
-                    $gateways =  PaymentGateway::where([['status','=',1], ['user_id', '=', 0]])->get();
-                }
-
-                $total = 0;
-
-
-                $cart = ApiCart::where('user_id', '=', $user->id)->get();
-                foreach ($cart as $item) 
-                {
-                    $total = $total + ($item->qty * $item->price); #removed coupon
-                }
-
-
-                $shipping_price = $shipping_data->price;
-
-                if ($distance > $shipping_data->threshold)
-                {
-                    $shipping_price = $shipping_data->long_price;
-                }
-            
-                if ($total > $shipping_data->free_threshold)
-                {
-                    $shipping_price = 0;
-                }
-
-                return response()->json(['status' => 'success', 'payment_methods' => $gateways, 'shipping_price'=>$shipping_price, 'total_without_shipping'=>$total, 'cash_on_delivery'=>$cash_on_delivery]);
-            }
-            else
-            {
-                return response()->json(['status' => 'failure', 'details' => "Vendor not found"]);
-            }
-            
-        }  catch (\Exception $e) {
-            return response()->json(['status' => 'failure', 'details' => $e->getMessage(), 'line_number' =>$e->getLine()]);
         }
     }
 

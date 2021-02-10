@@ -296,11 +296,11 @@
                       </li>
                       @else
                       <li class="addtocart">
-                        <a href="javascript:;" id="addcrt"><i class="icofont-cart"></i>{{ $langg->lang90 }}</a>
+                        <a href="javascript:;" id="addcrt"><i class="fas fa-shopping-cart"></i>{{ $langg->lang90 }}</a>
                       </li>
 
                       <li class="addtocart">
-                      <a href="javascript:;" id="buynow"><i class="icofont-cart"></i>{{ $langg->lang251 }}</a>
+                      <a href="javascript:;" id="buynow"><i class="fas fa-shopping-bag"></i>{{ $langg->lang251 }}</a>
                       </li>
                       @endif
 
@@ -351,10 +351,10 @@
 
 
                   @if($productt->ship != null)
-                    <p class="estimate-time">{{ $langg->lang86 }}: <b> {{ $productt->ship }}</b></p>
+                    <p class="estimate-time" style="margin-top: 12px">{{ $langg->lang86 }}: <b> {{ $productt->ship }}</b></p>
                   @endif
                   @if( $productt->sku != null )
-                  <p class="p-sku">
+                  <p class="p-sku" style="margin-top: 12px">
                     {{ $langg->lang77 }}: <span class="idno">{{ $productt->sku }}</span>
                   </p>
                   @endif
@@ -560,7 +560,12 @@
       </div>
       @endif
 
-
+      <style>
+        .seller-info a.view-stor{
+          padding: 10x;
+          width: 170px;
+        }
+      </style>
       <div class="seller-info mt-3">
         <div class="content">
           <h4 class="title">

@@ -26,53 +26,53 @@ SET time_zone = "+00:00";
 -- Table structure for table `admins`
 --
 
-CREATE TABLE `admins` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role_id` int(191) NOT NULL DEFAULT '0',
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `api_token` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `shop_name` text COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- CREATE TABLE `admins` (
+--   `id` int(10) UNSIGNED NOT NULL,
+--   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `role_id` int(191) NOT NULL DEFAULT '0',
+--   `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+--   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `api_token` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+--   `status` tinyint(4) NOT NULL DEFAULT '1',
+--   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+--   `created_at` timestamp NULL DEFAULT NULL,
+--   `updated_at` timestamp NULL DEFAULT NULL,
+--   `shop_name` text COLLATE utf8mb4_unicode_ci
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `admins`
---
+-- --
+-- -- Dumping data for table `admins`
+-- --
 
-INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `api_token`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
-(1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', '9PwWzW2Al8boW9qBXc6aDNhLdoXQsAyaNC528U61w1yu9ZPAALQNIav5bWxR', 1, 'Gd5yjy9j3KzySVpiS0I9zbgh5vSfEWUTEyjU0jdVOoh5BmRyjNx3ktKBSCs6', '2018-02-28 23:27:08', '2019-07-26 21:21:32', 'Genius Store'),
-(4, 'Test Admin', 'test@admin.com', '90899900', 19, '1600093350Screenshot from 2020-08-31 20-32-51.png', '$2y$10$PPnGpkqlQL/H348il6igaOuNpxLqFFPqyEGS7n2zRugpQhLT3xkT.', NULL, 1, 'i7zq5p2234snrxG6y9DsA4dYuLYyZGpGxqBwuPePFsIStb12snqwYYsshlVi', '2020-09-14 14:22:30', '2020-09-14 14:22:30', NULL),
-(5, 'Roshna Limbu', 'rosu.rai.3@facebook.com', '9828999553', 20, '1600424532roshna.jpg', '$2y$10$XywE61YkwS8U16R1bvukXeH5ovw1QXdQeMB/DStRPTsAZOcaLKaM6', NULL, 1, 'M1LzWzeoJNBmut1mfwsictj7f8n9ZjNU5ANsae1GmjfyMsnE0qU02yV0COE1', '2020-09-18 10:22:12', '2020-10-07 23:10:42', NULL),
-(6, 'Nardhoj Bantawa Rai', 'nardhoj.rai.9@gmail.com', '9807329090', 21, '1603023351sdsd.jpg', '$2y$10$SWjIb1x1X3TzdxM5/Z8V.OTrD5DlOmlXavw3u3F3/ORjQwj/swAL6', NULL, 1, NULL, '2020-10-18 04:33:18', '2020-10-18 06:30:51', NULL);
+-- INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `role_id`, `photo`, `password`, `api_token`, `status`, `remember_token`, `created_at`, `updated_at`, `shop_name`) VALUES
+-- (1, 'Admin', 'daniel@waterbot.xyz', '01629552892', 0, '1556780563user.png', '$2y$10$exGozYUkvvnfScErNvg5weki6DujTMABgO3RPqWBfIIVnmyMxnLc6', '9PwWzW2Al8boW9qBXc6aDNhLdoXQsAyaNC528U61w1yu9ZPAALQNIav5bWxR', 1, 'Gd5yjy9j3KzySVpiS0I9zbgh5vSfEWUTEyjU0jdVOoh5BmRyjNx3ktKBSCs6', '2018-02-28 23:27:08', '2019-07-26 21:21:32', 'Genius Store'),
+-- (4, 'Test Admin', 'test@admin.com', '90899900', 19, '1600093350Screenshot from 2020-08-31 20-32-51.png', '$2y$10$PPnGpkqlQL/H348il6igaOuNpxLqFFPqyEGS7n2zRugpQhLT3xkT.', NULL, 1, 'i7zq5p2234snrxG6y9DsA4dYuLYyZGpGxqBwuPePFsIStb12snqwYYsshlVi', '2020-09-14 14:22:30', '2020-09-14 14:22:30', NULL),
+-- (5, 'Roshna Limbu', 'rosu.rai.3@facebook.com', '9828999553', 20, '1600424532roshna.jpg', '$2y$10$XywE61YkwS8U16R1bvukXeH5ovw1QXdQeMB/DStRPTsAZOcaLKaM6', NULL, 1, 'M1LzWzeoJNBmut1mfwsictj7f8n9ZjNU5ANsae1GmjfyMsnE0qU02yV0COE1', '2020-09-18 10:22:12', '2020-10-07 23:10:42', NULL),
+-- (6, 'Nardhoj Bantawa Rai', 'nardhoj.rai.9@gmail.com', '9807329090', 21, '1603023351sdsd.jpg', '$2y$10$SWjIb1x1X3TzdxM5/Z8V.OTrD5DlOmlXavw3u3F3/ORjQwj/swAL6', NULL, 1, NULL, '2020-10-18 04:33:18', '2020-10-18 06:30:51', NULL);
 
--- --------------------------------------------------------
+-- -- --------------------------------------------------------
 
---
--- Table structure for table `admin_languages`
---
+-- --
+-- -- Table structure for table `admin_languages`
+-- --
 
-CREATE TABLE `admin_languages` (
-  `id` int(191) NOT NULL,
-  `is_default` tinyint(1) NOT NULL DEFAULT '0',
-  `language` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rtl` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- CREATE TABLE `admin_languages` (
+--   `id` int(191) NOT NULL,
+--   `is_default` tinyint(1) NOT NULL DEFAULT '0',
+--   `language` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `rtl` tinyint(1) NOT NULL DEFAULT '0'
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `admin_languages`
---
+-- --
+-- -- Dumping data for table `admin_languages`
+-- --
 
-INSERT INTO `admin_languages` (`id`, `is_default`, `language`, `file`, `name`, `rtl`) VALUES
-(1, 1, 'English', '1567232745AoOcvCtY.json', '1567232745AoOcvCtY', 0);
+-- INSERT INTO `admin_languages` (`id`, `is_default`, `language`, `file`, `name`, `rtl`) VALUES
+-- (1, 1, 'English', '1567232745AoOcvCtY.json', '1567232745AoOcvCtY', 0);
 
 -- --------------------------------------------------------
 
@@ -33789,15 +33789,15 @@ CREATE TABLE `withdraws` (
 --
 -- Indexes for table `admins`
 --
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `admins_email_unique` (`email`);
+-- ALTER TABLE `admins`
+--   ADD PRIMARY KEY (`id`),
+--   ADD UNIQUE KEY `admins_email_unique` (`email`);
 
---
--- Indexes for table `admin_languages`
---
-ALTER TABLE `admin_languages`
-  ADD PRIMARY KEY (`id`);
+-- --
+-- -- Indexes for table `admin_languages`
+-- --
+-- ALTER TABLE `admin_languages`
+--   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `admin_user_conversations`
@@ -34155,15 +34155,15 @@ ALTER TABLE `withdraws`
 --
 
 --
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `admin_languages`
---
-ALTER TABLE `admin_languages`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+-- -- AUTO_INCREMENT for table `admins`
+-- --
+-- ALTER TABLE `admins`
+--   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+-- --
+-- -- AUTO_INCREMENT for table `admin_languages`
+-- --
+-- ALTER TABLE `admin_languages`
+--   MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `admin_user_conversations`
 --
