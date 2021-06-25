@@ -241,7 +241,10 @@
 																					<label>
 																						{{ __('Size Name') }} :
 																						<span>
-																							{{ __('(eg. S,M,L,XL,XXL,3XL,4XL)') }}
+																							{{ __('
+																								(eg. S,M,L,XL,XXL,3XL,4XL)
+																								(eg. mL,L,tbsp,cup,gallon)
+																								') }}
 																						</span>
 																					</label>
 																					<input type="text" name="size[]" class="input-field" placeholder="{{ __('Size Name') }}">

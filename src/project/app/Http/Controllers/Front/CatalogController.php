@@ -55,7 +55,7 @@ class CatalogController extends Controller
       $maxprice = $request->max;
       $sort = $request->sort;
       $search = $request->search;
-
+      
       if (!empty($slug)) {
         $cat = Category::where('slug', $slug)->firstOrFail();
         $data['cat'] = $cat;
@@ -69,7 +69,8 @@ class CatalogController extends Controller
         $data['childcat'] = $childcat;
       }
       try {
-      $prods = Product::join('users', 'products.user_id', '=', 'users.id')->leftJoin('ratings', 'ratings.user_id', '=', 'users.id')->select('products.*', 'users.subs_id', 'users.latitude', 'ratings.rating')->when($cat, function ($query, $cat) {
+        
+      $prods = Product::join('users', 'products.user_id', '=', 'users.id')->leftJoin('ratings', 'ratings.user_id', '=', 'users.id')->select('products.*', 'users.subs_id', 'users.latitude', 'ratings.rating')->when($cat, function ($query, $cat) {  
                                       return $query->where('category_id', $cat->id);
                                   })
                                   ->when($subcat, function ($query, $subcat) {

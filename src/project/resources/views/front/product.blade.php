@@ -7,7 +7,6 @@
     <div class="row">
       <div class="col-lg-12">
         <ul class="pages">
-
           <li><a href="{{route('front.index')}}">{{ $langg->lang17 }}</a></li>
           <li><a href="{{route('front.category',$productt->category->slug)}}">{{$productt->category->name}}</a></li>
           @if(!empty($productt->subcategory))

@@ -228,15 +228,24 @@
 					</div>
 				</section>
 				<div class="container remove-padding">
-					<div class="ads">
-						<div class="ad left">
-							<img src="{{asset('assets/images/banners/1600053152104320674_2572119316359706_6563804097001371169_o.jpg')}}" alt="Your ad here">
-						</div>
-
-						<div class="ad right">
-							<img src="{{asset('assets/images/banners/1602406594ujjwal baraili ad copy-min-min.jpg')}}" alt="Your ad here">
-						</div>
+				<div class="ads">
+					@foreach($top_small_banners as $img)
+					@if($loop->index==0)
+					<div class="ad left">
+						<a class="banner-effect" href="{{ $img->link }}" target="_blank">
+							<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="Ads">
+						</a>
 					</div>
+					@endif
+					@if($loop->index==1)
+					<div class="ad right">
+						<a class="banner-effect" href="{{ $img->link }}" target="_blank">
+							<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="Ads">
+						</a>
+					</div>
+					@endif
+					@endforeach
+				</div>
 				</div>
 
 		<!-- Previum Section End  -->
@@ -392,6 +401,29 @@
 				</section>
 
 		<!-- Flash Sale Section End -->
+		
+	@if($ps->small_banner == 1)
+
+	<!-- Banner Area One Start -->
+	<center>
+	<section class="banner-section">
+		<div class="container">
+			<div id="SliderName_2">
+				@foreach($top_small_banners as $img)
+						<a class="banner-effect" href="{{ $img->link }}" target="_blank">
+							<img src="{{asset('assets/images/banners/'.$img->photo)}}" alt="">
+						</a>
+				@endforeach
+
+				<div id="SliderNameNavigation_2"></div> 
+
+			</div>
+		</div>
+	</section>
+	</center>
+	<!-- Banner Area One Start -->
+	@endif
+
 
 
 

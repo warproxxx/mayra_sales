@@ -755,22 +755,74 @@
 									<ul>
 										<div class="footer-widget recent-post-widget" style="">
 										<h4 class="title">Get Connected</h4>
-										<div class="icon-container2 social d-flex" style="">
-												<div class="smd"> 
-													<a href="https://www.facebook.com/sharer/sharer.php?u=mayrasales.com" class="facebook" target="_blank"><i class="fab fa-facebook fa-2x" style="background-color: #3b5998; font-size: 18px"></i>
-													</a>
-												</div>
-												&nbsp;&nbsp;&nbsp;&nbsp;
-												<div class="smd"> 
-													<a href="http://www.facebook.com/dialog/send?app_id=3295714593783056&link=https://mayrasales.com&redirect_uri=https://www.mayrasales.com" class="facebook" target="_blank"><i class="fab fa-facebook-messenger fa-2x" style="background-color: #00B2FF;font-size: 18px"></i>
-													</a>
-												</div>
+										<div class="icon-container2 social d-flex flex-wrap" style="">
 
-												&nbsp;&nbsp;&nbsp;&nbsp;
-												<div class="smd"> 
-													<a href="https://wa.me/?text=I am using mayrasales.com" class="facebook" target="_blank"><i class="fab fa-whatsapp fa-2x" style="background-color: #25D366;font-size: 18px"></i>
-													</a>
-												</div>
+											@if(App\Models\Socialsetting::find(1)->f_status == 1)
+											<div class="smd my-1"> 
+												<a href="{{ App\Models\Socialsetting::find(1)->facebook }}" class="facebook" target="_blank">
+												<i class="fab fa-facebook" style="background-color: #3b5998; font-size: 18px"></i>
+												</a>
+											</div>
+											@endif
+
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											
+											@if(App\Models\Socialsetting::find(1)->f_status == 1)
+											<div class="smd my-1"> 
+												<a href="http://www.facebook.com/dialog/send?app_id=3295714593783056&link=https://mayrasales.com&redirect_uri=https://www.mayrasales.com" class="facebook" target="_blank">
+												<i class="fab fa-facebook-messenger" style="background-color: #00B2FF;font-size: 18px"></i>
+												</a>
+											</div>
+											@endif
+
+											&nbsp;&nbsp;&nbsp;&nbsp;
+
+											@if(App\Models\Socialsetting::find(1)->g_status == 1)
+											<div class="smd my-1">
+												<a href="{{ App\Models\Socialsetting::find(1)->gplus }}" class="youtube" target="_blank">
+												<i class="fab fa-youtube" style="background-color: #FF0000;font-size: 18px"></i>
+												</a>
+											</div>
+											@endif												
+
+											&nbsp;&nbsp;&nbsp;&nbsp;
+
+											<div class="smd my-1"> 
+												<a href="https://wa.me/?text=I am using mayrasales.com" class="facebook" target="_blank">
+												<i class="fab fa-whatsapp" style="background-color: #25D366;font-size: 18px"></i>
+												</a>
+											</div>
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;
+
+											@if(App\Models\Socialsetting::find(1)->t_status == 1)
+											<div class="smd my-1">
+											<a href="{{ App\Models\Socialsetting::find(1)->twitter }}" class="twitter" target="_blank">
+												<i class="fab fa-twitter" style="background-color: #00acee;font-size: 18px"></i>
+											</a>
+											</div>
+											@endif
+
+											&nbsp;&nbsp;&nbsp;&nbsp;
+
+											@if(App\Models\Socialsetting::find(1)->l_status == 1)
+											<div class="smd my-1">
+											<a href="{{ App\Models\Socialsetting::find(1)->linkedin }}" class="linkedin" target="_blank">
+												<i class="fab fa-linkedin-in" style="background-color: #0077b5;font-size: 18px"></i>
+											</a>
+											</div>
+											@endif
+
+											&nbsp;&nbsp;&nbsp;&nbsp;
+
+											@if(App\Models\Socialsetting::find(1)->d_status == 1)
+											<div class="smd my-1">
+											<a href="{{ App\Models\Socialsetting::find(1)->dribble }}" class="instagram" target="_blank">
+												<i class="fab fa-instagram fa-2x" style="background-color: #d31941;font-size: 18px"></i>
+											</a>
+											</div>
+											@endif
+												
 										</div>
 									</div>
 									</ul>
